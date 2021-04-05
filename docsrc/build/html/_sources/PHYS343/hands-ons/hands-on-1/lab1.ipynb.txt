@@ -1,0 +1,928 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Learning Outcomes\n",
+    "\n",
+    "- What is unitary transformation and why do we require our quantum gates to be unitary?\n",
+    "- Given the action of a quantum gate on $\\langle 0 |$ and $| 1 \\rangle$, how to construct its matrix ?\n",
+    "- How to design and run quantum circuits using Qiskit? \n",
+    "- How to read Qiskit documentation? \n",
+    "- Exercises for using the gates learned in the class. Namely, X,Y,Z,H,Rz,Swap,CNOT,Toffoli,Fredkin.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Single Qubit Quantum Gates\n",
+    "\n",
+    "We have Pauli gates $I,X,Y$ and $Z$ whose action on the basis states are as follows:\n",
+    "\n",
+    "$$I | 0 \\rangle = | 0 \\rangle,\\quad I | 1 \\rangle = | 1 \\rangle$$ \n",
+    "\n",
+    "$$X | 0 \\rangle = | 1 \\rangle,\\quad X | 1 \\rangle = | 0 \\rangle$$ \n",
+    "\n",
+    "$$Y | 0 \\rangle = i| 1 \\rangle,\\quad Y | 1 \\rangle = -i| 0 \\rangle$$ \n",
+    "\n",
+    "$$Z | 0 \\rangle = | 0 \\rangle,\\quad Z | 1 \\rangle = -| 1 \\rangle$$ \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 1\n",
+    "\n",
+    "If we define $| 0 \\rangle = \\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ and $| 1 \\rangle = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$, how do we represent $X,Y,Z$ and $I$ in this basis ? "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    " \n",
+    "$$ I = \\begin{bmatrix} ? & ?\\\\ ? & ? \\end{bmatrix} $$\n",
+    "\n",
+    "$$ X = \\begin{bmatrix} ? & ?\\\\ ? & ? \\end{bmatrix} $$\n",
+    "\n",
+    "$$ Y = \\begin{bmatrix} ? & ?\\\\ ? & ? \\end{bmatrix} $$\n",
+    "\n",
+    "$$ Z = \\begin{bmatrix} ? & ?\\\\ ? & ? \\end{bmatrix} $$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We also have fancier single qubit gates, such as $H$ and $R_\\phi$ whose action on basis kets are defined as:\n",
+    "\n",
+    "$$H | 0 \\rangle = \\frac{1}{\\sqrt{2}}| 0 \\rangle + \\frac{1}{\\sqrt{2}}| 1 \\rangle ,\\quad H | 1 \\rangle =  \\frac{1}{\\sqrt{2}}| 0 \\rangle - \\frac{1}{\\sqrt{2}}| 1 \\rangle$$ \n",
+    "\n",
+    "$$R_\\phi | 0 \\rangle = | 0 \\rangle, \\quad R_\\phi | 1 \\rangle = e^{i\\phi} | 1 \\rangle $$\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 2\n",
+    "\n",
+    "If we define $| 0 \\rangle$ and $| 1 \\rangle$ as in the previous exercise, how do we represent $H$ and $R_\\phi$ gates in matrix form?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "$$ H = \\begin{bmatrix} H_{11} & H_{12}\\\\ H_{21} & H_{22} \\end{bmatrix} $$\n",
+    "\n",
+    "$$ R_\\phi = \\begin{bmatrix} R_{11} & R_{12}\\\\ R_{21} & R_{22} \\end{bmatrix} $$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 3\n",
+    "\n",
+    "Can we treat any 2 by 2 matrix as a quantum gate? If not, what are the restrictions for an operator to be a valid quantum gate?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "??"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Using Qiskit\n",
+    "\n",
+    "Now that we know a little bit about quantum gates, it is time for us to learn how to use Qiskit for designing and running quantum circuits.\n",
+    "\n",
+    "Every Qiskit program we will be writing will more or less have the following structure:\n",
+    "- Importing the necessary packages\n",
+    "- Initializing quantum/classic registers and/or quantum circuit.\n",
+    "- Designing your quantum circuit.\n",
+    "- Choosing and running it on one of the provided backends.\n",
+    "- Analysing the results.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# So let's start by importing the necessary packages\n",
+    "from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, assemble, Aer, execute\n",
+    "from qiskit.visualization import plot_histogram\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Initiaizing a quantum circuit\n",
+    "# There is more than one way to initialize a quantum circuit.\n",
+    "# One way is to simply initialize it by giving the number of qubits as an argument\n",
+    "qc1 = QuantumCircuit(5)\n",
+    "# Well, we might also need to save our results to some classical register.\n",
+    "qc2 = QuantumCircuit(5,5)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">     \n",
+       "q_0: \n",
+       "     \n",
+       "q_1: \n",
+       "     \n",
+       "q_2: \n",
+       "     \n",
+       "q_3: \n",
+       "     \n",
+       "q_4: \n",
+       "     </pre>"
+      ],
+      "text/plain": [
+       "     \n",
+       "q_0: \n",
+       "     \n",
+       "q_1: \n",
+       "     \n",
+       "q_2: \n",
+       "     \n",
+       "q_3: \n",
+       "     \n",
+       "q_4: \n",
+       "     "
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Let's see if they are different from each other.\n",
+    "qc1.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">     \n",
+       "q_0: \n",
+       "     \n",
+       "q_1: \n",
+       "     \n",
+       "q_2: \n",
+       "     \n",
+       "q_3: \n",
+       "     \n",
+       "q_4: \n",
+       "     \n",
+       "c: 5/\n",
+       "     </pre>"
+      ],
+      "text/plain": [
+       "     \n",
+       "q_0: \n",
+       "     \n",
+       "q_1: \n",
+       "     \n",
+       "q_2: \n",
+       "     \n",
+       "q_3: \n",
+       "     \n",
+       "q_4: \n",
+       "     \n",
+       "c: 5/\n",
+       "     "
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "qc2.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">      \n",
+       "q0_0: \n",
+       "      \n",
+       "q0_1: \n",
+       "      \n",
+       "q0_2: \n",
+       "      \n",
+       "c0: 3/\n",
+       "      </pre>"
+      ],
+      "text/plain": [
+       "      \n",
+       "q0_0: \n",
+       "      \n",
+       "q0_1: \n",
+       "      \n",
+       "q0_2: \n",
+       "      \n",
+       "c0: 3/\n",
+       "      "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Another way to initialize a quantum circuit is by specifying the quantum and classical registers as follows.\n",
+    "qreg = QuantumRegister(3)\n",
+    "creg = ClassicalRegister(3)\n",
+    "qc3 = QuantumCircuit(qreg,creg)\n",
+    "qc3.draw()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As you can see there are many ways to do the same operation. Most of the time the choice is arbitrary and we choose whichever is more convenient. The important lesson here is the fact that Qiskit defined QuantumCircuit,QuantumRegister and many other thing as \"objects\", and there are methods and attributes of each object which we can use for our purposes."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Here I will show the documentation and how to understand what it is talking about."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">          \n",
+       "q_0: ─────\n",
+       "          \n",
+       "q_1: ─────\n",
+       "     ┌───┐\n",
+       "q_2: ┤ X ├\n",
+       "     └───┘\n",
+       "c: 3/═════\n",
+       "          </pre>"
+      ],
+      "text/plain": [
+       "          \n",
+       "q_0: ─────\n",
+       "          \n",
+       "q_1: ─────\n",
+       "     ┌───┐\n",
+       "q_2: ┤ X ├\n",
+       "     └───┘\n",
+       "c: 3/═════\n",
+       "          "
+      ]
+     },
+     "execution_count": 53,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Next we design our first quantum circuit.\n",
+    "qc = QuantumCircuit(3,3)\n",
+    "qc.x(0)\n",
+    "qc.x(2)\n",
+    "qc.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">          ┌─┐      \n",
+       "q_0: ─────┤M├──────\n",
+       "          └╥┘┌─┐   \n",
+       "q_1: ──────╫─┤M├───\n",
+       "     ┌───┐ ║ └╥┘┌─┐\n",
+       "q_2: ┤ X ├─╫──╫─┤M├\n",
+       "     └───┘ ║  ║ └╥┘\n",
+       "c: 3/══════╩══╩══╩═\n",
+       "           0  1  2 </pre>"
+      ],
+      "text/plain": [
+       "          ┌─┐      \n",
+       "q_0: ─────┤M├──────\n",
+       "          └╥┘┌─┐   \n",
+       "q_1: ──────╫─┤M├───\n",
+       "     ┌───┐ ║ └╥┘┌─┐\n",
+       "q_2: ┤ X ├─╫──╫─┤M├\n",
+       "     └───┘ ║  ║ └╥┘\n",
+       "c: 3/══════╩══╩══╩═\n",
+       "           0  1  2 "
+      ]
+     },
+     "execution_count": 54,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Now we measure our qubits.\n",
+    "#qc.measure_all()\n",
+    "qc.measure([0,1,2],[0,1,2])\n",
+    "qc.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[QasmSimulator(\n",
+       " backend_name='qasm_simulator', provider=AerProvider()),\n",
+       " StatevectorSimulator(\n",
+       " backend_name='statevector_simulator', provider=AerProvider()),\n",
+       " UnitarySimulator(\n",
+       " backend_name='unitary_simulator', provider=AerProvider()),\n",
+       " PulseSimulator(\n",
+       " backend_name='pulse_simulator', provider=AerProvider())]"
+      ]
+     },
+     "execution_count": 55,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Let's look at the backends provided by qiskit.Aer.\n",
+    "Aer.backends()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "svsim = Aer.get_backend('statevector_simulator')\n",
+    "qasmsim = Aer.get_backend('qasm_simulator')\n",
+    "unisim = Aer.get_backend('unitary_simulator')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 57,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# This turns our circuit into some kind of assembly code for quantum computers.\n",
+    "qobj = assemble(qc)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 58,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "result_qasm = qasmsim.run(qobj,shots=1000).result()\n",
+    "result_sv = svsim.run(qobj).result()\n",
+    "result_uni = unisim.run(qobj).result()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Result(backend_name='statevector_simulator', backend_version='0.7.1', qobj_id='24a54026-fe90-4b6f-abb0-0f7a91936339', job_id='3763c8c6-698a-4b61-83f9-c219697719e3', success=True, results=[ExperimentResult(shots=1000, success=True, meas_level=MeasLevel.CLASSIFIED, data=ExperimentResultData(counts={'0x4': 1}, statevector=[0.+0.j 0.+0.j 0.+0.j 0.+0.j 1.+0.j 0.+0.j 0.+0.j 0.+0.j]), header=QobjExperimentHeader(clbit_labels=[['c', 0], ['c', 1], ['c', 2]], creg_sizes=[['c', 3]], global_phase=0.0, memory_slots=3, n_qubits=3, name='circuit19', qreg_sizes=[['q', 3]], qubit_labels=[['q', 0], ['q', 1], ['q', 2]]), status=DONE, seed_simulator=2378394817, time_taken=0.000145393, metadata={'parallel_shots': 1, 'parallel_state_update': 4})], date=2021-04-02T23:22:05.218620, status=COMPLETED, metadata={'max_memory_mb': 4096, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.000278402}, time_taken=0.0007009506225585938)"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "result_sv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'100': 1000}"
+      ]
+     },
+     "execution_count": 60,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# That's all good but we can't really use these Result objects directly. Let's see what kind of methods they have.\n",
+    "result_qasm."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Important Remarks about Backends\n",
+    "\n",
+    "- Qasm simulator simulates the quantum computer, but we can't access the full state vector. \n",
+    "- In order to get the full state vector, we should use statevector_simulator backend, which is slower than qasm_simulator.\n",
+    "- If we would like to obtain the unitary matrix representing the full operation of the quantum circuit, then we should use unitary_simulator.\n",
+    "- While using the unitary_simulator, be careful not the include any measurements at the end. Otherwise, you will get an error. Why do you think? "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 504x360 with 1 Axes>"
+      ]
+     },
+     "execution_count": 61,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Allrighty, now we have our Result object coming from our simulators. What can we do with them?\n",
+    "counts = result_qasm.get_counts()\n",
+    "plot_histogram(counts)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<pre style=\"word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace\">        ┌───┐ ░ ┌─┐\n",
+       "   q_0: ┤ H ├─░─┤M├\n",
+       "        └───┘ ░ └╥┘\n",
+       "meas: 1/═════════╩═\n",
+       "                 0 </pre>"
+      ],
+      "text/plain": [
+       "        ┌───┐ ░ ┌─┐\n",
+       "   q_0: ┤ H ├─░─┤M├\n",
+       "        └───┘ ░ └╥┘\n",
+       "meas: 1/═════════╩═\n",
+       "                 0 "
+      ]
+     },
+     "execution_count": 74,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Let's now see the effect of Hadamard gate.\n",
+    "qch = QuantumCircuit(1)\n",
+    "qch.h(0)\n",
+    "qch.measure_all()\n",
+    "counts2 = qasmsim.run(assemble(qch)).result().get_counts()\n",
+    "qch.draw()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 504x360 with 1 Axes>"
+      ]
+     },
+     "execution_count": 75,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "plot_histogram(counts2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Let's now see the effect of Hadamard gate with statevector_simulator and unitary simulator\n",
+    "qch = QuantumCircuit(1)\n",
+    "qch.h(0)\n",
+    "sv = svsim.run(assemble(qch)).result().get_statevector()\n",
+    "un = unisim.run(assemble(qch)).result().get_unitary()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([0.70710678+0.j, 0.70710678+0.j])"
+      ]
+     },
+     "execution_count": 78,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sv"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[ 0.70710678+0.00000000e+00j,  0.70710678-8.65956056e-17j],\n",
+       "       [ 0.70710678+0.00000000e+00j, -0.70710678+8.65956056e-17j]])"
+      ]
+     },
+     "execution_count": 79,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "un"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Important Remarks about Results\n",
+    "- Qiskit uses little-endian representation. That is when you refer to some qubit, you start counting from the right, \"..543210\". \n",
+    "- Although we are simulating a quantum computer, we shouldn't expect to get 50:50 from applying Hadamard gate. \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Congratulations\n",
+    "\n",
+    "Well, that's about all we need to learn about the functionalities provided by Qiskit at this point. Now it's time to do some exercises."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 4\n",
+    "\n",
+    "Write a function that takes a quantum circuit and a backend as arguments, and runs the circuit on the backend and returns the result object."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def simplerun(qc,back):\n",
+    "    '''\n",
+    "        This function takes in a quantum circuit and a backend and returns a Results object.\n",
+    "    '''\n",
+    "    #return back.run(assemble(qc)).result()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 5\n",
+    "\n",
+    "Fill in the function below according to the specification."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def num2qc(num):\n",
+    "    '''\n",
+    "    This function takes a decimal number num and returns a quantum circuit which initializes the qubits to the \n",
+    "        representation of num.\n",
+    "    Args: \n",
+    "        num: a decimal number.\n",
+    "    Returns:\n",
+    "        QuantumCircuit\n",
+    "    '''\n",
+    "    # Let's first convert num to binary string.\n",
+    "    \n",
+    "    \n",
+    "    \n",
+    "    # We have our binary number in string format, let's initialize our quantum circuit and do the necessary operations.\n",
+    "    # How many qubits do we need ?\n",
+    "    # Which gates should we apply to obtain the necessary circuit?\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'0b10111'"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Now, let's test our function.\n",
+    "number = 21\n",
+    "qc21 = num2qc(number)\n",
+    "qc21.draw()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 6\n",
+    "\n",
+    "Design a quantum circuit which initializes the state:\n",
+    "\n",
+    "$$ | \\Phi^+\\rangle = \\frac{1}{\\sqrt{2}} |00\\langle + \\frac{1}{\\sqrt{2}} |11\\rangle$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def bell_1():\n",
+    "    '''\n",
+    "    Returns a quantum circuit initializing one of the Bell states.\n",
+    "    '''"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 7\n",
+    "Design a quantum circuit which initializes the state:\n",
+    "\n",
+    "$$ |\\Psi^-\\rangle = \\frac{1}{\\sqrt{2}} |01\\rangle - \\frac{1}{\\sqrt{2}} |10\\rangle$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def bell_2():\n",
+    "    \n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 8\n",
+    "\n",
+    "Design a quantum circuit which initializes the state:\n",
+    "\n",
+    "$$ |W\\rangle = \\frac{1}{\\sqrt{2}} |000\\rangle + \\frac{1}{\\sqrt{2}} |111\\rangle$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def ghz():\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Exercise 9\n",
+    "\n",
+    "Now, we will design a classical NOT gate using quantum gates we have learned so far. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def NOT(inp):\n",
+    "    \"\"\"An NOT gate.\n",
+    "    \n",
+    "    Parameters:\n",
+    "        inp (str): Input, encoded in qubit 0.\n",
+    "        \n",
+    "    Returns:\n",
+    "        QuantumCircuit: Output NOT circuit.\n",
+    "        str: Output value measured from qubit 0.\n",
+    "    \"\"\"\n",
+    "\n",
+    "    qc = QuantumCircuit(1, 1) # A quantum circuit with a single qubit and a single classical bit\n",
+    "    qc.reset(0)\n",
+    "    \n",
+    "    # We encode '0' as the qubit state |0⟩, and '1' as |1⟩\n",
+    "    # Since the qubit is initially |0⟩, we don't need to do anything for an input of '0'\n",
+    "    # For an input of '1', we do an x to rotate the |0⟩ to |1⟩\n",
+    "    if inp=='1':\n",
+    "        qc.x(0)\n",
+    "        \n",
+    "    # barrier between input state and gate operation \n",
+    "    qc.barrier()\n",
+    "    \n",
+    "    # Now we've encoded the input, we can do a NOT on it using x\n",
+    "    qc.x(0)\n",
+    "    \n",
+    "    #barrier between gate operation and measurement\n",
+    "    qc.barrier()\n",
+    "    \n",
+    "    # Finally, we extract the |0⟩/|1⟩ output of the qubit and encode it in the bit c[0]\n",
+    "    qc.measure(0,0)\n",
+    "    qc.draw()\n",
+    "    \n",
+    "    # We'll run the program on a simulator\n",
+    "    backend = Aer.get_backend('qasm_simulator')\n",
+    "    # Since the output will be deterministic, we can use just a single shot to get it\n",
+    "    job = execute(qc, backend, shots=1, memory=True)\n",
+    "    output = job.result().get_memory()[0]\n",
+    "    \n",
+    "    return qc, output"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'1'"
+      ]
+     },
+     "execution_count": 91,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "qc, out = NOT('0')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

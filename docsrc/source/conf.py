@@ -44,7 +44,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
+    'sphinxcontrib.katex',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'jupyter_sphinx',
@@ -266,3 +266,6 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# KaTeX settings
+katex_prerender = True
