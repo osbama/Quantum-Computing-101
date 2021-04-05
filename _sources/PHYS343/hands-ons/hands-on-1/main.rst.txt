@@ -1,0 +1,10 @@
+=======
+Test
+=======
+
+.. jupyter-execute::
+
+  name = 'world'
+  print('hello ' + name + '!')
+
+test2
