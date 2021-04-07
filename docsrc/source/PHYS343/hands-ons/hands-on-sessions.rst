@@ -6,7 +6,7 @@ Hands On Sessions
    :maxdepth: 1
    :caption: Hands on 0 (Preliminaries)
 
-   hands-on-0/lab0.rst
+   hands-on-0/lab0
 
 
 
@@ -14,9 +14,10 @@ Hands On Sessions
    :maxdepth: 1
    :caption: Hands on 1
    
-   hands-on-1/lab1.ipynb
+   hands-on-1/lab1
+   hands-on-1/lab1-book
+
    
-:download:`Hands-on 1 ipynb file <hands-on-1/lab1.ipynb>`
 
 
 

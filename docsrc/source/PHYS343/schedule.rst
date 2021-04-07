@@ -1,7 +1,7 @@
 ###################
 Course schedule
 ###################
-.. list-table:: Table Title
+.. list-table:: Schedule (last updated 07/04/2021)
    :widths: 50, 30, 30, 30, 30, 30, 30, 30
    :header-rows: 1
    :stub-columns: 1
@@ -17,7 +17,7 @@ Course schedule
    * - 08:40-09:30
      - 
      -
-     - Theory
+     - 
      - 
      -
      -
@@ -25,9 +25,9 @@ Course schedule
    * - 09:40-10:30
      - 
      -
+     - 
+     -
      - Theory
-     -
-     -
      -
      -
    * - 10:40-11:30
@@ -35,7 +35,7 @@ Course schedule
      -
      -
      -
-     -
+     - Theory
      -
      -
    * - 11:40-12:30
@@ -56,7 +56,7 @@ Course schedule
      -
    * - 13:40-14:30
      - 
-     - Hands-on
+     - 
      -
      -
      -
@@ -64,7 +64,7 @@ Course schedule
      -
    * - 14:40-15:30
      - 
-     -
+     - Hands-on
      -
      -
      -

@@ -13,7 +13,7 @@ Syllabus
    * - Course Title
      - PHYS343 INTRODUCTORY COMPUTATIONAL METHODS FOR PHYSICISTS
    * - Lecturers
-     - Zeki Seskir, Cenk Tüysüz, Berat Yenilen, Barış Malcıoğlu
+     - Cenk Tüysüz, Berat Yenilen, Barış Malcıoğlu
    * - Grading
      - Midterm %30, Term project %20, Attendance %10,Hands-on sessions & homeworks %40
 
