@@ -13,7 +13,6 @@ Hands On Sessions
    :caption: Hands on 1
    
    hands-on-1/lab1
-   hands-on-1/lab1-book
 
 .. toctree::
    :maxdepth: 1

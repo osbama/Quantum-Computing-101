@@ -11,3 +11,4 @@ Session Recording
 Lab book
 =====================
 
+:download:`Hands-on 2 ipynb file <lab2-book.ipynb>`
