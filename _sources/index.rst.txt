@@ -21,6 +21,7 @@ Phys 343
    PHYS343/links_and_forms
    PHYS343/lectures/lectures
    PHYS343/hands-ons/hands-on-sessions
+   PHYS343/term_project_ideas
    
 
 ------------------------------------------------
