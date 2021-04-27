@@ -20,3 +20,7 @@ help:
 github:
 	@make html
 	cp -a build/html/. ../
+
+clean:
+	@git rm -rf ../genindex.html  ../_images ../PHYS343 ../reports ../searchindex.js ../_static ../_downloads ../help ../index.html ../objects.inv ../search.html ../_sources
+
