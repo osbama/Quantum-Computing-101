@@ -47,9 +47,20 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'jupyter_sphinx',
-    'nbsphinx',
+    'myst_nb',
+#    'jupyter_sphinx',
+#    'nbsphinx',
 ]
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "html_image",
+]
+myst_url_schemes = ("http", "https", "mailto")
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

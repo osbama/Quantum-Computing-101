@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Outcomes &#8212; Introduction to Quantum Computing for Physicists  documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Term Project Ideas" href="../../term_project_ideas.html" />
+    <link rel="prev" title="Session Recording" href="lab4.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          QC for Physicists</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../hands-on-sessions.html">Hands-on sessions for Phys343</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../links_and_forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/lectures.html">Lectures and Lecture notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch1.html">Chapter 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch2.html">Chapter 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../hands-on-sessions.html">Hands On Sessions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html">Linux Terminal Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#getting-your-computer-ready">Getting your computer ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#dilhan">Dilhan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html">Learning Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#single-qubit-quantum-gates">Single Qubit Quantum Gates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#answer">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#id1">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-3">Exercise 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#id2">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#using-qiskit">Using Qiskit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#important-remarks-about-backends">Important Remarks about Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#important-remarks-about-results">Important Remarks about Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#congratulations">Congratulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-4">Exercise 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-5">Exercise 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-6">Exercise 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-7">Exercise 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-8">Exercise 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1-book.html#exercise-9">Exercise 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html">Learning Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#non-standard-basis">Non-standard Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#answer">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-3">Exercise 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-3-2">Exercise 3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#multiple-qubit-states">Multiple Qubit States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-4">Exercise 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id1">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-5">Exercise 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id2">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-6">Exercise 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#answers">Answers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#product-and-entangled-states">Product and Entangled States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-7">Exercise 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id3">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-8">Exercise 8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id4">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-9">Exercise 9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id5">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#cnot-gate">CNOT Gate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-10">Exercise 10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id6">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-11">Exercise 11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id7">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-12">Exercise 12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id8">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#exercise-13">Exercise 13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2-book.html#id9">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3-book.html">Learning Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab4.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab4.html#lab-book">Lab book</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Learning Outcomes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#outer-product">Outer Product</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#answer">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-3">Exercise 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-4">Exercise 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#answers">Answers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#measuring-time-complexity">Measuring Time Complexity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-5">Exercise 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Answers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-6">Exercise 6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Answers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deutsch-s-algorithm">Deutsch’s Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-7">Exercise 7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Answer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-8">Exercise 8</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#invitation-e-mail">Invitation e-mail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#ibm-quantum-computing-cloud">IBM Quantum Computing cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>What outer product means.</p></li>
+<li><p>Decomposing unitary matrices.</p></li>
+<li><p>Big-O notation.</p></li>
+<li><p>Deustch’s algorithm.</p></li>
+</ul>
+</div>
+<div class="section" id="outer-product">
+<h1>Outer Product<a class="headerlink" href="#outer-product" title="Permalink to this headline">¶</a></h1>
+<p>So far we have learned two new operations we can do with bras and kets, namely, tensor and inner product.</p>
+<div class="math notranslate nohighlight">
+\[ |0\rangle \otimes |1\rangle = |01 \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ \langle 1 | 1 \rangle = 1 \]</div>
+<p>Now we define a new operation called outer product and it is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|0\rangle\langle0|= \begin{pmatrix} 1 \\ 0 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 1&amp;0 \\ 0&amp;0 \end{pmatrix},\\
+|0\rangle\langle1| = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \begin{pmatrix} 0 &amp; 1 \end{pmatrix} = \begin{pmatrix} 0&amp;1 \\ 0&amp;0 \end{pmatrix},\\
+|1\rangle\langle0| = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 0&amp;0 \\ 1&amp;0 \end{pmatrix},\\
+|1\rangle\langle1| = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \begin{pmatrix} 0 &amp; 1 \end{pmatrix} = \begin{pmatrix} 0&amp;0 \\ 0&amp;1 \end{pmatrix}.\\
+\end{split}\]</div>
+</div>
+<div class="section" id="exercise-1">
+<h1>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h1>
+<p>Which of the below statements are true and which are false? If they are false, write down the correct version.</p>
+<ul class="simple">
+<li><p>Inner product takes one bra and one ket, and produces a scalar as a result.</p></li>
+<li><p>Tensor product combines two kets and produces an operator.</p></li>
+<li><p>Outer product combines one bra and one ket and produces a new ket.</p></li>
+</ul>
+</div>
+<div class="section" id="answer">
+<h1>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="exercise-2">
+<h1>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h1>
+<p>You can either write your answers using LaTeX functionality of Jupyter notebook or just write it down on a piece of paper and upload its image. Given:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = a_0 |0 \rangle + a_1 |1 \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ |\phi \rangle = b_0 |0 \rangle + b_1 |1 \rangle\]</div>
+<p>What is:</p>
+<div class="math notranslate nohighlight">
+\[ \text{a) }|\psi \rangle \langle \phi | = ? \]</div>
+<div class="math notranslate nohighlight">
+\[ \text{b) }|\phi \rangle \langle \psi | = ? \]</div>
+</div>
+<div class="section" id="id1">
+<h1>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>a.</p>
+<p>b.</p>
+<p>It is quite obvious that given an arbitrary operator <span class="math notranslate nohighlight">\(M\)</span> and its matrix representation, we can write it down in terms of outer products of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M= \begin{pmatrix} m_{0,0}&amp;m_{0,1} \\ m_{1,0}&amp;m_{1,1} \end{pmatrix} = m_{0,0} |0\rangle\langle0|+ m_{0,1} |0\rangle\langle1|+ m_{1,0} |1\rangle\langle0|+ m_{1,1} |1\rangle\langle1|
+\end{split}\]</div>
+<p>This gives us a clue as to how we can construct a quantum circuit for a given unitary transformation. However, note that <span class="math notranslate nohighlight">\(|0\rangle \langle 1|\)</span> is not a unitary operator, hence not a valid quantum gate. But luckily we can solve this problem very easily by noting the following relations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\frac{1+Z}{2} = \frac{1}{2}\left[ \begin{pmatrix} 1&amp;0 \\0&amp;1 \end{pmatrix}+\begin{pmatrix} 1&amp;0 \\0&amp;-1 \end{pmatrix}\right] = |0\rangle\langle0|,\\\frac{1-Z}{2} = \frac{1}{2}\left[ \begin{pmatrix} 1&amp;0 \\0&amp;1 \end{pmatrix}-\begin{pmatrix} 1&amp;0 \\0&amp;-1 \end{pmatrix}\right] = |1\rangle\langle1|
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+|0\rangle\langle1| = |0\rangle\langle0|X = \frac{1}{2}(1+Z)~X = \frac{X+iY}{2},\\\\
+|1\rangle\langle0| = X|0\rangle\langle0| = X~\frac{1}{2}(1+Z) = \frac{X-iY}{2}.
+\end{split}\]</div>
+</div>
+<div class="section" id="exercise-3">
+<h1>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h1>
+<p>Prove that <span class="math notranslate nohighlight">\(|0\rangle \langle 1| \)</span> is not a unitary operator.</p>
+</div>
+<div class="section" id="id2">
+<h1>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>So for any unitary transformation <span class="math notranslate nohighlight">\(M\)</span>, we can write it in terms of Pauli matrices as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m_{1,0}}{2}~Y~+~\frac{m_{0,0}-m_{1,1}}{2}~Z.
+\]</div>
+<p>Of course there are more details on how we can decompose any given unitary transformation into a basis set of gates, but it is enough to have a some idea about how to do it. You can check chapter 2.5 of Qiskit textbook for more details.</p>
+</div>
+<div class="section" id="exercise-4">
+<h1>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h1>
+<p>Write the following operators in terms of outer products:</p>
+<ul class="simple">
+<li><p>Hadamard, <span class="math notranslate nohighlight">\( H|0 \rangle = | + \rangle \text{, } H|1 \rangle = | - \rangle \)</span></p></li>
+<li><p>X,  <span class="math notranslate nohighlight">\( X|0 \rangle = | 1 \rangle \text{, } X|1 \rangle = | 0 \rangle \)</span></p></li>
+<li><p>Y,  <span class="math notranslate nohighlight">\( Y|0 \rangle = i| 0 \rangle \text{, } Y|1 \rangle = -i| 1 \rangle \)</span></p></li>
+<li><p>T,  <span class="math notranslate nohighlight">\( T|0 \rangle = | 0 \rangle \text{, } T|1 \rangle = e^{i \pi /4}| 1 \rangle \)</span></p></li>
+<li><p>S,  <span class="math notranslate nohighlight">\( S|0 \rangle = | 0 \rangle \text{, } S|1 \rangle = i| 1 \rangle \)</span></p></li>
+<li><p>CNOT(0,1), <span class="math notranslate nohighlight">\( CNOT(0,1)|00 \rangle = |00\rangle \text{, } CNOT(0,1)|01 \rangle = |11 \rangle \text{, } CNOT(0,1)|10 \rangle = |10 \rangle \text{, } CNOT(0,1)|11 \rangle = |01 \rangle\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="answers">
+<h1>Answers<a class="headerlink" href="#answers" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="measuring-time-complexity">
+<h1>Measuring Time Complexity<a class="headerlink" href="#measuring-time-complexity" title="Permalink to this headline">¶</a></h1>
+<p>Now, before we move on to our first quantum algorithm we must discuss what time complexity is. As you can probably guess, when you want to solve a problem using computers, there are a lot of ways to go about it. However, some solutions might be more efficient than others in terms of their memory or time usage. We are mainly interested in time complexity of an algorithm. What we want to understand is how does our algorithm scale as the input size gets bigger. For this purpose, we are neglecting the constant time operations most of the time and focus on the repetetive parts of the algorithm.</p>
+<p>Most of the time we represent the complexity of an algorithm using big-O notation which is  we define as follows:</p>
+<p>Let f and g two real and positive valued functions. If there exists a positive number <span class="math notranslate nohighlight">\(C\)</span> and a real value <span class="math notranslate nohighlight">\(x_0\)</span> such that <span class="math notranslate nohighlight">\(f(x) \leq C g(x) \text{ } \forall \text{ } x \geq x_0 \)</span> we say <span class="math notranslate nohighlight">\(f(x) = O ( g(x) ) \)</span>.</p>
+<p><img alt="image-2.png" src="PHYS343/hands-ons/hands-on-4/attachment:image-2.png" /></p>
+<p>So basically, <span class="math notranslate nohighlight">\(g(x)\)</span> is an upper bound for <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
+<p>This notation saves us from a lot of trouble. For example, given a <span class="math notranslate nohighlight">\(f(x) = x^4 + 20000 x^3 + 199 x^2 + 10^9 \)</span>, we can immediately write <span class="math notranslate nohighlight">\( f(x) = O(x^4)\)</span>. Even though the <span class="math notranslate nohighlight">\(x^3\)</span> term and the constant term is quite large in <span class="math notranslate nohighlight">\(f(x)\)</span>, we can be sure that we can always find <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> such that <span class="math notranslate nohighlight">\(f(x) \leq C g(x)\)</span> for all <span class="math notranslate nohighlight">\(x \geq x_0\)</span>.</p>
+</div>
+<div class="section" id="exercise-5">
+<h1>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h1>
+<p>Find two different <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> values such that <span class="math notranslate nohighlight">\(f(x) \leq C g(x)\)</span> for all <span class="math notranslate nohighlight">\(x \geq x_0\)</span> when <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> have the above mentioned form.</p>
+</div>
+<div class="section" id="id3">
+<h1>Answers<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>Let us use our new tool to analyze a search algorithm. Let’s say we are given a sorted list of numbers <span class="math notranslate nohighlight">\(L\)</span> and we develop two algorithms for it. The first one just starts from the smallest value, L[0], and looks at all the elements until we find the desired one. If the element is not in the list, we will have checked all the elements.</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-4/attachment:image.png" /></p>
+<p>Another way to approach the problem would be to perform a binary search. That is, we first look at the middle element and check if it is the one we are looking for. If it is, nice job! If not, we check if it is smaller or larger than the one we are looking for. If it is larger, than we simply focus on the first half of the list and discard the other half. If it is smallr, then we simply focus on the other half of the list.</p>
+</div>
+<div class="section" id="exercise-6">
+<h1>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h1>
+<p>What are the time complexities of the above mentioned algorithms ?</p>
+</div>
+<div class="section" id="id4">
+<h1>Answers<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="deutsch-s-algorithm">
+<h1>Deutsch’s Algorithm<a class="headerlink" href="#deutsch-s-algorithm" title="Permalink to this headline">¶</a></h1>
+<p>In Deutch’s problem, we are given an oracle that implements a binary function <span class="math notranslate nohighlight">\(f: \{0,1\} \rightarrow \{0, 1 \}\)</span>, and we are asked to determine whether this function is <span class="math notranslate nohighlight">\(\textit{constant}\)</span> or <span class="math notranslate nohighlight">\(\textit{balanced}\)</span>. We say a binary function <span class="math notranslate nohighlight">\(f(x)\)</span> is constant if <span class="math notranslate nohighlight">\(f(0) = f(1)\)</span> and it is balanced if <span class="math notranslate nohighlight">\(f(0) \neq f(1)\)</span>. In quantum computing words, we have the following gate:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-4/attachment:image.png" /></p>
+<p>Now, we have defined a function <span class="math notranslate nohighlight">\(oracle1(qc)\)</span> as an oracle and it takes in a QuantumCircuit, where ancilla qubit is the second one, and implements the oracle function. Now, let us write down a quantum circuit that decides whether the function <span class="math notranslate nohighlight">\(oracle1(qc)\)</span> is constant or balanced.</p>
+</div>
+<div class="section" id="exercise-7">
+<h1>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say <span class="math notranslate nohighlight">\(f\)</span> takes <span class="math notranslate nohighlight">\(x\)</span> to its complement. That is, <span class="math notranslate nohighlight">\(f(0) = 1\)</span> and <span class="math notranslate nohighlight">\(f(1) = 0\)</span>. Is <span class="math notranslate nohighlight">\(f\)</span> balanced or constant?</p>
+</div>
+<div class="section" id="id5">
+<h1>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<p>Yes or no ?</p>
+<p>So in order to solve this problem without quantum computers, we have to check oracle’s output for 0 and 1, and decide accordingly. Hence, best classical algorithm we can come up with uses the oracle 2 times. But we can do better with a quantum computer:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-4/attachment:image.png" /></p>
+<p>Let’s write down each state explicitly:</p>
+<div class="math notranslate nohighlight">
+\[ |\phi_0 \rangle = |01\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ |\phi_1 \rangle = \frac{1}{2} \big( |00\rangle -  |01\rangle +  |10\rangle -  |11\rangle \big)\]</div>
+<div class="math notranslate nohighlight">
+\[ |\phi_2 \rangle =  \frac{1}{\sqrt{2}} \big( (-1)^{f(0)} |0\rangle + (-1)^{f(1)} |1\rangle \big)\otimes |- \rangle \]</div>
+<p>So if <span class="math notranslate nohighlight">\(f\)</span> is balanced, there will be no phase difference between the coefficients of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> on the first qubit, hence it will be a <span class="math notranslate nohighlight">\(|+\rangle\)</span> state. If the function is balanced, then the signs of the coefficients of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> will be different and the first qubit will be in <span class="math notranslate nohighlight">\(|-\rangle\)</span> state. Hence applying a Hadamard will either transform the first qubit to <span class="math notranslate nohighlight">\(|0\rangle\)</span> if <span class="math notranslate nohighlight">\(f\)</span> is constant, <span class="math notranslate nohighlight">\(|1\rangle\)</span> if <span class="math notranslate nohighlight">\(f\)</span> is balanced.</p>
+</div>
+<div class="section" id="exercise-8">
+<h1>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h1>
+<p>Fill in the blanks below for implementing the Deutsch’s algorithm. You can follow the instructions in the code and fill between the lines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> oracles.py 
+<span class="c1"># This command will run the file oracles.py, in which we have defined the oracle function.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/IPython/core/magics/execution.py</span> in <span class="ni">run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span>             <span class="n">fpath</span> <span class="o">=</span> <span class="n">arg_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">703</span>             <span class="n">filename</span> <span class="o">=</span> <span class="n">file_finder</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span>         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/IPython/utils/path.py</span> in <span class="ni">get_py_filename</span><span class="nt">(name, force_win32)</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">109</span>         <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;File `</span><span class="si">%r</span><span class="s1">` not found.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span> 
+
+<span class="ne">OSError</span>: File `&#39;oracles.py&#39;` not found.
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">Exception</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">4934</span><span class="n">a3436baf</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;oracles.py&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># This command will run the file oracles.py, in which we have defined the oracle function.</span>
+
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/IPython/core/interactiveshell.py</span> in <span class="ni">run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2342</span>                 <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2343</span>             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2344</span>                 <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2345</span>             <span class="k">return</span> <span class="n">result</span>
+<span class="g g-Whitespace">   </span><span class="mi">2346</span> 
+
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/decorator.py</span> in <span class="ni">fun</span><span class="nt">(*args, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span>         <span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">214</span>             <span class="k">return</span> <span class="n">caller</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">extras</span> <span class="o">+</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="n">fun</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span>     <span class="n">fun</span><span class="o">.</span><span class="n">__signature__</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/IPython/core/magic.py</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(f, *a, **k)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="c1"># but it&#39;s overkill for just that one bit of state.</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="k">def</span> <span class="nf">magic_deco</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">call</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span> 
+<span class="g g-Whitespace">    </span><span class="mi">189</span>         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+
+<span class="nn">/share/apps/miniconda3/envs/sphinx/lib/python3.9/site-packages/IPython/core/magics/execution.py</span> in <span class="ni">run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^&#39;.*&#39;$&quot;</span><span class="p">,</span><span class="n">fpath</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span>                 <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;For Windows, use double quotes to wrap a filename: </span><span class="si">%r</span><span class="s1">un &quot;mypath</span><span class="se">\\</span><span class="s1">myfile.py&quot;&#39;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">714</span>             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span>         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span>             <span class="k">if</span> <span class="n">fpath</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">meta_path</span><span class="p">:</span>
+
+<span class="ne">Exception</span>: File `&#39;oracles.py&#39;` not found.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">execute</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+
+<span class="c1"># First, we must create a quantum circuit with two qubits. </span>
+
+
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Initialize 1st qubit to |+&gt; and 0th qubit to |-&gt; state.</span>
+
+
+
+<span class="c1"># Now, we call the oracle function. You don&#39;t have to do anything in here.</span>
+<span class="n">oracle1</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+
+<span class="c1"># Apply the final transformations to qubits.</span>
+
+
+<span class="c1"># Finally, measure them.</span>
+
+
+<span class="c1"># Show me what your circuit looks like by drawing it.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab4-book_24_0.png" src="../../../_images/lab4-book_24_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now, run your circuit on a backend of your choice.</span>
+
+
+
+<span class="c1"># Next, get your results and plot them using plot_histogram(counts) function.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By looking at the results you have obtained, can you tell whether your oracle was constant or balanced ? Be careful though, everytime you run it the oracle is randomly chosen to be constant or balanced!</p>
+<p>Your explanation here:</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/PHYS343/hands-ons/hands-on-4/lab4-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Tüysüz, Cenk; Yenilen, Berat; Malcıoğlu, O. Barış.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
