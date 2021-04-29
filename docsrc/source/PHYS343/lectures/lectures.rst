@@ -7,6 +7,8 @@ Lectures and Lecture notes
 
    Ch1
    Ch2
+   Ch3
+   Ch4
 
 
 
