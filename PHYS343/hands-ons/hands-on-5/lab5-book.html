@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Outcomes &#8212; Introduction to Quantum Computing for Physicists  documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          QC for Physicists</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../hands-on-sessions.html">Hands-on sessions for Phys343</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../links_and_forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/lectures.html">Lectures and Lecture notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch1.html">Chapter 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch2.html">Chapter 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch3.html">Chapter 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch4.html">Chapter 4</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hands-on-sessions.html">Hands On Sessions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html">Linux Terminal Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#getting-your-computer-ready">Getting your computer ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#dilhan">Dilhan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab5.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab5.html#lab-book">Lab book</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#invitation-e-mail">Invitation e-mail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#ibm-quantum-computing-cloud">IBM Quantum Computing cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Some clarification about SWAP gate</p></li>
+<li><p>No-clonning theorem</p></li>
+<li><p>Density matrix formalism</p></li>
+<li><p>Partial trace</p></li>
+<li><p>Schmidt Decomposition</p></li>
+</ul>
+</div>
+<div class="section" id="swap-gate">
+<h1>SWAP Gate<a class="headerlink" href="#swap-gate" title="Permalink to this headline">¶</a></h1>
+<p>As you may remember from our previous labs we had defined a SWAP gate which basically swaps the contents of two qubits. We also provided the following decomposition of the SWAP gate:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-5/attachment:image.png" /></p>
+<p>Now, after reading your homeworks I realized that some of you understood the action of this gate incompletely. When one of the qubits in state <span class="math notranslate nohighlight">\(|0\rangle\)</span> and the other one is in <span class="math notranslate nohighlight">\(|1\rangle\)</span>, after applying the SWAP gate it is clear that their contents are exchanged. However, if they are both in arbitrary superposition states <span class="math notranslate nohighlight">\(|\psi\rangle = a_0 |0\rangle + a_1 |1 \rangle \)</span> and <span class="math notranslate nohighlight">\(|\phi \rangle = b_0 |0\rangle + b_1 |1 \rangle\)</span>, this gate will also exchange these two states.</p>
+</div>
+<div class="section" id="exercise-1">
+<h1>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h1>
+<p>Show that acting <span class="math notranslate nohighlight">\(CX_{0,1} CX_{1,0} CX_{0,1}\)</span> to state <span class="math notranslate nohighlight">\(|\psi\rangle \otimes |\phi \rangle\)</span> produces <span class="math notranslate nohighlight">\(|\phi\rangle \otimes |\psi\rangle\)</span>, where <span class="math notranslate nohighlight">\(|\psi\rangle = a_0 |0\rangle + a_1 |1 \rangle \)</span> and <span class="math notranslate nohighlight">\(|\phi \rangle = b_0 |0\rangle + b_1 |1 \rangle\)</span>.</p>
+</div>
+<div class="section" id="answer">
+<h1>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="no-clonning-theorem">
+<h1>No Clonning Theorem<a class="headerlink" href="#no-clonning-theorem" title="Permalink to this headline">¶</a></h1>
+<p>Given an arbitrary quantum state, which we don’t know exactly, is it possible to copy it without disturbing the wave function? It should be clear to you that we can not perform any measurements on the quantum state since measuring it will cause wave function to collapse.</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = a_0 |0 \rangle + a_1 |1 \rangle\]</div>
+<p>That is, if we go and measure our qubit initialized to this arbitrary state, we will either get 0 or 1. We will not learn any thing about the unknown coefficients and we will have destroyed it.</p>
+<p>Let’s try something different. Let’s say we have a unitary transformation that does the following:</p>
+<div class="math notranslate nohighlight">
+\[ U |\psi \rangle |e \rangle = |\psi \rangle |\psi \rangle \]</div>
+<p>It simply copies the content of the first qubit to the zeroth qubit, which is initialized to an empty state. That is, it doesn’t matter what is in the zeroth qubit, it goes ahead and does this. Now for this operator to be realizable, it has to be unitary and all unitary operators are linear. So let’s see if this operator works as intended.</p>
+<div class="math notranslate nohighlight">
+\[ U |0 \rangle | e \rangle = |0 \rangle | e \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ U |1 \rangle | e \rangle = |1 \rangle | e \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ U |\psi\rangle |e \rangle = U(a_0 |0 \rangle + a_1 | 1 \rangle ) |e \rangle ) = a_0 U|0\rangle|e\rangle + a_1U|1\rangle |e\rangle\]</div>
+<div class="math notranslate nohighlight">
+\[ U |\psi \rangle |e \rangle = a_0 |0 \rangle |0 \rangle + a_1 |1 \rangle |1 \rangle \neq |\psi\rangle |\psi \rangle \]</div>
+<p>So we reach a contraction. Which proves that such a machine can not exist!</p>
+</div>
+<div class="section" id="exercise-2">
+<h1>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h1>
+<p>What is <span class="math notranslate nohighlight">\(|\psi \rangle |\psi \rangle\)</span> for <span class="math notranslate nohighlight">\(|\psi \rangle = a_0 |0\rangle + a_1 |1 \rangle \)</span>?</p>
+</div>
+<div class="section" id="id1">
+<h1>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="exercise-3">
+<h1>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h1>
+<p>What do you think no-clonning theorem implies for quantum computers? If a universal quantum computer were to be built, do you think it would have a RAM ?</p>
+</div>
+<div class="section" id="id2">
+<h1>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="density-matrix-formalism">
+<h1>Density Matrix Formalism<a class="headerlink" href="#density-matrix-formalism" title="Permalink to this headline">¶</a></h1>
+<p>Density matrix, or density operator, is an alternative way to describe a given quantum system. For some cases, though, it can be more useful than the state vector formalism. For example, let’s say we are given an ensemble of quantum states. That is, our quantum system is in state <span class="math notranslate nohighlight">\(|\psi_i\rangle\)</span> with probability <span class="math notranslate nohighlight">\(p_i\)</span>. Than we can define the following operator as the density matrix describing the system:</p>
+<div class="math notranslate nohighlight">
+\[ \rho = \sum_i p_i |\psi_i \rangle \langle \psi_i | \]</div>
+<p>These kind of states are called mixed states, and if <span class="math notranslate nohighlight">\(p_i = 1\)</span> for some i, that is the density matrix is as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \rho = |\psi_i \rangle \langle \psi_i |\]</div>
+<p>it is called a pure state.</p>
+<p>Let’s now show how we formulate postulates of quantum mechanics using the density matrix formalism. Let’s say <span class="math notranslate nohighlight">\(U\)</span> describes the time evolution of a ket. Then we know that time evolved version of <span class="math notranslate nohighlight">\(|\psi_i\rangle\)</span> can be found easily:</p>
+<div class="math notranslate nohighlight">
+\[ | \psi_i(t) \rangle = U |\psi_i \rangle \]</div>
+<p>Now if <span class="math notranslate nohighlight">\(\rho_0 = \sum_i p_i |\psi_i \rangle \langle \psi_i | \)</span> than the density matrix’s time evolution can be found easily:</p>
+<div class="math notranslate nohighlight">
+\[ \rho(t) = \sum_i p_i |\psi_i(t) \rangle \langle \psi_i(t) | = \sum_i p_i U |\psi_i\rangle\langle\psi_i|U^\dagger = U \rho U^\dagger \]</div>
+<p>We can also write down the measurement operator in density matrix language easily. If you remember, given a measurement operator <span class="math notranslate nohighlight">\(M_m\)</span> and a state <span class="math notranslate nohighlight">\(|\psi_i\rangle\)</span>, probability of measuring <span class="math notranslate nohighlight">\(m\)</span> was:</p>
+<div class="math notranslate nohighlight">
+\[ p(m|i) = \langle \psi_i | M_m^\dagger M_m | \psi_i \rangle = tr(M_m^\dagger M_m |\psi_i\rangle\langle\psi_i|)\]</div>
+<p>So if we are given a measurement operator <span class="math notranslate nohighlight">\(M_m\)</span> and a density matrix <span class="math notranslate nohighlight">\(\rho\)</span> we can write down the probability of measuring <span class="math notranslate nohighlight">\(m\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[ p(m) = tr(M_m^\dagger M_m \rho ) \]</div>
+<p>Some nice properties of trace operation is:</p>
+<div class="math notranslate nohighlight">
+\[ tr(A |i\rangle \langle j|) = \langle j | A |i \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ tr(ABC) = tr(BCA) = tr(CAB) \]</div>
+<p>After performing a measurement <span class="math notranslate nohighlight">\(M_m\)</span> on a state <span class="math notranslate nohighlight">\(|\psi_i\rangle\)</span> the system collapses to the following state:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi_i^m \rangle = \frac{M_m |\psi_i\rangle} {\sqrt{\langle \psi_i | M_m^\dagger M_m | \psi_i \rangle} } \]</div>
+<p>In density matrix formalism, we have the following density matrix after the measurement:</p>
+<div class="math notranslate nohighlight">
+\[ \rho_m = \frac{ M_m \rho M_m^\dagger } {tr(M_m \rho M_m^\dagger )} \]</div>
+<p>Not much changes when you combine multiple quantum systems together. For example, let’s say <span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>, and <span class="math notranslate nohighlight">\(|\psi_1 \rangle\)</span> describes the state of two qubits. When we want to describe both qubit as a single system, we use the tensor product. So the state is described by <span class="math notranslate nohighlight">\(|\psi_0 \rangle \otimes | \psi_1 \rangle \)</span>. Similar situation occurs for density matrices too! Given two density matrices <span class="math notranslate nohighlight">\(\rho_0\)</span> and <span class="math notranslate nohighlight">\(\rho_1\)</span>, combined system is described by <span class="math notranslate nohighlight">\(\rho_0 \otimes \rho_1 \)</span>.</p>
+</div>
+<div class="section" id="exercise-4">
+<h1>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say <span class="math notranslate nohighlight">\(\rho = \frac{1}{2} |0\rangle \langle 0 | + \frac{1}{2} |1\rangle \langle 1 |\)</span>, <span class="math notranslate nohighlight">\(M_0 = |0\rangle \langle 0|\)</span> and <span class="math notranslate nohighlight">\(M_1 = | 1 \rangle \langle 1 | \)</span>. Answer the following:</p>
+<ul class="simple">
+<li><p>What is the probability that <span class="math notranslate nohighlight">\(M\)</span> measurement yields 0? That is, <span class="math notranslate nohighlight">\(p(0) = tr(M_0^\dagger M_0 \rho)\)</span>.</p></li>
+<li><p>What will the density matrix be after the measurement yields 0?</p></li>
+<li><p>What is the probability that <span class="math notranslate nohighlight">\(M\)</span> measurement yields 1? That is, <span class="math notranslate nohighlight">\(p(1) = tr(M_1^\dagger M_1 \rho)\)</span>.</p></li>
+<li><p>What will the density matrix be after the measurement yields 1?</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h1>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="properties-of-density-operator">
+<h1>Properties of Density Operator<a class="headerlink" href="#properties-of-density-operator" title="Permalink to this headline">¶</a></h1>
+<p>Well, the density operator has trace equal to 1. This is quite easy to prove actually:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned} tr(\rho) = tr( \sum_i p_i | \psi_i \rangle \langle \psi_i | ) = \sum_i p_i \langle \psi_i | \psi_i \rangle = \sum_i p_i = 1 $$.\\$\rho$ is a positive operator. This is also quite easy to prove, given an arbitary state $|x\rangle$:\\$$ \langle x | \rho | x \rangle = \sum_i p_i \langle x | \psi_i \rangle \langle \psi_i | x \rangle = \sum_i p_i |\langle x | \psi_i \rangle |^2  \geq 0 \end{aligned}\end{align} \]</div>
+<p>Actually, any matrix that has trace 1 and is positive can be considered as a density matrix. One neat thing about being a positive operator is that we can write it’s spectral decomposition as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \rho = \sum_j \lambda_j |j \rangle \langle j | \]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_j\)</span> are real, non-negative eigenvalues of <span class="math notranslate nohighlight">\(\rho\)</span> and <span class="math notranslate nohighlight">\(|j\rangle\)</span> are orthogonal to each other.</p>
+<p>One other thing that is quite important about density matrices is the fact that two different ensembles can give rise to the same density matrix.</p>
+<p>Finally, we can have a look at <span class="math notranslate nohighlight">\(tr(\rho^2)\)</span> to see if the system described by <span class="math notranslate nohighlight">\(\rho\)</span> is a mixed or a pure state. <span class="math notranslate nohighlight">\(tr(\rho^2) = 1\)</span> if and only if <span class="math notranslate nohighlight">\(\rho\)</span> describes a pure state.</p>
+</div>
+<div class="section" id="exercise-5">
+<h1>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h1>
+<p>Let <span class="math notranslate nohighlight">\(\rho = \frac{3}{4} | 0 \rangle \langle 0 | + \frac{1}{4} |1 \rangle \langle 1 |\)</span>. Show that <span class="math notranslate nohighlight">\(\rho' = \frac{1}{2} |a \rangle \langle a + \frac{1}{2} | b \rangle \langle b| \)</span> is equal to <span class="math notranslate nohighlight">\(\rho\)</span> where:</p>
+<div class="math notranslate nohighlight">
+\[ |a \rangle = \sqrt{\frac{3}{4} } |0 \rangle + \sqrt{\frac{1}{4} } |1 \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ |b \rangle = \sqrt{\frac{3}{4} } |0 \rangle - \sqrt{\frac{1}{4} } |1 \rangle \]</div>
+</div>
+<div class="section" id="id4">
+<h1>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="exercise-6">
+<h1>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h1>
+<p>Let <span class="math notranslate nohighlight">\(\rho_0 = \frac{1}{2} | 0 \rangle \langle 0 | + \frac{1}{2} |1 \rangle \langle 1 |\)</span> and <span class="math notranslate nohighlight">\(\rho_1 = \frac{1}{2} | + \rangle \langle + | + \frac{1}{2} |- \rangle \langle - |\)</span>. Is <span class="math notranslate nohighlight">\(\rho_0\)</span> equal to <span class="math notranslate nohighlight">\(\rho_1\)</span>? What kind of a physical system does <span class="math notranslate nohighlight">\(\rho_0\)</span> describes if <span class="math notranslate nohighlight">\(|0\rangle\)</span> represent spin up along Z axis, <span class="math notranslate nohighlight">\(|1 \rangle\)</span> represents spin down along Z axis, <span class="math notranslate nohighlight">\(|+\rangle\)</span> represents spin up along X axis, and <span class="math notranslate nohighlight">\(|-\rangle\)</span> represents spin down along X axis?</p>
+</div>
+<div class="section" id="id5">
+<h1>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="reduced-density-operator">
+<h1>Reduced Density Operator<a class="headerlink" href="#reduced-density-operator" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say <span class="math notranslate nohighlight">\(\rho^{AB}\)</span> describes a composite quantum system AB. Then the reduced density operator for system A is defined by:</p>
+<div class="math notranslate nohighlight">
+\[ \rho^A = tr_B(\rho^{AB}) \]</div>
+<div class="math notranslate nohighlight">
+\[ tr_B( |a_1 \rangle \langle a_2 \otimes | b_1 \rangle \langle b_2 | ) = |a_1 \rangle \langle a_2 | tr(|b_1\rangle \langle b_2 | ) \]</div>
+<p>It may look a bit confusing, but it is quite straigh forward actually. Let’s say <span class="math notranslate nohighlight">\(\rho\)</span> describes the quantum system A, and <span class="math notranslate nohighlight">\(\sigma\)</span> describes the quantum system B. In order to describe the combined system we use <span class="math notranslate nohighlight">\(\phi = \rho \otimes \sigma\)</span>. Reduced density operator is just a way to go back from this combined system to the smaller system. So we can apply the reduced density operator definiton to <span class="math notranslate nohighlight">\(\phi\)</span> to go get the density matrix for A, let’s say:</p>
+<p>$<span class="math notranslate nohighlight">\( \rho_A = tr_B( \phi ) = tr_B ( \rho \otimes \sigma) = \rho tr(\sigma) = \rho \)</span>$.</p>
+</div>
+<div class="section" id="exercise-7">
+<h1>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say we are given the following Bell state:</p>
+<p>$<span class="math notranslate nohighlight">\( |\psi \rangle = \frac{1}{\sqrt{2}} | 00 \rangle + \frac{1}{\sqrt{2}} | 11 \rangle \)</span>$.</p>
+<ul class="simple">
+<li><p>Write down the density matrix <span class="math notranslate nohighlight">\(\rho\)</span> describing the state. ( Hint: |psi&gt;&lt;psi| )</p></li>
+<li><p>Calculate the reduced density matrix for the 1st qubit. Hint: page 106 of our bible</p></li>
+<li><p>Is the system described by the reduced density matrix you just calculated a mixed state or a pure state ?</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h1>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+</div>
+<div class="section" id="schmidt-decomposition">
+<h1>Schmidt Decomposition<a class="headerlink" href="#schmidt-decomposition" title="Permalink to this headline">¶</a></h1>
+<p>Now, let’s move on to something a little more interesting. Given a bipartite pure quantum state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>, how can we determine if it is entangled or not? One way we to do it would be to write it as tensor product of two states and if succesful we can say that it is a product state.</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = \frac{1}{\sqrt{2}} ( |0 \rangle | 0 \rangle + |0 \rangle | 1 \rangle ) \]</div>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = |0 \rangle \otimes \frac{1}{\sqrt{2}} ( |0\rangle + |1 \rangle ) \]</div>
+<p>But it is not always to see that it could be the case. For example, let’s look at the following state:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = \frac{1}{2} ( |00\rangle + |01\rangle + |10 \rangle + |11 \rangle )\]</div>
+<p>This is also a product state. More specifically, it is <span class="math notranslate nohighlight">\(|+\rangle \otimes |+\rangle\)</span>.</p>
+</div>
+<div class="section" id="exercise-8">
+<h1>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h1>
+<p>Show that <span class="math notranslate nohighlight">\(|+\rangle \otimes |+\rangle\)</span> is equal to  <span class="math notranslate nohighlight">\(\frac{1}{2} ( |00\rangle + |01\rangle + |10 \rangle + |11 \rangle )\)</span>.</p>
+</div>
+<div class="section" id="id7">
+<h1>Answer<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>Schmidt decomposition theorem states that any bipartite pure quantum state can be written as follows:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi\rangle_{AB} = \sum_i^{\text{min($d_A,d_B$)}} \lambda_i |u_i\rangle_A \otimes |v_i\rangle_B\]</div>
+<p>where <span class="math notranslate nohighlight">\(d_A\)</span> and <span class="math notranslate nohighlight">\(d_B\)</span> are the dimensions of the subsystems A,B, <span class="math notranslate nohighlight">\(|u_i\rangle\)</span> and <span class="math notranslate nohighlight">\(|v_i\rangle\)</span> are orthonormal basis for these subsystems, and finally <span class="math notranslate nohighlight">\(\lambda_i \geq 0\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\lambda_i\)</span> are called Schmidt coefficients and they are useful for determining if a state is entangled or not. We define the Schmidt rank as the number of <span class="math notranslate nohighlight">\(\lambda_i\)</span> that are not equal to zero. If the Schmidt rank of a system is 1, then it is a product state, if it is greater than 1 it is an entangled state.</p>
+<p>Let’s do an example to clarify what we said. Let’s take the following Bell state and write it in Schmidt decomposition:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = \frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |11\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = \frac{1}{\sqrt{2}} |0\rangle\otimes |0\rangle + \frac{1}{\sqrt{2}} |1\rangle \otimes |1\rangle \]</div>
+<p>So we have two Schmidt coefficients  both equal to <span class="math notranslate nohighlight">\(1/\sqrt{2}\)</span>, hence Schmidt rank of the system is 2.</p>
+</div>
+<div class="section" id="exercise-9">
+<h1>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h1>
+<p>Write the following state in Schmidt decomposition form:</p>
+<div class="math notranslate nohighlight">
+\[ |\psi \rangle = \frac{1}{2} ( |00\rangle - |01\rangle - |10 \rangle + |11 \rangle ) \]</div>
+<p>Is it a product or an entangled state? (Hintminus)</p>
+</div>
+<div class="section" id="id8">
+<h1>Answer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/PHYS343/hands-ons/hands-on-5/lab5-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Tüysüz, Cenk; Yenilen, Berat; Malcıoğlu, O. Barış.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
