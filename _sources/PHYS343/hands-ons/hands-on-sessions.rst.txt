@@ -38,7 +38,13 @@ Hands On Sessions
    
    hands-on-5/lab5
 
-  
+.. toctree::
+   :maxdepth: 1
+   :caption: Hands on 6
+   
+   hands-on-6/lab6
+
+ 
 
 
   

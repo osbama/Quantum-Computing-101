@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Outcomes &#8212; Introduction to Quantum Computing for Physicists  documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          QC for Physicists</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../hands-on-sessions.html">Hands-on sessions for Phys343</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../links_and_forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/lectures.html">Lectures and Lecture notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch1.html">Chapter 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch2.html">Chapter 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch3.html">Chapter 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch4.html">Chapter 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch5.html">Chapter 5</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hands-on-sessions.html">Hands On Sessions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html">Linux Terminal Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#getting-your-computer-ready">Getting your computer ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#dilhan">Dilhan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-5/lab5.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-5/lab5.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab6.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab6.html#lab-book">Lab book</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#invitation-e-mail">Invitation e-mail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#ibm-quantum-computing-cloud">IBM Quantum Computing cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Deutsch-Jozsa Algorithm</p></li>
+<li><p>Berstein-Vazirani Algorithm</p></li>
+<li><p>Constructing Oracles</p></li>
+</ul>
+<p>This week we will be covering Chapter 3.2 Deutsch-Jozsa Algorithm and Chapter 3.3 Berstein-Vazirani Algorithm from the Qiskit Textbook.</p>
+<p>In this section, we first introduce the Deutsch-Jozsa problem, and classical and quantum algorithms to solve it. We then implement the quantum algorithm using Qiskit, and run it on a simulator and device.</p>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="#introduction">Introduction</a><br />
+1.1 <a class="reference external" href="#djproblem">Deutsch-Jozsa Problem</a><br />
+1.2 <a class="reference external" href="#classical-solution">Deutsch-Jozsa Algorithm</a><br />
+1.3 <a class="reference external" href="#quantum-solution">The Quantum Solution</a><br />
+1.4 <a class="reference external" href="#why-does-this-work">Why Does This Work?</a></p></li>
+<li><p><a class="reference external" href="#example">Worked Example</a></p></li>
+<li><p><a class="reference external" href="#creating-quantum-oracles">Creating Quantum Oracles</a></p></li>
+<li><p><a class="reference external" href="#implementation">Qiskit Implementation</a><br />
+4.1 <a class="reference external" href="#const_oracle">Constant Oracle</a><br />
+4.2 <a class="reference external" href="#balanced_oracle">Balanced Oracle</a><br />
+4.3 <a class="reference external" href="#full_alg">The Full Algorithm</a><br />
+4.4 <a class="reference external" href="#general_circs">Generalised Circuit</a></p></li>
+<li><p><a class="reference external" href="#device">Running on Real Devices</a></p></li>
+<li><p><a class="reference external" href="#problems">Problems</a></p></li>
+<li><p><a class="reference external" href="#references">References</a></p></li>
+</ol>
+</div>
+<div class="section" id="introduction-a-id-introduction-a">
+<h2>1. Introduction <a id='introduction'></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+<p>The Deutsch-Jozsa algorithm, first introduced in Reference [1], was the first example of a quantum algorithm that performs better than the best classical algorithm. It showed that there can be advantages to using a quantum computer as a computational tool for a specific problem.</p>
+<div class="section" id="deutsch-jozsa-problem-a-id-djproblem-a">
+<h3>1.1 Deutsch-Jozsa Problem <a id='djproblem'> </a><a class="headerlink" href="#deutsch-jozsa-problem-a-id-djproblem-a" title="Permalink to this headline">¶</a></h3>
+<p>We are given a hidden Boolean function <span class="math notranslate nohighlight">\(f\)</span>, which takes as input a string of bits, and returns either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, that is:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\{x_0,x_1,x_2,...\}) \rightarrow 0 \textrm{ or } 1 \textrm{ , where } x_n \textrm{ is } 0 \textrm{ or } 1\]</div>
+<p>The property of the given Boolean function is that it is guaranteed to either be balanced or constant. A constant function returns all <span class="math notranslate nohighlight">\(0\)</span>’s or all <span class="math notranslate nohighlight">\(1\)</span>’s for any input, while a balanced function returns <span class="math notranslate nohighlight">\(0\)</span>’s for exactly half of all inputs and <span class="math notranslate nohighlight">\(1\)</span>’s for the other half. Our task is to determine whether the given function is balanced or constant.</p>
+<p>Note that the Deutsch-Jozsa problem is an <span class="math notranslate nohighlight">\(n\)</span>-bit extension of the single bit Deutsch problem.</p>
+</div>
+<div class="section" id="the-classical-solution-a-id-classical-solution-a">
+<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#the-classical-solution-a-id-classical-solution-a" title="Permalink to this headline">¶</a></h3>
+<p>Classically, in the best case, two queries to the oracle can determine if the hidden Boolean function, <span class="math notranslate nohighlight">\(f(x)\)</span>, is balanced:
+e.g. if we get both <span class="math notranslate nohighlight">\(f(0,0,0,...)\rightarrow 0\)</span> and <span class="math notranslate nohighlight">\(f(1,0,0,...) \rightarrow 1\)</span>, then we know the function is balanced as we have obtained the two different outputs.</p>
+<p>In the worst case, if we continue to see the same output for each input we try, we will have to check exactly half of all possible inputs plus one in order to be certain that <span class="math notranslate nohighlight">\(f(x)\)</span> is constant. Since the total number of possible inputs is <span class="math notranslate nohighlight">\(2^n\)</span>, this implies that we need <span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> trial inputs to be certain that <span class="math notranslate nohighlight">\(f(x)\)</span> is constant in the worst case. For example, for a <span class="math notranslate nohighlight">\(4\)</span>-bit string, if we checked <span class="math notranslate nohighlight">\(8\)</span> out of the <span class="math notranslate nohighlight">\(16\)</span> possible combinations, getting all <span class="math notranslate nohighlight">\(0\)</span>’s, it is still possible that the <span class="math notranslate nohighlight">\(9^\textrm{th}\)</span> input returns a <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> is balanced. Probabilistically, this is a very unlikely event. In fact, if we get the same result continually in succession, we can express the probability that the function is constant as a function of <span class="math notranslate nohighlight">\(k\)</span> inputs as:</p>
+<div class="math notranslate nohighlight">
+\[ P_\textrm{constant}(k) = 1 - \frac{1}{2^{k-1}} \qquad \textrm{for } 1 &lt; k \leq 2^{n-1}\]</div>
+<p>Realistically, we could opt to truncate our classical algorithm early, say if we were over x% confident. But if we want to be 100% confident, we would need to check <span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> inputs.</p>
+</div>
+<div class="section" id="quantum-solution-a-id-quantum-solution-a">
+<h3>1.3 Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#quantum-solution-a-id-quantum-solution-a" title="Permalink to this headline">¶</a></h3>
+<p>Using a quantum computer, we can solve this problem with 100% confidence after only one call to the function <span class="math notranslate nohighlight">\(f(x)\)</span>, provided we have the function <span class="math notranslate nohighlight">\(f\)</span> implemented as a quantum oracle, which maps the state <span class="math notranslate nohighlight">\(\vert x\rangle \vert y\rangle \)</span> to <span class="math notranslate nohighlight">\( \vert x\rangle \vert y \oplus f(x)\rangle\)</span>, where <span class="math notranslate nohighlight">\(\oplus\)</span> is addition modulo <span class="math notranslate nohighlight">\(2\)</span>. Below is the generic circuit for the Deutsh-Jozsa algorithm.</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
+<p>Now, let’s go through the steps of the algorithm:</p>
+<ol>
+   <li>
+        Prepare two quantum registers. The first is an $n$-qubit register initialised to $|0\rangle$, and the second is a one-qubit register initialised to $|1\rangle$:
+<div class="math notranslate nohighlight">
+\[\vert \psi_0 \rangle = \vert0\rangle^{\otimes n} \vert 1\rangle\]</div>
+   </li>
+   <li>
+        Apply a Hadamard gate to each qubit:
+<div class="math notranslate nohighlight">
+\[\vert \psi_1 \rangle = \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^n-1} \vert x\rangle \left(|0\rangle - |1 \rangle \right)\]</div>
+   </li>
+   <li>
+        Apply the quantum oracle $\vert x\rangle \vert y\rangle$ to $\vert x\rangle \vert y \oplus f(x)\rangle$:
+        $$
+            \begin{aligned}
+            \lvert \psi_2 \rangle  
+                & = \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^n-1} \vert x\rangle (\vert f(x)\rangle - \vert 1 \oplus f(x)\rangle) \\  
+                & = \frac{1}{\sqrt{2^{n+1}}}\sum_{x=0}^{2^n-1}(-1)^{f(x)}|x\rangle ( |0\rangle - |1\rangle ) 
+        \end{aligned}
+        $$
+<p>since for each <span class="math notranslate nohighlight">\(x,f(x)\)</span> is either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>.</p>
+   </li>
+   <li>
+       At this point the second single qubit register may be ignored. Apply a Hadamard gate to each qubit in the first register:
+        $$
+        \begin{aligned}
+            \lvert \psi_3 \rangle 
+                & = \frac{1}{2^n}\sum_{x=0}^{2^n-1}(-1)^{f(x)}
+                    \left[ \sum_{y=0}^{2^n-1}(-1)^{x \cdot y} 
+                    \vert y \rangle \right] \\
+                & = \frac{1}{2^n}\sum_{y=0}^{2^n-1}
+                    \left[ \sum_{x=0}^{2^n-1}(-1)^{f(x)}(-1)^{x \cdot y} \right]
+                    \vert y \rangle
+        \end{aligned}
+        $$
+<p>where <span class="math notranslate nohighlight">\(x \cdot y = x_0y_0 \oplus x_1y_1 \oplus \ldots \oplus x_{n-1}y_{n-1}\)</span> is the sum of the bitwise product.</p>
+   </li>
+   <li>
+       Measure the first register. Notice that the probability of measuring $\vert 0 \rangle ^{\otimes n} = \lvert \frac{1}{2^n}\sum_{x=0}^{2^n-1}(-1)^{f(x)} \rvert^2$, which evaluates to $1$ if $f(x)$ is constant and $0$ if $f(x)$ is balanced. 
+   </li>
+</ol>
+<p>Remember the action of Hadamard gate on a state is defined as:
+$<span class="math notranslate nohighlight">\(
+|x\rangle \xrightarrow{H^{\otimes n}} \frac{1}{\sqrt{2^n}} \sum_{y\in \{0,1\}^n} (-1)^{x\cdot y}|y\rangle.
+\)</span>$</p>
+<details>
+    <summary>Explain Equation (Click to Expand)</summary>
+We remember the Hadamard performs the following transformations on one qubit:
+<div class="math notranslate nohighlight">
+\[
+H|0\rangle = \tfrac{1}{\sqrt{2}}(|0\rangle + |1\rangle)
+$$ \]</div>
+<p>H|1\rangle = \tfrac{1}{\sqrt{2}}(|0\rangle - |1\rangle)
+$$</p>
+<p>Using summation notation, we could rewrite it like this:</p>
+<div class="math notranslate nohighlight">
+\[
+H|a\rangle = \frac{1}{\sqrt{2}}\sum_{x\in \{0,1\}} (-1)^{a\cdot x}|x\rangle.
+\]</div>
+<p>For two qubits, applying a Hadamard to each performs the following transformations:</p>
+<div class="math notranslate nohighlight">
+\[
+H^{\otimes 2}|00\rangle = \tfrac{1}{2}(|00\rangle + |01\rangle + |10\rangle + |11\rangle)
+$$ \]</div>
+<p>H^{\otimes 2}|01\rangle = \tfrac{1}{2}(|00\rangle - |01\rangle + |10\rangle - |11\rangle)
+$<span class="math notranslate nohighlight">\( \)</span><span class="math notranslate nohighlight">\(
+H^{\otimes 2}|10\rangle = \tfrac{1}{2}(|00\rangle + |01\rangle - |10\rangle - |11\rangle)
+\)</span><span class="math notranslate nohighlight">\( \)</span><span class="math notranslate nohighlight">\(
+H^{\otimes 2}|11\rangle = \tfrac{1}{2}(|00\rangle - |01\rangle - |10\rangle + |11\rangle)
+\)</span>$</p>
+<p>We can express this using the summation below:</p>
+<div class="math notranslate nohighlight">
+\[
+H^{\otimes 2}|a\rangle = \frac{1}{2}\sum_{x\in \{0,1\}^2} (-1)^{a\cdot x}|x\rangle
+\]</div>
+<p>You will hopefully now see how we arrive at the equation above.</p>
+</details>
+</div>
+<div class="section" id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
+<p>What are the results of the following binary dot products?</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( 01 \cdot 10 = ?\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( 100 \cdot 010 = ?\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( 000 \cdot 101 = ?\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( 111 \cdot 011 = ?\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( 10101 \cdot 01110 = ? \)</span></p></li>
+</ul>
+</div>
+<div class="section" id="answer">
+<h3>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h3>
+<p>?</p>
+</div>
+<div class="section" id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
+<p>Using the formula above, explicitly write down the result of applying <span class="math notranslate nohighlight">\(H^{\otimes n}\)</span> to the following states:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(| a \rangle = H| 0 \rangle \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(| b \rangle = H^{\otimes 2}| 01 \rangle \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(| c \rangle = H^{\otimes 3}|101 \rangle \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(| d \rangle = H^{\otimes 3}|111 \rangle \)</span></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>?</p>
+</div>
+<div class="section" id="why-does-this-work-a-id-why-does-this-work-a">
+<h3>1.4 Why Does This Work? <a id='why-does-this-work'> </a><a class="headerlink" href="#why-does-this-work-a-id-why-does-this-work-a" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Constant Oracle</strong></p></li>
+</ul>
+<p>When the oracle is <em>constant</em>, it has no effect (up to a global phase) on the input qubits, and the quantum states before and after querying the oracle are the same. Since the H-gate is its own inverse, in Step 4 we reverse Step 2 to obtain the initial quantum state of <span class="math notranslate nohighlight">\(|00\dots 0\rangle\)</span> in the first register.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H^{\otimes n}\begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix} 
+= 
+\tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}
+\quad \xrightarrow{\text{after } U_f} \quad
+H^{\otimes n}\tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}
+= 
+\begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix} 
+\end{split}\]</div>
+<ul class="simple">
+<li><p><strong>Balanced Oracle</strong></p></li>
+</ul>
+<p>After step 2, our input register is an equal superposition of all the states in the computational basis. When the oracle is <em>balanced</em>, phase kickback adds a negative phase to exactly half these states:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} 
+= 
+\tfrac{1}{\sqrt{2^n}}\begin{bmatrix} -1 \\ 1 \\ -1 \\ \vdots \\ 1 \end{bmatrix}
+\end{split}\]</div>
+<p>The quantum state after querying the oracle is orthogonal to the quantum state before querying the oracle. Thus, in Step 4, when applying the H-gates, we must end up with a quantum state that is orthogonal to <span class="math notranslate nohighlight">\(|00\dots 0\rangle\)</span>. This means we should never measure the all-zero state.</p>
+</div>
+</div>
+<div class="section" id="worked-example-a-id-example-a">
+<h2>2. Worked Example  <a id='example'></a><a class="headerlink" href="#worked-example-a-id-example-a" title="Permalink to this headline">¶</a></h2>
+<p>Let’s go through a specific example for a two bit balanced function:</p>
+<ol>
+    <li> The first register of two qubits is initialized to $|00\rangle$ and the second register qubit to $|1\rangle$ 
+<p>(Note that we are using subscripts 1, 2, and 3 to index the qubits. A subscript of “12” indicates the state of the register containing qubits 1 and 2)</p>
+<div class="math notranslate nohighlight">
+\[\lvert \psi_0 \rangle = \lvert 0 0 \rangle_{12} \otimes \lvert 1 \rangle_{3} \]</div>
+   </li>
+   <li> Apply Hadamard on all qubits
+<div class="math notranslate nohighlight">
+\[\lvert \psi_1 \rangle = \frac{1}{2} \left( \lvert 0 0 \rangle + \lvert 0 1 \rangle + \lvert 1 0 \rangle + \lvert 1 1 \rangle \right)_{12} \otimes \frac{1}{\sqrt{2}} \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3}  \]</div>
+   </li>
+   <li> The oracle function can be implemented as $\text{Q}_f = CX_{13}CX_{23}$, 
+       $$
+       \begin{align*}
+            \lvert \psi_2 \rangle =  \frac{1}{2\sqrt{2}} \left[ \lvert 0 0 \rangle_{12} \otimes \left( \lvert 0 \oplus 0 \oplus 0 \rangle - \lvert 1 \oplus 0 \oplus 0 \rangle \right)_{3} \\
+                  + \lvert 0 1 \rangle_{12} \otimes \left( \lvert 0 \oplus 0 \oplus 1 \rangle - \lvert 1 \oplus 0 \oplus 1 \rangle \right)_{3} \\
+                  + \lvert 1 0 \rangle_{12} \otimes \left( \lvert 0 \oplus 1 \oplus 0 \rangle - \lvert 1 \oplus 1 \oplus 0 \rangle \right)_{3} \\
+                  + \lvert 1 1 \rangle_{12} \otimes \left( \lvert 0 \oplus 1 \oplus 1 \rangle - \lvert 1 \oplus 1 \oplus 1 \rangle \right)_{3} \right]
+        \end{align*}
+        $$
+   </li>
+   <li>Simplifying this, we get the following: 
+       $$
+       \begin{aligned}
+        \lvert \psi_2 \rangle & = \frac{1}{2\sqrt{2}} \left[ \lvert 0 0 \rangle_{12} \otimes \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3} - \lvert 0 1 \rangle_{12} \otimes \left( \lvert 0 \rangle - \lvert  1 \rangle \right)_{3} - \lvert 1 0 \rangle_{12} \otimes \left( \lvert 0  \rangle - \lvert 1 \rangle \right)_{3} + \lvert 1 1 \rangle_{12} \otimes \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3}  \right] \\
+        & = \frac{1}{2} \left( \lvert 0 0 \rangle - \lvert 0 1 \rangle - \lvert 1 0 \rangle + \lvert 1 1 \rangle \right)_{12} \otimes \frac{1}{\sqrt{2}} \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3} \\
+        & = \frac{1}{\sqrt{2}} \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{1} \otimes \frac{1}{\sqrt{2}} \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{2} \otimes \frac{1}{\sqrt{2}} \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3}
+        \end{aligned}
+        $$
+   </li>
+   <li> Apply Hadamard on the first register
+<div class="math notranslate nohighlight">
+\[ \lvert \psi_3\rangle = \lvert 1 \rangle_{1} \otimes \lvert 1 \rangle_{2} \otimes \left( \lvert 0 \rangle - \lvert 1 \rangle \right)_{3} \]</div>
+   </li>
+   <li> Measuring the first two qubits will give the non-zero $11$, indicating a balanced function.
+   </li>
+</ol>
+<p>You can try out similar examples using the widget below. Press the buttons to add H-gates and oracles, re-run the cell and/or set <code class="docutils literal notranslate"><span class="pre">case=&quot;constant&quot;</span></code> to try out different oracles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">dj_widget</span>
+<span class="n">dj_widget</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mf">4e855</span><span class="n">ca33732</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">dj_widget</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">dj_widget</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit_textbook&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-quantum-oracles-a-id-creating-quantum-oracles-a">
+<h2>3. Creating Quantum Oracles <a id='creating-quantum-oracles'> </a><a class="headerlink" href="#creating-quantum-oracles-a-id-creating-quantum-oracles-a" title="Permalink to this headline">¶</a></h2>
+<p>Let’s see some different ways we can create a quantum oracle.</p>
+<p>For a constant function, it is simple:</p>
+<p><span class="math notranslate nohighlight">\(\qquad\)</span> 1. if f(x) = 0, then apply the <span class="math notranslate nohighlight">\(I\)</span> gate to the qubit in register 2.<br />
+<span class="math notranslate nohighlight">\(\qquad\)</span> 2. if f(x) = 1, then apply the <span class="math notranslate nohighlight">\(X\)</span> gate to the qubit in register 2.</p>
+<p>For a balanced function, there are many different circuits we can create. One of the ways we can guarantee our circuit is balanced is by performing a CNOT for each qubit in register 1, with the qubit in register 2 as the target. For example:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
+<p>In the image above, the top three qubits form the input register, and the bottom qubit is the output register. We can see which input states give which output in the table below:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
+<th class="text-align:center head"><p>Input States that output 1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>000</p></td>
+<td class="text-align:center"><p>001</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>011</p></td>
+<td class="text-align:center"><p>100</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>101</p></td>
+<td class="text-align:center"><p>010</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>110</p></td>
+<td class="text-align:center"><p>111</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can change the results while keeping them balanced by wrapping selected controls in X-gates. For example, see the circuit and its results table below:</p>
+<p><img alt="image-2.png" src="PHYS343/hands-ons/hands-on-6/attachment:image-2.png" /></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
+<th class="text-align:center head"><p>Input states that output 1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>001</p></td>
+<td class="text-align:center"><p>000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>010</p></td>
+<td class="text-align:center"><p>011</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>100</p></td>
+<td class="text-align:center"><p>101</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>111</p></td>
+<td class="text-align:center"><p>110</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say our oracle function is described as follows:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
+<th class="text-align:center head"><p>Input states that output 1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>000</p></td>
+<td class="text-align:center"><p>001</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>011</p></td>
+<td class="text-align:center"><p>010</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>101</p></td>
+<td class="text-align:center"><p>100</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>110</p></td>
+<td class="text-align:center"><p>111</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Design and draw the circuit.</p></li>
+<li><p>Print the unitary transformation</p></li>
+</ul>
+<p>Don’t forget about the little-endian representation!</p>
+</div>
+<div class="section" id="id2">
+<h3>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>?</p>
+</div>
+</div>
+<div class="section" id="qiskit-implementation-a-id-implementation-a">
+<h2>4. Qiskit Implementation <a id='implementation'></a><a class="headerlink" href="#qiskit-implementation-a-id-implementation-a" title="Permalink to this headline">¶</a></h2>
+<p>We now implement the Deutsch-Jozsa algorithm for the example of a three-bit function, with both constant and balanced oracles. First let’s do our imports:</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialization</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># importing Qiskit</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">IBMQ</span><span class="p">,</span> <span class="n">Aer</span>
+<span class="kn">from</span> <span class="nn">qiskit.providers.ibmq</span> <span class="kn">import</span> <span class="n">least_busy</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">assemble</span><span class="p">,</span> <span class="n">transpile</span>
+
+<span class="c1"># import basic plot tools</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we set the size of the input register for our oracle:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the length of the n-bit input string. </span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="constant-oracle-a-id-const-oracle-a">
+<h3>4.1 Constant Oracle <a id='const_oracle'></a><a class="headerlink" href="#constant-oracle-a-id-const-oracle-a" title="Permalink to this headline">¶</a></h3>
+<p>Let’s start by creating a constant oracle, in this case the input has no effect on the ouput so we just randomly set the output qubit to be 0 or 1:</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the length of the n-bit input string. </span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">const_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">const_oracle</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">const_oracle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_25_0.png" src="../../../_images/lab6-book_25_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h3>
+<p>Which of the following gates can we use to implement a constant function? Explain your reasoning qualitatively.</p>
+<ul class="simple">
+<li><p>H</p></li>
+<li><p>Z</p></li>
+<li><p>Y</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>?</p>
+</div>
+<div class="section" id="balanced-oracle-a-id-balanced-oracle-a">
+<h3>4.2 Balanced Oracle <a id='balanced_oracle'></a><a class="headerlink" href="#balanced-oracle-a-id-balanced-oracle-a" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we create a balanced oracle. As we saw in section 1b, we can create a balanced oracle by performing CNOTs with each input qubit as a control and the output bit as the target. We can vary the input states that give 0 or 1 by wrapping some of the controls in X-gates. Let’s first choose a binary string of length <code class="docutils literal notranslate"><span class="pre">n</span></code> that dictates which controls to wrap:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b_str</span> <span class="o">=</span> <span class="s2">&quot;101&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have this string, we can use it as a key to place our X-gates. For each qubit in our circuit, we place an X-gate if the corresponding digit in <code class="docutils literal notranslate"><span class="pre">b_str</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, or do nothing if the digit is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b_str</span> <span class="o">=</span> <span class="s2">&quot;101&quot;</span>
+
+<span class="c1"># Place X-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_33_0.png" src="../../../_images/lab6-book_33_0.png" />
+</div>
+</div>
+<p>Next, we do our controlled-NOT gates, using each input qubit as a control, and the output qubit as a target:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b_str</span> <span class="o">=</span> <span class="s2">&quot;101&quot;</span>
+
+<span class="c1"># Place X-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Use barrier as divider</span>
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Controlled-NOT gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qubit</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_35_0.png" src="../../../_images/lab6-book_35_0.png" />
+</div>
+</div>
+<p>Finally, we repeat the code from two cells up to finish wrapping the controls in X-gates:</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b_str</span> <span class="o">=</span> <span class="s2">&quot;101&quot;</span>
+
+<span class="c1"># Place X-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Use barrier as divider</span>
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Controlled-NOT gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qubit</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Place X-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">balanced_oracle</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Show oracle</span>
+<span class="n">balanced_oracle</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_37_0.png" src="../../../_images/lab6-book_37_0.png" />
+</div>
+</div>
+<p>We have just created a balanced oracle! All that’s left to do is see if the Deutsch-Joza algorithm can solve it.</p>
+</div>
+<div class="section" id="the-full-algorithm-a-id-full-alg-a">
+<h3>4.3 The Full Algorithm <a id='full_alg'></a><a class="headerlink" href="#the-full-algorithm-a-id-full-alg-a" title="Permalink to this headline">¶</a></h3>
+<p>Let’s now put everything together. This first step in the algorithm is to initialise the input qubits in the state <span class="math notranslate nohighlight">\(|{+}\rangle\)</span> and the output qubit in the state <span class="math notranslate nohighlight">\(|{-}\rangle\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dj_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Apply H-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Put qubit in state |-&gt;</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_39_0.png" src="../../../_images/lab6-book_39_0.png" />
+</div>
+</div>
+<p>Next, let’s apply the oracle. Here we apply the <code class="docutils literal notranslate"><span class="pre">balanced_oracle</span></code> we created above:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dj_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Apply H-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Put qubit in state |-&gt;</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Add oracle</span>
+<span class="n">dj_circuit</span> <span class="o">+=</span> <span class="n">balanced_oracle</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-41-0228702ca776&gt;:12: DeprecationWarning: The QuantumCircuit.__iadd__() method is being deprecated. Use the compose() (potentially with the inplace=True argument) and tensor() methods which are more flexible w.r.t circuit register compatibility.
+  dj_circuit += balanced_oracle
+/opt/conda/lib/python3.8/site-packages/qiskit/circuit/quantumcircuit.py:876: DeprecationWarning: The QuantumCircuit.extend() method is being deprecated. Use the compose() (potentially with the inplace=True argument) and tensor() methods which are more flexible w.r.t circuit register compatibility.
+  return self.extend(rhs)
+</pre></div>
+</div>
+<img alt="../../../_images/lab6-book_41_1.png" src="../../../_images/lab6-book_41_1.png" />
+</div>
+</div>
+<p>Finally, we perform H-gates on the <span class="math notranslate nohighlight">\(n\)</span>-input qubits, and measure our input register:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dj_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Apply H-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+<span class="c1"># Put qubit in state |-&gt;</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Add oracle</span>
+<span class="n">dj_circuit</span> <span class="o">+=</span> <span class="n">balanced_oracle</span>
+
+<span class="c1"># Repeat H-gates</span>
+<span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Measure</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Display circuit</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_43_0.png" src="../../../_images/lab6-book_43_0.png" />
+</div>
+</div>
+<p>Let’s see the output:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use local simulator</span>
+<span class="n">qasm_sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+<span class="n">shots</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">dj_circuit</span><span class="p">,</span> <span class="n">qasm_sim</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">qasm_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_45_0.png" src="../../../_images/lab6-book_45_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h3>
+<p>Above, we didn’t measure the 3rd qubit. Design the same circuit as above, but measure the 3rd qubit too and plot the counts you have obtained, just like above. Afterwards, answer the following questions?</p>
+<ul class="simple">
+<li><p>Did you get 1111 or 0111 or both ? ( Hint: you should get both )</p></li>
+<li><p>If you got both of them, why do you think this happened?</p></li>
+<li><p>If you got both of them, what can you add to the above circuit so that you always get the same result?</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>?</p>
+<p>We can see from the results above that we have a 0% chance of measuring <code class="docutils literal notranslate"><span class="pre">000</span></code>. This correctly predicts the function is balanced.</p>
+</div>
+<div class="section" id="generalised-circuits-a-id-general-circs-a">
+<h3>4.4 Generalised Circuits <a id='general_circs'></a><a class="headerlink" href="#generalised-circuits-a-id-general-circs-a" title="Permalink to this headline">¶</a></h3>
+<p>Below, we provide a generalised function that creates Deutsch-Joza oracles and turns them into quantum gates. It takes the <code class="docutils literal notranslate"><span class="pre">case</span></code>, (either <code class="docutils literal notranslate"><span class="pre">'balanced'</span></code> or ‘<code class="docutils literal notranslate"><span class="pre">constant</span></code>’, and <code class="docutils literal notranslate"><span class="pre">n</span></code>, the size of the input register:</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dj_oracle</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># We need to make a QuantumCircuit object to return</span>
+    <span class="c1"># This circuit has n+1 qubits: the size of the input,</span>
+    <span class="c1"># plus one output qubit</span>
+    <span class="n">oracle_qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># First, let&#39;s deal with the case in which oracle is balanced</span>
+    <span class="k">if</span> <span class="n">case</span> <span class="o">==</span> <span class="s2">&quot;balanced&quot;</span><span class="p">:</span>
+        <span class="c1"># First generate a random number that tells us which CNOTs to</span>
+        <span class="c1"># wrap in X-gates:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
+        <span class="c1"># Next, format &#39;b&#39; as a binary string of length &#39;n&#39;, padded with zeros:</span>
+        <span class="n">b_str</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+        <span class="c1"># Next, we place the first X-gates. Each digit in our binary string </span>
+        <span class="c1"># corresponds to a qubit, if the digit is 0, we do nothing, if it&#39;s 1</span>
+        <span class="c1"># we apply an X-gate to that qubit:</span>
+        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">oracle_qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+        <span class="c1"># Do the controlled-NOT gates for each qubit, using the output qubit </span>
+        <span class="c1"># as the target:</span>
+        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">oracle_qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">qubit</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="c1"># Next, place the final X-gates</span>
+        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b_str</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">b_str</span><span class="p">[</span><span class="n">qubit</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">oracle_qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+
+    <span class="c1"># Case in which oracle is constant</span>
+    <span class="k">if</span> <span class="n">case</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+        <span class="c1"># First decide what the fixed output of the oracle will be</span>
+        <span class="c1"># (either always 0 or always 1)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">oracle_qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="n">oracle_gate</span> <span class="o">=</span> <span class="n">oracle_qc</span><span class="o">.</span><span class="n">to_gate</span><span class="p">()</span>
+    <span class="n">oracle_gate</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Oracle&quot;</span> <span class="c1"># To show when we display the circuit</span>
+    <span class="k">return</span> <span class="n">oracle_gate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s also create a function that takes this oracle gate and performs the Deutsch-Joza algorithm on it:</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dj_algorithm</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">dj_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="c1"># Set up the output qubit:</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1"># And set up the input register:</span>
+    <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+    <span class="c1"># Let&#39;s append the oracle gate to our circuit:</span>
+    <span class="n">dj_circuit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># Finally, perform the H-gates again and measure:</span>
+    <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">dj_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">dj_circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">dj_circuit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, let’s use these functions to play around with the algorithm:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">oracle_gate</span> <span class="o">=</span> <span class="n">dj_oracle</span><span class="p">(</span><span class="s1">&#39;balanced&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span> <span class="o">=</span> <span class="n">dj_algorithm</span><span class="p">(</span><span class="n">oracle_gate</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">dj_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_53_0.png" src="../../../_images/lab6-book_53_0.png" />
+</div>
+</div>
+<p>And see the results of running this circuit:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transpiled_dj_circuit</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">dj_circuit</span><span class="p">,</span> <span class="n">qasm_sim</span><span class="p">)</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">transpiled_dj_circuit</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">qasm_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_55_0.png" src="../../../_images/lab6-book_55_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="experiment-with-real-devices-a-id-device-a">
+<h2>5. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#experiment-with-real-devices-a-id-device-a" title="Permalink to this headline">¶</a></h2>
+<p>We can run the circuit on the real device as shown below. We first look for the least-busy device that can handle our circuit.</p>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load our saved IBMQ accounts and get the least busy backend device with greater than or equal to (n+1) qubits</span>
+<span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+<span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">get_provider</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="s1">&#39;ibm-q&#39;</span><span class="p">)</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">least_busy</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">backends</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">n_qubits</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span>
+                                   <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">simulator</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">operational</span><span class="o">==</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;least busy backend: &quot;</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ibmqfactory.load_account:WARNING:2021-05-17 14:44:37,503: Credentials are already in use. The existing account in the session will be replaced.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>least busy backend:  ibmq_lima
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run our circuit on the least busy backend. Monitor the execution of the job in the queue</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.monitor</span> <span class="kn">import</span> <span class="n">job_monitor</span>
+
+<span class="n">shots</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">transpiled_dj_circuit</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">dj_circuit</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">optimization_level</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">transpiled_dj_circuit</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span>
+<span class="n">job_monitor</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-49-6333f3a2f42b&gt;:7: DeprecationWarning: Passing a Qobj to Backend.run is deprecated and will be removed in a future release. Please pass in circuits or pulse schedules instead.
+  job = backend.run(qobj)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Job Status: job has successfully run
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the results of the computation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_59_0.png" src="../../../_images/lab6-book_59_0.png" />
+</div>
+</div>
+<p>As we can see, the most likely result is <code class="docutils literal notranslate"><span class="pre">1111</span></code>. The other results are due to errors in the quantum computation.</p>
+</div>
+<div class="section" id="references-a-id-references-a">
+<h2>7. References <a id='references'></a><a class="headerlink" href="#references-a-id-references-a" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>David Deutsch and Richard Jozsa (1992). “Rapid solutions of problems by quantum computation”. Proceedings of the Royal Society of London A. 439: 553–558.  <a class="reference external" href="https://doi.org/10.1098%2Frspa.1992.0167">doi:10.1098/rspa.1992.0167</a>.</p></li>
+<li><p>R. Cleve; A. Ekert; C. Macchiavello; M. Mosca (1998). “Quantum algorithms revisited”. Proceedings of the Royal Society of London A. 454: 339–354. <a class="reference external" href="https://doi.org/10.1098%2Frspa.1998.0164">doi:10.1098/rspa.1998.0164</a>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__qiskit_version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;qiskit-terra&#39;: &#39;0.16.1&#39;,
+ &#39;qiskit-aer&#39;: &#39;0.7.2&#39;,
+ &#39;qiskit-ignis&#39;: &#39;0.5.1&#39;,
+ &#39;qiskit-ibmq-provider&#39;: &#39;0.11.1&#39;,
+ &#39;qiskit-aqua&#39;: &#39;0.8.1&#39;,
+ &#39;qiskit&#39;: &#39;0.23.2&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this section, we first introduce the Bernstein-Vazirani problem, its classical solution, and the quantum algorithm to solve it. We then implement the quantum algorithm using Qiskit and run it on both a simulator and a device.</p>
+</div>
+<div class="section" id="id5">
+<h2>Contents<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="#algorithm">The Bernstein-Vazirani Algorithm</a><br />
+1.1 <a class="reference external" href="#bvproblem">Bernstein-Vazirani Problem</a><br />
+1.2 <a class="reference external" href="#bclassical-solution">The Classical Solution</a><br />
+1.3 <a class="reference external" href="#quantum-solution">The Quantum Solution</a></p></li>
+<li><p><a class="reference external" href="#example">Example</a></p></li>
+<li><p><a class="reference external" href="#implementation">Qiskit Implementation</a><br />
+3.1 <a class="reference external" href="#simulation">Simulation</a><br />
+3.2 <a class="reference external" href="#device">Device</a></p></li>
+<li><p><a class="reference external" href="#problems">Problems</a></p></li>
+<li><p><a class="reference external" href="#references">References</a></p></li>
+</ol>
+</div>
+<div class="section" id="the-bernstein-vazirani-algorithm-a-id-algorithm-a">
+<h2>1. The Bernstein-Vazirani Algorithm<a id='algorithm'></a><a class="headerlink" href="#the-bernstein-vazirani-algorithm-a-id-algorithm-a" title="Permalink to this headline">¶</a></h2>
+<p>The Bernstein-Vazirani algorithm, first introduced in Reference [1], can be seen as an extension of the Deutsch-Josza algorithm we covered in the last section. It showed that there can be advantages in using a quantum computer as a computational tool for more complex problems than the Deutsch-Josza problem.</p>
+<div class="section" id="the-bernstein-vazirani-problem-a-id-bvproblem-a">
+<h3>1.1 The Bernstein-Vazirani Problem <a id='bvproblem'> </a><a class="headerlink" href="#the-bernstein-vazirani-problem-a-id-bvproblem-a" title="Permalink to this headline">¶</a></h3>
+<p>We are again given a black-box function <span class="math notranslate nohighlight">\(f\)</span>, which takes as input a string of bits (<span class="math notranslate nohighlight">\(x\)</span>), and returns either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, that is:
+$<span class="math notranslate nohighlight">\(f(\{x_0,x_1,x_2,...\}) \rightarrow 0 \textrm{ or } 1 \textrm{ where } x_n \textrm{ is }0 \textrm{ or } 1  \)</span>$</p>
+<p>Instead of the function being balanced or constant as in the Deutsch-Josza problem, now the function is guaranteed to return the bitwise product of the input with some string, <span class="math notranslate nohighlight">\(s\)</span>. In other words, given an input <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(f(x) = s \cdot x \, \text{(mod 2)}\)</span>. We are expected to find <span class="math notranslate nohighlight">\(s\)</span>. As a classical reversible circuit, the Bernstein-Vazirani oracle looks like this:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
+</div>
+<div class="section" id="id6">
+<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Classically, the oracle returns:
+$<span class="math notranslate nohighlight">\(f_s(x) = s \cdot x \mod 2\)</span><span class="math notranslate nohighlight">\( 
+given an input \)</span>x<span class="math notranslate nohighlight">\(. Thus, the hidden bit string \)</span>s$ can be revealed by querying the oracle with the sequence of inputs:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Input(x)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>100…0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>010…0</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>001…0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>000…1</p></td>
+</tr>
+</tbody>
+</table>
+<p>Where each query reveals a different bit of <span class="math notranslate nohighlight">\(s\)</span> (the bit <span class="math notranslate nohighlight">\(s_i\)</span>). For example, with <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1000...0</span></code> one can obtain the least significant bit of <span class="math notranslate nohighlight">\(s\)</span>, with <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">0100...0</span></code> we can find the next least significant, and so on. This means we would need to call the function <span class="math notranslate nohighlight">\(f_s(x)\)</span>, <span class="math notranslate nohighlight">\(n\)</span> times.</p>
+</div>
+<div class="section" id="the-quantum-solution-a-id-quantum-solution-a">
+<h3>1.3 The Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#the-quantum-solution-a-id-quantum-solution-a" title="Permalink to this headline">¶</a></h3>
+<p>Using a quantum computer, we can solve this problem with 100% confidence after only one call to the function <span class="math notranslate nohighlight">\(f(x)\)</span>. The quantum Bernstein-Vazirani algorithm to find the hidden bit string is very simple:</p>
+<ol class="simple">
+<li><p>Initialise the inputs qubits to the <span class="math notranslate nohighlight">\(|0\rangle^{\otimes n}\)</span> state, and output qubit to <span class="math notranslate nohighlight">\(|{-}\rangle\)</span>.</p></li>
+<li><p>Apply Hadamard gates to the input register</p></li>
+<li><p>Query the oracle</p></li>
+<li><p>Apply Hadamard gates to the input register</p></li>
+<li><p>Measure</p></li>
+</ol>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
+<p>To explain the algorithm, let’s look more closely at what happens when we apply a H-gate to each qubit. If we have an <span class="math notranslate nohighlight">\(n\)</span>-qubit state, <span class="math notranslate nohighlight">\(|a\rangle\)</span>, and apply the H-gates, we will see the transformation:</p>
+<div class="math notranslate nohighlight">
+\[
+|a\rangle \xrightarrow{H^{\otimes n}} \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} (-1)^{a\cdot x}|x\rangle.
+\]</div>
+<p>In particular, when we start with a quantum register <span class="math notranslate nohighlight">\(|00\dots 0\rangle\)</span> and apply <span class="math notranslate nohighlight">\(n\)</span> Hadamard gates to it, we have the familiar quantum superposition:</p>
+<div class="math notranslate nohighlight">
+\[
+|00\dots 0\rangle \xrightarrow{H^{\otimes n}} \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} |x\rangle
+\]</div>
+<p>In this case, the phase term <span class="math notranslate nohighlight">\((-1)^{a\cdot x}\)</span> disappears, since <span class="math notranslate nohighlight">\(a=0\)</span>, and thus <span class="math notranslate nohighlight">\((-1)^{a\cdot x} = 1\)</span>.</p>
+<p>The classical oracle <span class="math notranslate nohighlight">\(f_s\)</span> returns <span class="math notranslate nohighlight">\(1\)</span> for any input <span class="math notranslate nohighlight">\(x\)</span> such that <span class="math notranslate nohighlight">\(s \cdot x\mod 2 = 1\)</span>, and returns <span class="math notranslate nohighlight">\(0\)</span> otherwise. If we use the same phase kickback trick from the Deutsch-Joza algorithm and act on a qubit in the state <span class="math notranslate nohighlight">\(|{-}\rangle\)</span>, we get the following transformation:</p>
+<div class="math notranslate nohighlight">
+\[
+|x \rangle \xrightarrow{f_s} (-1)^{s\cdot x} |x \rangle 
+\]</div>
+<p>The algorithm to reveal the hidden bit string follows naturally by querying the quantum oracle <span class="math notranslate nohighlight">\(f_s\)</span> with the quantum superposition obtained from the Hadamard transformation of <span class="math notranslate nohighlight">\(|00\dots 0\rangle\)</span>. Namely,</p>
+<div class="math notranslate nohighlight">
+\[
+|00\dots 0\rangle \xrightarrow{H^{\otimes n}} \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} |x\rangle \xrightarrow{f_a} \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} (-1)^{a\cdot x}|x\rangle
+\]</div>
+<p>Because the inverse of the <span class="math notranslate nohighlight">\(n\)</span> Hadamard gates is again the <span class="math notranslate nohighlight">\(n\)</span> Hadamard gates, we can obtain <span class="math notranslate nohighlight">\(a\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} (-1)^{a\cdot x}|x\rangle \xrightarrow{H^{\otimes n}} |a\rangle
+\]</div>
+</div>
+</div>
+<div class="section" id="example-a-id-example-a">
+<h2>2. Example  <a id='example'></a><a class="headerlink" href="#example-a-id-example-a" title="Permalink to this headline">¶</a></h2>
+<p>Let’s go through a specific example for <span class="math notranslate nohighlight">\(n=2\)</span> qubits and a secret string <span class="math notranslate nohighlight">\(s=11\)</span>. Note that we are following the formulation in Reference [2] that generates a circuit for the Bernstein-Vazirani quantum oracle using only one register.</p>
+<ol>
+    <li> The register of two qubits is initialized to zero:
+<div class="math notranslate nohighlight">
+\[\lvert \psi_0 \rangle = \lvert 0 0 \rangle\]</div>
+   </li>
+   <li> Apply a Hadamard gate to both qubits:
+<div class="math notranslate nohighlight">
+\[\lvert \psi_1 \rangle = \frac{1}{2} \left( \lvert 0 0 \rangle + \lvert 0 1 \rangle + \lvert 1 0 \rangle + \lvert 1 1 \rangle \right) \]</div>
+   </li>
+   <li> For the string $s=11$, the quantum oracle performs the operation:
+$$
+|x \rangle \xrightarrow{f_s} (-1)^{x\cdot 11} |x \rangle. 
+$$
+<div class="math notranslate nohighlight">
+\[\lvert \psi_2 \rangle = \frac{1}{2} \left( (-1)^{00\cdot 11}|00\rangle + (-1)^{01\cdot 11}|01\rangle + (-1)^{10\cdot 11}|10\rangle + (-1)^{11\cdot 11}|11\rangle \right)\]</div>
+<div class="math notranslate nohighlight">
+\[\lvert \psi_2 \rangle = \frac{1}{2} \left( \lvert 0 0 \rangle - \lvert 0 1 \rangle - \lvert 1 0 \rangle + \lvert 1 1 \rangle \right)\]</div>
+   </li>
+   <li> Apply a Hadamard gate to both qubits:
+<div class="math notranslate nohighlight">
+\[\lvert \psi_3 \rangle = \lvert 1 1 \rangle\]</div>
+   </li>
+   <li> Measure to find the secret string $s=11$
+   </li>
+</ol>
+<p>Use the widget <code class="docutils literal notranslate"><span class="pre">bv_widget</span></code> below. Press the buttons to apply the different steps, and try to follow the algorithm through. You can change the number of input qubits and the value of the secret string through the first two positional arguments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">bv_widget</span>
+<span class="n">bv_widget</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;11&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "9fd7104582f04ceb93f1a0137d1c5511", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2611176ac64244a198f4d6791fcaeae4", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "6d9df333faa24381a7d2e2dc5e67af7a", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>3. Qiskit Implementation  <a id='implementation'></a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>We’ll now walk through the Bernstein-Vazirani algorithm implementation in Qiskit for a three bit function with <span class="math notranslate nohighlight">\(s=011\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialization</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># importing Qiskit</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">IBMQ</span><span class="p">,</span> <span class="n">Aer</span>
+<span class="kn">from</span> <span class="nn">qiskit.providers.ibmq</span> <span class="kn">import</span> <span class="n">least_busy</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">transpile</span><span class="p">,</span> <span class="n">assemble</span>
+
+<span class="c1"># import basic plot tools</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We first set the number of qubits used in the experiment, and the hidden bit string <span class="math notranslate nohighlight">\(s\)</span> to be found by the algorithm. The hidden bit string <span class="math notranslate nohighlight">\(s\)</span> determines the circuit for the quantum oracle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># number of qubits used to represent s</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;011&#39;</span>   <span class="c1"># the hidden binary string</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then use Qiskit to program the Bernstein-Vazirani algorithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We need a circuit with n qubits, plus one auxiliary qubit</span>
+<span class="c1"># Also need n classical bits to write the output to</span>
+<span class="n">bv_circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># put auxiliary in state |-&gt;</span>
+<span class="n">bv_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">bv_circuit</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Apply Hadamard gates before querying the oracle</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">bv_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="c1"># Apply barrier </span>
+<span class="n">bv_circuit</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Apply the inner-product oracle</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># reverse s to fit qiskit&#39;s qubit ordering</span>
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">q</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+        <span class="n">bv_circuit</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bv_circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        
+<span class="c1"># Apply barrier </span>
+<span class="n">bv_circuit</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1">#Apply Hadamard gates after querying the oracle</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">bv_circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Measurement</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">bv_circuit</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="n">bv_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_74_0.png" src="../../../_images/lab6-book_74_0.png" />
+</div>
+</div>
+<div class="section" id="a-experiment-with-simulators-a-id-simulation-a">
+<h3>3a. Experiment with Simulators  <a id='simulation'></a><a class="headerlink" href="#a-experiment-with-simulators-a-id-simulation-a" title="Permalink to this headline">¶</a></h3>
+<p>We can run the above circuit on the simulator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># use local simulator</span>
+<span class="n">qasm_sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+<span class="n">shots</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">bv_circuit</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">qasm_sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab6-book_76_0.png" src="../../../_images/lab6-book_76_0.png" />
+</div>
+</div>
+<p>We can see that the result of the measurement is the hidden string <code class="docutils literal notranslate"><span class="pre">011</span></code>.</p>
+</div>
+<div class="section" id="b-experiment-with-real-devices-a-id-device-a">
+<h3>3b. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#b-experiment-with-real-devices-a-id-device-a" title="Permalink to this headline">¶</a></h3>
+<p>We can run the circuit on the real device as below.</p>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load our saved IBMQ accounts and get the least busy backend device with less than or equal to 5 qubits</span>
+<span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+<span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">get_provider</span><span class="p">(</span><span class="n">hub</span><span class="o">=</span><span class="s1">&#39;ibm-q&#39;</span><span class="p">)</span>
+<span class="n">provider</span><span class="o">.</span><span class="n">backends</span><span class="p">()</span>
+<span class="n">backend</span> <span class="o">=</span> <span class="n">least_busy</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">backends</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">n_qubits</span> <span class="o">&lt;=</span> <span class="mi">5</span> <span class="ow">and</span>
+                                   <span class="n">x</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">n_qubits</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span>
+                                   <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">simulator</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">status</span><span class="p">()</span><span class="o">.</span><span class="n">operational</span><span class="o">==</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;least busy backend: &quot;</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ibmqfactory.load_account:WARNING:2021-05-17 14:59:29,839: Credentials are already in use. The existing account in the session will be replaced.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>least busy backend:  ibmq_lima
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run our circuit on the least busy backend. Monitor the execution of the job in the queue</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.monitor</span> <span class="kn">import</span> <span class="n">job_monitor</span>
+
+<span class="n">shots</span> <span class="o">=</span> <span class="mi">1024</span>
+<span class="n">transpiled_bv_circuit</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">bv_circuit</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">transpiled_bv_circuit</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">shots</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span>
+
+<span class="n">job_monitor</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-57-9acdbf0086b4&gt;:7: DeprecationWarning: Passing a Qobj to Backend.run is deprecated and will be removed in a future release. Please pass in circuits or pulse schedules instead.
+  job = backend.run(qobj)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Job Status: job is queued (11)    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the results from the computation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">answer</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, most of the results are <code class="docutils literal notranslate"><span class="pre">011</span></code>. The other results are due to errors in the quantum computation.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>5. References <a id='references'></a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Ethan Bernstein and Umesh Vazirani (1997) “Quantum Complexity Theory” SIAM Journal on Computing, Vol. 26, No. 5: 1411-1473, <a class="reference external" href="https://doi.org/10.1137/S0097539796300921">doi:10.1137/S0097539796300921</a>.</p></li>
+<li><p>Jiangfeng Du, Mingjun Shi, Jihui Wu, Xianyi Zhou, Yangmei Fan, BangJiao Ye, Rongdian Han (2001) “Implementation of a quantum algorithm to solve the Bernstein-Vazirani parity problem without entanglement on an ensemble quantum computer”, Phys. Rev. A 64, 042306, <a class="reference external" href="https://doi.org/10.1103/PhysRevA.64.042306">10.1103/PhysRevA.64.042306</a>, <a class="reference external" href="https://arxiv.org/abs/quant-ph/0012114">arXiv:quant-ph/0012114</a>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit</span>
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__qiskit_version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;qiskit-terra&#39;: &#39;0.16.1&#39;,
+ &#39;qiskit-aer&#39;: &#39;0.7.2&#39;,
+ &#39;qiskit-ignis&#39;: &#39;0.5.1&#39;,
+ &#39;qiskit-ibmq-provider&#39;: &#39;0.11.1&#39;,
+ &#39;qiskit-aqua&#39;: &#39;0.8.1&#39;,
+ &#39;qiskit&#39;: &#39;0.23.2&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/PHYS343/hands-ons/hands-on-6/lab6-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Tüysüz, Cenk; Yenilen, Berat; Malcıoğlu, O. Barış.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

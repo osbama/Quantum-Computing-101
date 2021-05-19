@@ -1,0 +1,445 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "079a7bf9",
+   "metadata": {},
+   "source": [
+    "# Learning Outcomes\n",
+    "- Some clarification about SWAP gate\n",
+    "- No-clonning theorem\n",
+    "- Density matrix formalism\n",
+    "- Partial trace\n",
+    "- Schmidt Decomposition"
+   ]
+  },
+  {
+   "attachments": {
+    "image.png": {
+     "image/png": "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cYZ7iK35kmdLNr1QdTNvkI1tWJ6SKwqRoeFRXBL7nHot89OFlNCCOCuhBTHRFn9H9PZ8UDyShFpQHMBfcpIGxaY0OBdYTkJkpV7eubt1DCW0oESU0IKYaEsIAhTUZP8Gn9DI5STpXY/CIaCEFsReCS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQgphoSwgCSmghoBS4SQktKAAltCAm2hKCgBJaCCgFblJCCwpACS2IibaEIKCEFgJKgZuU0IICUEILYqItIQgooYWAUuAmJbSgAJTQ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"
+    }
+   },
+   "cell_type": "markdown",
+   "id": "9d68782f",
+   "metadata": {},
+   "source": [
+    "# SWAP Gate\n",
+    "\n",
+    "As you may remember from our previous labs we had defined a SWAP gate which basically swaps the contents of two qubits. We also provided the following decomposition of the SWAP gate:\n",
+    "\n",
+    "![image.png](attachment:image.png)\n",
+    "\n",
+    "Now, after reading your homeworks I realized that some of you understood the action of this gate incompletely. When one of the qubits in state $|0\\rangle$ and the other one is in $|1\\rangle$, after applying the SWAP gate it is clear that their contents are exchanged. However, if they are both in arbitrary superposition states $|\\psi\\rangle = a_0 |0\\rangle + a_1 |1 \\rangle $ and $|\\phi \\rangle = b_0 |0\\rangle + b_1 |1 \\rangle$, this gate will also exchange these two states."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f5251174",
+   "metadata": {},
+   "source": [
+    "# Exercise 1\n",
+    "\n",
+    "Show that acting $CX_{0,1} CX_{1,0} CX_{0,1}$ to state $|\\psi\\rangle \\otimes |\\phi \\rangle$ produces $|\\phi\\rangle \\otimes |\\psi\\rangle$, where $|\\psi\\rangle = a_0 |0\\rangle + a_1 |1 \\rangle $ and $|\\phi \\rangle = b_0 |0\\rangle + b_1 |1 \\rangle$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c9afaa5a",
+   "metadata": {},
+   "source": [
+    "# Answer \n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "509d3411",
+   "metadata": {},
+   "source": [
+    "# No Clonning Theorem\n",
+    "\n",
+    "Given an arbitrary quantum state, which we don't know exactly, is it possible to copy it without disturbing the wave function? It should be clear to you that we can not perform any measurements on the quantum state since measuring it will cause wave function to collapse. \n",
+    "\n",
+    "$$ |\\psi \\rangle = a_0 |0 \\rangle + a_1 |1 \\rangle$$ \n",
+    "\n",
+    "That is, if we go and measure our qubit initialized to this arbitrary state, we will either get 0 or 1. We will not learn any thing about the unknown coefficients and we will have destroyed it.\n",
+    "\n",
+    "Let's try something different. Let's say we have a unitary transformation that does the following:\n",
+    "\n",
+    "$$ U |\\psi \\rangle |e \\rangle = |\\psi \\rangle |\\psi \\rangle $$\n",
+    "\n",
+    "It simply copies the content of the first qubit to the zeroth qubit, which is initialized to an empty state. That is, it doesn't matter what is in the zeroth qubit, it goes ahead and does this. Now for this operator to be realizable, it has to be unitary and all unitary operators are linear. So let's see if this operator works as intended.\n",
+    "\n",
+    "$$ U |0 \\rangle | e \\rangle = |0 \\rangle | e \\rangle $$\n",
+    "\n",
+    "$$ U |1 \\rangle | e \\rangle = |1 \\rangle | e \\rangle $$\n",
+    "\n",
+    "$$ U |\\psi\\rangle |e \\rangle = U(a_0 |0 \\rangle + a_1 | 1 \\rangle ) |e \\rangle ) = a_0 U|0\\rangle|e\\rangle + a_1U|1\\rangle |e\\rangle$$\n",
+    "\n",
+    "$$ U |\\psi \\rangle |e \\rangle = a_0 |0 \\rangle |0 \\rangle + a_1 |1 \\rangle |1 \\rangle \\neq |\\psi\\rangle |\\psi \\rangle $$\n",
+    "\n",
+    "So we reach a contraction. Which proves that such a machine can not exist! "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "34ab8afe",
+   "metadata": {},
+   "source": [
+    "# Exercise 2\n",
+    "\n",
+    "What is $|\\psi \\rangle |\\psi \\rangle$ for $|\\psi \\rangle = a_0 |0\\rangle + a_1 |1 \\rangle $?\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ea07e05e",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "abdaec3b",
+   "metadata": {},
+   "source": [
+    "# Exercise 3\n",
+    "\n",
+    "What do you think no-clonning theorem implies for quantum computers? If a universal quantum computer were to be built, do you think it would have a RAM ?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dedd94eb",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5f5ea5c1",
+   "metadata": {},
+   "source": [
+    "# Density Matrix Formalism\n",
+    "\n",
+    "Density matrix, or density operator, is an alternative way to describe a given quantum system. For some cases, though, it can be more useful than the state vector formalism. For example, let's say we are given an ensemble of quantum states. That is, our quantum system is in state $|\\psi_i\\rangle$ with probability $p_i$. Than we can define the following operator as the density matrix describing the system:\n",
+    "\n",
+    "$$ \\rho = \\sum_i p_i |\\psi_i \\rangle \\langle \\psi_i | $$\n",
+    "\n",
+    "These kind of states are called mixed states, and if $p_i = 1$ for some i, that is the density matrix is as follows:\n",
+    "\n",
+    "$$ \\rho = |\\psi_i \\rangle \\langle \\psi_i |$$\n",
+    "\n",
+    "it is called a pure state.\n",
+    "\n",
+    "Let's now show how we formulate postulates of quantum mechanics using the density matrix formalism. Let's say $U$ describes the time evolution of a ket. Then we know that time evolved version of $|\\psi_i\\rangle$ can be found easily:\n",
+    "\n",
+    "$$ | \\psi_i(t) \\rangle = U |\\psi_i \\rangle $$\n",
+    "\n",
+    "Now if $\\rho_0 = \\sum_i p_i |\\psi_i \\rangle \\langle \\psi_i | $ than the density matrix's time evolution can be found easily:\n",
+    "\n",
+    "$$ \\rho(t) = \\sum_i p_i |\\psi_i(t) \\rangle \\langle \\psi_i(t) | = \\sum_i p_i U |\\psi_i\\rangle\\langle\\psi_i|U^\\dagger = U \\rho U^\\dagger $$\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9ffb491f",
+   "metadata": {},
+   "source": [
+    "We can also write down the measurement operator in density matrix language easily. If you remember, given a measurement operator $M_m$ and a state $|\\psi_i\\rangle$, probability of measuring $m$ was:\n",
+    "\n",
+    "$$ p(m|i) = \\langle \\psi_i | M_m^\\dagger M_m | \\psi_i \\rangle = tr(M_m^\\dagger M_m |\\psi_i\\rangle\\langle\\psi_i|)$$\n",
+    "\n",
+    "So if we are given a measurement operator $M_m$ and a density matrix $\\rho$ we can write down the probability of measuring $m$ as:\n",
+    "\n",
+    "$$ p(m) = tr(M_m^\\dagger M_m \\rho ) $$\n",
+    "\n",
+    "Some nice properties of trace operation is:\n",
+    "\n",
+    "$$ tr(A |i\\rangle \\langle j|) = \\langle j | A |i \\rangle $$\n",
+    "\n",
+    "$$ tr(ABC) = tr(BCA) = tr(CAB) $$\n",
+    "\n",
+    "After performing a measurement $M_m$ on a state $|\\psi_i\\rangle$ the system collapses to the following state:\n",
+    "\n",
+    "$$ |\\psi_i^m \\rangle = \\frac{M_m |\\psi_i\\rangle} {\\sqrt{\\langle \\psi_i | M_m^\\dagger M_m | \\psi_i \\rangle} } $$\n",
+    "\n",
+    "In density matrix formalism, we have the following density matrix after the measurement:\n",
+    "\n",
+    "$$ \\rho_m = \\frac{ M_m \\rho M_m^\\dagger } {tr(M_m \\rho M_m^\\dagger )} $$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0b48a011",
+   "metadata": {},
+   "source": [
+    "Not much changes when you combine multiple quantum systems together. For example, let's say $|\\psi_0\\rangle$, and $|\\psi_1 \\rangle$ describes the state of two qubits. When we want to describe both qubit as a single system, we use the tensor product. So the state is described by $|\\psi_0 \\rangle \\otimes | \\psi_1 \\rangle $. Similar situation occurs for density matrices too! Given two density matrices $\\rho_0$ and $\\rho_1$, combined system is described by $\\rho_0 \\otimes \\rho_1 $."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "988bfde3",
+   "metadata": {},
+   "source": [
+    "# Exercise 4\n",
+    "\n",
+    "Let's say $\\rho = \\frac{1}{2} |0\\rangle \\langle 0 | + \\frac{1}{2} |1\\rangle \\langle 1 |$, $M_0 = |0\\rangle \\langle 0|$ and $M_1 = | 1 \\rangle \\langle 1 | $. Answer the following:\n",
+    "\n",
+    "- What is the probability that $M$ measurement yields 0? That is, $p(0) = tr(M_0^\\dagger M_0 \\rho)$.\n",
+    "- What will the density matrix be after the measurement yields 0?\n",
+    "- What is the probability that $M$ measurement yields 1? That is, $p(1) = tr(M_1^\\dagger M_1 \\rho)$.\n",
+    "- What will the density matrix be after the measurement yields 1?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "31546cd0",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "57184415",
+   "metadata": {},
+   "source": [
+    "# Properties of Density Operator\n",
+    "\n",
+    "Well, the density operator has trace equal to 1. This is quite easy to prove actually:\n",
+    "\n",
+    "$$ tr(\\rho) = tr( \\sum_i p_i | \\psi_i \\rangle \\langle \\psi_i | ) = \\sum_i p_i \\langle \\psi_i | \\psi_i \\rangle = \\sum_i p_i = 1 $$.\n",
+    "\n",
+    "$\\rho$ is a positive operator. This is also quite easy to prove, given an arbitary state $|x\\rangle$:\n",
+    "\n",
+    "$$ \\langle x | \\rho | x \\rangle = \\sum_i p_i \\langle x | \\psi_i \\rangle \\langle \\psi_i | x \\rangle = \\sum_i p_i |\\langle x | \\psi_i \\rangle |^2  \\geq 0 $$\n",
+    "\n",
+    "Actually, any matrix that has trace 1 and is positive can be considered as a density matrix. One neat thing about being a positive operator is that we can write it's spectral decomposition as follows:\n",
+    "\n",
+    "$$ \\rho = \\sum_j \\lambda_j |j \\rangle \\langle j | $$\n",
+    "\n",
+    "where $\\lambda_j$ are real, non-negative eigenvalues of $\\rho$ and $|j\\rangle$ are orthogonal to each other.\n",
+    "\n",
+    "One other thing that is quite important about density matrices is the fact that two different ensembles can give rise to the same density matrix.\n",
+    "\n",
+    "Finally, we can have a look at $tr(\\rho^2)$ to see if the system described by $\\rho$ is a mixed or a pure state. $tr(\\rho^2) = 1$ if and only if $\\rho$ describes a pure state."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5d550d40",
+   "metadata": {},
+   "source": [
+    "# Exercise 5\n",
+    "\n",
+    "Let $\\rho = \\frac{3}{4} | 0 \\rangle \\langle 0 | + \\frac{1}{4} |1 \\rangle \\langle 1 |$. Show that $\\rho' = \\frac{1}{2} |a \\rangle \\langle a + \\frac{1}{2} | b \\rangle \\langle b| $ is equal to $\\rho$ where:\n",
+    "\n",
+    "$$ |a \\rangle = \\sqrt{\\frac{3}{4} } |0 \\rangle + \\sqrt{\\frac{1}{4} } |1 \\rangle $$ \n",
+    "$$ |b \\rangle = \\sqrt{\\frac{3}{4} } |0 \\rangle - \\sqrt{\\frac{1}{4} } |1 \\rangle $$ \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d750f5e9",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6de19c2b",
+   "metadata": {},
+   "source": [
+    "# Exercise 6\n",
+    "\n",
+    "Let $\\rho_0 = \\frac{1}{2} | 0 \\rangle \\langle 0 | + \\frac{1}{2} |1 \\rangle \\langle 1 |$ and $\\rho_1 = \\frac{1}{2} | + \\rangle \\langle + | + \\frac{1}{2} |- \\rangle \\langle - |$. Is $\\rho_0$ equal to $\\rho_1$? What kind of a physical system does $\\rho_0$ describes if $|0\\rangle$ represent spin up along Z axis, $|1 \\rangle$ represents spin down along Z axis, $|+\\rangle$ represents spin up along X axis, and $|-\\rangle$ represents spin down along X axis?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6d7c6c9",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0907e810",
+   "metadata": {},
+   "source": [
+    "# Reduced Density Operator\n",
+    "\n",
+    "Let's say $\\rho^{AB}$ describes a composite quantum system AB. Then the reduced density operator for system A is defined by:\n",
+    "\n",
+    "$$ \\rho^A = tr_B(\\rho^{AB}) $$\n",
+    "\n",
+    "$$ tr_B( |a_1 \\rangle \\langle a_2 \\otimes | b_1 \\rangle \\langle b_2 | ) = |a_1 \\rangle \\langle a_2 | tr(|b_1\\rangle \\langle b_2 | ) $$\n",
+    "\n",
+    "It may look a bit confusing, but it is quite straigh forward actually. Let's say $\\rho$ describes the quantum system A, and $\\sigma$ describes the quantum system B. In order to describe the combined system we use $\\phi = \\rho \\otimes \\sigma$. Reduced density operator is just a way to go back from this combined system to the smaller system. So we can apply the reduced density operator definiton to $\\phi$ to go get the density matrix for A, let's say:\n",
+    "\n",
+    "$$ \\rho_A = tr_B( \\phi ) = tr_B ( \\rho \\otimes \\sigma) = \\rho tr(\\sigma) = \\rho $$.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "52390b88",
+   "metadata": {},
+   "source": [
+    "# Exercise 7\n",
+    "\n",
+    "Let's say we are given the following Bell state:\n",
+    "\n",
+    "$$ |\\psi \\rangle = \\frac{1}{\\sqrt{2}} | 00 \\rangle + \\frac{1}{\\sqrt{2}} | 11 \\rangle $$.\n",
+    "\n",
+    "- Write down the density matrix $\\rho$ describing the state. ( Hint: |psi><psi| )\n",
+    "- Calculate the reduced density matrix for the 1st qubit. Hint: page 106 of our bible \n",
+    "- Is the system described by the reduced density matrix you just calculated a mixed state or a pure state ? "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c0c97f72",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "af2c4420",
+   "metadata": {},
+   "source": [
+    "# Schmidt Decomposition\n",
+    "\n",
+    "Now, let's move on to something a little more interesting. Given a bipartite pure quantum state $|\\psi\\rangle$, how can we determine if it is entangled or not? One way we to do it would be to write it as tensor product of two states and if succesful we can say that it is a product state. \n",
+    "\n",
+    "$$ |\\psi \\rangle = \\frac{1}{\\sqrt{2}} ( |0 \\rangle | 0 \\rangle + |0 \\rangle | 1 \\rangle ) $$\n",
+    "$$ |\\psi \\rangle = |0 \\rangle \\otimes \\frac{1}{\\sqrt{2}} ( |0\\rangle + |1 \\rangle ) $$ \n",
+    "\n",
+    "But it is not always to see that it could be the case. For example, let's look at the following state:\n",
+    "\n",
+    "$$ |\\psi \\rangle = \\frac{1}{2} ( |00\\rangle + |01\\rangle + |10 \\rangle + |11 \\rangle )$$\n",
+    "\n",
+    "This is also a product state. More specifically, it is $|+\\rangle \\otimes |+\\rangle$."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1343e7f4",
+   "metadata": {},
+   "source": [
+    "# Exercise 8\n",
+    "\n",
+    "Show that $|+\\rangle \\otimes |+\\rangle$ is equal to  $\\frac{1}{2} ( |00\\rangle + |01\\rangle + |10 \\rangle + |11 \\rangle )$.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8f7414ab",
+   "metadata": {},
+   "source": [
+    "# Answer\n",
+    "\n",
+    "?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6a30aae",
+   "metadata": {},
+   "source": [
+    "Schmidt decomposition theorem states that any bipartite pure quantum state can be written as follows:\n",
+    "\n",
+    "$$ |\\psi\\rangle_{AB} = \\sum_i^{\\text{min($d_A,d_B$)}} \\lambda_i |u_i\\rangle_A \\otimes |v_i\\rangle_B$$\n",
+    "\n",
+    "where $d_A$ and $d_B$ are the dimensions of the subsystems A,B, $|u_i\\rangle$ and $|v_i\\rangle$ are orthonormal basis for these subsystems, and finally $\\lambda_i \\geq 0$.\n",
+    "\n",
+    "$\\lambda_i$ are called Schmidt coefficients and they are useful for determining if a state is entangled or not. We define the Schmidt rank as the number of $\\lambda_i$ that are not equal to zero. If the Schmidt rank of a system is 1, then it is a product state, if it is greater than 1 it is an entangled state.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5712226a",
+   "metadata": {},
+   "source": [
+    "Let's do an example to clarify what we said. Let's take the following Bell state and write it in Schmidt decomposition:\n",
+    "\n",
+    "$$ |\\psi \\rangle = \\frac{1}{\\sqrt{2}} |00\\rangle + \\frac{1}{\\sqrt{2}} |11\\rangle $$\n",
+    "$$ |\\psi \\rangle = \\frac{1}{\\sqrt{2}} |0\\rangle\\otimes |0\\rangle + \\frac{1}{\\sqrt{2}} |1\\rangle \\otimes |1\\rangle $$\n",
+    "\n",
+    "So we have two Schmidt coefficients  both equal to $1/\\sqrt{2}$, hence Schmidt rank of the system is 2."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dc2806fc",
+   "metadata": {},
+   "source": [
+    "# Exercise 9\n",
+    "\n",
+    "Write the following state in Schmidt decomposition form:\n",
+    "\n",
+    "$$ |\\psi \\rangle = \\frac{1}{2} ( |00\\rangle - |01\\rangle - |10 \\rangle + |11 \\rangle ) $$\n",
+    "\n",
+    "Is it a product or an entangled state? (Hintminus)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ada62e5c",
+   "metadata": {},
+   "source": [
+    "# Answer"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5cacbafd",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
