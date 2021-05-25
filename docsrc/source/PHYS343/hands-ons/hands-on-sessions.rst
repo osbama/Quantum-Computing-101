@@ -48,7 +48,7 @@ Hands On Sessions
    :maxdepth: 1
    :caption: Hands on 7
    
-   hands-on-6/lab7
+   hands-on-7/lab7
 
 
 
