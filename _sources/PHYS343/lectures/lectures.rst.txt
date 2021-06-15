@@ -10,6 +10,8 @@ Lectures and Lecture notes
    Ch3
    Ch4
    Ch5
+   Ch6
+   Ch7
 
 
 
