@@ -16,19 +16,20 @@
 #import sys
 #sys.path.insert(0, os.path.abspath('.'))
 import sphinx_bootstrap_theme
+#html_theme = 'karma_sphinx_theme'
 
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'Introduction to Quantum Computing for Physicists'
-copyright = '2021, Tüysüz, Cenk; Yenilen, Berat; Malcıoğlu, O. Barış'
-author = 'Tüysüz, Cenk; Yenilen, Berat; Malcıoğlu, O. Barış'
+project = 'Practical Quantum Computing for Scientists'
+copyright = '(CC BY 3.0) https://creativecommons.org/ '
+author = 'Malcıoğlu, O. Barış'
 
 # The short X.Y version
-version = ''
+version = '2022.02.24'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '2022.02.24 alpha'
 
 
 # -- General configuration ---------------------------------------------------
@@ -106,7 +107,7 @@ html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 # html_theme_options = {}
 html_theme_options = {
     # Navigation bar title. (Default: ``project`` value)
-    'navbar_title': "QC for Physicists",
+    'navbar_title': "Practical QC for Scientists",
 
     # Tab name for entire site. (Default: "Site")
     'navbar_site_name': "Contents",
@@ -119,7 +120,7 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Hands-on sessions for Phys343", "PHYS343/hands-ons/hands-on-sessions"),
+        ("437", "courses/PHYS437/index"),
     ],
 
     # Render the next and previous page links in navbar. (Default: true)
@@ -129,7 +130,7 @@ html_theme_options = {
     'navbar_pagenav': False,
 
     # Tab name for the current pages TOC. (Default: "Page")
-    'navbar_pagenav_name': "Page",
+    'navbar_pagenav_name': "",
 
     # Global TOC depth for "site" navbar tab. (Default: 1)
     # Switching to -1 shows all levels.
@@ -167,7 +168,7 @@ html_theme_options = {
     # Currently, the supported themes are:
     # - Bootstrap 2: https://bootswatch.com/2
     # - Bootstrap 3: https://bootswatch.com/3
-    'bootswatch_theme': "readable",
+    'bootswatch_theme': "cosmo",
 
     # Choose Bootstrap version.
     # Values: "3" (default) or "2" (in quotes)
@@ -194,7 +195,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'QuantumComputing101doc'
+htmlhelp_basename = 'PracticalQC4Scientistsdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
