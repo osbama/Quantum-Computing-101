@@ -27,5 +27,5 @@ rady:
 	rsync -aP build/html/ obm@192.168.4.80:/var/lib/sphinx/intro-QC
 
 clean:
-	@git rm -rf ../genindex.html  ../_images ../PHYS343 ../reports ../searchindex.js ../_static ../_downloads ../help ../index.html ../objects.inv ../search.html ../_sources
+	@git rm -rf ../genindex.html  ../_images ../courses ../reports ../searchindex.js ../_static ../_downloads ../help ../index.html ../objects.inv ../search.html ../_sources
 

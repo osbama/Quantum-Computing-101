@@ -1,0 +1,344 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Ch1-Lecture 1\n",
+    "## Jupyter\n",
+    "\n",
+    "This is a jupyter notebook.\n",
+    "\n",
+    "It consists of cells.\n",
+    "- Markdown cells like this one, which contains \"text\"\n",
+    "- Code cells that contain Python code.\n",
+    "\n",
+    "- Each cell can be run independently, regardless of the order (beware of the code flow!)\n",
+    "- Useful short-cuts:\n",
+    "    - Press shift+Enter to run a cell\n",
+    "    - Press ESC+D to delete a cell\n",
+    "    - Press ESC+A to create a cell above your current cell\n",
+    "    - Press ESC+B to create a cell below your current cell\n",
+    "\n",
+    "\n",
+    "[Installing the Jupyter to your local PC](https://jupyter.org/install) **Use a package manager like miniconda!**"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Markdown and LATEX\n",
+    "\n",
+    "Markdown is a formatted text language that makes writing on the web fast and easy. It allows writing formulas using LATEX.  **We will use it in our exercises and homeworks.**\n",
+    "\n",
+    "- [Markdown guide](https://www.markdownguide.org/)\n",
+    "- [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/)\n",
+    "\n",
+    "------------------------------------------------------------------------\n",
+    "> Have you ever asked yourself, how they write complex maths and physics equations using computer? Well, it’s all about LaTeX.\n",
+    "\n",
+    "\n",
+    "You can insert formulas by placing them in between \\$\n",
+    "\n",
+    "- [LaTeX for Undergrads](http://tug.ctan.org/info/undergradmath/undergradmath.pdf)\n",
+    "- [LaTeX in Markdown](https://towardsdatascience.com/write-markdown-latex-in-the-jupyter-notebook-10985edb91fd)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Anaconda\n",
+    "\n",
+    "Python package management is messy, do NOT install packages to your user environment directly without a package manager.\n",
+    "\n",
+    "Anaconda is a distribution of the Python and R programming languages for scientific computing (data science, machine learning applications, large-scale data processing, predictive analytics, etc.), that aims to simplify package management and deployment. The distribution includes data-science packages suitable for Windows, Linux, and macOS.\n",
+    "\n",
+    "- [Miniconda download](https://docs.conda.io/en/latest/miniconda.html)\n",
+    "- [Conda cheat sheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf)\n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Exercise 1:\n",
+    "Download and install miniconda to your local computer. Create an environment, and switch to it. Install Jupyter notebook to that environment.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## IBM Quantum Cloud\n",
+    "\n",
+    "In this lecture, we will heavily rely on [IBM's Quantum cloud](https://quantum-computing.ibm.com/login). Please use [this form](https://forms.gle/zCGvazRC8KnSLYYi8) for me to add you to the lecture (you will receive an invitation to create one, if you don't have an account yet).\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Some useful links\n",
+    "\n",
+    "- Xanadu offers access to photonic quantum computers, just like IBM Quantum cloud. Apply [here](https://www.xanadu.ai/cloud) if you are interested.\n",
+    "- JetBrains offer free professional solutions to Students. PyCharm and DataSpell are especially useful for this course. You can get them [here](https://www.jetbrains.com/community/education/#students)\n",
+    "- [Installing Qiskit](https://qiskit.org/documentation/getting_started.html) (use conda environment with Python=3.8)\n",
+    "- [Strawberry fields](https://strawberryfields.readthedocs.io/en/stable/_static/install.html) (use another conda environment with Python=3.8)\n",
+    "- [quTip](https://qutip.org/docs/latest/installation.html) (use another conda environment with Python=3.8)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Introduction\n",
+    "\n",
+    "The field of quantum computing is nowadays far too large to be captured in a single course. Here, we shall focus on a broad introduction which aims to cover topics such as: What is quantum mechanics, and how can it\n",
+    "be harnessed to build a computer? What kind of computational problems can such a computer\n",
+    "solve? Are there problems which are hard even for a quantum computer? And finally, what\n",
+    "does the study of quantum computing tell us about nature itself?\n",
+    "\n",
+    "Even if this course is the last time you encounter the topic of quantum computing, I hope it will leave you with a deeper understanding of Quantum concepts, and develop your skills as a basic scientist.\n",
+    "\n",
+    "\n",
+    "In order to represent Quantum phenomena, we will need the mathematical framework of Linear Algebra. As a scientist, you should already be familiar with the content, here I will give you a refresher.  These notes contain many exercises intended to help the reader; it is strongly recommended for you to work on these as you follow.\n",
+    "\n",
+    "The basic objects we need are complex vectors $ \\left|\\psi\\right\\rangle \\in  \\mathbb{C}^d $\n",
+    "\n",
+    "$$\n",
+    "  \\left|\\psi\\right\\rangle = \\begin{pmatrix}\n",
+    "   \\psi_1 \\\\\n",
+    "   \\vdots \\\\\n",
+    "   \\psi_d\n",
+    "   \\end{pmatrix}\n",
+    "$$\n",
+    "\n",
+    "for $\\psi_i\\in\\mathbb{C}$ (i.e. complex number). In this course, we will mostly use the polar form for complex numbers : $re^{i\\theta}$.\n",
+    "\n",
+    "The notation $\\left|\\cdot\\right\\rangle$ is called Dirac notation, named after physicist Paul Dirac.  $\\left|\\psi\\right\\rangle$ is pronounced \"ket $\\psi$\".\n",
+    "\n",
+    "Complex vectors are used to **represent** quantum states. (The difference between a representation and an actual state is similar to the difference between a movie star, and the poster of a movie star).\n",
+    "\n",
+    "Some further basic properties of vectors:\n",
+    "\n",
+    "The ***conjugate transpose*** of $ \\left|\\psi\\right\\rangle$ is given by\n",
+    "$$ \\left\\langle\\psi\\right| = \\left(\\psi_1^*,\\psi_2^*\\dots\\psi_d^*\\right)$$\n",
+    "where $ \\left\\langle\\psi\\right|$ is a row vector. The term $ \\left\\langle\\psi\\right|$ is pronounced “bra $\\psi$”.\n",
+    "\n",
+    "How much two vectors “overlap” is given by the inner product function:\n",
+    "$$ \\left\\langle\\left.\\psi \\right|\\phi \\right\\rangle = \\sum_{i=1}^d\\psi_i^d\\phi_i $$\n",
+    "\n",
+    "The inner product satisfies $\\left(\\left\\langle\\left.\\psi \\right|\\phi \\right\\rangle\\right)^*=\\left\\langle\\left.\\phi \\right|\\psi \\right\\rangle$.  The “length” of a vector $\\left|\\psi\\right\\rangle$ can now be quantified\n",
+    "by measuring the overlap of $\\left|\\psi\\right\\rangle$ with itself, which yields the Euclidean norm, $\\left\\lVert\\left|\\psi\\right\\rangle \\right\\lVert_2 =\\sqrt{\\left\\langle\\left.\\psi \\right|\\phi \\right\\rangle}$.\n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 1\n",
+    "Let  $ \\left|\\psi\\right\\rangle =\\frac{1}{\\sqrt{2}}\\left(1,i\\right)^T$, where T denotes the transpose. What are  $ \\left\\langle\\psi\\right|$ and $\\left\\lVert\\left|\\psi\\right\\rangle \\right\\lVert_2$?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "\n",
+    "With a norm in hand, we can define a notion of ***distance*** between vectors $\\left|\\psi\\right\\rangle$,$\\left|\\phi\\right\\rangle$ called the Euclidean distance: $\\left\\lVert\\left|\\psi\\right\\rangle-\\left|\\phi\\right\\rangle \\right\\lVert_2$. This distance will play the important role of quantifying how well two quantum states $\\left|\\psi\\right\\rangle$ and $\\left|\\phi\\right\\rangle$ can be “distinguished” via measurements. Two useful properties of the Euclidean norm are:\n",
+    "1. (Positive scalability)  $\\left\\lVert a \\left|\\psi\\right\\rangle \\right\\lVert_2 = \\left|a\\right|\\left\\lVert \\left|\\psi\\right\\rangle \\right\\lVert_2$ for $a \\in \\mathbb{C} $\n",
+    "2. (Triangle inequality) For any $\\left|\\psi\\right\\rangle$ and $\\left|\\phi\\right\\rangle$ one has $\\left\\lVert\\left|\\psi\\right\\rangle+\\left|\\phi\\right\\rangle \\right\\lVert_2 \\leq \\left\\lVert\\left|\\psi\\right\\rangle\\right\\lVert_2 +\\left\\lVert\\left|\\phi\\right\\rangle \\right\\lVert_2$ .\n",
+    "\n",
+    "These two properties can be used to show that for all  $ \\left|\\psi\\right\\rangle \\in  \\mathbb{C}^d $, $\\left\\lVert\\left|\\psi\\right\\rangle\\right\\lVert_2\\geq 0$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 2\n",
+    "Let  $ \\left|\\psi\\right\\rangle =\\frac{1}{\\sqrt{2}}\\left(1,i\\right)^T$ and $ \\left|\\phi\\right\\rangle =\\left(\\frac{1}{2},\\frac{\\sqrt{3}}{2}\\right)^T$. What is $\\left\\lVert\\left|\\psi\\right\\rangle-\\left|\\phi\\right\\rangle \\right\\lVert_2$?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Orthonormal bases\n",
+    "\n",
+    "A much more natural way to represent vectors in this course shall be in terms of ***orthonormal bases***. Recall that a set of vectors $ \\left \\{\\left|\\psi\\right\\rangle\\right\\} \\subseteq  \\mathbb{C}^d $ is _orthogonal_ if for all $i\\neq j$, $\\left\\langle\\left.\\psi_i \\right|\\psi_j \\right\\rangle=0$, and _orthonormal_ if  $\\left\\langle\\left.\\psi_i \\right|\\psi_j \\right\\rangle=\\delta_{ij}$. Here, $\\delta_{ij}$ is the Kroenecker delta, whose value is 1 if $i = j$ and 0 otherwise. For the vector space $\\mathbb{C}^d$ , which has dimension $d$, it is necessary and sufficient to use $d$ orthonormal vectors in order to form an orthonormal basis."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "One of the most common bases we use is the _computational basis_, defined for $\\mathbb{C}^2$ as\n",
+    "$$\n",
+    "\\left|0\\right\\rangle = \\begin{pmatrix}\n",
+    "   1 \\\\\n",
+    "   0\n",
+    "   \\end{pmatrix} \\qquad\n",
+    "   \\left|1\\right\\rangle = \\begin{pmatrix}\n",
+    "   0 \\\\\n",
+    "   1\n",
+    "   \\end{pmatrix}\n",
+    "$$\n",
+    "since $ \\left \\{\\left|0\\right\\rangle,\\left|1\\right\\rangle\\right\\}$ is an orthonormal basis, any vector  $ \\left|\\psi\\right\\rangle \\in  \\mathbb{C}^2 $ can be written as  $ \\left|\\psi\\right\\rangle= \\alpha\\left|0\\right\\rangle+\\beta\\left|1\\right\\rangle  $ for some $\\alpha,\\beta\\in \\mathbb{C}$. We say $\\left|\\psi\\right\\rangle$ is _normalized_ when it has length 1, i.e.  $\\left\\lVert\\left|\\psi\\right\\rangle\\right\\lVert_2=1$ or equivalently $\\left|\\alpha\\right|^2+\\left|\\beta\\right|^2=1$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 3\n",
+    "Let  $ \\left|\\psi\\right\\rangle =\\frac{1}{\\sqrt{2}}\\left(1,1\\right)^T\\in\\mathbb{C}^2$. Write  $ \\left\\langle\\psi\\right|$ in terms of computational basis for $\\mathbb{C}^2$.\n",
+    " Is it normalized?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The computational basis is easily extended to $d$-dimensional vectors by defining $\\left|i\\right\\rangle\\in\\mathbb{C}^d$ as having a 1 in position i and 0 elsewhere (here, $0 \\leq i \\leq d − 1$).\n",
+    "In this course, vectors labelled by integers (e.g. $\\left|1\\right\\rangle$, $\\left|3\\right\\rangle\\in\\mathbb{C}^d$ ) will be assumed to be $d$-dimensional computational basis vectors"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Linear maps.\n",
+    "Given a vector $ \\left|\\psi\\right\\rangle \\in  \\mathbb{C}^d $ , we are interested in how $\\left|\\psi\\right\\rangle$ can be “mapped” to other vectors. The maps are _linear_, which by definition means that for map $\\Phi : \\mathbb{C}^d \\mapsto \\mathbb{C}^d$\n",
+    "and arbitrary $\\sum_i\\alpha_i\\left|\\psi_i\\right\\rangle\\in  \\mathbb{C}^d $,\n",
+    "$$\n",
+    "\\Phi\\left(\\sum_i\\alpha_i\\left|\\psi_i\\right\\rangle\\right)=\\sum_i\\alpha_i\\Phi\\left( \\left|\\psi_i\\right\\rangle\\right)\n",
+    "$$\n",
+    "\n",
+    "The set of linear maps from vector space $\\mathcal{X}$ to $\\mathcal{Y}$ is denoted $\\mathcal{L}(\\mathcal{X} , \\mathcal{Y})$. For brevity, we use the shorthand $\\mathcal{L}(\\mathcal{X})$ to mean $\\mathcal{L}(\\mathcal{X} , \\mathcal{Y})$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 4\n",
+    "Consider the linear map $\\Phi : \\mathbb{C}^d \\mapsto \\mathbb{C}^d$ with action $\\Phi\\left(\\left|0\\right\\rangle\\right)=\\left|1\\right\\rangle$ and $\\Phi\\left(\\left|1\\right\\rangle\\right)=\\left|0\\right\\rangle$. If $\\left|\\psi\\right\\rangle= \\alpha\\left|0\\right\\rangle+\\beta\\left|1\\right\\rangle  $, what is $\\Phi\\left(\\left|\\psi\\right\\rangle\\right)$?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "the action of a linear map $\\Phi \\in \\mathcal{L}\\left(\\mathbb{C}^d\\right)$ is fully characterized by understanding how $\\Phi$ acts on a basis for $\\mathbb{C}^d$ . This leads to a natural\n",
+    "representation for $\\Phi$ in terms of a _matrix_.\n",
+    "\n",
+    " Recall that a $d\\times d$ matrix $A$ is a two-dimensional array of complex numbers whose $(i, j)$ th entry is denoted $A(i, j) \\in \\mathbb{C}$ for $i, j \\in \\left[ d \\right]$. To represent a linear map $\\Phi : \\mathbb{C}^d \\mapsto \\mathbb{C}^d$ as an $d \\times d$\n",
+    "matrix $A_\\Phi$ , we use its action on a basis for $\\mathbb{C}^d$ . Specifically, define the ith column of $A_\\Phi$ as $\\Phi\\left(\\left|i\\right\\rangle\\right)$ for $\\left{\\left|i\\right\\rangle\\right\\}$ the standard basis for  $\\mathbb{C}^d$ , or\n",
+    "$$\n",
+    "A_\\Phi = \\left[ \\Phi\\left(\\left|0\\right\\rangle\\right), \\Phi\\left(\\left|1\\right\\rangle\\right), \\dots , \\Phi\\left(\\left|d-1\\right\\rangle\\right) \\right ]\n",
+    "$$\n",
+    "\n",
+    "In this course, we use both the matrix and linear map views interchangeably, with the application notion clear from context."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 5\n",
+    "What is the $2 \\times 2$ complex matrix tepresenting the linear map $\\Phi$ from \"send it it after class 4\" ? What is the linear map whose matrix (with respect to the computational\n",
+    "basis) is the _identity matrix_\n",
+    "$$\n",
+    "I=\n",
+    "\\begin{pmatrix}\n",
+    "1 & 0 \\\\\n",
+    "0 & 1\n",
+    "\\end{pmatrix}\n",
+    "$$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [],
+   "metadata": {
+    "collapsed": false,
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
