@@ -38,7 +38,7 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 During handling of the above exception, another exception occurred:
 
 [0;31mException[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_11237/939797777.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_14128/939797777.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m [0mget_ipython[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mrun_line_magic[0m[0;34m([0m[0;34m'run'[0m[0;34m,[0m [0;34m'oracles.py'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      2[0m [0;31m# This command will run the file oracles.py, in which we have defined the oracle function.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
 

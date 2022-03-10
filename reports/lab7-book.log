@@ -28,7 +28,7 @@ from qiskit_textbook.tools import random_state, array_to_latex
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m/tmp/ipykernel_11311/1619257237.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_14200/1619257237.py[0m in [0;36m<module>[0;34m[0m
 [1;32m      5[0m [0;32mfrom[0m [0mqiskit[0m[0;34m.[0m[0mvisualization[0m [0;32mimport[0m [0mplot_histogram[0m[0;34m,[0m [0mplot_bloch_multivector[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      6[0m [0;32mfrom[0m [0mqiskit[0m[0;34m.[0m[0mextensions[0m [0;32mimport[0m [0mInitialize[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 7[0;31m [0;32mfrom[0m [0mqiskit_textbook[0m[0;34m.[0m[0mtools[0m [0;32mimport[0m [0mrandom_state[0m[0;34m,[0m [0marray_to_latex[0m[0;34m[0m[0;34m[0m[0m

@@ -17,6 +17,7 @@ Theory sessions
 .. toctree::
    :maxdepth: 1
 
-   Theory/Ch1/Theory-Lecture1.ipynb
+   Lecture 1 (Ch.1) <Theory/Ch1/Theory-Lecture1.ipynb>
+   Lecture 1 (Ch.1) online material <Theory/Ch1/Lecture1-online.rst>
 
 
