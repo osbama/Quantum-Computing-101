@@ -1,0 +1,52 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "\\usepackage{tikz}\n",
+    "\\usetikzlibrary{quantikz}\n",
+    "# Ch1-Lecture 2\n",
+    "### The Image and Rank of a matrix\n",
+    "\n",
+    "If you want to calculate how \"large\" will be the output space  of a linear map $A \\in \\mathcal{L}\\left(\\mathbb{C}^d\\right)$, you first need to calculate the _image_ of $A$. The image of $A$ is the set of all possible output vectors under the action of $A$\n",
+    "\n",
+    "$$ \\text{Im}\\left(A\\right) := \\left \\{ \\left|\\psi\\right\\rangle\\in  \\mathbb{C}^d | \\left|\\psi\\right\\rangle=A\\left|\\phi\\right\\rangle \\text{ for some }\\left|\\phi\\right\\rangle\\in  \\mathbb{C}^d    \\right\\} $$\n",
+    "\n",
+    "The _rank_ of $A$ is the dimension of its image."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

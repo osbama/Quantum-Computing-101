@@ -18,6 +18,6 @@ Theory sessions
    :maxdepth: 1
 
    Lecture 1 (Ch.1) <Theory/Ch1/Theory-Lecture1.ipynb>
-   Lecture 1 (Ch.1) online material <Theory/Ch1/Lecture1-online.rst>
+   Chapter 1 online material <Theory/Ch1/Ch1-online.rst>
 
 

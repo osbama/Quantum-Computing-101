@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Lecture 1 online material &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <title>Ch1-Lecture 2 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
@@ -14,20 +14,23 @@
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Archives" href="../../../archives/archives.html" />
-    <link rel="prev" title="Ch1-Lecture 1" href="Theory-Lecture1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -59,9 +62,9 @@
      href="../../../../index.html">Contents <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -98,9 +101,17 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section id="lecture-1-online-material">
-<h1>Lecture 1 online material<a class="headerlink" href="#lecture-1-online-material" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference download internal" download="" href="../../../../_downloads/e41f51c6b5ba0b4c986f7243581ff65f/Theory-Lecture1.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">ipynb</span> <span class="pre">file</span></code></a></p>
+  <p>\usepackage{tikz}
+\usetikzlibrary{quantikz}</p>
+<section class="tex2jax_ignore mathjax_ignore" id="ch1-lecture-2">
+<h1>Ch1-Lecture 2<a class="headerlink" href="#ch1-lecture-2" title="Permalink to this headline">¶</a></h1>
+<section id="the-image-and-rank-of-a-matrix">
+<h2>The Image and Rank of a matrix<a class="headerlink" href="#the-image-and-rank-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<p>If you want to calculate how “large” will be the output space  of a linear map <span class="math notranslate nohighlight">\(A \in \mathcal{L}\left(\mathbb{C}^d\right)\)</span>, you first need to calculate the <em>image</em> of <span class="math notranslate nohighlight">\(A\)</span>. The image of <span class="math notranslate nohighlight">\(A\)</span> is the set of all possible output vectors under the action of <span class="math notranslate nohighlight">\(A\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \text{Im}\left(A\right) := \left \{ \left|\psi\right\rangle\in  \mathbb{C}^d | \left|\psi\right\rangle=A\left|\phi\right\rangle \text{ for some }\left|\phi\right\rangle\in  \mathbb{C}^d    \right\} \]</div>
+<p>The <em>rank</em> of <span class="math notranslate nohighlight">\(A\)</span> is the dimension of its image.</p>
+</section>
 </section>
 
 
@@ -116,14 +127,14 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../../../../_sources/courses/PHYS437/Theory/Ch1/Lecture1-online.rst.txt"
+  <a href="../../../../_sources/courses/PHYS437/Theory/Ch1/Theory-Lecture2.ipynb.txt"
      rel="nofollow">Source</a>
 </div>
       
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
     </p>
   </div>
 </footer>
