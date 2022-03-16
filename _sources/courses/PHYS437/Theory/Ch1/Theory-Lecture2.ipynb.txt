@@ -3,17 +3,405 @@
   {
    "cell_type": "markdown",
    "source": [
-    "\\usepackage{tikz}\n",
-    "\\usetikzlibrary{quantikz}\n",
     "# Ch1-Lecture 2\n",
-    "### The Image and Rank of a matrix\n",
+    "### The Image, Rank and Null space of a matrix\n",
+    "\n",
+    "\n",
     "\n",
     "If you want to calculate how \"large\" will be the output space  of a linear map $A \\in \\mathcal{L}\\left(\\mathbb{C}^d\\right)$, you first need to calculate the _image_ of $A$. The image of $A$ is the set of all possible output vectors under the action of $A$\n",
     "\n",
     "$$ \\text{Im}\\left(A\\right) := \\left \\{ \\left|\\psi\\right\\rangle\\in  \\mathbb{C}^d | \\left|\\psi\\right\\rangle=A\\left|\\phi\\right\\rangle \\text{ for some }\\left|\\phi\\right\\rangle\\in  \\mathbb{C}^d    \\right\\} $$\n",
     "\n",
-    "The _rank_ of $A$ is the dimension of its image."
+    "The _rank_ of $A$ is the dimension of its image.\n",
+    "\n",
+    "The set of all vectors sent to zero by $A$ is called its _null space_,\n",
+    "\n",
+    "$$\n",
+    "\\text{Null}\\left(A\\right) := \\left \\{ \\left|\\psi\\right\\rangle\\in  \\mathbb{C}^d | A\\left|\\phi\\right\\rangle=0 \\right\\}\n",
+    "$$\n"
    ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 1\n",
+    "\n",
+    "Is there a non-zero vector in the null space of matrix\n",
+    "\n",
+    "$$\n",
+    "Z=\n",
+    "\\begin{pmatrix}\n",
+    "1 & 0 \\\\\n",
+    "0 & -1\n",
+    "\\end{pmatrix}\n",
+    "$$\n",
+    "\n",
+    "Hint: Multiply an arbitrary vector $ \\left|\\psi\\right\\rangle=\\alpha \\left|0\\right\\rangle + \\beta\\left|1\\right\\rangle $ by $Z$ and see if you can make the zero vector pop out.\n",
+    "\n",
+    "What does the answer tell you about $\\text{rank}(Z)$?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Matrix Operations\n",
+    "\n",
+    "Matrices encode the operations in general. There are some operations on matrices themselves as well. We will use frequently in this class the following such operators (linear maps):  _complex conjugate_ $\\left(A^\\star\\right)$, _transpose_ $\\left(A^T\\right)$,  _adjoint_ $\\left(A^\\dagger\\right)$ and _trace_ $\\left(\\text{Tr}(A)\\right)$\n",
+    "\n",
+    "The first three are defined as\n",
+    "\n",
+    "$$\n",
+    "A^\\star (i, j) = (A(i, j))^\\star  \\qquad A^T (i, j) = A(j, i) \\qquad A^\\dagger = (A^\\star )^T\n",
+    "$$\n",
+    "\n",
+    "Trace is simply a linear map $ \\text{Tr :} \\mathcal{L}(\\mathbb{C}^d)\\mapsto \\mathbb{C} $  summing the entries on the diagonal of $A$.\n",
+    "\n",
+    "$$\n",
+    "\\text{Tr(A)} = \\sum_{i=1}^d A(i, i).\n",
+    "$$\n",
+    "\n",
+    "Trace is cyclic, i.e. $\\text{Tr(ABC)} = \\text{Tr}(CAB)$. This implies that even if A and B do not commute, i.e. $AB \\neq BA$, it is still true that $\\text{Tr}(AB) = \\text{Tr}(BA)$.\n",
+    "\n",
+    "Note that $(AB)^\\dagger = B^\\dagger A^\\dagger$ , and $(AB)^T = B^T A^T$.\n",
+    "\n",
+    "These operations apply to vectors as well\n",
+    "\n",
+    "$$\n",
+    "\\left\\langle\\psi\\right|=\\left|\\psi\\right\\rangle^\\dagger\n",
+    "$$\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 2\n",
+    "\n",
+    "Calculate the adjoints of the following matrices\n",
+    "\n",
+    "$$\n",
+    "X=\n",
+    "\\begin{pmatrix}\n",
+    "0 & 1 \\\\\n",
+    "1 & 0\n",
+    "\\end{pmatrix} \\qquad\n",
+    "Z=\n",
+    "\\begin{pmatrix}\n",
+    "1 & 0 \\\\\n",
+    "0 & -1\n",
+    "\\end{pmatrix} \\qquad\n",
+    "A=\n",
+    "\\begin{pmatrix}\n",
+    "1 & 2 \\\\\n",
+    "3 & e^{i\\pi/2}\n",
+    "\\end{pmatrix}\n",
+    "$$\n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Outer products.\n",
+    "\n",
+    "You can use Dirac notation to describe matrices via _outer products_. For vectors $\\left|\\psi\\right\\rangle,\\left|\\phi\\right\\rangle \\in \\mathbb{C}^d $ , the outer product is $ \\left|\\psi\\right\\rangle\\left\\langle\\phi\\right| \\in \\mathcal L (\\mathbb C ^d ) $ unlike the inner product, the outer product yields a $d \\times d $ matrix. It can be computed straightforwardly via the rules of matrix multiplication. For example\n",
+    "\n",
+    "$$\n",
+    "\\left|0\\right\\rangle\\left\\langle 0 \\right|= \\begin{pmatrix} 1 \\\\ 0 \\end{pmatrix} \\begin{pmatrix} 1 & 0 \\end{pmatrix} = \\begin{pmatrix}\n",
+    "1 & 0\\\\\n",
+    "0 & 0\n",
+    "\\end{pmatrix} \\qquad\n",
+    "\\left|1\\right\\rangle\\left\\langle 0 \\right|= \\begin{pmatrix} 0 \\\\ 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 \\end{pmatrix} = \\begin{pmatrix}\n",
+    "0 & 0\\\\\n",
+    "1 & 0\n",
+    "\\end{pmatrix} \\qquad\n",
+    "$$\n",
+    "\n",
+    "More generally, the matrix  $ \\left|i\\right\\rangle\\left\\langle j\\right| \\in \\mathcal L (\\mathbb C ^d ) $ has a 1 at position $(i, j)$ and zeroes elsewhere. This  yields a simple yet neat trick: A matrix $ A \\in \\mathcal L (\\mathbb C ^d ) $  written in the computational basis can hence be expressed as $\\sum_{ij} A(i, j)\\left|i\\right\\rangle\\left\\langle j\\right|$. It is thus easy to evaluate expressions of the form\n",
+    "\n",
+    "$$\n",
+    " \\left\\langle i \\right| A\\left|j\\right\\rangle =\\left\\langle i \\right|\\left(\\sum_{i^\\prime j^\\prime}A(i^\\prime,j^\\prime)\\left|i^\\prime\\right\\rangle\\left\\langle j^\\prime\\right|\\right)\\left|j\\right\\rangle=\\sum_{i^\\prime j^\\prime}A(i^\\prime,j^\\prime)\\left\\langle i \\middle| i^\\prime\\right\\rangle\\left\\langle j \\middle| j^\\prime\\right\\rangle=A(i,j)\n",
+    "$$\n",
+    "\n",
+    "where the third equality follows since $\\left\\{\\left| i\\right\\rangle\\right\\} $ forms an orthonormal basis for $\\mathbb C^d$ . This method of obtaining matrix elements will be ubiquitous in the setting of quantum measurements."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Eigenvalues and eigenvectors\n",
+    "\n",
+    "With outer products in hand, we can discuss one of the most fundamental tools in our Linear Algebraic toolkit — eigenvalues and eigenvectors. Given any matrix $ A \\in \\mathcal L (\\mathbb C ^d ) $ , an eigenvector is a special non-zero vector satisfying the equation\n",
+    "\n",
+    "$$\n",
+    "A\\left|\\psi\\right\\rangle=\\lambda\\left|\\psi\\right\\rangle\n",
+    "$$\n",
+    "\n",
+    "for some $\\lambda\\in\\mathbb C$ which is the corresponding _eigenvalue_.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 3\n",
+    "\n",
+    "Show that $\\left|+\\right\\rangle=\\frac{1}{\\sqrt 2} \\left(\\left|0\\right\\rangle+\\left|1\\right\\rangle\\right)$ and $\\left|-\\right\\rangle=\\frac{1}{\\sqrt 2} \\left(\\left|0\\right\\rangle-\\left|1\\right\\rangle\\right)$ are both eigenvectors of  $ X= \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} $. What are their respective eigenvalues?\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The outer product can now be used to state an expression which will be used repeatedly in this course. For any matrix $A$ satisfying $AA^\\dagger = A^\\dagger A$ (such matrices are called normal ; most\n",
+    "matrices in this course will be normal), we can decompose $A$ in terms of its eigenvalues and eigenvectors as\n",
+    "\n",
+    "$$\n",
+    "A=\\sum_{i=1}^d \\lambda_i \\left|\\lambda_i\\right\\rangle\\left\\langle\\lambda_i\\right|\n",
+    "$$\n",
+    "\n",
+    "where $\\lambda_i$ and $\\left|\\lambda_i\\right\\rangle$ are the eigenvalues and corresponding eigenvectors of $A$. This is called the _spectral decomposition_ of A. The spectral decomposition is useful for a few reasons. First, it\n",
+    "tells us exactly how $A$ acts on $\\mathbb C^ d$ ; this is because the eigenvectors $\\left|\\lambda_i\\right\\rangle \\in \\mathbb C^d$ can be chosen to form an orthonormal basis for $\\mathbb C^d$. Thus, any vector $|\\left|psi\\right\\rangle \\in \\mathbb C^d$ can be written in terms of the eigenvectors of $A$, i.e. $\\left|\\psi\\right\\rangle=\\sum_i \\alpha_i \\left|\\lambda_i\\right\\rangle$   for some $\\alpha_i \\in \\mathbb C$. The spectral decomposition also immediately reveals the rank of $A$; specifically, $\\text{rank}(A)$ is just the number of non-zero eigenvalues of $A$. Finally, $\\text{Tr}(A)$ has a very simple expression in terms of $A$’s eigenvalues,\n",
+    "$\\text{Tr}(A) = \\sum_i \\lambda_i$ . Let us quickly prove this last claim:\n",
+    "\n",
+    "\n",
+    "$$\n",
+    "\\text{Tr}(A) = \\text{Tr}\\left(\\sum_{i=1}^d \\lambda_i \\left|\\lambda_i\\right\\rangle\\left\\langle\\lambda_i\\right|\\right)\n",
+    "=\\sum_{i=1}^d \\lambda_i \\text{Tr}\\left(\\left|\\lambda_i\\right\\rangle\\left\\langle\\lambda_i\\right|\\right)\n",
+    "=\\sum_{i=1}^d \\lambda_i \\text{Tr}\\left(\\left\\langle\\lambda_i\\middle|\\lambda_i\\right\\rangle\\right)\n",
+    "=\\sum_{i=1}^d \\lambda_i\n",
+    "$$\n",
+    "\n",
+    "Here, the second equality follows since the trace is linear, the third by the cyclic property of the trace, and the last since the eigenvectors $\\left|\\lambda_i\\right\\rangle$ are orthonormal."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Finally, recall that the eigenvalues of $A \\in \\mathcal L(\\mathbb C^ d )$  can be computed as the roots of the degree-d _characteristic polynomial_ of $A$, $p_A$ , defined\n",
+    "\n",
+    "$$\n",
+    "p_A(\\lambda)=\\text{det}\\left(\\lambda I - A\\right)\n",
+    "$$\n",
+    "\n",
+    "where the determinant det can be defined recursively as\n",
+    "\n",
+    "$$\n",
+    "\\text{det}(A) = \\sum_{j=1}^d(−1)^{i+j} A(i, j) \\text{det}(A_{ij})\n",
+    "$$\n",
+    "\n",
+    "Here, $A_{ij}$ is the matrix obtained from $A$ by deleting row i and column j, and we define the base case of this recursion (i.e. a $1 \\times 1$ matrix $[c]$) as $\\text{det}([c]) = c$. This equation holds for any $i\\in[d]$. In the special case when $d = 2$, this reduces nicely to\n",
+    "\n",
+    "$$\n",
+    "\\text{det}\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}=ad-bc\n",
+    "$$\n",
+    "\n",
+    "Let us close with a simple observation: For any diagonal matrix $A$ (written in the computational basis), the eigenvalues of $A$ are simply the entries on the diagonal of $A$, and the eigenvectors are just the computational basis vectors. In the exercise below, this immediately confirms that the eigenvalues of $Z$ are $1$ and $−1$ with eigenvectors $\\left|0\\right\\rangle$ and $\\left|1\\right\\rangle$, respectively."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 4\n",
+    "\n",
+    "Use the eigenvectors and eigenvaules you calculated for $X$ to write down the spectral decomposition of $X$, and verify that it indeed evaluates to $X$. Next, recall that $X\\left|0\\right\\rangle = \\left|1\\right\\rangle$. Note that $ \\left|0\\right\\rangle = \\frac{1}{\\sqrt{2}} \\left(\\left|+\\right\\rangle + \\left|-\\right\\rangle \\right)$. Use this and the spectral decomposition of $X$ to verify that indeed $X\\left|0\\right\\rangle = \\left|1\\right\\rangle$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## The four postulates of Quantum Mechanics\n",
+    "\n",
+    "In this course, our aim is to study computing devices which operate according to the laws of quantum mechanics. Developed during the early 20th century by physicists Max Planck, Albert Einstein, Erwin Schrödinger and many others, quantum mechanics is a set of mathematical laws which describe the behaviour of subatomic particles such as protons, electrons, and photons. Although the theory has proven remarkably successful since its inception, it is nevertheless notoriously counterintuitive, an aspect which we shall explore in this lecture. Quantum mechanics is based on four postulates, which describe the following four intuitive ideas: How to describe a single quantum system, how to perform quantum operations on a quantum system, how to describe multiple quantum systems, and how to measure or extract classical information from a quantum system.\n",
+    "\n",
+    "### Postulate 1: Individual Quantum systems\n",
+    "\n",
+    "Recall that in the classical world, a bit $x$ can take on one of two values: 0 or 1. In the quantum world, we immediately see a radical departure from this statement, a quantum bit, or qubit, can take on not just 0 or 1, but rather both values 0 and 1 simultaneously. This is a very deep and counterintuitive statement, so it worth reflecting on:  it is like saying you can be both asleep and awake at the same time, or here on Earth and simultaneously on Mars at the same time. Indeed, relative to life as we know it, _it makes no sense!_\n",
+    "\n",
+    "Let us formalize this phenomenon. We begin by encoding bits 0 and 1 via the standard basis vectors $\\left|0\\right\\rangle, \\left|1\\right\\rangle \\in \\mathbb C^2$ . Then, to denote that a qubit is in states $\\left|0\\right\\rangle$ and $\\left|1\\right\\rangle$ simultaneously, we write\n",
+    "\n",
+    "$$\n",
+    "\\left|0\\right\\rangle+\\left|1\\right\\rangle.\n",
+    "$$\n",
+    "\n",
+    "This is called a _superposition_. More generally, we can change the “extent” to which the qubit\n",
+    "is in state $\\left|0\\right\\rangle$ versus $\\left|0\\right\\rangle$ via _amplitudes_ $\\alpha,\\beta \\in \\mathbb C$ , i.e.\n",
+    "\n",
+    "$$\n",
+    "\\left|psi\\right\\rangle = \\alpha\\left|0\\right\\rangle + \\beta\\left|1\\right\\rangle\n",
+    "$$\n",
+    "\n",
+    "The only restriction is that $\\left|\\psi\\right\\rangle$ must be a unit vector, i.e. that $\\left|\\alpha\\right|^2+ \\left|\\beta\\right|^2 = 1$. To summarize, any unit vector in $\\mathbb C^2$ describes the state of a single qubit.\n",
+    "\n",
+    "Qubit is a 2-dimensional (which describes a two state system). There is no physical limitation to use qubits: One can use d-state systems, resulting in d-dimensional states (called a qudit). Qudit is described by a unit vector $\\left|\\psi\\right\\rangle \\in \\mathbb C^d$ , which can be described as\n",
+    "\n",
+    "$$\n",
+    "\\left|\\psi\\right\\rangle = \\alpha_0 \\left|0\\right\\rangle + \\alpha_1 \\left|1\\right\\rangle + \\cdots + \\alpha_{d-1} \\left|d-1\\right\\rangle =\\sum_{i=0}^{d-1}\\alpha_i\\left|i\\right\\rangle\n",
+    "$$\n",
+    "\n",
+    "where $\\left|i\\right\\rangle\\in \\mathbb C ^d$ denotes the _i_th computational basis vector and $\\alpha_i \\in \\mathbb C$. Since $\\left|\\psi\\right\\rangle$ is a unit vector, we have $\\sum_{i=0}^{d-1}\\left|\\alpha_i\\right|^2=1$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 5\n",
+    "Compute eigenvalues and eigenvectors of $Z$, what is the spectral decomposition of $Z$?\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Postulate 2: Quantum operations\n",
+    "\n",
+    "We next ask: What types of operations or maps can we perform on a qubit? Since a qubit is a vector, the natural choice is a linear map, i.e. multiplication by a matrix. However, not all matrices are fair game — it turns out that nature only allows a special class of matrices known as _unitary_ matrices. A unitary matrix $U \\in \\mathcal L( \\mathbb C^ d )$ is one which satisfies $UU^\\dagger = U^\\dagger U = I$. In other words, the inverse of $U$ is simple to calculate — just take the dagger of $U$ . This immediately yields a key insight — all quantum gates (qubit operations) are _reversible_. Among the most common single qubit gates are the following, known as the _Pauli_ gates, after Austrian-Swiss physicist Wolfgang Pauli:\n",
+    "\n",
+    "$$\n",
+    "X=\n",
+    "\\begin{pmatrix}\n",
+    "0 & 1 \\\\\n",
+    "1 & 0\n",
+    "\\end{pmatrix} \\qquad\n",
+    "Y=\n",
+    "\\begin{pmatrix}\n",
+    "0 & -i \\\\\n",
+    "i & 0\n",
+    "\\end{pmatrix} \\qquad\n",
+    "Z=\n",
+    "\\begin{pmatrix}\n",
+    "1 & 0 \\\\\n",
+    "0 & -1\n",
+    "\\end{pmatrix} \\qquad\n",
+    "$$\n",
+    "\n",
+    "The $X$ gate acts as a “quantum” NOT gate, as we see below:\n",
+    "\n",
+    "$$\n",
+    "X\\left|0\\right\\rangle=\\begin{pmatrix}0 & 1 \\\\1 & 0\\end{pmatrix}\\begin{pmatrix}1  \\\\ 0 \\end{pmatrix} =\\begin{pmatrix}0  \\\\ 1 \\end{pmatrix}=\\left|1\\right\\rangle \\qquad X\\left|1\\right\\rangle=\\begin{pmatrix}0 & 1 \\\\1 & 0\\end{pmatrix}\\begin{pmatrix}0  \\\\ 1 \\end{pmatrix} =\\begin{pmatrix}1  \\\\ 0 \\end{pmatrix}=\\left|0\\right\\rangle\n",
+    "$$\n",
+    "\n",
+    "$\\left|+\\right\\rangle$ and $\\left|-\\right\\rangle$ are eigenvectors of $X$ i.e. $X\\left|+\\right\\rangle=\\left|+\\right\\rangle$ and $X\\left|-\\right\\rangle=-\\left|-\\right\\rangle$. The spectral decomposition of $X$ is hence\n",
+    "\n",
+    "$$\n",
+    "X=\\left|+\\right\\rangle\\left\\langle+\\right|-\\left|-\\right\\rangle\\left\\langle-\\right|\n",
+    "$$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Send it after class 6\n",
+    "Verify that Pauli $X$, $Y$ , and $Z$ are unitary. Write $\\left|+\\right\\rangle\\left\\langle+\\right|-\\left|-\\right\\rangle\\left\\langle-\\right|$ as a matrix\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Answer\n",
+    "\n",
+    "_Fill me_\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [],
    "metadata": {
     "collapsed": false
    }
