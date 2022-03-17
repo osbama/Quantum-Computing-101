@@ -21,7 +21,7 @@ Theory sessions
    Lecture 2 (Ch.1) <Theory/Ch1/Theory-Lecture2.ipynb>
    Chapter 1 online material <Theory/Ch1/Ch1-online.rst>
 
-Theory sessions
+Hands-on sessions
 *******************************
 
 .. toctree::
