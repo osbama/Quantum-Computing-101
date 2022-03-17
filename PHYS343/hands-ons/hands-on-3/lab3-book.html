@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../links_and_forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/lectures.html">Lectures and Lecture notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch1.html">Chapter 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch2.html">Chapter 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hands-on-sessions.html">Hands On Sessions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html">Linux Terminal Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#getting-your-computer-ready">Getting your computer ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#dilhan">Dilhan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-2/lab2.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab3.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab3.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html#lab-book">Lab book</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#invitation-e-mail">Invitation e-mail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#ibm-quantum-computing-cloud">IBM Quantum Computing cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Learn what phase kickback refers to.</p></li>
+<li><p>Some circuit identities.</p></li>
+<li><p>Constructing CZ,CY, CH, SWAP (controlled rotations by pi)</p></li>
+<li><p>Arbitrary controlled rotations.</p></li>
+</ul>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="#exploring-cnot">Exploring the CNOT-Gate</a></p></li>
+<li><p><a class="reference external" href="#kickback">Phase Kickback</a><br />
+2.1 <a class="reference external" href="#explaining-identity">Explaining the CNOT Circuit Identity</a><br />
+2.2 <a class="reference external" href="#kickback-t-gate">Kickback with the T-gate</a></p></li>
+</ol>
+</section>
+<section id="exploring-the-cnot-gate-a-id-exploring-cnot-a">
+<h2>1. Exploring the CNOT-Gate <a id="exploring-cnot"></a><a class="headerlink" href="#exploring-the-cnot-gate-a-id-exploring-cnot-a" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section, we saw some very basic results with the CNOT gate. Here we will explore some more interesting results.</p>
+<p>We saw that we could entangle the two qubits by placing the control qubit in the state <span class="math notranslate nohighlight">\(|+\rangle\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{CNOT}|0{+}\rangle = \tfrac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\]</div>
+<p>But what happens if we put the second qubit in superposition?</p>
+<div class="cell tag_thebelab-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">assemble</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_bloch_multivector</span><span class="p">,</span> <span class="n">plot_histogram</span>
+<span class="c1"># In Jupyter Notebooks we can display this nicely using Latex.</span>
+<span class="c1"># If not using Jupyter Notebooks you may need to remove the </span>
+<span class="c1"># array_to_latex function and use print() instead.</span>
+<span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">assemble</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_5_0.png" src="../../../_images/lab3-book_5_0.png" />
+</div>
+</div>
+<p>In the circuit above, we have the CNOT acting on the state:</p>
+<div class="math notranslate nohighlight">
+\[ |{+}{+}\rangle = \tfrac{1}{2}(|00\rangle + |01\rangle + |10\rangle + |11\rangle) \]</div>
+<p>Since the CNOT swaps the amplitudes of <span class="math notranslate nohighlight">\(|01\rangle\)</span> and <span class="math notranslate nohighlight">\(|11\rangle\)</span>, we see no change:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>  <span class="c1"># `display` is a command for Jupyter notebooks</span>
+                    <span class="c1"># similar to `print`, but for rich content</span>
+
+<span class="c1"># Let&#39;s see the result</span>
+<span class="n">svsim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;statevector_simulator&#39;</span><span class="p">)</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">svsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">final_state</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text</span><span class="si">{Statevector}</span><span class="s2"> = &quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_7_0.png" src="../../../_images/lab3-book_7_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Statevector} = \begin{bmatrix}
+\tfrac{1}{2} \\
+\tfrac{1}{2} \\
+\tfrac{1}{2} \\
+\tfrac{1}{2}
+\end{bmatrix}
+\end{split}\]</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<img alt="../../../_images/lab3-book_7_3.png" src="../../../_images/lab3-book_7_3.png" />
+</div>
+</div>
+<p>Let’s put the target qubit in the state <span class="math notranslate nohighlight">\(|-\rangle\)</span>, so it has a negative phase:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_9_0.png" src="../../../_images/lab3-book_9_0.png" />
+</div>
+</div>
+<p>This creates the state:</p>
+<div class="math notranslate nohighlight">
+\[ |{-}{+}\rangle = \tfrac{1}{2}(|00\rangle + |01\rangle - |10\rangle - |11\rangle) \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+<span class="c1"># See the result</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">svsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">final_state</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text</span><span class="si">{Statevector}</span><span class="s2"> = &quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_11_0.png" src="../../../_images/lab3-book_11_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Statevector} = \begin{bmatrix}
+\tfrac{1}{2} \\
+\tfrac{1}{2} \\
+-\tfrac{1}{2} \\
+-\tfrac{1}{2}
+\end{bmatrix}
+\end{split}\]</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<img alt="../../../_images/lab3-book_11_3.png" src="../../../_images/lab3-book_11_3.png" />
+</div>
+</div>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h2>
+<p>What happens when we apply a H gate to both qubits in this state?</p>
+</section>
+<section id="answer">
+<h2>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+<p>If the CNOT acts on this state, we will swap the amplitudes of <span class="math notranslate nohighlight">\(|01\rangle\)</span> and <span class="math notranslate nohighlight">\(|11\rangle\)</span>, resulting in the state:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{CNOT}|{-}{+}\rangle &amp; = \tfrac{1}{2}(|00\rangle - |01\rangle - |10\rangle + |11\rangle) \\
+                           &amp; = |{-}{-}\rangle
+\end{aligned}
+\end{split}\]</div>
+<p>This is interesting, because it affects the state of the <em>control</em> qubit while leaving the state of the <em>target</em> qubit unchanged.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">svsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">final_state</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text</span><span class="si">{Statevector}</span><span class="s2"> = &quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_15_0.png" src="../../../_images/lab3-book_15_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Statevector} = \begin{bmatrix}
+\tfrac{1}{2} \\
+-\tfrac{1}{2} \\
+-\tfrac{1}{2} \\
+\tfrac{1}{2}
+\end{bmatrix}
+\end{split}\]</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<img alt="../../../_images/lab3-book_15_3.png" src="../../../_images/lab3-book_15_3.png" />
+</div>
+</div>
+<p>If you remember the H-gate transforms <span class="math notranslate nohighlight">\(|{+}\rangle \rightarrow |0\rangle\)</span> and <span class="math notranslate nohighlight">\(|{-}\rangle \rightarrow |1\rangle\)</span>, we can see that wrapping a CNOT in H-gates has the equivalent behaviour of a CNOT acting in the opposite direction:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-3/attachment:image.png" /></p>
+<p>We can verify this using Qiskit’s unitary simulator:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span> 
+
+<span class="n">usim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;unitary_simulator&#39;</span><span class="p">)</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">unitary</span> <span class="o">=</span> <span class="n">usim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">unitary</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text{Circuit = }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_17_0.png" src="../../../_images/lab3-book_17_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Circuit = }
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; 1  \\
+0 &amp; 0 &amp; 1 &amp; 0  \\
+\end{bmatrix}
+$$
+\end{split}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">unitary</span> <span class="o">=</span> <span class="n">usim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">unitary</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text{Circuit = }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_18_0.png" src="../../../_images/lab3-book_18_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Circuit = }
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; 1  \\
+0 &amp; 0 &amp; 1 &amp; 0  \\
+\end{bmatrix}
+$$
+\end{split}\]</div>
+</div>
+</div>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h2>
+<p>Do you remember the operator whose eigenvectors was <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>? What are the corresponding eigenvalues for each state ?</p>
+</section>
+<section id="id1">
+<h2>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+<p>This identity is an example of <em>phase kickback,</em> which leads us neatly on to the next section…</p>
+</section>
+<section id="phase-kickback-a-id-kickback-a">
+<h2>2. Phase Kickback <a id="kickback"></a><a class="headerlink" href="#phase-kickback-a-id-kickback-a" title="Permalink to this headline">¶</a></h2>
+<section id="explaining-the-cnot-circuit-identity-a-id-explaining-identity-a">
+<h3>2.1 Explaining the CNOT Circuit Identity <a id="explaining-identity"></a><a class="headerlink" href="#explaining-the-cnot-circuit-identity-a-id-explaining-identity-a" title="Permalink to this headline">¶</a></h3>
+<p>In the previous section we saw this identity:</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-3/attachment:image.png" /></p>
+<p>This is an example of <em>kickback</em> (or, <em>phase kickback</em> ) which is very important and is used in almost every quantum algorithm. Kickback is where the eigenvalue added by a gate to a qubit is ‘kicked back’ into a different qubit via a controlled operation. For example, we saw that performing an X-gate on a <span class="math notranslate nohighlight">\(|{-}\rangle\)</span> qubit gives it the phase <span class="math notranslate nohighlight">\(-1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+X|{-}\rangle = -|{-}\rangle
+\]</div>
+</section>
+</section>
+<section id="exercise-2-5">
+<h2>Exercise 2.5<a class="headerlink" href="#exercise-2-5" title="Permalink to this headline">¶</a></h2>
+<p>Prove that global phase of a state has no observable, or physical, effect. That is, the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> and <span class="math notranslate nohighlight">\(e^{i\alpha} |\psi\rangle\)</span> will always give the same expectation value for any observable <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</section>
+<section id="id2">
+<h2>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Expectation value of operator <span class="math notranslate nohighlight">\(A\)</span> on state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> is simply:
+$<span class="math notranslate nohighlight">\( \langle \psi | A | \psi \rangle \)</span>$</p>
+<p>Expectation value of operator <span class="math notranslate nohighlight">\(A\)</span> on state <span class="math notranslate nohighlight">\(e^{i\alpha}|\psi\rangle\)</span> is simply:
+$<span class="math notranslate nohighlight">\(\langle \psi |e^{-i\alpha}  A e^{i\alpha} |  \psi \rangle \)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( \langle \psi | A | \psi \rangle \)</span>$</p>
+<p>When our control qubit is in either <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>, this phase affects the whole state, however it is a global phase and has no observable effects:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{CNOT}|{-}0\rangle &amp; = |{-}\rangle \otimes |0\rangle \\
+                        &amp; = |{-}0\rangle \\
+                        \quad &amp; \\
+\text{CNOT}|{-}1\rangle &amp; = X|{-}\rangle \otimes |1\rangle \\
+                        &amp; = -|{-}\rangle \otimes |1\rangle \\
+                        &amp; = -|{-}1\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<p>The interesting effect is when our control qubit is in superposition, the component of the control qubit that lies in the direction of <span class="math notranslate nohighlight">\(|1\rangle\)</span> applies this phase factor to the target qubit, which in turn kicks back a relative phase to our control qubit:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{CNOT}|{-}{+}\rangle &amp; = \tfrac{1}{\sqrt{2}}(\text{CNOT}|{-}0\rangle + \text{CNOT}|{-}1\rangle) \\
+                           &amp; = \tfrac{1}{\sqrt{2}}(|{-}0\rangle + X|{-}1\rangle) \\
+                           &amp; = \tfrac{1}{\sqrt{2}}(|{-}0\rangle -|{-}1\rangle) \\
+\end{aligned}
+\end{split}\]</div>
+<p>This can then be written as the two separable qubit states:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{CNOT}|{-}{+}\rangle &amp; = |{-}\rangle \otimes \tfrac{1}{\sqrt{2}}(|{0}\rangle - |1\rangle )\\
+                           &amp; = |{-}{-}\rangle \\
+\end{aligned}
+\end{split}\]</div>
+<p>Wrapping the CNOT in H-gates transforms the qubits from the computational basis to the <span class="math notranslate nohighlight">\((|+\rangle, |-\rangle)\)</span> basis, where we see this effect. This identity is very useful in hardware, since some hardwares only allow for CNOTs in one direction between two specific qubits. We can use this identity to overcome this problem and allow CNOTs in both directions.</p>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h2>
+<p>Do the above calculations for when the target qubit is in <span class="math notranslate nohighlight">\(|+\rangle\)</span> state. That is, calculate teh following:</p>
+<ul>
+<li><div class="math notranslate nohighlight">
+\[CNOT(0,1) |+0\rangle \]</div>
+</li>
+<li><div class="math notranslate nohighlight">
+\[CNOT(0,1) |+1\rangle \]</div>
+</li>
+<li><p>Which one would experience phase kicback, if one of them experiences at all? <span class="math notranslate nohighlight">\( CNOT(0,1) |++ \rangle \text{ or } CNOT(0,1) |+- \rangle\)</span>  If they don’t experience a phase kick back, please explain briefly why that is the case?</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+</section>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h2>
+<p>How did we define an arbitrary rotation around z-axis operator, <span class="math notranslate nohighlight">\(R_z(\theta)\)</span>? Write its action on <span class="math notranslate nohighlight">\(|0\rangle,|1\rangle\)</span> and also the corresponding matrix.</p>
+</section>
+<section id="id4">
+<h2>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[ Rz |0\rangle = |0\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ Rz |1\rangle = e^{i\phi} |1\rangle \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">gate_demo</span>
+<span class="n">gate_demo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "7a0e4734feda4144b7244b12c4d313a8", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3c28e9f91c8442db849308fee239d96c", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="kickback-with-the-t-gate-a-id-kickback-t-gate-a">
+<h3>2.2 Kickback with the T-gate <a id="kickback-t-gate"></a><a class="headerlink" href="#kickback-with-the-t-gate-a-id-kickback-t-gate-a" title="Permalink to this headline">¶</a></h3>
+<p>Let’s look at another controlled operation, the controlled-T gate:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_31_0.png" src="../../../_images/lab3-book_31_0.png" />
+</div>
+</div>
+<p>The T-gate has the matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{T} = 
+\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; e^{i\pi/4}\\
+\end{bmatrix}
+\end{split}\]</div>
+<p>And the controlled-T gate has the matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Controlled-T} = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; e^{i\pi/4}\\
+\end{bmatrix}
+\end{split}\]</div>
+<p>We can verify this using Qiskit’s unitary simulator:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+<span class="c1"># See Results:</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">unitary</span> <span class="o">=</span> <span class="n">usim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">unitary</span><span class="p">,</span> <span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">text{Controlled-T} = </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_33_0.png" src="../../../_images/lab3-book_33_0.png" />
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+\text{Controlled-T} = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0  \\
+0 &amp; 0 &amp; 1 &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; \tfrac{1}{\sqrt{2}}(1 + i)  \\
+\end{bmatrix}
+$$
+\end{split}\]</div>
+</div>
+</div>
+<p>More generally, we can find the matrix of any controlled-U operation using the rule:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{U} &amp; = 
+\begin{bmatrix}
+u_{00} &amp; u_{01} \\
+u_{10} &amp; u_{11}\\
+\end{bmatrix} \\
+\quad &amp; \\
+\text{Controlled-U} &amp; = 
+\begin{bmatrix}
+I &amp; 0 \\
+0 &amp; U\\
+\end{bmatrix}
+ = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; u_{00} &amp; u_{01} \\
+0 &amp; 0 &amp; u_{10} &amp; u_{11}\\
+\end{bmatrix}
+\end{aligned}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ 00 , 01 , 10, 11 \]</div>
+</section>
+</section>
+<section id="exercise-5">
+<h2>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h2>
+<p>Why is Controlled-U in block diagonal form? (I’ll be giving the answer during the session)</p>
+</section>
+<section id="id5">
+<h2>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+<p>Or, using Qiskit’s qubit ordering:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Controlled-U} =  
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; u_{00} &amp; 0 &amp; u_{01} \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; u_{10} &amp; 0 &amp; u_{11}\\
+\end{bmatrix}
+\end{split}\]</div>
+<p>If we apply the T-gate to a qubit in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>, we add a phase of <span class="math notranslate nohighlight">\(e^{i\pi/4}\)</span> to this qubit:</p>
+<div class="math notranslate nohighlight">
+\[
+T|1\rangle = e^{i\pi/4}|1\rangle
+\]</div>
+<p>This is <em>global phase</em> and is unobservable. But if we control this operation using another qubit in the <span class="math notranslate nohighlight">\(|{+}\rangle\)</span> state, the phase is no longer global but relative, which changes the <em>relative phase</em> in our control qubit:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+|1{+}\rangle &amp; = |1\rangle \otimes \tfrac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \\
+&amp; = \tfrac{1}{\sqrt{2}}(|10\rangle + |11\rangle) \\
+&amp; \\
+\text{Controlled-T}|1{+}\rangle &amp; = \tfrac{1}{\sqrt{2}}(|10\rangle + e^{i\pi/4}|11\rangle) \\
+&amp; \\
+&amp; = |1\rangle \otimes \tfrac{1}{\sqrt{2}}(|0\rangle + e^{i\pi/4}|1\rangle)
+\end{aligned}
+\end{split}\]</div>
+<p>This has the effect of rotating our control qubit around the Z-axis of the Bloch sphere, while leaving the target qubit unchanged. Let’s see this in Qiskit:</p>
+</section>
+<section id="exercise-6">
+<h2>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h2>
+<p>Explain why do we represent Controlled-U differently in Qiskit?</p>
+</section>
+<section id="id6">
+<h2>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+<span class="c1"># See Results:</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">svsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_40_0.png" src="../../../_images/lab3-book_40_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<img alt="../../../_images/lab3-book_40_2.png" src="../../../_images/lab3-book_40_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Add Controlled-T</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+<span class="c1"># See Results:</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">final_state</span> <span class="o">=</span> <span class="n">svsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="n">plot_bloch_multivector</span><span class="p">(</span><span class="n">final_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_41_0.png" src="../../../_images/lab3-book_41_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<img alt="../../../_images/lab3-book_41_2.png" src="../../../_images/lab3-book_41_2.png" />
+</div>
+</div>
+<p>We can see the leftmost qubit has been rotated by <span class="math notranslate nohighlight">\(\pi/4\)</span> around the Z-axis of the Bloch sphere as expected. After exploring this behaviour, it may become clear why Qiskit draws the controlled-Z rotation gates in this symmetrical fashion (two controls instead of a control and a target). There is no clear control or target qubit for all cases.</p>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-3/attachment:image.png" /></p>
+<p>You can do the exercises below if you like, but they are not part of the homework exercises.</p>
+<section id="quick-exercises">
+<h3>Quick Exercises:<a class="headerlink" href="#quick-exercises" title="Permalink to this headline">¶</a></h3>
+<p>1.What would be the resulting state of the control qubit (q0) if the target qubit (q1) was in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>? (as shown in the circuit below)? Use Qiskit to check your answer.</p>
+<p><img alt="image-6.png" src="PHYS343/hands-ons/hands-on-3/attachment:image-6.png" /></p>
+<p>2.What would happen to the control qubit (q0) if the if the target qubit (q1) was in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>, and the circuit used a controlled-Sdg gate instead of the controlled-T (as shown in the circuit below)?</p>
+<p><img alt="image-5.png" src="PHYS343/hands-ons/hands-on-3/attachment:image-5.png" /></p>
+<p>3.What would happen to the control qubit (q0) if it was in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span> instead of the state <span class="math notranslate nohighlight">\(|{+}\rangle\)</span> before application of the controlled-T (as shown in the circuit below)?</p>
+<p><img alt="image-4.png" src="PHYS343/hands-ons/hands-on-3/attachment:image-4.png" /></p>
+</section>
+</section>
+<section id="exercise-7">
+<h2>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h2>
+<p>Prove that if we applying CZ(0,1) and CZ(1,0) to <span class="math notranslate nohighlight">\(|1+\rangle\)</span> produce the same states. You can either use LaTeX feature of Jupyter Markdown cells, or just write it on a piece of paper, take its picture and upload it below.</p>
+</section>
+<section id="id7">
+<h2>Answer<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+<p>This below part is also taken directly from Qiskit textbook, with some simple exercises between the lines. However, this is not the whole notebook. If you are interested in learning more about them you should check Qiskit Textbook!!</p>
+<p>When we program quantum computers, our aim is always to build useful quantum circuits from the basic building blocks. But sometimes, we might not have all the basic building blocks we want. In this section, we’ll look at how we can transform basic gates into each other, and how to use them to build some gates that are slightly more complex (but still pretty basic).</p>
+<p>Many of the techniques discussed in this chapter were first proposed in a paper by Barenco and coauthors in 1995 [1].</p>
+</section>
+<section id="id8">
+<h2>Contents<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="#c-from-cnot">Making a Controlled-Z from a CNOT</a></p></li>
+<li><p><a class="reference external" href="#swapping">Swapping Qubits</a></p></li>
+<li><p><a class="reference external" href="#controlled-rotations">Controlled Rotations</a></p></li>
+<li><p><a class="reference external" href="#ccx">The Toffoli</a></p></li>
+<li><p><a class="reference external" href="#arbitrary-rotations">Arbitrary rotations from H and T</a></p></li>
+<li><p><a class="reference external" href="#references">References</a></p></li>
+</ol>
+</section>
+<section id="making-a-controlled-z-from-a-cnot-a-id-c-from-cnot-a">
+<h2>1. Making a Controlled-Z from a CNOT <a id="c-from-cnot"></a><a class="headerlink" href="#making-a-controlled-z-from-a-cnot-a-id-c-from-cnot-a" title="Permalink to this headline">¶</a></h2>
+<p>The controlled-Z or <code class="docutils literal notranslate"><span class="pre">cz</span></code> gate is another well-used two-qubit gate. Just as the CNOT applies an <span class="math notranslate nohighlight">\(X\)</span> to its target qubit whenever its control is in state <span class="math notranslate nohighlight">\(|1\rangle\)</span>, the controlled-<span class="math notranslate nohighlight">\(Z\)</span> applies a <span class="math notranslate nohighlight">\(Z\)</span> in the same case. In Qiskit it can be invoked directly with</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">Gate</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="c1"># a controlled-Z</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_49_0.png" src="../../../_images/lab3-book_49_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gate_demo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "db079c5e93ec4e36aa353e7fff561d17", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "b45d8e40a9dc4a7daa5cb414573ca073", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+</div>
+</div>
+<p>where c and t are the control and target qubits. In IBM Q devices, however, the only kind of two-qubit gate that can be directly applied is the CNOT. We therefore need a way to transform one to the other.</p>
+<p>The process for this is quite simple. We know that the Hadamard transforms the states <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> to the states <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> respectively. We also know that the effect of the <span class="math notranslate nohighlight">\(Z\)</span> gate on the states <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> is the same as that for <span class="math notranslate nohighlight">\(X\)</span> on the state <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>. From this reasoning, or from simply multiplying matrices, we find that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H X H = Z,\\\\
+H Z H = X.
+\end{split}\]</div>
+<p>The same trick can be used to transform a CNOT into a controlled-<span class="math notranslate nohighlight">\(Z\)</span>. All we need to do is precede and follow the CNOT with a Hadamard on the target qubit. This will transform any <span class="math notranslate nohighlight">\(X\)</span> applied to that qubit into a <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># also a controlled-Z</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_52_0.png" src="../../../_images/lab3-book_52_0.png" />
+</div>
+</div>
+<p>More generally, we can transform a single CNOT  into a controlled version of any rotation around the Bloch sphere by an angle <span class="math notranslate nohighlight">\(\pi\)</span>, by simply preceding and following it with the correct rotations. For example, a controlled-<span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># a controlled-Y</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">sdg</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_54_0.png" src="../../../_images/lab3-book_54_0.png" />
+</div>
+</div>
+<p>and a controlled-<span class="math notranslate nohighlight">\(H\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># a controlled-H</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_56_0.png" src="../../../_images/lab3-book_56_0.png" />
+</div>
+</div>
+</section>
+<section id="exercise-8">
+<h2>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Write down the action of <span class="math notranslate nohighlight">\(S\)</span> and <span class="math notranslate nohighlight">\(S^{\dagger}\)</span> on the computational basis states.</p></li>
+<li><p>Write the corresponding matrix.</p></li>
+<li><p>Write down the matrix for the Controlled-Y operation and compare it with the unitary transformation produced by the proposed circuit. Beware of the little-endian representation!</p></li>
+</ul>
+</section>
+<section id="id9">
+<h2>Answer<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># a controlled-H</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="c1"># Get yoour necesary backend</span>
+<span class="c1"># run your circucit on backend</span>
+<span class="c1"># result -&gt; get unitary -&gt; print</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="swapping-qubits-a-id-swapping-a">
+<h2>2. Swapping Qubits <a id="swapping"></a><a class="headerlink" href="#swapping-qubits-a-id-swapping-a" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Sometimes we need to move information around in a quantum computer. For some qubit implementations, this could be done by physically moving them. Another option is simply to move the state between two qubits. This is done by the SWAP gate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># swaps states of qubits a and b</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_63_0.png" src="../../../_images/lab3-book_63_0.png" />
+</div>
+</div>
+<p>The command above directly invokes this gate, but let’s see how we might make it using our standard gate set. For this, we’ll need to consider a few examples.</p>
+<p>First, we’ll look at the case that qubit a is in state <span class="math notranslate nohighlight">\(|1\rangle\)</span> and qubit b is in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. For this we’ll apply the following gates:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># swap a 1 from a to b</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="c1"># copies 1 from a to b</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> <span class="c1"># uses the 1 on b to rotate the state of a to 0</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_65_0.png" src="../../../_images/lab3-book_65_0.png" />
+</div>
+</div>
+<p>This has the effect of putting qubit b in state <span class="math notranslate nohighlight">\(|1\rangle\)</span> and qubit a in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. In this case at least, we have done a SWAP.</p>
+<p>Now let’s take this state and SWAP back to the original one. As you may have guessed, we can do this with the reverse of the above process:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># swap a q from b to a</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span> <span class="c1"># copies 1 from b to a</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="c1"># uses the 1 on a to rotate the state of b to 0</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_67_0.png" src="../../../_images/lab3-book_67_0.png" />
+</div>
+</div>
+<p>Note that in these two processes, the first gate of one would have no effect on the initial state of the other. For example, when we swap the <span class="math notranslate nohighlight">\(|1\rangle\)</span> b to a, the first gate is <code class="docutils literal notranslate"><span class="pre">cx(b,a)</span></code>. If this were instead applied to a state where no <span class="math notranslate nohighlight">\(|1\rangle\)</span> was initially on b, it would have no effect.</p>
+<p>Note also that for these two processes, the final gate of one would have no effect on the final state of the other. For example, the final <code class="docutils literal notranslate"><span class="pre">cx(b,a)</span></code> that is required when we swap the <span class="math notranslate nohighlight">\(|1\rangle\)</span> from a to b has no effect on the state where the <span class="math notranslate nohighlight">\(|1\rangle\)</span> is not on b.</p>
+<p>With these observations, we can combine the two processes by adding an ineffective gate from one onto the other. For example,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_69_0.png" src="../../../_images/lab3-book_69_0.png" />
+</div>
+</div>
+<p>We can think of this as a process that swaps a <span class="math notranslate nohighlight">\(|1\rangle\)</span> from a to b, but with a useless <code class="docutils literal notranslate"><span class="pre">qc.cx(b,a)</span></code> at the beginning. We can also think of it as a process that swaps a <span class="math notranslate nohighlight">\(|1\rangle\)</span> from b to a, but with a useless <code class="docutils literal notranslate"><span class="pre">qc.cx(b,a)</span></code> at the end. Either way, the result is a process that can do the swap both ways around.</p>
+<p>It also has the correct effect on the <span class="math notranslate nohighlight">\(|00\rangle\)</span> state. This is symmetric, and so swapping the states should have no effect. Since the CNOT gates have no effect when their control qubits are <span class="math notranslate nohighlight">\(|0\rangle\)</span>, the process correctly does nothing.</p>
+<p>The <span class="math notranslate nohighlight">\(|11\rangle\)</span> state is also symmetric, and so needs a trivial effect from the swap. In this case, the first CNOT gate in the process above will cause the second to have no effect, and the third undoes the first. Therefore, the whole effect is indeed trivial.</p>
+<p>We have thus found a way to decompose SWAP gates into our standard gate set of single-qubit rotations and CNOT gates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># swaps states of qubits a and b</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_71_0.png" src="../../../_images/lab3-book_71_0.png" />
+</div>
+</div>
+<p>It works for the states <span class="math notranslate nohighlight">\(|00\rangle\)</span>, <span class="math notranslate nohighlight">\(|01\rangle\)</span>, <span class="math notranslate nohighlight">\(|10\rangle\)</span> and <span class="math notranslate nohighlight">\(|11\rangle\)</span>, and if it works for all the states in the computational basis, it must work for all states generally. This circuit therefore swaps all possible two-qubit states.</p>
+<p>The same effect would also result if we changed the order of the CNOT gates:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># swaps states of qubits a and b</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_73_0.png" src="../../../_images/lab3-book_73_0.png" />
+</div>
+</div>
+<p>This is an equally valid way to get the SWAP gate.</p>
+<p>The derivation used here was very much based on the z basis states, but it could also be done by thinking about what is required to swap qubits in states <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>. The resulting ways of implementing the SWAP gate will be completely equivalent to the ones here.</p>
+<section id="quick-exercise">
+<h3>Quick Exercise:<a class="headerlink" href="#quick-exercise" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Find different circuit that swaps qubits in the states <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>, and show this is equivalent to the circuit shown above.</p></li>
+</ul>
+</section>
+</section>
+<section id="exercise-9">
+<h2>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h2>
+<p>Solve the above quick exercise:</p>
+<p>-Find different circuit that swaps qubits in the states |+⟩ and |−⟩, and show this is equivalent to the circuit shown above.</p>
+</section>
+<section id="id10">
+<h2>Answer<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>?</p>
+</section>
+<section id="controlled-rotations-a-id-controlled-rotations-a">
+<h2>3. Controlled Rotations <a id="controlled-rotations"></a><a class="headerlink" href="#controlled-rotations-a-id-controlled-rotations-a" title="Permalink to this headline">¶</a></h2>
+<p>We have already seen how to build controlled <span class="math notranslate nohighlight">\(\pi\)</span> rotations from a single CNOT gate. Now we’ll look at how to build any controlled rotation.</p>
+<p>First, let’s consider arbitrary rotations around the y axis. Specifically, consider the following sequence of gates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="c1"># theta can be anything (pi chosen arbitrarily)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_78_0.png" src="../../../_images/lab3-book_78_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gate_demo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "34a339af51cf4ec38638b0ba3b2556e5", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "1c6685be840f45b58fc71d5fa0cf7292", "version_major": 2, "version_minor": 0}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+/opt/conda/lib/python3.8/site-packages/qiskit/visualization/bloch.py:69: MatplotlibDeprecationWarning: 
+The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use self.axes.M instead.
+  x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+</pre></div>
+</div>
+</div>
+</div>
+<p>If the control qubit is in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, all we have here is a <span class="math notranslate nohighlight">\(R_y(\theta/2)\)</span> immediately followed by its inverse, <span class="math notranslate nohighlight">\(R_y(-\theta/2)\)</span>. The end effect is trivial. If the control qubit is in state <span class="math notranslate nohighlight">\(|1\rangle\)</span>, however, the <code class="docutils literal notranslate"><span class="pre">ry(-theta/2)</span></code> is effectively preceded and followed by an X gate. This has the effect of flipping the direction of the y rotation and making a second <span class="math notranslate nohighlight">\(R_y(\theta/2)\)</span>. The net effect in this case is therefore to make a controlled version of the rotation <span class="math notranslate nohighlight">\(R_y(\theta)\)</span>.</p>
+<p>This method works because the x and y axis are orthogonal, which causes the x gates to flip the direction of the rotation. It therefore similarly works to make a controlled <span class="math notranslate nohighlight">\(R_z(\theta)\)</span>. A controlled <span class="math notranslate nohighlight">\(R_x(\theta)\)</span> could similarly be made using CNOT gates.</p>
+<p>We can also make a controlled version of any single-qubit rotation, <span class="math notranslate nohighlight">\(V\)</span>. For this we simply need to find three rotations A, B and C, and a phase <span class="math notranslate nohighlight">\(\alpha\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[
+ABC = I, ~~~e^{i\alpha}AZBZC = V
+\]</div>
+<p>We then use controlled-Z gates to cause the first of these relations to happen whenever the control is in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, and the second to happen when the control is state <span class="math notranslate nohighlight">\(|1\rangle\)</span>. An <span class="math notranslate nohighlight">\(R_z(2\alpha)\)</span> rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">Gate</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">Gate</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">Gate</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[])</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># arbitrarily define alpha to allow drawing of circuit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">[</span><span class="n">t</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">p</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab3-book_82_0.png" src="../../../_images/lab3-book_82_0.png" />
+</div>
+</div>
+<p><img alt="image.png" src="PHYS343/hands-ons/hands-on-3/attachment:image.png" /></p>
+<p>Here <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code> and <code class="docutils literal notranslate"><span class="pre">C</span></code> are gates that implement <span class="math notranslate nohighlight">\(A\)</span> , <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>, respectively.</p>
+</section>
+<section id="references-a-id-references-a">
+<h2>6. References <a id="references"></a><a class="headerlink" href="#references-a-id-references-a" title="Permalink to this headline">¶</a></h2>
+<p>[1] <a class="reference external" href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.52.3457?cm_mc_uid=43781767191014577577895&amp;cm_mc_sid_50200000=1460741020">Barenco, <em>et al.</em> 1995</a></p>
+<p>[2] <a class="reference external" href="http://dl.acm.org/citation.cfm?id=2011799">Shende and Markov, 2009</a></p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/PHYS343/hands-ons/hands-on-3/lab3-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

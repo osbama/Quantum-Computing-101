@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Hands-on 1 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Lecture 1 online material" href="../../Theory/Ch1/Ch1-online.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-1">
+<h1>Hands-on 1<a class="headerlink" href="#hands-on-1" title="Permalink to this headline">¶</a></h1>
+<p>##Preliminart</p>
+<p>First of all, let’s see if your qiskit installation is working. If not, please follow the instructions for installing qiskit in your own pc using <em>conda</em>, or run this book in the <em>IBM cloud</em> directly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
+<span class="o">%</span><span class="k">qiskit_version_table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Thu Mar 17 05:39:37 2022 +03</td></tr></table></div></div>
+</div>
+<section id="exploring-qubits-with-qiskit">
+<h2>Exploring Qubits with Qiskit<a class="headerlink" href="#exploring-qubits-with-qiskit" title="Permalink to this headline">¶</a></h2>
+<p>Classical bits always have a completely well-defined state: they are either 0 or 1 at every point during a computation. There is no more detail we can add to the state of a bit than this. So to write down the state of a of classical bit <code class="docutils literal notranslate"><span class="pre">(c)</span></code>, we can just use these two binary values. For example:</p>
+<div class="math notranslate nohighlight">
+\[
+c = 0
+\]</div>
+<p>This restriction is lifted for quantum bits. Whether we get a <span class="math notranslate nohighlight">\(0\)</span> or a <span class="math notranslate nohighlight">\(1\)</span> from a qubit only needs to be well-defined when a measurement is made to extract an output. At that point, it must commit to one of these two options. At all other times, its state will be something more complex than can be captured by a simple binary value.</p>
+<p>To see how to describe these, we can first focus on the two simplest cases. It is possible to prepare a qubit in a state for which it definitely gives the outcome <span class="math notranslate nohighlight">\(0\)</span> when measured.</p>
+<p>We need a name for this state. Let’s be unimaginative and call it <em>0</em>. Similarly, there exists a qubit state that is certain to output a <span class="math notranslate nohighlight">\(1\)</span>. We’ll call this <em>1</em>. These two states are completely mutually exclusive. Either the qubit definitely outputs a <span class="math notranslate nohighlight">\(0\)</span>, or it definitely outputs a <span class="math notranslate nohighlight">\(1\)</span>. There is no overlap. One way to represent this with mathematics is to use two orthogonal vectors.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|0\right\rangle= \begin{pmatrix} 1 \\ 0 \end{pmatrix} \qquad \left|1\right\rangle= \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\end{split}\]</div>
+<p>With vectors we can describe more complex states than just <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. For example, consider the vector</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|q_0\right\rangle= \begin{pmatrix} \frac{1}{\sqrt{2}}  \\ \frac{i}{\sqrt{2}} \end{pmatrix}
+\end{split}\]</div>
+<p>Since the states <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span> form an orthonormal basis, we can represent any 2D vector with a combination of these two states. This allows us to write the state of our qubit in the alternative form:</p>
+<div class="math notranslate nohighlight">
+\[
+\left|q_0\right\rangle = \frac{1}{\sqrt{2}} \left|0\right\rangle + \frac{i}{\sqrt{2}} \left|1\right\rangle
+\]</div>
+<p>This vector, <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span> is called the qubit’s <em>statevector</em>, it tells us everything we could possibly know about this qubit. For now, we are only able to draw a few simple conclusions about this particular example of a statevector: it is not entirely <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and not entirely <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. Instead, it is described by a linear combination of the two. In quantum mechanics, we typically describe linear combinations such as this using the word ‘superposition’.</p>
+<p>Though our example state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span> can be expressed as a superposition of <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>, it is no less a definite and well-defined qubit state than they are. To see this, we can begin to explore how a qubit can be manipulated</p>
+<p>First, we need to import all the tools we will need:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">assemble</span><span class="p">,</span> <span class="n">Aer</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span><span class="p">,</span> <span class="n">plot_bloch_vector</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In Qiskit, we use the <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> object to store our circuits, this is essentially a list of the quantum operations on our circuit and the qubits they are applied to.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Create a quantum circuit with one qubit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In our quantum circuits, our qubits always start out in the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span>. We can use the <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> method to transform this into any state. We give <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> the vector we want in the form of a list, and tell it which qubit(s) we want to initialize in this state:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Create a quantum circuit with one qubit</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># Define initial_state as |1&gt;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Apply initialisation operation to the 0th qubit</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>  <span class="c1"># Let&#39;s view our circuit</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_8_0.png" src="../../../../_images/Hands-on-1-book_8_0.png" />
+</div>
+</div>
+<p>We can then use one of Qiskit’s simulators to view the resulting state of our qubit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>  <span class="c1"># Tell Qiskit how to simulate our circuit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get the results from our circuit, we use run to execute our circuit, giving the circuit and the backend as arguments. We then use <code class="docutils literal notranslate"><span class="pre">.result()</span></code> to get the result of this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Create a quantum circuit with one qubit</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># Define initial_state as |1&gt;</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Apply initialisation operation to the 0th qubit</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">save_statevector</span><span class="p">()</span>   <span class="c1"># Tell simulator to save statevector</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>     <span class="c1"># Create a Qobj from the circuit for the simulator to run</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="c1"># Do the simulation and return the result</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>from result, we can then get the final statevector using <code class="docutils literal notranslate"><span class="pre">.get_statevector()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_state</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out_state</span><span class="p">)</span> <span class="c1"># Display the output state vector</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([0.+0.j, 1.+0.j],
+            dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Note:</em> Python uses <span class="math notranslate nohighlight">\(j\)</span> to represent <span class="math notranslate nohighlight">\(i\)</span> in complex numbers. We see a vector with two complex elements: <span class="math notranslate nohighlight">\(0.+0.j = 0\)</span>, and <span class="math notranslate nohighlight">\(1.+0.j = 1\)</span>.</p>
+<p>Let’s now measure our qubit as we would in a real quantum computer and see the result:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_16_0.png" src="../../../../_images/Hands-on-1-book_16_0.png" />
+</div>
+</div>
+<p>This time, instead of the statevector we will get the counts for the <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> results using <code class="docutils literal notranslate"><span class="pre">.get_counts()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_18_0.png" src="../../../../_images/Hands-on-1-book_18_0.png" />
+</div>
+</div>
+<p>We can see that we (unsurprisingly) have a 100% chance of measuring <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. This time, let’s instead put our qubit into a superposition and see what happens. We will use the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span> from earlier :</p>
+<div class="math notranslate nohighlight">
+\[
+\left|q_0\right\rangle = \frac{1}{\sqrt{2}} \left|0\right\rangle + \frac{i}{\sqrt{2}} \left|1\right\rangle
+\]</div>
+<p>We need to add these amplitudes to a python list. To add a complex amplitude, Python uses <span class="math notranslate nohighlight">\(j\)</span> for the imaginary unit (we normally call it <span class="math notranslate nohighlight">\(i\)</span> mathematically):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="n">j</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>  <span class="c1"># Define state |q_0&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we then repeat the steps for initialising the qubit as before:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Must redefine qc</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Initialize the 0th qubit in the state `initial_state`</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">save_statevector</span><span class="p">()</span> <span class="c1"># Save statevector</span>
+<span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span> <span class="c1"># Execute the circuit</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>           <span class="c1"># Print the result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Statevector([0.70710678+0.j        , 0.        +0.70710678j],
+            dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_23_0.png" src="../../../../_images/Hands-on-1-book_23_0.png" />
+</div>
+</div>
+<p>We can see we have equal probability of measuring either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. To explain this, we need to talk about measurement.</p>
+</section>
+<section id="the-rules-of-measurement">
+<h2>The Rules of Measurement<a class="headerlink" href="#the-rules-of-measurement" title="Permalink to this headline">¶</a></h2>
+<p>Remember: To find the probability of measuring a state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> in the state <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> we do:</p>
+<div class="math notranslate nohighlight">
+\[
+p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle\right|^2
+\]</div>
+<p>In the equation above, <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span> can be any qubit state. To find the probability of measuring <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span>, we take the inner product of <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span> and the state we are measuring (in this case <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\right\)</span>), then square the magnitude. This may seem a little convoluted, but it will soon become second nature.</p>
+<p>If we look at the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\right\)</span> from before, we can see the probability of measuring <span class="math notranslate nohighlight">\(\left|0\right\rangle\right\)</span> is indeed <span class="math notranslate nohighlight">\(0.5\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}
+\begin{align}
+\left|q_0\right\rangle &amp;= \frac{1}{\sqrt{2}} \left|0\right\rangle + \frac{i}{\sqrt{2}} \left|1\right\rangle \\
+\left\langle 0 \middle|q_0\right\rangle &amp;= \frac{1}{\sqrt{2}} \left\langle 0 \middle|0\right\rangle + \frac{i}{\sqrt{2}} \left\langle 0 \middle|1\right\rangle \\
+&amp;=\frac{1}{\sqrt{2}}\\\end{split}\\\left|\left\langle 0 \middle|q_0\right\rangle\right|^2 &amp;=\frac{1}{2}
+\end{align}
+\end{aligned}\end{align} \]</div>
+<p>This rule governs how we get information out of quantum states. It is therefore very important for everything we do in quantum computation. It also immediately implies several important facts</p>
+<section id="normalisation">
+<h3>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h3>
+<p>The rule shows us that amplitudes are related to probabilities. If we want the probabilities to add up to 1 (which they should!), we need to ensure that the statevector is properly normalized. Specifically, we need the magnitude of the state vector to be 1.</p>
+<div class="math notranslate nohighlight">
+\[
+\left\langle \psi \middle|\psi\right\rangle=1
+\]</div>
+<p>Thus if:</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\psi\right\rangle = \alpha \left|0\right\rangle + \beta \left|1\right\rangle
+\]</div>
+<p>Then:</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\alpha\right|^2+\left|\beta\right|^2=1
+\]</div>
+<p>This explains the factors of <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> you have seen throughout this hands-on. In fact, if we try to give <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> a vector that isn’t normalised, it will give us an error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">QiskitError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">vector</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:459,</span> in <span class="ni">initialize</span><span class="nt">(self, params, qubits)</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="n">qubits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit_argument_conversion</span><span class="p">(</span><span class="n">qubits</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">458</span> <span class="n">num_qubits</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">qubits</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">459</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Initialize</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">),</span> <span class="n">qubits</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:94,</span> in <span class="ni">Initialize.__init__</span><span class="nt">(self, params, num_qubits)</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>     <span class="c1"># Check if probabilities (amplitudes squared) sum to 1</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">_EPS</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">94</span>         <span class="k">raise</span> <span class="n">QiskitError</span><span class="p">(</span><span class="s2">&quot;Sum of amplitudes-squared does not equal one.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="n">num_qubits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;initialize&quot;</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+<span class="ne">QiskitError</span>: &#39;Sum of amplitudes-squared does not equal one.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="in-class-exercise">
+<h3>In class exercise<a class="headerlink" href="#in-class-exercise" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Create a state vector that will give a 1/3 probability of measuring <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span>.</p></li>
+<li><p>Create a different state vector that will give the same measurement probabilities.</p></li>
+<li><p>Verify that the probability of measuring \left|1\right\rangle for these two states is 2/3.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##Fill me</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="alternative-measurement">
+<h3>Alternative measurement<a class="headerlink" href="#alternative-measurement" title="Permalink to this headline">¶</a></h3>
+<p>The measurement rule gives us the probability <span class="math notranslate nohighlight">\(p\left(\left|x\right\rangle\right)\)</span> that a state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> is measured as <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span>. Nowhere does it tell us that <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> can only be either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>.</p>
+<p>The measurements we have considered so far are in fact only one of an infinite number of possible ways to measure a qubit. For any orthogonal pair of states, we can define a measurement that would cause a qubit to choose between the two.</p>
+<p>This possibility will be explored more in the next section. For now, just bear in mind that <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> is not limited to being simply <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>.</p>
+</section>
+<section id="global-phase">
+<h3>Global Phase<a class="headerlink" href="#global-phase" title="Permalink to this headline">¶</a></h3>
+<p>We know that measuring the state <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>  will give us the output <span class="math notranslate nohighlight">\(1\)</span> with certainty. But we are also able to write down states such as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix} 0 \\ i \end{pmatrix}=i\left|1\right\rangle.
+\end{split}\]</div>
+<p>To see how this behaves, we apply the measurement rule.</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\left\langle x \right| \left(i \left|1\right\rangle\right)\right|^2=\left|i\left\langle x\middle|1\right\rangle\right|^2=\left|\left\langle x\middle|1\right\rangle\right|^2
+\]</div>
+<p>Here we find that the factor of <span class="math notranslate nohighlight">\(i\)</span> disappears once we take the magnitude of the complex number. This effect is completely independent of the measured state <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span>. It does not matter what measurement we are considering, the probabilities for the state <span class="math notranslate nohighlight">\(i\left|1\right\rangle\)</span> are identical to those for <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. Since measurements are the only way we can extract any information from a qubit, this implies that these two states are equivalent in all ways that are physically relevant.</p>
+<p>More generally, we refer to any overall factor <span class="math notranslate nohighlight">\(\gamma\)</span> on a state for which <span class="math notranslate nohighlight">\(\left|\gamma\right|=1\)</span> as a ‘global phase’. States that differ only by a global phase are physically indistinguishable.</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\left\langle x \right| \left(\gamma \left|\alpha\right\rangle\right)\right|^2=\left|\gamma\left\langle x\middle|\alpha\right\rangle\right|^2=\left|\left\langle x\middle|\alpha\right\rangle\right|^2
+\]</div>
+<p>Note that this is distinct from the phase difference between terms in a superposition, which is known as the ‘relative phase’. This becomes relevant once we consider different types of measurement and multiple qubits.</p>
+<section id="the-observer-effect">
+<h4>The Observer Effect<a class="headerlink" href="#the-observer-effect" title="Permalink to this headline">¶</a></h4>
+<p>We know that the amplitudes contain information about the probability of us finding the qubit in a specific state, but once we have measured the qubit, we know with certainty what the state of the qubit is. For example, if we measure a qubit in the state:</p>
+<div class="math notranslate nohighlight">
+\[
+\left|q\right\rangle = \alpha \left|0\right\rangle + \beta \left|1\right\rangle
+\]</div>
+<p>And find it in the state <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span>, if we measure again, there is a 100% chance of finding the qubit in the state <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span>. This means the act of measuring changes the state of our qubits.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|q\right\rangle=\begin{pmatrix} \alpha \\ \beta \end{pmatrix} \xrightarrow{\text{Measure } \left|0\right\rangle} \left|q\right\rangle=\left|0\right\rangle=\begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\end{split}\]</div>
+<p>We sometimes refer to this as collapsing the state of the qubit. It is a potent effect, and so one that must be used wisely. For example, were we to constantly measure each of our qubits to keep track of their value at each point in a computation, they would always simply be in a well-defined state of either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. As such, they would be no different from classical bits and our computation could be easily replaced by a classical computation. To achieve truly quantum computation we must allow the qubits to explore more complex states. Measurements are therefore only used when we need to extract an output. This means that we often place all the measurements at the end of our quantum circuit.</p>
+<p>We can demonstrate this using Qiskit’s statevector simulator. Let’s initialize a qubit in superposition:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># We are redefining qc</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_33_0.png" src="../../../../_images/Hands-on-1-book_33_0.png" />
+</div>
+</div>
+<p>This should initialize our qubit in the state:</p>
+<div class="math notranslate nohighlight">
+\[
+\left|q_0\right\rangle = \frac{i}{\sqrt{2}} \left|0\right\rangle + \frac{1}{\sqrt{2}} \left|1\right\rangle
+\]</div>
+<p>We can verify this using the simulator:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">save_statevector</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">))</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Qubit State = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Qubit State = Statevector([0.        +0.70710678j, 0.70710678+0.j        ],
+            dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see here the qubit is initialized in the state [0.+0.70710678j 0.70710678+0.j], which is the state we expected.</p>
+<p>Let’s now create a circuit where we measure this qubit</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># We are redefining qc</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mf">0.</span><span class="n">j</span><span class="p">]</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">save_statevector</span><span class="p">()</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_37_0.png" src="../../../../_images/Hands-on-1-book_37_0.png" />
+</div>
+</div>
+<p>When we simulate this entire circuit, we can see that one of the amplitudes is always <span class="math notranslate nohighlight">\(0\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qobj</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qobj</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_statevector</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State of Measured Qubit = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>State of Measured Qubit = Statevector([0.+0.j, 1.+0.j],
+            dims=(2,))
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can re-run this cell a few times to reinitialize the qubit and measure it again. You will notice that either outcome is equally probable, but that the state of the qubit is never a superposition of <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. Somewhat interestingly, the global phase on the state <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> survives, but since this is global phase, we can never measure it on a real quantum computer.</p>
+</section>
+</section>
+<section id="a-note-about-quantum-simulators">
+<h3>A Note about Quantum Simulators<a class="headerlink" href="#a-note-about-quantum-simulators" title="Permalink to this headline">¶</a></h3>
+<p>We can see that writing down a qubit’s state requires keeping track of two complex numbers, but when using a real quantum computer we will only ever receive a yes-or-no (0 or 1) answer for each qubit. The output of a 10-qubit quantum computer will look like this:</p>
+<div class="math notranslate nohighlight">
+\[
+0110111110
+\]</div>
+<p>Just 10 bits, no superposition or complex amplitudes. When using a real quantum computer, we cannot see the states of our qubits mid-computation, as this would destroy them! This behaviour is not ideal for learning, so Qiskit provides different quantum simulators: By default, the <code class="docutils literal notranslate"><span class="pre">aer_simulator</span></code> mimics the execution of a real quantum computer, but will also allow you to peek at quantum states before measurement if we include certain instructions in our circuit. For example, here we have included the instruction <code class="docutils literal notranslate"><span class="pre">.save_statevector()</span></code>, which means we can use <code class="docutils literal notranslate"><span class="pre">.get_statevector()</span></code> on the result of the simulation.</p>
+</section>
+</section>
+<section id="the-bloch-sphere">
+<h2>The Bloch Sphere<a class="headerlink" href="#the-bloch-sphere" title="Permalink to this headline">¶</a></h2>
+<p>We saw earlier in this chapter that the general state of a qubit <span class="math notranslate nohighlight">\(\left|q\right\rangle\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|q\right\rangle = \alpha \left|0\right\rangle + \beta \left|1\right\rangle \\
+\alpha,\beta \in \mathbb C
+\end{split}\]</div>
+<p>(The second line tells us <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are complex numbers). We know that we cannot differentiate between some of these states. This means we can be more specific in our description of the qubit.</p>
+<p>Firstly, since we cannot measure global phase, we can only measure the difference in phase between the states <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. Instead of having <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> be complex, we can confine them to the real numbers and add a term to tell us the relative phase between them:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|q\right\rangle = \alpha \left|0\right\rangle + e^{i\phi}\beta \left|1\right\rangle \\
+\alpha,\beta,\phi \in \mathbb R
+\end{split}\]</div>
+<p>Finally, since the qubit state must be normalised, i.e.</p>
+<div class="math notranslate nohighlight">
+\[
+\sqrt{\alpha^2+\beta^2}=1
+\]</div>
+<p>we can use the trigonometric identity:</p>
+<div class="math notranslate nohighlight">
+\[
+\sqrt{\sin^2 x+\cos^2 x}=1
+\]</div>
+<p>to describe the real <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> in terms of one variable, <span class="math notranslate nohighlight">\(\theta\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha=\cos\frac{\theta}{2}\qquad \beta=\sin\frac{\theta}{2}
+\]</div>
+<p>From this we can describe the state of any qubit using the two variables <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left|q\right\rangle = \cos\frac{\theta}{2} \left|0\right\rangle + e^{i\phi}\sin\frac{\theta}{2} \left|1\right\rangle \\
+\theta,\phi \in \mathbb R
+\end{split}\]</div>
+<p>If we interpret <span class="math notranslate nohighlight">\(\phi\)</span> and <span class="math notranslate nohighlight">\(\theta\)</span> as spherical co-ordinates (<span class="math notranslate nohighlight">\(r=1\)</span>, since the magnitude of the qubit state is 1), we can plot any single qubit state on the surface of a sphere, known as the <em>Bloch sphere</em>.</p>
+<p>Below we have plotted a qubit in the state <span class="math notranslate nohighlight">\(\left|+\right\rangle\)</span>. In this case, <span class="math notranslate nohighlight">\(\theta=\pi/2\)</span> and <span class="math notranslate nohighlight">\(\phi=0\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_bloch_vector</span><span class="p">(</span><span class="n">bloch</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="n">coord_type</span><span class="o">=</span><span class="s1">&#39;spherical&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-1-book_43_0.png" src="../../../../_images/Hands-on-1-book_43_0.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h2>In Class Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">plot_bloch_vector()</span></code> to plot a qubit in the states:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{1}{\sqrt 2}\left(\left|0\right\rangle+\left|1\right\rangle\right)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{1}{\sqrt 2}\left(\left|0\right\rangle-i\left|1\right\rangle\right)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{1}{\sqrt 2} \begin{pmatrix} i \\ 1 \end{pmatrix} \)</span></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Fill me</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="your-first-multi-qubit-quantum-circuit">
+<h2>Your first multi-qubit quantum circuit<a class="headerlink" href="#your-first-multi-qubit-quantum-circuit" title="Permalink to this headline">¶</a></h2>
+<p>In a circuit, we typically need to do three jobs: First, encode the input, then do some actual computation, and finally extract an output. For your first quantum circuit, we’ll focus on the last of these jobs. We start by creating a quantum circuit with 3 qubits and 3 outputs. Finally the method qc.draw() creates a drawing of the circuit for us. Jupyter Notebooks evaluate the last line of a code cell and display it below the cell. Since <code class="docutils literal notranslate"><span class="pre">qc.draw()</span></code> returns a drawing, that’s what we’re seeing under the code. There are no gates in our circuit yet, so we just see some horizontal lines.  (<em>Return</em> is another word for ‘output’. In Python, we can use returned data as input to another function or process.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="c1"># Create quantum circuit with 3 qubits and 3 classical bits</span>
+<span class="c1"># (we&#39;ll explain why we need the classical bits later)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>  <span class="c1"># returns a drawing of the circuit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="what-s-a-method">
+<h3>What’s a method?<a class="headerlink" href="#what-s-a-method" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> class is a set of instructions for representing quantum circuits as bits, but when we want to change one of these circuits, we also need to know how to change the bits accordingly. In Python, objects come with ‘methods’, which are sets of instructions for doing something with that object. In the cell above, the <code class="docutils literal notranslate"><span class="pre">.draw()</span></code> method looks at the circuit we’ve created and produces a human-readable drawing of that circuit.</p>
+<p>Next, we need a way to tell our quantum computer to measure our qubits and record the results. To do this, we add a “measure” operation to our quantum circuit. We can do this with the <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code>’s <code class="docutils literal notranslate"><span class="pre">.measure()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># measure qubits 0, 1 &amp; 2 to classical bits 0, 1 &amp; 2 respectively</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s see what the results of running this circuit would be. To do this, we’ll use a quantum simulator, which is a standard computer calculating what an ideal quantum computer would do. Because simulating a quantum computer is believed to be difficult for classical computers (the best algorithms we have grow exponentially with the number of qubits), these simulations are only possible for circuits with small numbers of qubits (up to ~30 qubits), or certain types of circuits for which we can use some tricks to speed up the simulation. Simulators are very useful tools for designing smaller quantum circuits.</p>
+<p>Let’s import Qiskit’s simulator (called Aer), and make a new simulator object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.providers.aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="p">()</span>  <span class="c1"># make new simulator object</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To do the simulation, we can use the simulators <code class="docutils literal notranslate"><span class="pre">.run()</span></code> method. This returns a “job”, which contains information about the experiment, such as whether the experiment is running or completed, what backend we ran the experiment on, and importantly for us, what the results of the experiment are!</p>
+<p>To get the results from the job, we use the results method, and the most popular way to view the results is as a dictionary of “counts”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>      <span class="c1"># run the experiment</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>  <span class="c1"># get the results</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>    <span class="c1"># interpret the results as a &quot;counts&quot; dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The keys in counts dictionary are bit-strings, and the values are the number of times that bit-string was measured. Quantum computers can have randomness in their results, so it’s common to repeat the circuit a few times. This circuit was repeated 1024 times, which is the default number of times to repeat a circuit in Qiskit. By convention, qubits always start in the state 0, and since we are doing nothing to them before measurement, the results are always <code class="docutils literal notranslate"><span class="pre">0</span></code>. This is not always the case. In actual situations, you will need a statistical method to analyse the output. Qiskit also provides a function <code class="docutils literal notranslate"><span class="pre">plot_histogram</span></code>, which allows you to view the outcomes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basics-of-encoding-an-input">
+<h3>Basics of encoding an input<a class="headerlink" href="#basics-of-encoding-an-input" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s look at how to encode a different binary string as an input. For this, we need what is known as a NOT gate. This is the most basic operation that you can do in a computer. It simply flips the bit value: 0 becomes 1 and 1 becomes 0. For qubits, we use a gate known as the <em>X-gate</em> for this.</p>
+<p>Below, we’ll create a new circuit dedicated to the job of encoding:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create quantum circuit with 3 qubits and 3 classical bits:</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Perform X-gates on qubits 0 &amp; 1</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>    <span class="c1"># returns a drawing of the circuit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And let’s simulate our circuit to see the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>      <span class="c1"># run the experiment</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>  <span class="c1"># get the results</span>
+<span class="n">counts</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>    <span class="c1"># interpret the results as a &quot;counts&quot; dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Hands-On/hands-on-1/Hands-on-1-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

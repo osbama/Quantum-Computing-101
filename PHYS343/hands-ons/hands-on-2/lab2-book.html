@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PHYS437/term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../syllabus.html">Syllabus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#hands-on-sessions">Hands-On sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#theoretical-sections">Theoretical sections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#tentative-course-contents">Tentative Course Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#term-projects">Term projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../syllabus.html#textbooks">Textbooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../schedule.html">Course schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../links_and_forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lectures/lectures.html">Lectures and Lecture notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch1.html">Chapter 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../lectures/Ch2.html">Chapter 2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hands-on-sessions.html">Hands On Sessions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html">Linux Terminal Primer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#getting-your-computer-ready">Getting your computer ready</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-0/lab0.html#dilhan">Dilhan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-1/lab1.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab2.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab2.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-3/lab3.html#lab-book">Lab book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html">Session Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hands-on-4/lab4.html#lab-book">Lab book</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../term_project_ideas.html">Term Project Ideas</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#invitation-e-mail">Invitation e-mail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html#ibm-quantum-computing-cloud">IBM Quantum Computing cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Performing basis changes and measurements in other bases.</p></li>
+<li><p>Visualization of qubits and the action of single qubit quantum gates on Bloch sphere.</p></li>
+<li><p>Representing multiple qubit states using tensor products.</p></li>
+<li><p>Entangled states and interesting CNOT operations.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">assemble</span>
+<span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_bloch_multivector</span><span class="p">,</span> <span class="n">plot_histogram</span>
+<span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">gate_demo</span>
+<span class="c1">#array_to_latex(unitary, pretext=&quot;\\text{Circuit = }\n&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">assemble</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_bloch_multivector</span><span class="p">,</span> <span class="n">plot_histogram</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="non-standard-basis">
+<h1>Non-standard Basis<a class="headerlink" href="#non-standard-basis" title="Permalink to this headline">¶</a></h1>
+<p>We call the basis <span class="math notranslate nohighlight">\(\{ |0 \rangle, |1 \rangle \} \)</span> the standard, or computational basis. As you may have noticed this is the eigenbasis for <span class="math notranslate nohighlight">\(Z\)</span> operator. When we call <span class="math notranslate nohighlight">\(\textit{measure()}\)</span> method in Qiskit, we perform measurement in the computational basis. However, there are ways to perform measurements in other bases as well, kind of.</p>
+<p>We define <span class="math notranslate nohighlight">\(\textit{sign basis}\)</span>, <span class="math notranslate nohighlight">\(|+\rangle,|-\rangle\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} | + \rangle = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}  \end{bmatrix} \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} | - \rangle = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}  \end{bmatrix} \end{split}\]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-1">
+<h1>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h1>
+<p>How can we perform a measurement in the sign basis using Qiskit?</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="answer">
+<h1>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>Let’s visualize the action of the single qubit gates we have learned so far to get a better understanding of this process.</p>
+<p>So Hadamard gate performs the following transformation:
+$<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \rangle \)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\( |1 \rangle \leftrightarrow |- \rangle \)</span>$</p>
+<p>Therefore, if we apply a <span class="math notranslate nohighlight">\(H\)</span> gate just before the measurement, we will practically be measuring with respect to the sign basis.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-2">
+<h1>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h1>
+<p>Write a function that takes in a QuantumCircuit and performs a measurement in the sign basis on all the qubits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sign_measure_all</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adds a measurement gate in sign basis to all qubits.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+    
+
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Let&#39;s transform our qubits to the state |++--&gt;</span>
+<span class="c1"># all qubits are initialized to |0&gt; state, so we must transform the first two qubits to |1&gt; </span>
+<span class="c1"># state before transforming all of them to the sign basis.</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_11_0.png" src="../../../_images/lab2-book_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qasmsim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+<span class="n">unisim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;unitary_simulator&#39;</span><span class="p">)</span>
+<span class="n">svsim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;statevector_simulator&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see if the function is working</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+<span class="n">sign_measure_all</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_13_0.png" src="../../../_images/lab2-book_13_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">qasmsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_14_0.png" src="../../../_images/lab2-book_14_0.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-3">
+<h1>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h1>
+<p>Write a function that takes in a QuantumCircuit and performs a measurement in the y basis on all the qubits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">y_measure_all</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adds a measurement gate in Y-basis to all qubits.hes</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-3-2">
+<h1>Exercise 3.2<a class="headerlink" href="#exercise-3-2" title="Permalink to this headline">¶</a></h1>
+<p>Write a function that takes in a quantum circuit with two qubits and performs a measurement in the following basis:</p>
+<div class="math notranslate nohighlight">
+\[ | \Psi^+ \rangle = \frac{1}{\sqrt{2}} | 00 \rangle + \frac{1}{\sqrt{2}} | 11 \rangle \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bell_measurement</span><span class="p">(</span><span class="n">qc</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Adds a measurement in Bell basis to qc.</span>
+<span class="sd">        Hint: Do you remember how we initialized this state? </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">bell_measurement</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">qasmsim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">),</span><span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">counts</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;00&#39;</span><span class="p">:</span><span class="mi">1000</span><span class="p">}:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;welldone!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Your function is not running properly.&quot;</span><span class="p">)</span>
+<span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>welldone!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;00&#39;: 1000}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="multiple-qubit-states">
+<h1>Multiple Qubit States<a class="headerlink" href="#multiple-qubit-states" title="Permalink to this headline">¶</a></h1>
+<p>We can represent any single qubit pure quantum state as:</p>
+<div class="math notranslate nohighlight">
+\[ |\Psi \rangle = \alpha | 0 \rangle + \beta | 1 \rangle \]</div>
+<p>How do we represent multiple qubit pure quantum states?
+We use tensor products. For example, if we have a two qubit quantum state, then there are four possible state for our qubits. Namely, {00,01,10,11}. We represent an arbitrary superposition as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} |q_1 \rangle \otimes | q_2 \rangle = a_{00}|00 \rangle + a_{01}|01 \rangle + a_{10}|10 \rangle + a_{11}|11 \rangle   = \begin{bmatrix} a_{00} \\ a_{01} \\ a_{10} \\ a_{11}\end{bmatrix} \end{split}\]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-4">
+<h1>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h1>
+<p>If we have n qubits, what is the dimension of a statevector in this Hilbert space?</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>One good thing about using little-endian representation, the one which Qiskit uses, is that we can consider each bitstring as representing a decimal number and the corresponding index will simply be this number. For example, when we are asked how can we get the amplitude of <span class="math notranslate nohighlight">\(|010\rangle\)</span> state in a given statevector, we can simply check <span class="math notranslate nohighlight">\(2^{nd}\)</span> element of the statevector.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-5">
+<h1>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say we are representing each amplitude with a complex number in Python, and each complex number takes up 80 Bytes of memory. Then, how many bytes do we need to represent a quantum state describing a quantum circuit with 10 qubits?</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[ 80 \text{ bytes} * 2*^{10} = 82000 \text{ bytes} = 0.082 \text{ Megabytes} \]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-6">
+<h1>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say we are trying to simulate the action of a Hamiltonian on a large quantum system, and let’s say this Hamiltonian acts on 30 qubits. Let’s say we are using something like C, instead of Python, to make a better use of the memory. Therefore, let’s say each complex number requires not 80 Bytes, but simply 8 bytes. Then answer the following questions:</p>
+<ul class="simple">
+<li><p>What is the size of a statevector in this Hilbert space?</p></li>
+<li><p>What are the dimensions of the Hamiltonian matrix ?</p></li>
+<li><p>How many bytes are required to represent a statevector ? Is it of the order of Megabytes,Gigabytes, or something else ?</p></li>
+<li><p>How many bytes are required to represent the Hamiltonian matrix assuming that we need a complex number for each element in the matrix ? Is it of the order of Megabytes, Gigabytes, or something else ?</p></li>
+<li><p>Can you store both the Hamiltonian matrix and the statevector in your own computer?</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="answers">
+<h1>Answers<a class="headerlink" href="#answers" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<p>Answering the questions above should give you a clear idea about the computing power of a quantum computer, and why we can’t simply use classical computers to simulate them.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="product-and-entangled-states">
+<h1>Product and Entangled States<a class="headerlink" href="#product-and-entangled-states" title="Permalink to this headline">¶</a></h1>
+<p>Not all multiple qubit states can be represented as tensor products. For example, let’s take the following state:</p>
+<div class="math notranslate nohighlight">
+\[ | \Phi^+ \rangle = \frac{1}{\sqrt{2}} | 00 \rangle + \frac{1}{\sqrt{2}} | 11 \rangle  \]</div>
+<p>We can’t write it down as a tensor product of two states. We can make a proof by contraction to prove this. Let’s assume that we can actually write it down:</p>
+<div class="math notranslate nohighlight">
+\[ | \Phi^+ \rangle = (a_0 |0 \rangle + a_1 |1 \rangle ) \otimes (b_0 | 0 \rangle + b_1 |1 \rangle) \]</div>
+<p>Since the tensor product operator is a linear operator, we can distribute it:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{1}{\sqrt{2}} | 00 \rangle + \frac{1}{\sqrt{2}} | 11 \rangle = a_0 b_0 |00 \rangle + a_0 b_1 |01 \rangle + a_1 b_0 | 10 \rangle + a_1 b_1 | 11 \rangle \]</div>
+<p>Well, the coefficients should be the same for both states since they are equal. If we try to equate the coefficient of <span class="math notranslate nohighlight">\( | 01 \rangle \)</span> to zero we get the following logical chains:</p>
+<div class="math notranslate nohighlight">
+\[ a_0 \neq 0  \rightarrow b_1 = 0 \rightarrow \text{coeff of } |11 \rangle = 0\]</div>
+<div class="math notranslate nohighlight">
+\[ b_1 \neq 0 \rightarrow  a_0 = 0 \rightarrow \text{coeff of } |00 \rangle = 0 \]</div>
+<p>Which entails a contradiction, implying that our inital assumption that <span class="math notranslate nohighlight">\(| \Phi^+ \rangle\)</span> could be written as tensor product of two states.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-7">
+<h1>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h1>
+<p>Write the following state as the tensor product of two states:</p>
+<div class="math notranslate nohighlight">
+\[ | \Psi \rangle = \frac{1}{\sqrt{2}} | 00 \rangle + \frac{i}{\sqrt{2}} | 01 \rangle \]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[ (a_0 |0 \rangle + a_1 |1 \rangle ) \otimes ( b_0 |0 \rangle + b_1 |1 \rangle )  \]</div>
+<div class="math notranslate nohighlight">
+\[ a_0 b_0 |00 \rangle + a_0 b_1 |01 \rangle + a_1 b_0 | 10 \rangle + a_1 b_1 | 11 \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ |0 \rangle \otimes \bigg( \frac{1}{\sqrt{2}} |0 \rangle + \frac{i}{\sqrt{2}} |1 \rangle \bigg)  \]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-8">
+<h1>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h1>
+<p>Is it possible to write down the following state as the tensor product of three quantum states? If yes, prove that that can’t be the case. If no, show that it can be the case.</p>
+<div class="math notranslate nohighlight">
+\[ | W \rangle = \frac{1}{\sqrt{2}} | 000 \rangle + \frac{1}{\sqrt{2}} | 111 \rangle \]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<p>?</p>
+<p>We can use tensor products to represent the action of a set of quantum gates on qubits as well. For example, if we have the following circuit:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_35_0.png" src="../../../_images/lab2-book_35_0.png" />
+</div>
+</div>
+<p>We can represent the action of these two gates as:</p>
+<div class="math notranslate nohighlight">
+\[ H \otimes X \]</div>
+<p>Again, careful with the little-endian representation! That is, the correct representation is not <span class="math notranslate nohighlight">\( X \otimes H \)</span>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-9">
+<h1>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h1>
+<p>Let’s say we have the following quantum circuit. How can we represent it as a tensor product?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">=</span><span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_38_0.png" src="../../../_images/lab2-book_38_0.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id5">
+<h1>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[I \otimes X \]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="cnot-gate">
+<h1>CNOT Gate<a class="headerlink" href="#cnot-gate" title="Permalink to this headline">¶</a></h1>
+<p>We define the action of CNOT, or CX, gate as applying an X gate to the target qubit when the control qubit is in <span class="math notranslate nohighlight">\(| 1 \rangle \)</span> state.</p>
+<div class="math notranslate nohighlight">
+\[ CNOT(1,0) |00\rangle = |00 \rangle, \quad  CNOT(1,0) |01 \rangle = |01 \rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ CNOT(1,0) |10\rangle = |11 \rangle, \quad  CNOT(1,0) |11 \rangle = |10 \rangle \]</div>
+<p>Note that CNOT gate is mainly used for creating entanglement between two qubits. But it does not create entanglement on all the cases.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-10">
+<h1>Exercise 10<a class="headerlink" href="#exercise-10" title="Permalink to this headline">¶</a></h1>
+<p>We define CY gate just like we defined CX gate, it applies a Y gate to the target qubit when the control qubit is in state <span class="math notranslate nohighlight">\(| 1 \rangle \)</span>.</p>
+<ul class="simple">
+<li><p>Write down the action of <span class="math notranslate nohighlight">\(CY(1,0), 1^{st}\)</span> qubit is the control, <span class="math notranslate nohighlight">\(0^{th}\)</span> qubit is the target qubit, on the two dimensional computational basis states, <span class="math notranslate nohighlight">\(\{ |00\rangle,|01\rangle,|10\rangle,|11\rangle \}\)</span></p></li>
+<li><p>Construct the matrix for <span class="math notranslate nohighlight">\(CY(1,0)\)</span> gate.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id6">
+<h1>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[ CY(1,0) |00\rangle = |00\rangle, \quad  CY(1,0) |01 \rangle = |01\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ CY(1,0) |10\rangle = |?\rangle, \quad  CY(1,0) |11 \rangle = |?\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} CY(1,0) = \begin{bmatrix} ? &amp; ? &amp; ? &amp; ? \\ 
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \end{bmatrix}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(CNOT\)</span> gate is one of the most powerful tools in quantum computation. Combining <span class="math notranslate nohighlight">\(CNOT\)</span> gate with some basic single qubit gates, we can aproximate any unitary transformation into a set of gates up to arbitrary error. This provides a way for us to prove that quantum computation can perform any computation a classical computer can. It also makes way for some interesting homework questions as well!</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-11">
+<h1>Exercise 11<a class="headerlink" href="#exercise-11" title="Permalink to this headline">¶</a></h1>
+<p>Let’s define a more interesting <span class="math notranslate nohighlight">\(CX\)</span> gate, call it <span class="math notranslate nohighlight">\(C0X\)</span> gate. It acts just like a <span class="math notranslate nohighlight">\(CX\)</span> gate, but kind of in reverse. That is, <span class="math notranslate nohighlight">\(C0X\)</span> applies an <span class="math notranslate nohighlight">\(X\)</span> gate to the target qubit when the control qubit is in <span class="math notranslate nohighlight">\(|0\rangle\)</span> state.</p>
+<ul class="simple">
+<li><p>Write down the action of <span class="math notranslate nohighlight">\(C0X(1,0)\)</span> gate on basis states.</p></li>
+<li><p>Write down the matrix representation for <span class="math notranslate nohighlight">\(C0X(1,0)\)</span> gate.</p></li>
+<li><p>Write down a function that takes in a QuantumCircuit, a control and a target qubit index, and applies a <span class="math notranslate nohighlight">\(C0X\)</span> gate. Hint: You can do this using <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(CNOT\)</span> gates.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id7">
+<h1>Answer<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[ C0X(1,0) |00\rangle = |01\rangle, \quad  C0X(1,0) |01 \rangle = |?\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ C0X(1,0) |10\rangle = |10\rangle, \quad  C0X(1,0) |11 \rangle = |?\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} C0X(1,0) = \begin{bmatrix} ? &amp; ? &amp; ? &amp; ? \\ 
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \end{bmatrix}\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">c0x</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        qc: QuantumCircuit</span>
+<span class="sd">        c : control qubit index</span>
+<span class="sd">        t : target qubit index</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Applies a c0x(c,t) gate to the circuit, returns nothing.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can test your function by calling this cell, then comparing the printed matrix with the </span>
+<span class="c1"># matrix representation you found in the previous part.</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c0x</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">Aer</span><span class="p">,</span><span class="n">assemble</span>
+<span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
+<span class="n">unisim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;unitary_simulator&#39;</span><span class="p">)</span>
+<span class="n">unitary</span> <span class="o">=</span> <span class="n">unisim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">))</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">unitary</span><span class="p">,</span><span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;C0X(1,0)= &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+C0X(1,0)= \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0  \\
+0 &amp; 0 &amp; 1 &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; 1  \\
+\end{bmatrix}
+$$
+\end{split}\]</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-12">
+<h1>Exercise 12<a class="headerlink" href="#exercise-12" title="Permalink to this headline">¶</a></h1>
+<p>Let’s define a way more interesting controlled gate, we call it <span class="math notranslate nohighlight">\(C0H\)</span> gate. It acts just like a <span class="math notranslate nohighlight">\(C0X\)</span> gate, but instead of applying an <span class="math notranslate nohighlight">\(H\)</span> gate to the target qubit when the control qubit is in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, it applies a <span class="math notranslate nohighlight">\(H\)</span> gate.</p>
+<ul class="simple">
+<li><p>Write down the action of <span class="math notranslate nohighlight">\(C0H(1,0)\)</span> gate on basis states. For simplification purposes, I suggest you to use <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>.</p></li>
+<li><p>Write down the matrix representation for <span class="math notranslate nohighlight">\(C0H(1,0)\)</span> gate.</p></li>
+<li><p>Write down a function that takes in a QuantumCircuit, a control and a target qubit index, and applies a <span class="math notranslate nohighlight">\(C0H\)</span> gate.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id8">
+<h1>Answer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h1>
+<div class="math notranslate nohighlight">
+\[ C0H(1,0) |00\rangle = |0+\rangle, \quad  C0H(1,0) |01 \rangle = |?\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[ C0H(1,0) |10\rangle = |10\rangle, \quad  C0H(1,0) |11 \rangle = |?\rangle \]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} C0H(1,0) = \begin{bmatrix} ? &amp; ? &amp; ? &amp; ? \\ 
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \\
+                             ? &amp; ? &amp; ? &amp; ? \end{bmatrix}\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">c0h</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        qc: QuantumCircuit</span>
+<span class="sd">        c : control qubit index</span>
+<span class="sd">        t : target qubit index</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Applies a c0x(c,t) gate to the circuit, returns nothing.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can test your function by calling this cell, then comparing the printed matrix with the </span>
+<span class="c1"># matrix representation you found in the previous part.</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">sample</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">c0h</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">Aer</span><span class="p">,</span><span class="n">assemble</span>
+<span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
+<span class="n">unisim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;unitary_simulator&#39;</span><span class="p">)</span>
+<span class="n">unitary</span> <span class="o">=</span> <span class="n">unisim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">qc</span><span class="p">))</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_unitary</span><span class="p">()</span>
+<span class="n">array_to_latex</span><span class="p">(</span><span class="n">unitary</span><span class="p">,</span><span class="n">pretext</span><span class="o">=</span><span class="s2">&quot;C0H(1,0)= &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}\displaystyle 
+C0H(1,0)= \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0  \\
+0 &amp; 1 &amp; 0 &amp; 0  \\
+0 &amp; 0 &amp; 1 &amp; 0  \\
+0 &amp; 0 &amp; 0 &amp; 1  \\
+\end{bmatrix}
+$$
+\end{split}\]</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/lab2-book_52_0.png" src="../../../_images/lab2-book_52_0.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise-13">
+<h1>Exercise 13<a class="headerlink" href="#exercise-13" title="Permalink to this headline">¶</a></h1>
+<p>Given an arbitrary unitary transformation <span class="math notranslate nohighlight">\(U\)</span>, can we construct its controlled version using only single qubit gates and a CNOT ? Please explain your reasoning tentatively.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id9">
+<h1>Answer<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/PHYS343/hands-ons/hands-on-2/lab2-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
