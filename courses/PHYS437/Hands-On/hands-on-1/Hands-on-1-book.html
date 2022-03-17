@@ -115,7 +115,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Thu Mar 17 05:39:37 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Thu Mar 17 05:46:42 2022 +03</td></tr></table></div></div>
 </div>
 <section id="exploring-qubits-with-qiskit">
 <h2>Exploring Qubits with Qiskit<a class="headerlink" href="#exploring-qubits-with-qiskit" title="Permalink to this headline">¶</a></h2>
@@ -291,16 +291,17 @@ c = 0
 \[
 p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle\right|^2
 \]</div>
-<p>In the equation above, <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span> can be any qubit state. To find the probability of measuring <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span>, we take the inner product of <span class="math notranslate nohighlight">\(\left|x\right\rangle\right\)</span> and the state we are measuring (in this case <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\right\)</span>), then square the magnitude. This may seem a little convoluted, but it will soon become second nature.</p>
-<p>If we look at the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\right\)</span> from before, we can see the probability of measuring <span class="math notranslate nohighlight">\(\left|0\right\rangle\right\)</span> is indeed <span class="math notranslate nohighlight">\(0.5\)</span> :</p>
+<p>In the equation above, <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> can be any qubit state. To find the probability of measuring <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span>, we take the inner product of <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> and the state we are measuring (in this case <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>), then square the magnitude. This may seem a little convoluted, but it will soon become second nature.</p>
+<p>If we look at the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span> from before, we can see the probability of measuring <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> is indeed <span class="math notranslate nohighlight">\(0.5\)</span> :</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}
-\begin{align}
+\[\begin{split}
+\begin{aligned}
 \left|q_0\right\rangle &amp;= \frac{1}{\sqrt{2}} \left|0\right\rangle + \frac{i}{\sqrt{2}} \left|1\right\rangle \\
 \left\langle 0 \middle|q_0\right\rangle &amp;= \frac{1}{\sqrt{2}} \left\langle 0 \middle|0\right\rangle + \frac{i}{\sqrt{2}} \left\langle 0 \middle|1\right\rangle \\
-&amp;=\frac{1}{\sqrt{2}}\\\end{split}\\\left|\left\langle 0 \middle|q_0\right\rangle\right|^2 &amp;=\frac{1}{2}
-\end{align}
-\end{aligned}\end{align} \]</div>
+.&amp;=\frac{1}{\sqrt{2}}\\
+\left|\left\langle 0 \middle|q_0\right\rangle\right|^2 &amp;=\frac{1}{2}
+\end{aligned}
+\end{split}\]</div>
 <p>This rule governs how we get information out of quantum states. It is therefore very important for everything we do in quantum computation. It also immediately implies several important facts</p>
 <section id="normalisation">
 <h3>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h3>
