@@ -37,6 +37,7 @@ Hands-on sessions
    :caption: Pre-compiled Jupyter
 
    Hands-on 1 <Hands-On/hands-on-1/Hands-on-1-book.ipynb>
+   Hands-on 2 <Hands-On/hands-on-2/Hands-on-2-book.ipynb>
 
 
 .. toctree::
@@ -44,5 +45,6 @@ Hands-on sessions
    :caption: Online material
 
    Hands-on 1 <Hands-On/hands-on-1/hands-on-1-online.rst>
+   Hands-on 2 <Hands-On/hands-on-2/hands-on-2-online.rst>
 
 
