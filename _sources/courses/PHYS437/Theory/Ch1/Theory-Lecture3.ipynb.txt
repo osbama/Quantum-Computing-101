@@ -60,10 +60,8 @@
     "\n",
     "A _quantum circuit_ is a graphical model for depicting quantum computation. The quantum computation is represented by a sequence of quantum gates, measurements, initializations of qubits to known values, and etc. For example, here are three circuits:\n",
     "\n",
-    "<div>\n",
-    "<img src=\"images/Lecture3-fig1.png\" alt=\"Three Circuit Examples\" width=\"800\"/>\n",
-    "</div>\n",
-    "    \n",
+    "![Three circuit examples](images/Lecture3-fig1-lr.png)\n",
+    "\n",
     "They correspond to evolutions  $X\\left|\\psi\\right\\rangle $, $H\\left|\\psi\\right\\rangle$, and $HX\\left|\\psi\\right\\rangle $, respectively. Each wire in such a diagram denotes a quantum system, and a box labelled by gate $U$ depicts the action of unitary $U$ . We think of time going from left to right; for the last circuit above, note that the $X$ appears on the “left” in the circuit diagram but on the “right” in the expression $HX\\left|\\psi\\right\\rangle $; this is because $X$ should be applied first to $\\left|\\psi\\right\\rangle $, then $H$."
    ]
   },
@@ -74,9 +72,7 @@
     "### Send it after class 2\n",
     "What single-qubit state does the following circuit output? (Hint: Rather than explicitly calculating this, try to use your knowledge of the action of $H$ on states $\\left|0\\right\\rangle$ and $\\left|1\\right\\rangle$ and the eigenvectors of $X$.)\n",
     "\n",
-    "<div>\n",
-    "<img src=\"images/Lecture3-fig2.png\" alt=\"Three Circuit Examples\" width=\"300\"/>\n",
-    "</div>"
+    "![Exercise 2](images/Lecture3-fig2-lr.png)"
    ]
   },
   {
@@ -90,7 +86,7 @@
     "\\left(\\left|\\psi\\right\\rangle\\otimes\\left|\\phi\\right\\rangle\\right)(i,j):=\\psi_i\\phi_j\n",
     "$$\n",
     "\n",
-    "where recall $\\psi_i$ and $\\phi_j$ are the entries of $\\left|\\psi\\right\\rangle$ and $\\left|\\phi\\right\\rangle$, respectively. Here, you should think of the pair $(i, j)$ as representing the bits of a single index $x \\in {0, 1, 2, 3}$. So for example, $(0, 0)$ is equivalent to index 0, (0, 1) to index 1, and (1, 1) to index 3. This implies that we can think of $\\left|\\psi\\right\\rangle\\otimes\\left|\\phi\\right\\rangle\\right$ as having four entries, i.e. $\\left|\\psi\\right\\rangle\\otimes\\left|\\phi\\right\\rangle\\in  \\mathbb{C}^4$ . Let us demonstrate with some examples:\n",
+    "where recall $\\psi_i$ and $\\phi_j$ are the entries of $\\left|\\psi\\right\\rangle$ and $\\left|\\phi\\right\\rangle$, respectively. Here, you should think of the pair $(i, j)$ as representing the bits of a single index $x \\in {0, 1, 2, 3}$. So for example, $(0, 0)$ is equivalent to index 0, (0, 1) to index 1, and (1, 1) to index 3. This implies that we can think of $\\left|\\psi\\right\\rangle\\otimes\\left|\\phi\\right\\rangle$ as having four entries, i.e. $\\left|\\psi\\right\\rangle\\otimes\\left|\\phi\\right\\rangle\\in  \\mathbb{C}^4$ . Let us demonstrate with some examples:\n",
     "\n",
     "$$\n",
     "\\left|0\\right\\rangle\\otimes\\left|0\\right\\rangle= \\begin{pmatrix}1  \\\\ 0 \\end{pmatrix} \\otimes \\begin{pmatrix}1  \\\\ 0 \\end{pmatrix}=\\begin{pmatrix}1  \\\\ 0 \\\\ 0 \\\\ 0 \\end{pmatrix} \\qquad \\left|0\\right\\rangle\\otimes\\left|1\\right\\rangle= \\begin{pmatrix}1  \\\\ 0 \\end{pmatrix} \\otimes \\begin{pmatrix}0  \\\\ 1 \\end{pmatrix}=\\begin{pmatrix}0  \\\\ 1 \\\\0\\\\0\\end{pmatrix}\n",
@@ -144,7 +140,7 @@
     "Finally, the tensor product has the following important properties for any $\\left|a\\right\\rangle,\\left|b\\right\\rangle\\in  \\mathbb{C}^{d_1}$ and $\\left|c\\right\\rangle,\\left|d\\right\\rangle\\in  \\mathbb{C}^{d_2}$ , which we will use repeatedly:\n",
     "\n",
     "$$\n",
-    "\\begin{*align}\n",
+    "\\begin{align}\n",
     "\\left(\\left|a\\right\\rangle+\\left|b\\right\\rangle\\right)\\otimes\\left|c\\right\\rangle &=\\left|a\\right\\rangle\\otimes\\left|c\\right\\rangle+\\left|b\\right\\rangle\\otimes\\left|c\\right\\rangle \\\\\n",
     "\\left|a\\right\\rangle\\otimes \\left(\\left|c\\right\\rangle+\\left|d\\right\\rangle\\right) &=\\left|a\\right\\rangle\\otimes\\left|c\\right\\rangle+\\left|a\\right\\rangle\\otimes\\left|d\\right\\rangle \\\\\n",
     "c \\left(\\left|a\\right\\rangle\\otimes\\left|c\\right\\rangle\\right) &=\\left(c\\left|a\\right\\rangle\\right)\\otimes\\left|c\\right\\rangle=\\left|a\\right\\rangle\\otimes\\left(c\\left|c\\right\\rangle\\right) \\\\\n",
@@ -182,15 +178,15 @@
     "We shall later return to the topic of entanglement, but for now let us remark that there are three other such Bell states:\n",
     "\n",
     "$$\n",
-    "\\begin{*align}\n",
+    "\\begin{align}\n",
     "\\left|\\Phi^-\\right\\rangle&=\\frac{1}{\\sqrt 2}\\left|00\\right\\rangle-\\frac{1}{\\sqrt 2}\\left|11\\right\\rangle=\\begin{pmatrix}\\frac{1}{\\sqrt 2}  \\\\ 0 \\\\0\\\\ -\\frac{1}{\\sqrt 2}\\end{pmatrix}\\\\\n",
     "\\left|\\Psi^+\\right\\rangle&=\\frac{1}{\\sqrt 2}\\left|01\\right\\rangle+\\frac{1}{\\sqrt 2}\\left|10\\right\\rangle=\\begin{pmatrix}0  \\\\ \\frac{1}{\\sqrt 2} \\\\\\frac{1}{\\sqrt 2}\\\\0\\end{pmatrix}\\\\\n",
     "\\left|\\Psi^-\\right\\rangle&=\\frac{1}{\\sqrt 2}\\left|01\\right\\rangle-\\frac{1}{\\sqrt 2}\\left|10\\right\\rangle=\\begin{pmatrix}0  \\\\ \\frac{1}{\\sqrt 2} \\\\-\\frac{1}{\\sqrt 2}\\\\0\\end{pmatrix}\\\\\n",
-    "\\end{*align}\n",
+    "\\end{align}\n",
     "$$\n",
     "\n",
     "\n",
-    "Note that here we have further simplified notation by letting (e.g.) $\\left|0\\right\\rangle\\left|0\\right\\rangle=\\left|00\\right\\rangle$. The four Bell states $\\left\\{left|\\Phi^+\\right\\rangle, left|\\Phi^-\\right\\rangle, left|\\Psi^+\\right\\rangle, left|\\Psi^-\\right\\rangle\\right\\}$ form an orthonormal basis for $\\mathbb{C}^{4}$ known as the Bell basis, after Northern Irish physicist John Bell.\n"
+    "Note that here we have further simplified notation by letting (e.g.) $\\left|0\\right\\rangle\\left|0\\right\\rangle=\\left|00\\right\\rangle$. The four Bell states $\\left\\{\\left|\\Phi^+\\right\\rangle, \\left|\\Phi^-\\right\\rangle, \\left|\\Psi^+\\right\\rangle, \\left|\\Psi^-\\right\\rangle\\right\\}$ form an orthonormal basis for $\\mathbb{C}^{4}$ known as the Bell basis, after Northern Irish physicist John Bell.\n"
    ],
    "metadata": {
     "collapsed": false
@@ -268,9 +264,7 @@
     "\n",
     "In terms of circuit diagrams for tensor products of unitaries are like below: (We consider the cases of $X \\otimes I$, $I \\otimes Z$, and $H \\otimes H$, respectively.)\n",
     "\n",
-    "<div>\n",
-    "<img src=\"images/Lecture3-fig3.png\" alt=\"Three Circuit Examples\" width=\"800\"/>\n",
-    "</div>\n"
+    "![Some circuit examples](images/Lecture3-fig3-lr.png)\n"
    ],
    "metadata": {
     "collapsed": false
@@ -305,15 +299,11 @@
     "\n",
     "The circuit diagram for the CNOT is given by\n",
     "\n",
-    "<div>\n",
-    "<img src=\"images/Lecture3-fig4.png\" alt=\"Three Circuit Examples\" width=\"200\"/>\n",
-    "</div>\n",
+    "![CNOT](images/Lecture3-fig4-lr.png)\n",
     "\n",
     "With this in hand, we can do our first interesting computation — we can prepare the Bell state $\\Phi^+$ starting from an initial state of $\\left|00\\right\\rangle$ The preparation circuit is given as:\n",
     "\n",
-    "<div>\n",
-    "<img src=\"images/Lecture3-fig5.png\" alt=\"Three Circuit Examples\" width=\"200\"/>\n",
-    "</div>"
+    "![Entangler](images/Lecture3-fig5-lr.png)"
    ],
    "metadata": {
     "collapsed": false
