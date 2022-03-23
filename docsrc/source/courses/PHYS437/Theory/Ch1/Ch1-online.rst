@@ -7,3 +7,8 @@ Lecture 2 online material
 ============================
 
 :download:`Download ipynb file <Theory-Lecture2.ipynb>`
+
+Lecture 3 online material
+============================
+
+:download:`Download ipynb file <Theory-Lecture3.ipynb>`
