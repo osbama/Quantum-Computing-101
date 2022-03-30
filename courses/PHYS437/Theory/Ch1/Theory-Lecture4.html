@@ -23,6 +23,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Lecture 1 online material" href="Ch1-online.html" />
+    <link rel="prev" title="Ch1-Lecture 3" href="Theory-Lecture3.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -62,9 +64,9 @@
      href="../../../../index.html">Contents <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -229,10 +231,10 @@ consistently return the same measurement result!</p>
 </ul>
 </section>
 </section>
-<section id="quantum-teloprtation">
-<h2>Quantum Teloprtation<a class="headerlink" href="#quantum-teloprtation" title="Permalink to this headline">¶</a></h2>
+<section id="quantum-teleportation">
+<h2>Quantum Teleportation<a class="headerlink" href="#quantum-teleportation" title="Permalink to this headline">¶</a></h2>
 <p>With the concepts of the Bell state and measurement in hand, we can discuss our first neat computational trick: Quantum teleportation. Suppose you have a single-qubit quantum state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle= \alpha\left|0\right\rangle + \beta\left|1\right\rangle \)</span> in your possession (i.e. as a physical system, not on paper), but that you do not know the values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. Your friend Alice now phones you and asks to borrow your state. How can you send it to her? One obvious way is simply to pop your system in the mail and physically send it over. However, it turns out that by exploiting the phenomenon of entanglement, you can do something incredible — by sending two classical bits over the telephone to Alice, you can “teleport” <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> instantly to her!</p>
-<p>To teleport <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, we assume that you and Alice each share half of a Bell state <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\frac{1}{\sqrt 2}\left(\left|00\right\rangle\right+\left|11\right\rangle\right)\)</span> to begin with; specifically, you hold qubit 1 of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>, and Alice holds qubit 2. The teleportation circuit is then given as follows:</p>
+<p>To teleport <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, we assume that you and Alice each share half of a Bell state <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\frac{1}{\sqrt 2}\left(\left|00\right\rangle+\left|11\right\rangle\right)\)</span> to begin with; specifically, you hold qubit 1 of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>, and Alice holds qubit 2. The teleportation circuit is then given as follows:</p>
 <p><img alt="The teleportation circuit" src="../../../../_images/teleportation_circuit.png" /></p>
 <p>Let us break this down piece by piece. The first two wires are held by you; wire 1 holds the state to be teleported, <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, and wire 2 holds your half of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>. The third wire holds Alice’s half of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>. Note that we have used <span class="math notranslate nohighlight">\(\left|\Phi^+_A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\Phi^+_B\right\rangle\)</span> to denote the two “halves” of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>, but this is poor notation — read literally, this diagram suggests <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\left|\Phi^+_A\right\rangle\otimes\left|\Phi^+_B\right\rangle\)</span>, which is not true since is <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span> entangled, and hence from last lecture we know that there do not exist states <span class="math notranslate nohighlight">\(\left|\Phi^+_A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\Phi^+_B\right\rangle\)</span> such that <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\left|\Phi^+_A\right\rangle\otimes\left|\Phi^+_B\right\rangle\)</span> This notation is for illustration purposes only, not to complicate the diagram, and make our analysis easy.</p>
 <p>The circuit can be divided into 5 steps: Step 1 performs the CNOT, Step 2 the Hadamard gate, Step 3 measures qubits 1 and 2, Step 4 applies a conditional X gate, and Step 5 applies a conditional Z gate. The latter two require clarification: The conditional X gate here takes a classical bit <span class="math notranslate nohighlight">\(b\)</span> as input (hence the incoming wire at the top is a double line), and applies X if and only if <span class="math notranslate nohighlight">\(b = 1\)</span>. The conditional Z gate is defined analogously.</p>
@@ -240,7 +242,9 @@ consistently return the same measurement result!</p>
 <p>Let us formally analyze the action of this circuit. Denote by <span class="math notranslate nohighlight">\(\left|\psi_1\right\rangle\)</span> for <span class="math notranslate nohighlight">\(i \in \{0, . . . , 5\}\)</span> the joint state of your and Alice’s systems immediately after Step <span class="math notranslate nohighlight">\(i\)</span> has taken place. Here, we define <span class="math notranslate nohighlight">\(\left|\psi_0\right\rangle\)</span> as the initial joint state before any gates are applied; it is given by</p>
 <div class="math notranslate nohighlight">
 \[
-\left|\psi_0\right\rangle=\left|\psi\right\rangle\left|\Phi^+\right\rangle=\left(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\right)\left(\frac{1}{\sqrt 2}\left|00\right\rangle\right+\frac{1}{\sqrt 2}\left|11\right\rangle\right)=\frac{1}{\sqrt 2}\left(\alpha\left|000\right\rangle+\alpha\left|011\right\rangle+\beta\left|100\right\rangle+\beta\left|111\right\rangle\right)
+\begin{align}
+\left|\psi_0\right\rangle=\left|\psi\right\rangle\left|\Phi^+\right\rangle=\left(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\right)\left(\frac{1}{\sqrt 2}\left|00\right\rangle+\frac{1}{\sqrt 2}\left|11\right\rangle\right)=\frac{1}{\sqrt 2}\left(\alpha\left|000\right\rangle+\alpha\left|011\right\rangle+\beta\left|100\right\rangle+\beta\left|111\right\rangle\right)
+\end{align}
 \]</div>
 <p>After Step 1, i.e. after the CNOT, we have state</p>
 <div class="math notranslate nohighlight">
@@ -249,16 +253,17 @@ consistently return the same measurement result!</p>
 \]</div>
 <p>After Step 2, i.e. after the Hadamard gate, we have</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}
+\[\begin{split}
 \begin{align}
 &amp;\frac{1}{\sqrt 2}\left(\alpha\left|+\right\rangle\left|00\right\rangle+\alpha\left|+\right\rangle\left|11\right\rangle+\beta\left|-\right\rangle\left|10\right\rangle+\beta\left|-\right\rangle\left|01\right\rangle\right)\\
-=&amp;\frac{1}{2}\left(\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|00\right\rangle+\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|11\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|10\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|01\right\rangle\right)\\
-=&amp;\frac{1}{2}\left(\left|00\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|01\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|10\right\rangle\left(\alpha\left|0\right\rangle-\beta\left|1\right\rangle\right)+\left|11\right\rangle\left(\alpha(\left|1\right\rangle-\beta\left|0\right\rangle\right)\right)\end{split}\\\end{align}
-\end{aligned}\end{align} \]</div>
+&amp;=\frac{1}{2}\left(\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|00\right\rangle+\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|11\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|10\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|01\right\rangle\right)\\
+&amp;=\frac{1}{2}\left(\left|00\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|01\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|10\right\rangle\left(\alpha\left|0\right\rangle-\beta\left|1\right\rangle\right)+\left|11\right\rangle\left(\alpha(\left|1\right\rangle-\beta\left|0\right\rangle\right)\right)
+\end{align}
+\end{split}\]</div>
 <p>Let us now pause and analyze the state of affairs. There are four terms in this superposition, each of which begins with a distinct bit string <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|01\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|10\right\rangle\)</span>, or <span class="math notranslate nohighlight">\(\left|11\right\rangle\)</span>. This means that if you now measure qubits 1 and 2 in the standard basis and obtain outcome (say) <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span>, then Alice’s qubit on wire 3 collapses to the only consistent possibility, <span class="math notranslate nohighlight">\(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\)</span>. In this case, teleportation has already taken place.</p>
 <section id="send-it-after-class-4">
 <h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(\left|\phi|right\rangle\in (\mathbb C^2 )\otimes3\)</span> denote the state in Equation above. Suppose you now measure qubits 1 and 2 in the standard basis. This can be modelled by projective measurement</p>
+<p>Let <span class="math notranslate nohighlight">\(\left|\phi \right\rangle\in (\mathbb C^2 )\otimes3\)</span> denote the state in Equation above. Suppose you now measure qubits 1 and 2 in the standard basis. This can be modelled by projective measurement</p>
 <div class="math notranslate nohighlight">
 \[
 B = \left\{\left|00\right\rangle\left\langle00\right| \otimes I, \left|01\right\rangle\left\langle01\right|| \otimes I, \left|10\right\rangle\left\langle10\right| \otimes I, \left|11\right\rangle\left\langle11\right| \otimes I\right\},
