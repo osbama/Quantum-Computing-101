@@ -20,7 +20,7 @@
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -113,7 +113,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773498535156</td></tr><tr><td colspan='2'>Wed Mar 30 13:37:12 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71327209472656</td></tr><tr><td colspan='2'>Wed Mar 30 16:55:22 2022 +03</td></tr></table></div></div>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="hands-on-3">
 <h1>Hands on 3<a class="headerlink" href="#hands-on-3" title="Permalink to this headline">¶</a></h1>
@@ -623,7 +623,7 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 <span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="c1"># calculate the probabilities for each bit value</span>
 <span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="n">probs</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/result/result.py:300,</span> in <span class="ni">Result.get_counts</span><span class="nt">(self, experiment)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/result/result.py:300,</span> in <span class="ni">Result.get_counts</span><span class="nt">(self, experiment)</span>
 <span class="g g-Whitespace">    </span><span class="mi">298</span>         <span class="n">dict_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">statevector</span><span class="o">.</span><span class="n">Statevector</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="o">.</span><span class="n">probabilities_dict</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
 <span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="k">else</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">300</span>         <span class="k">raise</span> <span class="n">QiskitError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No counts for experiment &quot;</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
@@ -702,8 +702,8 @@ In this case, <span class="math notranslate nohighlight">\(E = \langle H\rangle 
 <h5>Step A. Construct the circuits to prepare four different bell states.<a class="headerlink" href="#step-a-construct-the-circuits-to-prepare-four-different-bell-states" title="Permalink to this headline">¶</a></h5>
 <p>Let’s label each bell state as
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2095ce7d-f7b8-45e4-8c3b-a9ddc1a8bf1a">
-<span class="eqno">(1)<a class="headerlink" href="#equation-2095ce7d-f7b8-45e4-8c3b-a9ddc1a8bf1a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5b39de11-7270-4b39-ae2f-6699519798c0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5b39de11-7270-4b39-ae2f-6699519798c0" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Tri1 &amp;= \frac{1}{\sqrt2} (|00\rangle + |11\rangle)\\
 Tri2 &amp;= \frac{1}{\sqrt2} (|00\rangle - |11\rangle)\\
 Tri3 &amp;= \frac{1}{\sqrt2} (|01\rangle + |10\rangle)\\

@@ -19,8 +19,6 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -146,6 +144,7 @@
 <p><img alt="Oversimplified delayed choice quantum eraser" src="../../../../_images/oversimplified_delayed_choice_eraser_quantum.png" /></p>
 <p><img alt="Simulated recordings" src="../../../../_images/KimDelayedChoiceQuantumEraserGraphsGIF.gif" />
 Simulated joint detection rates between <span class="math notranslate nohighlight">\(D_0\)</span> and <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, <span class="math notranslate nohighlight">\(D_3\)</span>, <span class="math notranslate nohighlight">\(D_4\)</span> (<span class="math notranslate nohighlight">\(R_{01}\)</span>, <span class="math notranslate nohighlight">\(R_{02}\)</span>, <span class="math notranslate nohighlight">\(R_{03}\)</span>, <span class="math notranslate nohighlight">\(R_{04}\)</span>).</p>
+<p><img alt="Quantum Eraser with coincidence counter" src="../../../../_images/Kim_EtAl_Quantum_Eraser.svg.png" /></p>
 <p>As you can see I have omitted the “coincidence counter” from the above description, similar to many people who talked about this experiment. Actually  this is a key element. The coincidence counter would appear as a purely electronic device that acts on measurements. So if you would cast it as a quantum circuit it would look like this:</p>
 <p><img alt="Coincidence counter Reveal case " src="../../../../_images/cycle-revealed.gif" />
 <img alt="Coincidence counter Erasure case" src="../../../../_images/cycle-erased.gif" /></p>
@@ -173,7 +172,7 @@ where the last equality follows since {|λi i} is an orthonormal basis. Since th
 $<span class="math notranslate nohighlight">\(
    \Pi\left|\phi\right\rangle=\left(\sum_i \left|\psi_i\right\rangle\left\langle\psi_i\right|\right)\left|\phi\right\rangle=\sum_i \left|\psi_i\right\rangle\left(\left\langle\psi_i\middle|\phi\right\rangle\right)=\sum_i \left(\left\langle\psi_i\middle|\phi\right\rangle\right)\left|\psi_i\right\rangle\in\text{Span}\left\{\left|\psi_i\right\rangle\right\}
    \)</span>$</p>
-<p>where note <span class="math notranslate nohighlight">\(\left\langle\psi_i\middle|\phi\right\rangle\in \mathbb C\)</span>. Thus, \Pi projects us down onto the span of the vectors <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span>.</p>
+<p>where note <span class="math notranslate nohighlight">\(\left\langle\psi_i\middle|\phi\right\rangle\in \mathbb C\)</span>. Thus, <span class="math notranslate nohighlight">\(\Pi\)</span> projects us down onto the span of the vectors <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span>.</p>
 <section id="send-it-after-class-1">
 <h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
