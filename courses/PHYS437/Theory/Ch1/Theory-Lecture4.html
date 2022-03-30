@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Ch1-Lecture 4 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="ch1-lecture-4">
+<h1>Ch1-Lecture 4<a class="headerlink" href="#ch1-lecture-4" title="Permalink to this headline">¶</a></h1>
+<section id="delayed-choice-quantum-eraser">
+<h2>Delayed choice quantum eraser<a class="headerlink" href="#delayed-choice-quantum-eraser" title="Permalink to this headline">¶</a></h2>
+<p>A delayed-choice quantum eraser experiment, first performed by Yoon-Ho Kim, R. Yu, S. P. Kulik, Y. H. Shih and Marlan O. Scully, and reported in early 1999, is an elaboration on the quantum eraser experiment that incorporates concepts considered in Wheeler’s delayed-choice experiment from late 70s to early 80s . The experiment was designed to investigate peculiar consequences of the well-known double-slit experiment in quantum mechanics, as well as the consequences of quantum entanglement.</p>
+<p><img alt="Delayed choice Quantum Eraser" src="../../../../_images/Delayed-Choice-Quantum-Eraser-1.jpg" /></p>
+<p>An argon laser generates individual 351.1 nm photons that pass through a double-slit apparatus (vertical black line in the upper left corner of the diagram).</p>
+<p>An individual photon goes through one (or both) of the two slits. In the illustration, the photon paths are color-coded as red or green lines to indicate which slit the photon came through (red indicates slit A, green indicates slit B).</p>
+<p>So far, the experiment is like a conventional two-slit experiment. However, after the slits, spontaneous parametric down-conversion (SPDC) is used to prepare an entangled two-photon state. This is done by a nonlinear optical crystal BBO (beta barium borate) that converts the photon (from either slit) into two identical, orthogonally polarized entangled photons with <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> the frequency of the original photon. The paths followed by these orthogonally polarized photons are caused to diverge by the Glan–Thompson prism.</p>
+<p>One of these 702.2 nm photons, referred to as the “signal” photon (look at the red and green lines going upwards from the Glan–Thompson prism) continues to the target detector called <span class="math notranslate nohighlight">\(D_0\)</span>. During an experiment, detector <span class="math notranslate nohighlight">\(D_0\)</span> is scanned along its x axis, its motions controlled by a step motor. A plot of “signal” photon counts detected by <span class="math notranslate nohighlight">\(D_0\)</span> versus x can be examined to discover whether the cumulative signal forms an interference pattern.</p>
+<p>The other entangled photon, referred to as the “idler” photon (look at the red and green lines going downwards from the Glan–Thompson prism), is deflected by prism PS that sends it along divergent paths depending on whether it came from slit A or slit B.</p>
+<p>Somewhat beyond the path split, the idler photons encounter beam splitters <span class="math notranslate nohighlight">\(S_a\)</span>, <span class="math notranslate nohighlight">\(S_b\)</span>, and <span class="math notranslate nohighlight">\(S_c\)</span> that each have a 50% chance of allowing the idler photon to pass through and a 50% chance of causing it to be reflected. <span class="math notranslate nohighlight">\(M_a\)</span> and <span class="math notranslate nohighlight">\(M_b\)</span> are mirrors.</p>
+<p>The beam splitters and mirrors direct the idler photons towards detectors labeled <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, <span class="math notranslate nohighlight">\(D_3\)</span> and <span class="math notranslate nohighlight">\(D_4\)</span>. Note that:</p>
+<ul class="simple">
+<li><p>If an idler photon is recorded at detector <span class="math notranslate nohighlight">\(D_3\)</span>, it can only have come from slit B.</p></li>
+<li><p>If an idler photon is recorded at detector <span class="math notranslate nohighlight">\(D_4\)</span>, it can only have come from slit A.</p></li>
+<li><p>If an idler photon is detected at detector <span class="math notranslate nohighlight">\(D_1\)</span> or <span class="math notranslate nohighlight">\(D_2\)</span>, it might have come from slit A or slit B.</p></li>
+<li><p>The optical path length measured from slit to <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, <span class="math notranslate nohighlight">\(D_3\)</span> and <span class="math notranslate nohighlight">\(D_4\)</span> is 2.5 m longer than the optical path length from slit to <span class="math notranslate nohighlight">\(D_0\)</span>. This means that any information that one can learn from an idler photon must be approximately 8 ns later than what one can learn from its entangled signal photon.</p></li>
+</ul>
+<p>Let’s call the green path <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and red path <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. The double slit can be described by a Hadamard gate. The SPDC corresponds to a CNOT-gate. The state after the SPDC <span class="math notranslate nohighlight">\(\frac{1}{2} \left(\left|00\right\rangle+\left|11\right\rangle\right)\)</span>. There is a phase <span class="math notranslate nohighlight">\(\phi\)</span> depending on the position <span class="math notranslate nohighlight">\(x\)</span> of the detector <span class="math notranslate nohighlight">\(D_0\)</span>, which corresponds to a phase gate <span class="math notranslate nohighlight">\(R_\phi\)</span>. The state before the measurement is</p>
+<div class="math notranslate nohighlight">
+\[
+ \frac{1}{2} \left(\left|00\right\rangle+\left|10\right\rangle+e^{i\phi}\left|01\right\rangle-e^{i\phi}\left|11\right\rangle\right)
+ \]</div>
+<div class="math notranslate nohighlight">
+\[
+ =\frac{1}{2} \left(  \left(\left(1+e^{i\phi}\right)\left|0\right\rangle+\left(1-e^{i\phi}\right)\left|1\right\rangle \right)\left|+\right\rangle+\left(\left(1-e^{i\phi}\right)\left|0\right\rangle+\left(1+e^{i\phi}\right)\left|1\right\rangle \right)\left|-\right\rangle   \right)
+ \]</div>
+<p>Detection of the idler photon by <span class="math notranslate nohighlight">\(D_3\)</span> or <span class="math notranslate nohighlight">\(D_4\)</span> provides delayed “which-path information” indicating whether the signal photon with which it is entangled had gone through slit A or B. On the other hand, detection of the idler photon by <span class="math notranslate nohighlight">\(D_1\)</span> or <span class="math notranslate nohighlight">\(D_2\)</span> provides a delayed indication that such information is not available for its entangled signal photon. Insofar as which-path information had earlier potentially been available from the idler photon, it is said that the information has been subjected to a “delayed erasure”.</p>
+<ul class="simple">
+<li><p>When the experimenters looked at the signal photons whose entangled idlers were detected at <span class="math notranslate nohighlight">\(D_1\)</span> or <span class="math notranslate nohighlight">\(D_2\)</span>, they detected interference patterns.</p></li>
+<li><p>However, when they looked at the signal photons whose entangled idlers were detected at <span class="math notranslate nohighlight">\(D_3\)</span> or <span class="math notranslate nohighlight">\(D_4\)</span>, they detected simple diffraction patterns with no interference.</p></li>
+</ul>
+<p>Let’s look at the probability to measure the a photon in <span class="math notranslate nohighlight">\(D_0\)</span>.</p>
+<ul class="simple">
+<li><p>If we measure the second photon in <span class="math notranslate nohighlight">\(D_3\)</span> or <span class="math notranslate nohighlight">\(D_4\)</span>, the post measurement state collapses to <span class="math notranslate nohighlight">\(\left|\pm\right\rangle\)</span> basis. Then the probability for a click in <span class="math notranslate nohighlight">\(D_0\)</span> is <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span> . This is independent of the phase: no interference.</p></li>
+<li><p>If we measure the second photon in <span class="math notranslate nohighlight">\(D_1\)</span> or <span class="math notranslate nohighlight">\(D_2\)</span>, the probability for a click at <span class="math notranslate nohighlight">\(D_0\)</span> is <span class="math notranslate nohighlight">\(\frac{1}{2}\left(1\mp \cos\phi\right)\)</span>, so here we see the interference. Whether we see interference or not depends on the basis choice on the second system, which can be delayed.</p></li>
+</ul>
+<p><img alt="Oversimplified delayed choice quantum eraser" src="../../../../_images/oversimplified_delayed_choice_eraser_quantum.png" /></p>
+<p><img alt="Simulated recordings" src="../../../../_images/KimDelayedChoiceQuantumEraserGraphsGIF.gif" />
+Simulated joint detection rates between <span class="math notranslate nohighlight">\(D_0\)</span> and <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, <span class="math notranslate nohighlight">\(D_3\)</span>, <span class="math notranslate nohighlight">\(D_4\)</span> (<span class="math notranslate nohighlight">\(R_{01}\)</span>, <span class="math notranslate nohighlight">\(R_{02}\)</span>, <span class="math notranslate nohighlight">\(R_{03}\)</span>, <span class="math notranslate nohighlight">\(R_{04}\)</span>).</p>
+<p>As you can see I have omitted the “coincidence counter” from the above description, similar to many people who talked about this experiment. Actually  this is a key element. The coincidence counter would appear as a purely electronic device that acts on measurements. So if you would cast it as a quantum circuit it would look like this:</p>
+<p><img alt="Coincidence counter Reveal case " src="../../../../_images/cycle-revealed.gif" />
+<img alt="Coincidence counter Erasure case" src="../../../../_images/cycle-erased.gif" /></p>
+<p>The data was always the same! The “erasure” only changes how we <em>analyse</em> the data, i.e. what we keep and what we discard. This is done after the measurement, using an electronic circuit. There’s no time travel, no disproof of materialism, just plain ‘ol correlation being mistaken for causation.</p>
+<p>A full circuit can be found <a class="reference external" href="https://algassert.com/quirk#circuit=%7B%22cols%22%3A%5B%5B1%2C%22H%22%5D%2C%5B1%2C%22%E2%80%A2%22%2C1%2C1%2C%22X%22%5D%2C%5B1%2C%22%7Eslits%22%2C%22QFT7%22%5D%2C%5B1%2C1%2C%22Measure%22%2C%22Measure%22%2C%22Measure%22%2C%22Measure%22%2C%22Measure%22%2C%22Measure%22%2C%22Measure%22%5D%2C%5B%22%E2%80%A6%22%2C%22%E2%80%A6%22%2C%22Chance7%22%5D%2C%5B%22%E2%80%A6%22%2C%22%E2%80%A6%22%5D%2C%5B%22%E2%80%A6%22%2C%22%E2%80%A6%22%5D%2C%5B%22%E2%80%A6%22%2C%22%E2%80%A6%22%5D%2C%5B%22H%22%5D%2C%5B%22Measure%22%5D%2C%5B%22%7Echoice%22%5D%2C%5B%22%E2%80%A2%22%2C%22X%5E%C2%BD%22%5D%2C%5B1%2C%22Measure%22%5D%2C%5B1%2C%22%7Eresult%22%2C1%2C1%2C1%2C%22%7Eflat%22%5D%2C%5B%22%E2%97%A6%22%2C%22%E2%97%A6%22%2C%22Chance7%22%5D%2C%5B%22%E2%97%A6%22%2C%22%E2%80%A2%22%2C%22Chance7%22%5D%2C%5B1%2C1%2C1%2C1%2C1%2C%22%7Ewaves%22%5D%2C%5B%22%E2%80%A2%22%2C%22%E2%97%A6%22%2C%22Chance7%22%5D%2C%5B%22%E2%80%A2%22%2C%22%E2%80%A2%22%2C%22Chance7%22%5D%5D%2C%22gates%22%3A%5B%7B%22id%22%3A%22%7Echoice%22%2C%22name%22%3A%22choice%22%2C%22matrix%22%3A%22%7B%7B1%2C0%7D%2C%7B0%2C1%7D%7D%22%7D%2C%7B%22id%22%3A%22%7Eresult%22%2C%22name%22%3A%22result%22%2C%22matrix%22%3A%22%7B%7B1%2C0%7D%2C%7B0%2C1%7D%7D%22%7D%2C%7B%22id%22%3A%22%7Eflat%22%2C%22name%22%3A%22flat%22%2C%22matrix%22%3A%22%7B%7B1%2C0%7D%2C%7B0%2C1%7D%7D%22%7D%2C%7B%22id%22%3A%22%7Ewaves%22%2C%22name%22%3A%22waves%22%2C%22matrix%22%3A%22%7B%7B1%2C0%7D%2C%7B0%2C1%7D%7D%22%7D%2C%7B%22id%22%3A%22%7Eslits%22%2C%22name%22%3A%22slits%22%2C%22matrix%22%3A%22%7B%7B1%2C0%7D%2C%7B0%2C1%7D%7D%22%7D%5D%7D">here for reference purposes</a></p>
+<p>In fact you can even make classical analogues:
+Bob has a six-sided die, a two-sided coin, and a small empty box to put the coin in. He rolls the die, gets a result between 1 and 6, and places the coin in the box in a way that depends on the die roll. If the die roll was even, the coin is placed heads up. If the die roll was odd, the coin is placed tails up. Bob then writes down his die roll, and carefully hands the box to Alice.</p>
+<p>Alice now has to decide to either a) just open the box or b) shake the box before opening it. (Shaking the box randomizes the coin.) Once the box is open, she writes down whether the coin was face up or face down, and also writes down whether or not she shook the box.</p>
+<p><img alt="Classical erasure" src="../../../../_images/classical-banded-choice.png" /></p>
+<p>The tweaked delayed choice quantum eraser so that there isn’t a classical analogue is called a <a class="reference external" href="https://en.wikipedia.org/wiki/Bell_test">Bell test</a>, however it lacks the “characteristics” of the delayed choice quantum eraser.  For example, in order to avoid the signalling loophole, the choice can no longer be delayed.</p>
+</section>
+<section id="postulate-4-measurement">
+<h2>Postulate 4: Measurement<a class="headerlink" href="#postulate-4-measurement" title="Permalink to this headline">¶</a></h2>
+<p>How do we mathematically model the act of measuring or observing a quantum system considering that the very act of looking at or observing a quantum system irreversibly alters the state of the system? To model this phenomenon, we shall use the notion of a projective or von Neumann measurement (named after Hungarian child prodigy and mathematician, John von Neumann, who was apparently already familiar with calculus at the age of 8). To do so, we must define three classes of linear operators, each of which is increasingly more restricted. All three classes will prove vital throughout this course.</p>
+<ol class="simple">
+<li><p><em>Hermitian operators</em>: An operator <span class="math notranslate nohighlight">\(M \in \mathcal L \left(\mathbb C^d \right)\)</span> is Hermitian if <span class="math notranslate nohighlight">\(M = M^\dagger\)</span> . Examples you are already familiar with are the Pauli <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> , and <span class="math notranslate nohighlight">\(Z\)</span> gates, which are not only unitary, but also Hermitian. A Hermitian operator has the important property that all of its eigenvalues are real. Thus, Hermitian operators can be thought of as a higher dimensional generalization of the real numbers.</p></li>
+<li><p><em>Positive semi-definite operators</em>: If a Hermitian operator has only non-negative eigenvalues, then it is called positive-semidefinite. Thus, positive semi-definite (or positive for short) matrices generalize the non-negative real numbers.</p></li>
+<li><p><em>Orthogonal projection operators</em>: A Hermitian matrix <span class="math notranslate nohighlight">\(\Pi \in \mathcal L \left(\mathbb C^d \right)\)</span> is an orthogonal projection operator (or projector for short) if <span class="math notranslate nohighlight">\(\Pi^2=\Pi\)</span>. This is equivalent to saying <span class="math notranslate nohighlight">\(\Pi\)</span> has only eigenvalues 0 and 1. Let us prove this equivalence briefly: Since <span class="math notranslate nohighlight">\(\Pi\)</span> is Hermitian, we can take its spectral decomposition, <span class="math notranslate nohighlight">\(\Pi = \sum_i \lambda_i \left|\lambda_i\right\rangle\left\langle\lambda_i\right|\)</span>. Hence,
+$<span class="math notranslate nohighlight">\(
+\sum_i \lambda_i \left|\lambda_i\right\rangle\left\langle\lambda_i\right|=\Pi =\Pi^2=\left(\sum_i \lambda_i \left|\lambda_i\right\rangle\left\langle\lambda_i\right|\right)\left(\sum_i \lambda_i \left|\lambda_i\right\rangle\left\langle\lambda_i\right|\right)=\sum_i \lambda_i^2 \left|\lambda_i\right\rangle\left\langle\lambda_i\right|
+\)</span>$
+where the last equality follows since {|λi i} is an orthonormal basis. Since the |λi i are orthogonal, we thus have that for all i, λi = λ2i . But this can only hold if λi ∈ {0, 1}, as claimed.</p></li>
+</ol>
+<p>It is important to note that since a projector <span class="math notranslate nohighlight">\(\Pi\)</span>’s eigenvalues are all 0 or 1, its spectral decomposition must take the form <span class="math notranslate nohighlight">\(\Pi=\sum_i \left|\psi_i\right\rangle\left\langle\psi_i\right|\)</span>, where <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span> are an orthonormal set. Conversely, summing any set of orthonormal <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span> in this fashion yields projector. Observe that a projector <span class="math notranslate nohighlight">\(\Pi\)</span> has rank 1 if and only if <span class="math notranslate nohighlight">\(\Pi=\left|\psi\right\rangle\left\langle\psi\right|\)</span> for some <span class="math notranslate nohighlight">\(\left|\psi_i\right\rangle \in \mathbb C ^ d \)</span> , since the rank of <span class="math notranslate nohighlight">\(\Pi\)</span> equals the number of non-zero eigenvalues of <span class="math notranslate nohighlight">\(\Pi\)</span>, and here <span class="math notranslate nohighlight">\(\Pi=\left|\psi\right\rangle\left\langle\psi\right|\)</span> is a spectral decomposition of <span class="math notranslate nohighlight">\(\Pi\)</span>. Finally,let us develop an intuition for what a projector actually <em>does</em> — for any projector <span class="math notranslate nohighlight">\(\Pi=\sum_i \left|\psi_i\right\rangle\left\langle\psi_i\right|\)</span> and state <span class="math notranslate nohighlight">\(\left|\phi\right\rangle\)</span> to be measured, we have
+$<span class="math notranslate nohighlight">\(
+   \Pi\left|\phi\right\rangle=\left(\sum_i \left|\psi_i\right\rangle\left\langle\psi_i\right|\right)\left|\phi\right\rangle=\sum_i \left|\psi_i\right\rangle\left(\left\langle\psi_i\middle|\phi\right\rangle\right)=\sum_i \left(\left\langle\psi_i\middle|\phi\right\rangle\right)\left|\psi_i\right\rangle\in\text{Span}\left\{\left|\psi_i\right\rangle\right\}
+   \)</span>$</p>
+<p>where note <span class="math notranslate nohighlight">\(\left\langle\psi_i\middle|\phi\right\rangle\in \mathbb C\)</span>. Thus, \Pi projects us down onto the span of the vectors <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span>.</p>
+<section id="send-it-after-class-1">
+<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Verify that <span class="math notranslate nohighlight">\(I\)</span>, <span class="math notranslate nohighlight">\(\left|0\right\rangle\left\langle0\right|\)</span>, and <span class="math notranslate nohighlight">\(\left|1\right\rangle\left\langle1\right|\)</span> are all projectors. More generally, show that for arbitrary unit vector <span class="math notranslate nohighlight">\(\left|\psi\right\rangle \in \mathbb C ^ d \)</span> , <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\left\langle\psi\right|\)</span> is a projector.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span> orthonormal set, proove that <span class="math notranslate nohighlight">\(\Pi=\sum_i \left|\psi_i\right\rangle\left\langle\psi_i\right|\)</span> is a projector</p></li>
+<li><p>Consider three-dimensional vector <span class="math notranslate nohighlight">\(\left|\phi\right\rangle= \alpha\left|0\right\rangle + \beta\left|1\right\rangle + \gamma\left|2\right\rangle \in \mathbb C^3\)</span> and <span class="math notranslate nohighlight">\(\Pi= \left|0\right\rangle\left\langle0\right|+\left|1\right\rangle\left\langle1\right|\)</span>. Compute <span class="math notranslate nohighlight">\(\Pi\left|\phi\right\rangle\)</span>, and observe that the latter indeed lies in the two-dimensional space <span class="math notranslate nohighlight">\(\text{Span}\left(\{\left|0\right\rangle, \left|1\right\rangle\}\right)\)</span></p></li>
+</ul>
+</section>
+<section id="projective-measurements">
+<h3>Projective Measurements.<a class="headerlink" href="#projective-measurements" title="Permalink to this headline">¶</a></h3>
+<p>With projectors in hand, we can now define a projective measurement. A <em>projective measurement</em> is a set of projectors <span class="math notranslate nohighlight">\(B = \left\{\Pi_i\right\}_{i=0}^m\)</span> such that <span class="math notranslate nohighlight">\(\sum_{i=0}^m \Pi_i = I\)</span>. The latter condition is called the completeness relation. If each <span class="math notranslate nohighlight">\(\Pi_i\)</span> is rank one, i.e. <span class="math notranslate nohighlight">\(\Pi_i=\left|\psi_i\right\rangle\left\langle\psi_i\right|\)</span>, then we say that <span class="math notranslate nohighlight">\(B\)</span> models a <em>measurement in basis</em> <span class="math notranslate nohighlight">\(\left\{\left|\psi_i\right\rangle\right\}\)</span>. Often, we shall measure in the computational basis, which is specified by <span class="math notranslate nohighlight">\(B= \left\{\left|0\right\rangle\left\langle0\right|,\left|1\right\rangle\left\langle1\right|\right\}\)</span> in the case of <span class="math notranslate nohighlight">\(\mathbb C ^ 2\)</span>  (and generalizes as <span class="math notranslate nohighlight">\(B= \left\{\left|i\right\rangle\left\langle,\right|\right\}_{i=0}^{d-1}\)</span> for <span class="math notranslate nohighlight">\(\mathbb C^d\)</span>)</p>
+<p>With a projective measurement <span class="math notranslate nohighlight">\(B = \left\{\Pi_i\right\}_{i=0}^m\subseteq\mathbb C^d\)</span> in hand, let us <em>specify</em> how one uses <span class="math notranslate nohighlight">\(B\)</span>. Suppose our quantum system is in state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\in\mathbb C^d\)</span> . Then, the probability of obtaining outcome <span class="math notranslate nohighlight">\(i \in \{0, . . . , m\}\)</span> when measuring <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> with <span class="math notranslate nohighlight">\(B\)</span> is given by
+$<span class="math notranslate nohighlight">\(
+\text{Pr}(\text{outcome } i) = \text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i \right) = \text{Tr}\left(\Pi_i^2 \left|\psi\right\rangle \left\langle\psi\right|\right) = \text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\right),
+\)</span><span class="math notranslate nohighlight">\(
+where the second equality follows by the cyclic property of the trace and the third since \)</span>\Pi_i$ is
+a projector.</p>
+<section id="send-it-after-class-2">
+<h4>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(\left|\psi\right\rangle= \alpha\left|0\right\rangle + \beta\left|1\right\rangle \in \mathbb C^2\)</span> . Show that if we measure in the computational basis, i.e. using <span class="math notranslate nohighlight">\(B= \left\{\left|0\right\rangle\left\langle0\right|,\left|1\right\rangle\left\langle1\right|\right\}\)</span>, then the probabilities of obtaining outcomes 0 and 1 are <span class="math notranslate nohighlight">\(\left|\alpha\right|^2\)</span> and <span class="math notranslate nohighlight">\(\left|\beta\right|^2\)</span> , respectively.</p>
+<p>The exercise above has an important moral — requiring a quantum state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> to be a unit vector (i.e. <span class="math notranslate nohighlight">\(\left|\alpha\right|^2 + \left|\beta\right|^2 = 1\)</span>) ensures that when measuring <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, the distribution over the outcomes is a valid probability distribution, i.e. the probabilities for all possible outcomes sum to 1. The other important take-home message here is that measurements in quantum mechanics are inherently probabilistic — in general, the outcomes cannot be perfectly predicted! Finally, we started this lecture by saying that the very act of measuring a quantum state disturbs the system. Let us now formalize this; we will crucially use the fact discussed earlier that a projector projects a vector <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> down into a smaller subspace. Specifically, upon obtaining outcome <span class="math notranslate nohighlight">\(\Pi_i\)</span> when measuring <span class="math notranslate nohighlight">\(B\)</span>, the state of system “collapses” to</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i \right)}=\frac{\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}
+\]</div>
+<p>Note the denominator above is a scalar, and is just the probability of outcome <span class="math notranslate nohighlight">\(i\)</span>. There are two points here which may confuse you: Why have we written the output state as a matrix <span class="math notranslate nohighlight">\(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i\)</span> rather than a vector <span class="math notranslate nohighlight">\(\Pi_i \left|\psi\right\rangle\)</span>, and what is the role of the denominator? Let us handle each of these in order.</p>
+<p>First, conditioned on outcome <span class="math notranslate nohighlight">\(\Pi_i\)</span> , the output state is indeed a vector, namely <span class="math notranslate nohighlight">\(\Pi_i \left|\psi\right\rangle\)</span>. However, there is a more general formalism which we shall discuss shortly called the <em>density operator formalism</em>, in which quantum states are written as matrices, not vectors. Specifically, the “density matrix” representing vector <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> would be written as matrix <span class="math notranslate nohighlight">\(\left|\psi\right\rangle \left\langle\psi\right|\)</span>. The density operator formalism is more general than the state vector approach we have taken so far, and will be crucial for studying individual subsystems of a larger composite quantum state. Thus, the answer to question 1 is that we have written the output as a matrix simply to slowly ease the transition into the density matrix formalism.</p>
+<p>The motive behind question 2 is somewhat less sinister — the problem here is that since we projected out part of <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> during the measurement, the output <span class="math notranslate nohighlight">\(\Pi_i \left|\psi\right\rangle\)</span>  may not necessarily be normalized. To renormalize <span class="math notranslate nohighlight">\(\Pi_i \left|\psi\right\rangle\)</span>, we simply divide by its Euclidean norm to obtain</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\psi^\prime\right\rangle=\frac{\Pi_i \left|\psi\right\rangle}{\left\|\Pi_i \left|\psi\right\rangle\right\|_2}=\frac{\Pi_i \left|\psi\right\rangle}{\sqrt{ \left\langle\psi\right| \Pi_i \Pi_i \left|\psi\right\rangle}}=\frac{\Pi_i \left|\psi\right\rangle}{\sqrt{ \left\langle\psi\right| \Pi_i \left|\psi\right\rangle}}
+\]</div>
+<p>The state <span class="math notranslate nohighlight">\(\left|\psi^\prime\right\rangle\)</span> describes the post-measurement state of our system, assuming we have obtained outcome <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>A final quirk we should iron out is the following — in terms of measurements, what is the consequence of the fact that a projector <span class="math notranslate nohighlight">\(\Pi_i\)</span> satisfies <span class="math notranslate nohighlight">\(\Pi_i^2 = \Pi_i\)</span> ? Well, if you observe a quantum system now, and then again five minutes from now, and if the system has not been subjected to any gates or noise in between the measurements, then the two measurement results you obtain should agree (I realize the study of quantum mechanics has likely distorted your view of when you can trust your intuition, but this is one case in which you can). To model this, suppose we measure using <span class="math notranslate nohighlight">\(B = \{\Pi_i\}\)</span> and obtain results <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> in measurements 1 and 2, respectively. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Pr}\left(\text{outcome } i \middle| \text{outcome } j\right)=\text{Tr}\left(\Pi_j\frac{\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}\Pi_j\right)=\frac{\text{Tr}\left(\Pi_j\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i\Pi_j \right)}{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}
+\]</div>
+<p>To simplify this expression, we use the fact that if the completeness relation holds for projectors <span class="math notranslate nohighlight">\(\{\Pi_i\}\)</span>, i.e. <span class="math notranslate nohighlight">\(\sum_i \Pi_i = I\)</span>, then it turns out that <span class="math notranslate nohighlight">\(\Pi_j \Pi_1  = \delta_{ij} \Pi_i\)</span>, where recall <span class="math notranslate nohighlight">\(\delta_ij\)</span> is the Kronecker delta. Thus, if <span class="math notranslate nohighlight">\(i\neq j\)</span>, above equation equals to 0, and if <span class="math notranslate nohighlight">\(i = j\)</span>, it reduces to
+$<span class="math notranslate nohighlight">\(
+\frac{\text{Tr}\Pi_j\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i\Pi_j }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}=\frac{\text{Tr}\left(\Pi_i^2 \left|\psi\right\rangle \left\langle\psi\right|\Pi_i^2 \right)}{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}=\frac{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i\right) }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}=\frac{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\right)}{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}=1
+\)</span>$
+i.e. measuring the state a second time again yields outcome i with probability 1, as desired.
+Thus, although observing a state for the first time disturbs it, subsequent measurements will
+consistently return the same measurement result!</p>
+<p>We close this section by giving the circuit symbol which denotes a measurement of a qubit <span class="math notranslate nohighlight">\(\left|\psi\right\rangle \in \mathbb C^2\)</span> in the computational basis <span class="math notranslate nohighlight">\(B= \left\{\left|0\right\rangle\left\langle0\right|,\left|1\right\rangle\left\langle1\right|\right\}\)</span>:</p>
+<p><img alt="Measurement circuit" src="../../../../_images/measure_circuit.png" /></p>
+<p>The double-wires on the right side indicate that the output of the measurement is a classical string (indicating which measurement outcome was obtained).</p>
+</section>
+</section>
+<section id="send-it-after-class-3">
+<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Show that (the density matrix) <span class="math notranslate nohighlight">\(\left|\psi^\prime\right\rangle \left\langle\psi^\prime\right|\)</span> equals the expression <span class="math notranslate nohighlight">\(\frac{\Pi_i \left|\psi\right\rangle \left\langle\psi\right|\Pi_i }{\text{Tr}\left(\Pi_i \left|\psi\right\rangle \left\langle\psi\right| \right)}\)</span></p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\left|\psi\right\rangle= \alpha\left|0\right\rangle + \beta\left|1\right\rangle \in \mathbb C^2\)</span>. Show that if we measure in the computational basis, i.e. using <span class="math notranslate nohighlight">\(B= \left\{\left|0\right\rangle\left\langle0\right|,\left|1\right\rangle\left\langle1\right|\right\}\)</span> , and obtain outcome <span class="math notranslate nohighlight">\(i \in \{0, 1\}\)</span>, then the post-measurement state is <span class="math notranslate nohighlight">\(\left|i\right\rangle\)</span> (or <span class="math notranslate nohighlight">\(\left|i\right\rangle \left\langle i\right|\)</span> in density matrix form).</p></li>
+<li><p>Suppose we measure <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> in basis <span class="math notranslate nohighlight">\(B= \left\{\left|+\right\rangle\left\langle+\right|,\left|-\right\rangle\left\langle-\right|\right\}\)</span>. What are the probabilities of outcomes <span class="math notranslate nohighlight">\(+\)</span> and <span class="math notranslate nohighlight">\(−\)</span>, respectively? What are the post-measurement states if one obtains outcome <span class="math notranslate nohighlight">\(+\)</span> or <span class="math notranslate nohighlight">\(−\)</span>, respectively?</p></li>
+</ul>
+</section>
+</section>
+<section id="quantum-teloprtation">
+<h2>Quantum Teloprtation<a class="headerlink" href="#quantum-teloprtation" title="Permalink to this headline">¶</a></h2>
+<p>With the concepts of the Bell state and measurement in hand, we can discuss our first neat computational trick: Quantum teleportation. Suppose you have a single-qubit quantum state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle= \alpha\left|0\right\rangle + \beta\left|1\right\rangle \)</span> in your possession (i.e. as a physical system, not on paper), but that you do not know the values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. Your friend Alice now phones you and asks to borrow your state. How can you send it to her? One obvious way is simply to pop your system in the mail and physically send it over. However, it turns out that by exploiting the phenomenon of entanglement, you can do something incredible — by sending two classical bits over the telephone to Alice, you can “teleport” <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> instantly to her!</p>
+<p>To teleport <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, we assume that you and Alice each share half of a Bell state <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\frac{1}{\sqrt 2}\left(\left|00\right\rangle\right+\left|11\right\rangle\right)\)</span> to begin with; specifically, you hold qubit 1 of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>, and Alice holds qubit 2. The teleportation circuit is then given as follows:</p>
+<p><img alt="The teleportation circuit" src="../../../../_images/teleportation_circuit.png" /></p>
+<p>Let us break this down piece by piece. The first two wires are held by you; wire 1 holds the state to be teleported, <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>, and wire 2 holds your half of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>. The third wire holds Alice’s half of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>. Note that we have used <span class="math notranslate nohighlight">\(\left|\Phi^+_A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\Phi^+_B\right\rangle\)</span> to denote the two “halves” of <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span>, but this is poor notation — read literally, this diagram suggests <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\left|\Phi^+_A\right\rangle\otimes\left|\Phi^+_B\right\rangle\)</span>, which is not true since is <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle\)</span> entangled, and hence from last lecture we know that there do not exist states <span class="math notranslate nohighlight">\(\left|\Phi^+_A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\Phi^+_B\right\rangle\)</span> such that <span class="math notranslate nohighlight">\(\left|\Phi^+\right\rangle=\left|\Phi^+_A\right\rangle\otimes\left|\Phi^+_B\right\rangle\)</span> This notation is for illustration purposes only, not to complicate the diagram, and make our analysis easy.</p>
+<p>The circuit can be divided into 5 steps: Step 1 performs the CNOT, Step 2 the Hadamard gate, Step 3 measures qubits 1 and 2, Step 4 applies a conditional X gate, and Step 5 applies a conditional Z gate. The latter two require clarification: The conditional X gate here takes a classical bit <span class="math notranslate nohighlight">\(b\)</span> as input (hence the incoming wire at the top is a double line), and applies X if and only if <span class="math notranslate nohighlight">\(b = 1\)</span>. The conditional Z gate is defined analogously.</p>
+<p>Now that we have technically parsed this diagram, let us intuitively parse it. First, you begin in Steps 1 and 2 by performing a CNOT and Hadamard on your qubits, followed by a standard basis measurement in Step 3. Since a measurement in the standard basis maps each qubit to either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>, the output of your two measurements can jointly be thought of as one of the four bit strings <span class="math notranslate nohighlight">\(00\)</span>, <span class="math notranslate nohighlight">\(01\)</span>, <span class="math notranslate nohighlight">\(10\)</span>, or <span class="math notranslate nohighlight">\(11\)</span>. Call these bits <span class="math notranslate nohighlight">\(b_0 b_1\)</span> . Now you pick up the telephone, call Alice, and tell her the value of <span class="math notranslate nohighlight">\(b_0 b_1\)</span> . Conditioned on <span class="math notranslate nohighlight">\(b_0 \)</span> , she applies X to her half of the Bell pair, followed by Z conditioned on <span class="math notranslate nohighlight">\(b_1\)</span>. The claim is that at this point, Alice’s qubit’s state has been magically converted to <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>. In fact, as we shall see shortly, <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> has also disappeared from your possession! In this sense, teleportation has taken place.</p>
+<p>Let us formally analyze the action of this circuit. Denote by <span class="math notranslate nohighlight">\(\left|\psi_1\right\rangle\)</span> for <span class="math notranslate nohighlight">\(i \in \{0, . . . , 5\}\)</span> the joint state of your and Alice’s systems immediately after Step <span class="math notranslate nohighlight">\(i\)</span> has taken place. Here, we define <span class="math notranslate nohighlight">\(\left|\psi_0\right\rangle\)</span> as the initial joint state before any gates are applied; it is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\left|\psi_0\right\rangle=\left|\psi\right\rangle\left|\Phi^+\right\rangle=\left(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\right)\left(\frac{1}{\sqrt 2}\left|00\right\rangle\right+\frac{1}{\sqrt 2}\left|11\right\rangle\right)=\frac{1}{\sqrt 2}\left(\alpha\left|000\right\rangle+\alpha\left|011\right\rangle+\beta\left|100\right\rangle+\beta\left|111\right\rangle\right)
+\]</div>
+<p>After Step 1, i.e. after the CNOT, we have state</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\sqrt 2}\left(\alpha\left|000\right\rangle+\alpha\left|011\right\rangle+\beta\left|110\right\rangle+\beta\left|101\right\rangle\right)
+\]</div>
+<p>After Step 2, i.e. after the Hadamard gate, we have</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}
+\begin{align}
+&amp;\frac{1}{\sqrt 2}\left(\alpha\left|+\right\rangle\left|00\right\rangle+\alpha\left|+\right\rangle\left|11\right\rangle+\beta\left|-\right\rangle\left|10\right\rangle+\beta\left|-\right\rangle\left|01\right\rangle\right)\\
+=&amp;\frac{1}{2}\left(\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|00\right\rangle+\alpha(\left|0\right\rangle+\left|1\right\rangle)\left|11\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|10\right\rangle+\beta(\left|0\right\rangle-\left|1\right\rangle)\left|01\right\rangle\right)\\
+=&amp;\frac{1}{2}\left(\left|00\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|01\right\rangle\left(\alpha\left|0\right\rangle+\beta\left|1\right\rangle\right)+\left|10\right\rangle\left(\alpha\left|0\right\rangle-\beta\left|1\right\rangle\right)+\left|11\right\rangle\left(\alpha(\left|1\right\rangle-\beta\left|0\right\rangle\right)\right)\end{split}\\\end{align}
+\end{aligned}\end{align} \]</div>
+<p>Let us now pause and analyze the state of affairs. There are four terms in this superposition, each of which begins with a distinct bit string <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|01\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|10\right\rangle\)</span>, or <span class="math notranslate nohighlight">\(\left|11\right\rangle\)</span>. This means that if you now measure qubits 1 and 2 in the standard basis and obtain outcome (say) <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span>, then Alice’s qubit on wire 3 collapses to the only consistent possibility, <span class="math notranslate nohighlight">\(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\)</span>. In this case, teleportation has already taken place.</p>
+<section id="send-it-after-class-4">
+<h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\left|\phi|right\rangle\in (\mathbb C^2 )\otimes3\)</span> denote the state in Equation above. Suppose you now measure qubits 1 and 2 in the standard basis. This can be modelled by projective measurement</p>
+<div class="math notranslate nohighlight">
+\[
+B = \left\{\left|00\right\rangle\left\langle00\right| \otimes I, \left|01\right\rangle\left\langle01\right|| \otimes I, \left|10\right\rangle\left\langle10\right| \otimes I, \left|11\right\rangle\left\langle11\right| \otimes I\right\},
+\]</div>
+<p>where we have I on qubit 3 since we are not measuring it. Show that the probability of outcome 00 is 1/4. Next, show that conditioned on outcome 00, the post-measurement state collapses to <span class="math notranslate nohighlight">\(\left|00\right\rangle\left(\alpha\left|0\right\rangle + \beta\left|1\right\rangle\right)\)</span>.</p>
+<p>More generally, the four possible outcomes upon measuring qubits 1 and 2 result in four distinct residual states on Alice’s qubit as follows:
+$<span class="math notranslate nohighlight">\(
+00\rightarrow\alpha\left|0\right\rangle + \beta\left|1\right\rangle\qquad 01\rightarrow\alpha\left|1\right\rangle + \beta\left|0\right\rangle\qquad 10\rightarrow\alpha\left|0\right\rangle - \beta\left|1\right\rangle\qquad 11\rightarrow\alpha\left|1\right\rangle - \beta\left|0\right\rangle
+\)</span>$</p>
+<p>Thus, if you simply send the two bits <span class="math notranslate nohighlight">\(b_0 b_1\)</span> encoding the measurement outcome to Alice, then regardless of the value of <span class="math notranslate nohighlight">\(b_0 b_1\)</span> , she can recover your original state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle=\alpha\left|0\right\rangle + \beta\left|1\right\rangle \)</span>  via the following identities:</p>
+<div class="math notranslate nohighlight">
+\[
+X\left(\alpha\left|1\right\rangle + \beta\left|0\right\rangle\right)=\alpha\left|0\right\rangle + \beta\left|1\right\rangle \qquad Z\left(\alpha\left|0\right\rangle - \beta\left|1\right\rangle\right)=\alpha\left|0\right\rangle + \beta\left|1\right\rangle \qquad
+ZX\left(\alpha\left|1\right\rangle - \beta\left|0\right\rangle\right)=\alpha\left|0\right\rangle + \beta\left|1\right\rangle
+\]</div>
+<p>In other words, by conditionally applying X and Z based on the outputs <span class="math notranslate nohighlight">\(b_0 b_1\)</span> from your measurement, Alice can successfully recover your state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle=\alpha\left|0\right\rangle + \beta\left|1\right\rangle \)</span> . This is precisely what is depicted in Steps 4 and 5 of the teleportation circuit. Finally, note that since measuring your qubits leaves you in one of the four standard basis states <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|01\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|10\right\rangle\)</span>, or <span class="math notranslate nohighlight">\(\left|11\right\rangle\)</span> the state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> has now “disappeared” from your possession!</p>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Theory/Ch1/Theory-Lecture4.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
