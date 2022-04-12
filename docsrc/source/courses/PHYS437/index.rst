@@ -23,6 +23,7 @@ Theory sessions
    Lecture 3 (Ch.1) <Theory/Ch1/Theory-Lecture3.ipynb>
    Lecture 4 (Ch.1) <Theory/Ch1/Theory-Lecture4.ipynb>
    Lecture 5 (Ch.2) <Theory/Ch2/Theory-Lecture5.ipynb>
+   Lecture 6 (Ch.2) <Theory/Ch2/Theory-Lecture6.ipynb>
 
  
 .. toctree::
@@ -30,6 +31,7 @@ Theory sessions
    :caption: Online material 
 
    Chapter 1 online material <Theory/Ch1/Ch1-online.rst>
+   Chapter 2 online material <Theory/Ch2/Ch2-online.rst>
 
 Hands-on sessions
 *******************************

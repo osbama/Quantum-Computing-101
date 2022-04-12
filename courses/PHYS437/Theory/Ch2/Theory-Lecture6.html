@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Ch2-Lecture 6 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Lecture 1 online material" href="../Ch1/Ch1-online.html" />
+    <link rel="prev" title="Ch2-Lecture 5" href="Theory-Lecture5.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="ch2-lecture-6">
+<h1>Ch2-Lecture 6<a class="headerlink" href="#ch2-lecture-6" title="Permalink to this headline">¶</a></h1>
+<section id="non-local-games">
+<h2>Non-Local Games<a class="headerlink" href="#non-local-games" title="Permalink to this headline">¶</a></h2>
+<p>We have discussed measurements and entanglement, now let’s combine these two topics to discuss one of the most fundamental questions in quantum theory: Does entanglement as we understand it actually exist in Nature? Recall that in 1935, Einstein, Podolsky and Rosen (EPR) argued that quantum mechanics could not be a complete physical theory due to its prediction of states such as the Bell state <span class="math notranslate nohighlight">\(  \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left( \left|00\right\rangle + \left|11\right\rangle \right)  \)</span>. For example, as we will discuss shortly, the Bell state <em>appears</em> to allow superluminal (i.e. faster than the speed of light) communication, which is impossible by the theory of relativity. Thus, EPR suggested that there must be more to Nature than what quantum theory prescribes — namely, that there must be “ hidden variables” which contain extra information missing in quantum mechanics about what is actually happening in the subatomic world. In other words, the moon is there even if you do not look at it — it’s just that we “do not have access” to the hidden variables prescribing the state of the moon. Moreover, this information must be “local”, in the sense that instantaneous communication between variables should not be possible. Such theories arehence called local hidden variable theories.</p>
+<p>Remarkably, in 1964, John Bell proved that no local hidden variable theory could ever reproduce the statistics predicted by quantum mechanics! Thus, either local hidden variables theories are wrong, or quantum mechanics is wrong. In fact, Bell went a step further — he proposed a “simple” experiment which could be run in a lab to test which of these two cases represents reality. This experiment was based on (what is now called) a Bell inequality, and was run for example by the celebrated effort of Aspect, Grangier, and Roger in 1981, who wrote about their findings:</p>
+<blockquote>
+<div><p>Our results, in excellent agreement with the quantum mechanical predictions, strongly violate the generalized Bell’s inequalities, and rule out the whole class of realistic local theories</p>
+<blockquote>
+<div><p>Aspect, Grangier, Roger, PRL 1981.</p>
+</div></blockquote>
+</div></blockquote>
+<p>Thus, quantum mechanics, and not a local hidden variable theory, appears to be correct, and
+Bell states as we understand them really do exist. It should be mentioned that these experiments are not iron-clad results — it turns out there are conceivable “loopholes” in such experimental setups which could explain the outcomes of such experiments without ruling out local hidden variable theories. Nevertheless, over the years improved experimental setups have managed to close some of these “loopholes”, and it is probably fair to say that the general physics community regards this at least as strong evidence that local hidden variable theories are insufficient to model the subatomic world.</p>
+<p>The equivalent of Bell inequalities in computer science is called non-local games. In the process, we will further practice working with measurements, and see another instance of how the non-local nature of entanglement can be harnessed in a computational task to perform a classically impossible feat.</p>
+</section>
+<section id="does-entanglement-allow-superluminal-signalling">
+<h2>Does entanglement allow superluminal signalling?<a class="headerlink" href="#does-entanglement-allow-superluminal-signalling" title="Permalink to this headline">¶</a></h2>
+<p>Before discussing what entanglement can do, however, let us take a detour to point out what entanglement <em>cannot</em> do. Consider the Bell state <span class="math notranslate nohighlight">\(  \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left( \left|00\right\rangle + \left|11\right\rangle \right)  \)</span>. Suppose you take the first qubit of <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> and run off to Pluto, and your friend Bob keeps the second qubit here on Earth. If you now measure your qubit in the standard basis <span class="math notranslate nohighlight">\( \left\{ \left|0\right\rangle , \left|1\right\rangle \right\} \)</span>, you will obtain outcome <span class="math notranslate nohighlight">\( \left|i\right\rangle \)</span> with probability</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\text{Pr}(\text{outcome } i) &amp;= \text{Tr}\left( \left(\left| i \right\rangle\!\left\langle i \right|  \otimes I  \right) \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|  \right)\\
+&amp;= \frac{1}{2} \text{Tr}\left( \left(\left| i \right\rangle\!\left\langle i \right|  \otimes I  \right)  \left( \left| 00 \right\rangle\!\left\langle 00 \right|  + \left| 00 \right\rangle\!\left\langle 11 \right| +  \left| 11 \right\rangle\!\left\langle 00 \right| +  \left| 11 \right\rangle\!\left\langle 11 \right|  \right)   \right)\\
+&amp;= \frac{1}{2}
+\end{align*}
+\end{split}\]</div>
+<p>Moreover, having obtained outcome <span class="math notranslate nohighlight">\( \left|i\right\rangle  \)</span>, you know Bob’s qubit on Earth has instantly collapsed to state <span class="math notranslate nohighlight">\( \left|i\right\rangle \)</span> as well, since your joint postmeasurement state (according to <em>your</em> state of knowledge, not Bob’s!) is given by (the normalized version of)</p>
+<div class="math notranslate nohighlight">
+\[
+ \left( \left| i \right\rangle\!\left\langle i \right|  \otimes I\right) \left|\Phi^+\right\rangle = \frac{1}{\sqrt{2}}\left( \left| i \right\rangle\!\left\langle i \right|  \otimes I\right) \left(\left|00\right\rangle + \left|11\right\rangle\right)= \frac{1}{\sqrt{2}}  \left|i\right\rangle  \left|i\right\rangle
+\]</div>
+<p>Does this mean you have managed to <em>instantly</em> communicate the value of i to Bob? This would be a big no-no according to the theory of relativity!</p>
+<p>To resolve this paradox, we employ the density operator framework. First, observe that Bob’s state of knowledge before your measurement is given by the reduced density matrix of his qubit, which recall from last class satisfies</p>
+<div class="math notranslate nohighlight">
+\[
+ \rho _B= \text{Tr}_A\left( \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right)= \frac{1}{2} I
+\]</div>
+<p>In other words, Bob’s qubit contains no information by itself. Now let us compute Bob’s reduced state after you’ve performed your measurement (assuming you have not communicated your result to Bob by some classical means such as via satellite phone). Since with probability 1/2, you obtain measurement outcome <span class="math notranslate nohighlight">\( \left|i\right\rangle \)</span>, resulting in joint state <span class="math notranslate nohighlight">\( \left|ii\right\rangle \)</span>, the density operator describing your joint post-measurement state is</p>
+<div class="math notranslate nohighlight">
+\[
+ \sigma_{AB}= \frac{1}{2}  \left| 00 \right\rangle\!\left\langle 00 \right| + \frac{1}{2}  \left| 11 \right\rangle\!\left\langle 11 \right|
+\]</div>
+<p>If we now check Bob’s reduced state, we find that again</p>
+<div class="math notranslate nohighlight">
+\[
+ \text{Tr}_A\left( \sigma_{AB}\right)= \frac{1}{2}  \text{Tr}_A\left(\left| 00 \right\rangle\!\left\langle 00 \right| + \left| 11 \right\rangle\!\left\langle 11 \right|\right)= \frac{1}{2}  \left( \text{Tr}_A\left(\left| 00 \right\rangle\!\left\langle 00 \right|\right) +\text{Tr}_A\left(\left| 11 \right\rangle\!\left\langle 11 \right|\right)\right)= \frac{1}{2}  \left( \left| 0 \right\rangle\!\left\langle 0 \right| + \left| 1 \right\rangle\!\left\langle 1 \right| \right)= \frac{1}{2} I
+\]</div>
+<p>Thus, Bob has learned nothing about the outcome of your measurement! In other words, although Bob’s state indeed changes instantly once you measure your qubit (i.e. a collapse occurs), he has no way of knowing it until classical information encoding the measurement outcome is sent from Pluto to Earth. Thus, no information is instantly transmitted.</p>
+</section>
+<section id="id1">
+<h2>Non-local games<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>As we just saw measuring half of a Bell state does not allow one to communicate information from Alice to Bob. Surprisingly, though, the story has only just begun — one can nevertheless use local measurements on both halves of a Bell state to generate a probability distribution which contains correlations stronger than those possible classically. It is precisely this principle which is harnessed in non-local games. The setup of a non-local game is as follows. Suppose you and a friend are charged with doing too much homework on school property, and taken to police headquarters, where you are separated into two different rooms (i.e. you cannot communicate with one another). An interrogator takes turns asking each of you a question, and subsequently compares and cross-checks your answers to verify that you are both telling the truth. It turns out that if you and your friend happened to share two halves of a Bell state before being taken to the police station, then by performing appropriate local measurement on your qubits based on the interrogator’s questions, you can sometimes convince the interrogator of your honesty with higher probability than you could hope to do so without the use of entanglement. Let us demonstrate this via the concrete example of the CHSH game.</p>
+<section id="the-chsh-game">
+<h3>The CHSH game<a class="headerlink" href="#the-chsh-game" title="Permalink to this headline">¶</a></h3>
+<p>In 1969, Clauser-Horne-Shimony-Holt gave an important variant of Bell’s inequality, nowadays named after its authors as the CHSH inequality. It turns out that this inequality can be recast as a non-local game, called the <em>CHSH game</em>. To specify this game, let us denote the two spatially separated players as Alice and Bob, each of which receives a single question consisting of a single bit, <span class="math notranslate nohighlight">\(q_A \in  \left\{0,1\right\} \)</span>  for Alice and <span class="math notranslate nohighlight">\(q_B \in  \left\{0,1\right\} \)</span> for Bob. The questions are chosen uniformly at random. Alice and Bob now output a response consisting of a single bit each, <span class="math notranslate nohighlight">\(r_A \in  \left\{0,1\right\} \)</span> for Alice and <span class="math notranslate nohighlight">\(r_B \in  \left\{0,1\right\} \)</span> for Bob. We say they win if <span class="math notranslate nohighlight">\(q_A \land q_B = r_A \oplus r_B\)</span> , where <span class="math notranslate nohighlight">\(\land\)</span> denotes the AND function and <span class="math notranslate nohighlight">\(\oplus\)</span> denotes XOR (recall XOR on two bits <span class="math notranslate nohighlight">\(b_1,b_2 \in  \left\{0,1\right\} \)</span> equals one if and only if precisely one of <span class="math notranslate nohighlight">\(b_1\)</span> and <span class="math notranslate nohighlight">\(b_2\)</span> is set to 1). In words, this says the following: If the questions are <span class="math notranslate nohighlight">\(q_Aq_B  \in  \left\{00, 01, 10\right\} \)</span>, then Alice and Bob should answer with the same bit. Only if the questions are <span class="math notranslate nohighlight">\(q_Aq_B  \in  \left\{11\right\} \)</span> should they answer with different bits.</p>
+<section id="limits-on-classical-strategies">
+<h4>Limits on classical strategies<a class="headerlink" href="#limits-on-classical-strategies" title="Permalink to this headline">¶</a></h4>
+<p>Let us convince ourselves that any deterministic classical strategy for this game can win with probability at most 3/4. Specifically, any deterministic strategy for Alice (similarly for Bob) falls into one of four cases, specifying what Alice does when she receives her question, <span class="math notranslate nohighlight">\(q_A\)</span> : Output the same bit as <span class="math notranslate nohighlight">\(q_A\)</span> , output the opposite of <span class="math notranslate nohighlight">\(q_A\)</span> , ignore <span class="math notranslate nohighlight">\(q_A\)</span> and always output 0, or ignore <span class="math notranslate nohighlight">\(q_A\)</span> and always output 1. Let us consider one such strategy; the analysis of all other cases follows analogously. Suppose Alice and Bob always ignore their questions <span class="math notranslate nohighlight">\(q_A\)</span> and <span class="math notranslate nohighlight">\(q_B\)</span> and output <span class="math notranslate nohighlight">\(r_A = r_B = 0\)</span>. What is the probability of this strategy to win? Since <span class="math notranslate nohighlight">\(r_A = r_B = 0\)</span>, we have <span class="math notranslate nohighlight">\(r_A  \oplus  r_B = 0\)</span>, meaning they win whenever <span class="math notranslate nohighlight">\(q_A  \land  q_B = 0\)</span>. This happens so long as <span class="math notranslate nohighlight">\(q_Aq_B  \in  \left\{00, 01, 10\right\} \)</span>, i.e. for 3 of the 4 possible pairs of questions they can receive. Since the questions are chosen uniformly at random, they win with probability 3/4, as claimed.</p>
+<p>Finally, you may wonder whether Alice and Bob can classically do better if they use a randomized strategy for selecting answers. It turns out the answer is no, as a randomized strategy may be viewed as an average over all deterministic strategies. Thus, they might as well choose the optimal deterministic strategy.</p>
+</section>
+<section id="a-quantum-strategy">
+<h4>A quantum strategy<a class="headerlink" href="#a-quantum-strategy" title="Permalink to this headline">¶</a></h4>
+<p>We now show that if Alice and Bob share the Bell pair <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> before the game starts, then by performing appropriate local measurements based their questions <span class="math notranslate nohighlight">\(q_A\)</span> and <span class="math notranslate nohighlight">\(q_B\)</span> , they can win the game with a higher probability of <span class="math notranslate nohighlight">\(\cos^2(\pi/8)\approx0.854\)</span> (compared to 3/4 in the classical case). This is equivalent to saying the original CHSH inequality is <em>violated</em> by quantum mechanics, meaning a local hidden variable theory cannot explain the measurement statistics predicted by quantum mechanics (though we will not discuss these details here). To model Alice and Bob’s strategy, we introduce the concept of an <em>observable</em>.</p>
+<dl class="simple myst">
+<dt>Observables</dt><dd><p>Recall that a projective measurement is given by a set of projectors <span class="math notranslate nohighlight">\(M= \left\{\Pi_i \right\} \)</span> such that <span class="math notranslate nohighlight">\(  \sum_{i=1}\Pi_i=I\)</span>. To each outcome we associate some label, <span class="math notranslate nohighlight">\(i \in S  \subset  \mathbb{R} \)</span> for some set <span class="math notranslate nohighlight">\(S\)</span> such as <span class="math notranslate nohighlight">\(S = \{1, . . . , d\}\)</span>. An <em>observable</em> is simply the matrix</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[
+C= \sum_{i\in S} i.\Pi_i
+\]</div>
+<p>For example, consider a measurement in the standard basis <span class="math notranslate nohighlight">\( \left\{ \left|0\right\rangle , \left|1\right\rangle \right\} \)</span>, where the outcomes are labelled with set <span class="math notranslate nohighlight">\(S = {\1, \−1}\)</span>, respectively. Then, the corresponding observable is (for Pauli operator <span class="math notranslate nohighlight">\(Z\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[
+C =  \left| 0 \right\rangle\!\left\langle 0 \right| - \left| 1 \right\rangle\!\left\langle 1 \right| =Z
+\]</div>
+</section>
+</section>
+<section id="send-it-after-class-1">
+<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
+<p>Consider measurement <span class="math notranslate nohighlight">\(M =  \left\{ \left| + \right\rangle\!\left\langle + \right| , \left| - \right\rangle\!\left\langle - \right| \right\} \)</span> with outcome labels $S = {1, −1}$. What is the corresponding observable?</p>
+<p>Observables are useful in that they allow us to quickly calculate the expected value of a measurement. Recall that for a random variable <span class="math notranslate nohighlight">\(X\)</span> distributed over set <span class="math notranslate nohighlight">\(Y\)</span> , the expected value of <span class="math notranslate nohighlight">\(X\)</span> is defined</p>
+<div class="math notranslate nohighlight">
+\[
+E[X] =  \sum_{y\in Y}  \text{Pr}\left(X=y\right).y
+\]</div>
+<p>and captures what value <span class="math notranslate nohighlight">\(X\)</span> takes on <em>average</em>. Similarly, the outcome of a measurement <span class="math notranslate nohighlight">\(M= \left\{\Pi_i \right\}\)</span> can be modelled by a random variable <span class="math notranslate nohighlight">\(X\)</span> over possible outcome labels <span class="math notranslate nohighlight">\(i \in S\)</span>, and we can
+ask what <span class="math notranslate nohighlight">\(E[X]\)</span> is. For a measurement on density operator <span class="math notranslate nohighlight">\( \rho \)</span>, this is given by the formula</p>
+<div class="math notranslate nohighlight">
+\[
+E[X] =  \sum_{i\in S}  \text{Pr}\left(X=i\right).i=\sum_{i\in S}  \text{Tr}\left( \rho \Pi_i\right).i= \text{Tr}\left( \rho  \left( \sum_{i}\Pi_i . i \right) \right)= \text{Tr}\left( \rho C\right)
+\]</div>
+<p>for observable <span class="math notranslate nohighlight">\(C= \sum_{i\in S} i.\Pi_i\)</span> , and where the third equality follows by linearity of the trace.</p>
+</section>
+<section id="send-it-after-class-2">
+<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
+<p>Suppose we measure in the standard basis <span class="math notranslate nohighlight">\( \left\{ \left|0\right\rangle , \left|1\right\rangle \right\} \subseteq  \mathbb{C} ^2 \)</span> with corresponding measurement labels <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>, respectively. Convince yourself that the corresponding observable is Pauli <span class="math notranslate nohighlight">\(Z\)</span>. What is the expected value of measuring density operator <span class="math notranslate nohighlight">\( \rho = \frac{2}{3} \left| 0 \right\rangle\!\left\langle 0 \right| + \frac{1}{3}  \left| 1 \right\rangle\!\left\langle 1 \right| \)</span>  with observable <span class="math notranslate nohighlight">\(Z\)</span>?</p>
+<p><strong>Alice and Bob’s strategy.</strong> With observables in hand, we state Alice’s and Bob’s strategy. First, let us change the encoding of their output bits. Namely, instead of outputting <span class="math notranslate nohighlight">\(r_A,r_B  \in  \left\{0,1\right\} \)</span>, in their measurements Alice and Bob use label 1 to mean output 0, and label −1 to mean output bit 1. Then, conditioned on questions <span class="math notranslate nohighlight">\(q_A\)</span> and <span class="math notranslate nohighlight">\(q_B\)</span> , Alice and Bob use observables <span class="math notranslate nohighlight">\(A_{q_A}\)</span> and <span class="math notranslate nohighlight">\(B_{q_B}\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+A_0=Z \qquad A_1=X \qquad B_0=H \qquad B_1=ZHZ
+\]</div>
+<p>Note that all four of these observables have eigenvalues in set <span class="math notranslate nohighlight">\(S = \{1, −1\}\)</span>, and so they can be thought of as measurements in their respective eigenbases with outcomes labelled by <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p><em>Calculating the success probability.</em> At first glance, it is likely unclear why such a strategy should be interesting at all. Let us first calculate the success probability of this strategy to demonstrate that it does work, and subsequently give an intuitive understanding of <em>why</em> it works.</p>
+<p>First, we claim that for arbitrary observables with spectral decompositions <span class="math notranslate nohighlight">\(A= \left| a_0 \right\rangle\!\left\langle a_0 \right| - \left| a_1 \right\rangle\!\left\langle a_1 \right| \)</span> and <span class="math notranslate nohighlight">\(B= \left| b_0 \right\rangle\!\left\langle b_0 \right| - \left| b_1 \right\rangle\!\left\langle b_1 \right| \)</span> the quantity <span class="math notranslate nohighlight">\( \text{Tr}\left(A  \otimes  B\left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right) \)</span> encodes the probability that Alice and Bob output the same bits minus the probability they output different bits, assuming they measure using <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. To see this, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+ \text{Tr}\left(A  \otimes  \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right) &amp;=  \text{Tr}\left( \left(\left| a_0 \right\rangle\!\left\langle a_0 \right| - \left| a_1 \right\rangle\!\left\langle a_1 \right|\right) \otimes  \left( \left| b_0 \right\rangle\!\left\langle b_0 \right| - \left| b_1 \right\rangle\!\left\langle b_1 \right|\right) \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right) \\
+ &amp;= \text{Tr}\left( \left| a_0 \right\rangle\!\left\langle a_0 \right|  \otimes  \left| b_0 \right\rangle\!\left\langle b_0 \right| \cdot  \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right)- \text{Tr}\left( \left| a_0 \right\rangle\!\left\langle a_0 \right|  \otimes  \left| b_1 \right\rangle\!\left\langle b_1 \right| \cdot  \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right) \\
+ &amp; \text{Tr}\left( \left| a_1 \right\rangle\!\left\langle a_1 \right|  \otimes  \left| b_0 \right\rangle\!\left\langle b_0 \right| \cdot  \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right)+ \text{Tr}\left( \left| a_1 \right\rangle\!\left\langle a_1 \right|  \otimes  \left| b_1 \right\rangle\!\left\langle b_1 \right| \cdot  \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right)\\
+ &amp;=  \text{Pr}\left(\text{output }00\right) -\text{Pr}\left(\text{output }01\right)-\text{Pr}\left(\text{output }10\right)+\text{Pr}\left(\text{output }11\right)\\
+ &amp;= \text{Pr}\left(\text{output same bits}\right)-\text{Pr}\left(\text{output different bits}\right)
+\end{align*}
+\end{split}\]</div>
+<p>We conclude that for pairs of questions <span class="math notranslate nohighlight">\(q_Aq_B  \in  \left\{00, 01, 10\right\} \)</span> (i.e. Alice and Bob should output the same bit), the term <span class="math notranslate nohighlight">\(\text{Tr}\left(A  \otimes B \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)\)</span> denotes the probability Alice and Bob win minus the probability they lose. Similarly, for the question pair <span class="math notranslate nohighlight">\(q_Aq_B  = 11 \)</span> (i.e. their answers should disagree) the analogous quantity is <span class="math notranslate nohighlight">\(-\text{Tr}\left(A  \otimes  B \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)\)</span>. It follows that that the probability that Alice and Bob win minus the probability they lose is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+ &amp; \text{Pr}\left(q_Aq_B=00\right)\cdot \text{Tr}\left(A_0  \otimes  B_0\left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)+\text{Pr}\left(q_Aq_B=01\right)\cdot \text{Tr}\left(A_0  \otimes  B_1\left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)+\\
+ &amp; \text{Pr}\left(q_Aq_B=10\right)\cdot \text{Tr}\left(A_1  \otimes  B_0\left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)-\text{Pr}\left(q_Aq_B=11\right)\cdot \text{Tr}\left(A_1  \otimes  B_1\left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)\\
+ &amp;= \frac{1}{4} \left[ \text{Tr}\left( \left(A_0 \otimes B_0+A_0 \otimes B_1 + A_1 \otimes B_0-A_1 \otimes B_1\right) \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|  \right)  \right]
+ \end{align*}
+\end{split}\]</div>
+<p>where the factor of <span class="math notranslate nohighlight">\(1/4\)</span> appears because each question pair <span class="math notranslate nohighlight">\(q_Aq_B\)</span> appears with probability <span class="math notranslate nohighlight">\(1/4\)</span>. A direct calculation now yields that for our choices of <span class="math notranslate nohighlight">\(A_i\)</span> and <span class="math notranslate nohighlight">\(B_i\)</span> ,</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Tr}\left(A_0  \otimes B_0 \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)=\text{Tr}\left(A_0  \otimes B_1 \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)=\text{Tr}\left(A_1  \otimes B_0 \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)= \frac{1}{\sqrt{2}}
+\]</div>
+<p>whereas <span class="math notranslate nohighlight">\(\text{Tr}\left(A_1  \otimes B_1 \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right|\right)=- \frac{1}{\sqrt{2}} \)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(p\)</span> be the probability with which Alice and Bob win with this strategy. The probability of winning minus losing, <span class="math notranslate nohighlight">\(p − (1 − p) = 2p − 1\)</span>, equals <span class="math notranslate nohighlight">\( \sfrac{1}{\sqrt{2}} \)</span>. Hence, <span class="math notranslate nohighlight">\(p = 1/2 + 1/(2\sqrt{2}) = \cos^2 (\pi/8) \approx 0.854\)</span>, which is strictly better than the optimal classical winning probability of 0.75, as claimed.</p>
+<p><img alt="Measurement bases CHSH" src="../../../../_images/CHSH_bases-k.png" /></p>
+<p>Measurement bases for <span class="math notranslate nohighlight">\(A_0\)</span> (top-left), <span class="math notranslate nohighlight">\(A_1\)</span> (top-right), <span class="math notranslate nohighlight">\(B_0\)</span> (bottom-left), <span class="math notranslate nohighlight">\(B_1\)</span> (bottom-
+right).</p>
+<p><em>Intuition behind Alice and Bob’s strategy.</em> Why does this strategy work? To see this, we plot the eigenbases for each observable used (i.e. the measurement bases). Each eigenvector is denoted <span class="math notranslate nohighlight">\( \left|a_0\right\rangle \)</span> or <span class="math notranslate nohighlight">\( \left|a_1\right\rangle \)</span> for Alice (<span class="math notranslate nohighlight">\( \left|b_0\right\rangle \)</span> or <span class="math notranslate nohighlight">\( \left|b_1\right\rangle \)</span> for Bob), corresponding to Alice outputting <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, respectively. To begin, intuitively, the Bell state has the special property that if Alice and Bob measure in “similar” bases on their respective qubits, then they should get the same outcome with high probability, whereas if they measure with “very different” bases, then they will get opposite outcomes with high probability. In other words, we want to choose observables <span class="math notranslate nohighlight">\(A_0\)</span> , <span class="math notranslate nohighlight">\(A_1\)</span> , <span class="math notranslate nohighlight">\(B_0\)</span> , and <span class="math notranslate nohighlight">\(B_1\)</span> such that for questions <span class="math notranslate nohighlight">\(q_Aq_B \in  \left\{00,01,10\right\} \)</span>, Alice and Bob measure in bases which are “close” (since their output bits should match), and for <span class="math notranslate nohighlight">\(q_Aq_B=11\)</span>, they measure in bases which are “far apart” (since their outputs should differ). Figure depicts exactly this scenario. For example, for <span class="math notranslate nohighlight">\(q_Aq_B = 00\)</span>, the plots depicting Alice and Bob’s measurement bases are the top-left and bottom-left, respectively. Here we see that <span class="math notranslate nohighlight">\( \left|a_0\right\rangle \)</span> for Alice has high overlap with <span class="math notranslate nohighlight">\( \left|b_0\right\rangle \)</span> for Bob (similarly for <span class="math notranslate nohighlight">\( \left|a_1\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|b_1\right\rangle \)</span>), so they are likely to obtain the same outcome. Conversely, for <span class="math notranslate nohighlight">\(q_A q_B = 11\)</span> (i.e. top-right and bottom-right plots), <span class="math notranslate nohighlight">\( \left|a_0\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|b_0\right\rangle \)</span> i are almost orthogonal (similarly for <span class="math notranslate nohighlight">\( \left|a_1\right\rangle \)</span>), meaning it is unlikely that Alice and Bob’s outputs will agree.</p>
+</section>
+</section>
+<section id="the-magic-square-game">
+<h2>The magic square game<a class="headerlink" href="#the-magic-square-game" title="Permalink to this headline">¶</a></h2>
+<p>In the previous, we studied the CHSH game, whose maximum classical winning probability is <span class="math notranslate nohighlight">\(3/4\)</span>, whereas a quantum strategy based on entanglement achieves probability <span class="math notranslate nohighlight">\(0.854\)</span>. Let us see if this separation can be made stronger — does there exist a non-local game with classical winning probability strictly smaller than 1, but can be won perfectly quantumly? It turns out the answer is yes; an example demonstrating this phenomenon is the magic square of Mermin and Peres from the early 1990’s. The magic square works as follows: Suppose we have a <span class="math notranslate nohighlight">\(3\times3\)</span> array, labelled with variables <span class="math notranslate nohighlight">\(x_{ij}\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{table}
+\begin{tabular}{|l|l|l|}
+\hline
+x_{11} &amp;x_{12}  &amp; x_{13}  \\ \hline
+x_{21}    &amp;x_{22}  &amp; x_{23} \\ \hline
+x_{31}    &amp;x_{32}  &amp; x_{33} \\ \hline
+\end{tabular}
+\end{table}
+\end{split}\]</div>
+<p>The goal is to assign <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> to each variable <span class="math notranslate nohighlight">\(x_{ij}\)</span> so that in each row and in the first two columns, the number of 1’s is even (i.e. they have parity 0). In the last column, the requirement is that the number of 1’s is odd (i.e. they have parity 1). Formally, we can express this as the system of equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{table}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+x_{11}  \oplus x_{12}  \oplus x_{13} =0 &amp; x_{11}  \oplus x_{21}  \oplus x_{31} =0 \\
+x_{21}  \oplus x_{22}  \oplus x_{23} =0    &amp;  x_{12}  \oplus x_{22}  \oplus x_{32} =0 \\
+x_{31}  \oplus x_{32}  \oplus x_{33} =0    &amp; x_{13}  \oplus x_{23}  \oplus x_{33} =1
+\end{tabular}%
+}
+\end{table}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\( \oplus \)</span> denotes the XOR, i.e. addition modulo 2. It turns out that it is impossible to fill out this square so that all six of these equations are satisfied.</p>
+<section id="send-it-after-class-3">
+<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
+<p>Show that there do not exist assignments to all <span class="math notranslate nohighlight">\(x_{ij}  \in  \{0, 1\}\)</span> satisfying all six equations above. (Hint: Add all the equations to achieve a contradiction.)</p>
+<p><em>Making a game of the magic square.</em> We can turn the magic square into a non-local game between parties Alice and Bob as follows. As her question, Alice receives uniformly at random one of the rows or columns of the square, where we index the rows and columns by <span class="math notranslate nohighlight">\(q_A  \in  \{1, 2, 3, 4, 5, 6\}\)</span>. Suppose row/column <span class="math notranslate nohighlight">\(q_A\)</span> contains variables <span class="math notranslate nohighlight">\(x, y, z\)</span>. Then, Alice must return assignments for <span class="math notranslate nohighlight">\(x\)</span>,<span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> — denote her answers <span class="math notranslate nohighlight">\(x_A\)</span> , <span class="math notranslate nohighlight">\(y_A\)</span> , <span class="math notranslate nohighlight">\(z_A\)</span> . As for Bob’s question, we now choose uniformly one of <span class="math notranslate nohighlight">\(x, y, z\)</span>, and ask Bob to provide an assignment for it. For example, Bob might be asked to provide an assignment for <span class="math notranslate nohighlight">\(y\)</span>, which we would denote <span class="math notranslate nohighlight">\(y_B\)</span> . We say Alice and Bob win the game if <span class="math notranslate nohighlight">\(x_A\)</span> , <span class="math notranslate nohighlight">\(y_A\)</span> , <span class="math notranslate nohighlight">\(z_A\)</span> satisfies the parity constraint for the corresponding row or column, and if Bob’s answer matches that of Alice (i.e. <span class="math notranslate nohighlight">\(y_B = y_A\)</span> in our example).</p>
+</section>
+<section id="send-it-after-class-4">
+<h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h3>
+<p>Suppose Alice is asked to provide an assignment for row 1, i.e. <span class="math notranslate nohighlight">\(x_{11} , \)</span>x_{12}<span class="math notranslate nohighlight">\( , \)</span>x_{13}<span class="math notranslate nohighlight">\( , and Bob is asked to provide an assignment for \)</span>x_{13}$ . What response of Alice and Bob can win the game? What response will lose the game?</p>
+<p>Because the magic square cannot be filled out perfectly, it is not difficult to argue that no classical strategy of Alice and Bob can win this non-local game with probability 1. There is, however, a perfect quantum strategy, and as for the CHSH game, it relies on the non-local nature of entanglement.</p>
+<p><strong>A perfect quantum strategy.</strong> As for the CHSH game, we begin by switching from basis <span class="math notranslate nohighlight">\(\{0, 1\}\)</span>
+for encoding responses to <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>, respectively. (As a result, our observables will have eigevalues
+in <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>.) Note that this translates an expression of the form <span class="math notranslate nohighlight">\(x \oplus y  \oplus z = b\)</span> for <span class="math notranslate nohighlight">\(x, y, z, b  \in  \{0, 1\}\)</span> to <span class="math notranslate nohighlight">\(xyz = (−1)^b\)</span> for <span class="math notranslate nohighlight">\(x, y, z  \in  \{1, −1\}\)</span>, i.e. the direct sum condition converts to a multiplication. For example, with this “change of basis”, <span class="math notranslate nohighlight">\(0  \oplus  1  \oplus  0 = 1\)</span> converts to <span class="math notranslate nohighlight">\((1)(−1)(1) = (−1)^1\)</span> . Also as for CHSH, before the game starts, Alice and Bob share an entangled state between them; in this case, we use a higher dimensional analogue of the Bell state,</p>
+<div class="math notranslate nohighlight">
+\[
+ \left|\psi\right\rangle= \frac{1}{2}  \left|00\right\rangle  + \frac{1}{2}  \left|11\right\rangle +\frac{1}{2}  \left|22\right\rangle+ \frac{1}{2}  \left|33\right\rangle  \in  \mathbb{C}^4 \otimes  \mathbb{C}^4
+\]</div>
+<p>where recall <span class="math notranslate nohighlight">\(\{ \left|0\right\rangle , \left|1\right\rangle , \left|2\right\rangle,  \left|3\right\rangle  \}\)</span> is an orthonormal basis for <span class="math notranslate nohighlight">\( \mathbb{C}^4\)</span> . Now recall Alice will receive three cells <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(z\)</span> in the magic square (from a single row or column) for which she has to provide values in <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>, and Bob will receive one of <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, or <span class="math notranslate nohighlight">\(z\)</span>, for which he must provide a value in <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>. The following chart shows which measurement Alice or Bob should apply to their half of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> depending on which cell(s) they receive questions for:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{table}
+\begin{tabular}{|l|l|l|}
+\hline
+Z \otimes I &amp; I \otimes Z  &amp; Z \otimes Z  \\ \hline
+I \otimes X    &amp; X \otimes I  &amp; X \otimes X \\ \hline
+Z \otimes X    &amp; X \otimes Z  &amp; Y \otimes Y \\ \hline
+\end{tabular}
+\end{table}
+\end{split}\]</div>
+<p>For example, if Alice receives row 1 as her question, she measures observables <span class="math notranslate nohighlight">\(Z \otimes I \)</span>, <span class="math notranslate nohighlight">\(I \otimes Z\)</span>, and <span class="math notranslate nohighlight">\(Z  \otimes Z\)</span> on her half of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. Then, if Bob receives the top middle cell as his question, he measures <span class="math notranslate nohighlight">\(I \otimes Z \)</span> on his half of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. Since all observables above have eigenvalues in <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>, all of Alice
+and Bob’s responses will also be in <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>.</p>
+<p>Why does this work? Suppose Alice gets the first row as a question. Then, she measures according to <span class="math notranslate nohighlight">\(Z \otimes I \)</span>, <span class="math notranslate nohighlight">\(I \otimes Z\)</span>, and <span class="math notranslate nohighlight">\(Z  \otimes Z\)</span>, obtaining 3 values from set <span class="math notranslate nohighlight">\(\{1, −1\}\)</span>, each of which corresponds to one of the cells in row 1. The expected value for the product of these (since recall switching to the <span class="math notranslate nohighlight">\(\{1, −1\}\)</span> output encoding converted our constraints to multiplication of variables) is given by</p>
+<div class="math notranslate nohighlight">
+\[
+ \text{Tr}\left(\left(Z \otimes I\right)\left(I \otimes Z\right)\left(Z \otimes Z\right) \left| \psi \right\rangle\!\left\langle \psi \right| \right)= \text{Tr}\left( \left(I \otimes I\right) \left| \psi \right\rangle\!\left\langle \psi \right|  \right)=1
+\]</div>
+<p>In other words, Alice always outputs a triple from set <span class="math notranslate nohighlight">\(\{1, −1\}^{\times3}\)</span> with product 1 when she is
+asked row 1, and hence answers her question correctly. (Aside: Note that each operator above, e.g. <span class="math notranslate nohighlight">\(Z \otimes  I\)</span>, acts entirely on Alice’s 4-dimensional half of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.) More generally, multiplying out the observables in any row and in the first two columns similarly yields the matrix <span class="math notranslate nohighlight">\(I \otimes I\)</span> — this means Alice always outputs values with product 1 in these cases, as desired. As for the last column, the observables multiply out to <span class="math notranslate nohighlight">\(−I  \otimes  I\)</span>, meaning Alice outputs values with product <span class="math notranslate nohighlight">\(−1\)</span>, again as desired.</p>
+</section>
+<section id="send-it-after-class-5">
+<h3>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this headline">¶</a></h3>
+<p>Show that multiplying the observables in column 3 above yield <span class="math notranslate nohighlight">\(-I \otimes I\)</span>.</p>
+<p>How about Bob — will his measurement result match Alice’s? Note that by definition, Alice and Bob both perform the same measurement for a given cell on their respective halves of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. For example, if Alice is asked row 1 and Bob is asked the top-middle cell, then both of them measure <span class="math notranslate nohighlight">\(I \otimes Z\)</span> on their respective halves of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. Here, we use a nice fact:</p>
+<dl class="simple myst">
+<dt>Fact:</dt><dd><p>For <span class="math notranslate nohighlight">\( \left|\psi\right\rangle = \frac{1}{\sqrt{d}} \sum_{i=1}^{d} \left|ii\right\rangle   \)</span> and any observable <span class="math notranslate nohighlight">\(A\)</span>, we have <span class="math notranslate nohighlight">\(A ⊗ I \left|\psi\right\rangle  = I  \otimes  A^T  \left|\psi\right\rangle \)</span>.</p>
+</dd>
+</dl>
+<p>Using this fact, the expected value for the product of Alice and Bob’s measurements for the top-middle cell is</p>
+<div class="math notranslate nohighlight">
+\[
+ \text{Tr}\left( \left(I \otimes Z\right)_A \otimes  \left(I \otimes Z\right)_B  \left| \psi \right\rangle\!\left\langle \psi \right| \right)= \text{Tr}\left(\right)=\text{Tr}\left( \left(I^2 \otimes Z^2\right)_A \otimes  \left(I \otimes I\right)_B  \left| \psi \right\rangle\!\left\langle \psi \right| \right)= 1
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(Z^2 = I\)</span>. In other words, their outputs always agree. A similar analysis applies for any of the nine cells in the magic square. We conclude that Alice and Bob win the magic square game with certainty.</p>
+<p>Finally, we mention an important point, but one which we will not dwell on at this point in the course. Recall that in general, measuring a quantum state disturbs it, and so the order in which a sequence of measurements is performed is important. There is an exception to this rule, though — if the observables corresponding to the measurements all commute, then the order in which the measurements are performed does not matter. In the strategy above, any pair of observables in the table pairwise commute - thus, e.g., when Alice does three measurements in a row on her half of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, the precise order of the measurements does not matter. This ensures the strategies above are well-defined.</p>
+<p><strong>Connections to solving systems of equations.</strong> Recall the magic square corresponds to the following inconsistent system of equations (where each <span class="math notranslate nohighlight">\(x_{ij} \in \{1, −1\}\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{table}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+x_{11}  x_{12}  x_{13} =1 &amp; x_{11}  x_{21}  x_{31} =1 \\
+x_{21}  x_{22}  x_{23} =1    &amp;  x_{12} x_{22} x_{32} =1 \\
+x_{31}  x_{32}  x_{33} =1    &amp; x_{13}  x_{23}  x_{33} =-1
+\end{tabular}%
+}
+\end{table}
+\end{split}\]</div>
+<p>The reason why the magic square game has a perfect quantum strategy is intuitively that if we allow higher dimensional assignments, then the analogous system does have a solution! Formally, let us work in <span class="math notranslate nohighlight">\( \mathcal{L}  \left( \mathbb{C}^4\right) \)</span>, obtaining system
+$<span class="math notranslate nohighlight">\(
+\begin{table}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+M_{11}  M_{12}  M_{13} =I &amp; M_{11}  M_{21}  M_{31} =I \\
+M_{21}  M_{22}  M_{23} =I    &amp;  M_{12} M_{22} M_{32} =I \\
+M_{31}  M_{32}  M_{33} =I    &amp; M_{13}  M_{23}  M_{33} =-I
+\end{tabular}%
+}
+\end{table}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(M_{ij} \in \mathcal{L}  \left( \mathbb{C}^4\right)\)</span> ) and I is the <span class="math notranslate nohighlight">\(4\times4\)</span> identity matrix.</p>
+</section>
+<section id="send-it-after-class-6">
+<h3>Send it after class 6<a class="headerlink" href="#send-it-after-class-6" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(M_{ij}\)</span> be given by the observable in row <span class="math notranslate nohighlight">\(i\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> in the measurement table. Show that this choice of assignment satisfies the system in equations above.</p>
+<p>It follows immediately from the exercise above that regardless of which state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> Alice and Bob share, Alice will always output a correct answer. The only reason we now require <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> to specifically be a high dimensional analogue of the Bell state is to apply <span class="math notranslate nohighlight">\(A ⊗ I \left|\psi\right\rangle  = I  \otimes  A^T  \left|\psi\right\rangle \)</span>, which allows Bob’s condition to always be satisfied. Thus, at the heart of the magic square game is the idea that even if a system of equations has no solution over a low dimensional space, its high dimensional analogue may nevertheless have a solution.</p>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Theory/Ch2/Theory-Lecture6.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
