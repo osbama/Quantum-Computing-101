@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+provider = IBMQ.load_account()
+backend_real = provider.get_backend('ibmq_manila')
+job_real = execute(qc, backend_real, shots=8192)
+res_real = job_real.result().get_counts()
+print(res_real)
+plot_histogram(res_real)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mIBMQAccountCredentialsNotFound[0m            Traceback (most recent call last)
+Input [0;32mIn [13][0m, in [0;36m<cell line: 1>[0;34m()[0m
+[0;32m----> 1[0m provider [38;5;241m=[39m [43mIBMQ[49m[38;5;241;43m.[39;49m[43mload_account[49m[43m([49m[43m)[49m
+[1;32m      2[0m backend_real [38;5;241m=[39m provider[38;5;241m.[39mget_backend([38;5;124m'[39m[38;5;124mibmq_manila[39m[38;5;124m'[39m)
+[1;32m      3[0m job_real [38;5;241m=[39m execute(qc, backend_real, shots[38;5;241m=[39m[38;5;241m8192[39m)
+
+File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/ibmq/ibmqfactory.py:167[0m, in [0;36mIBMQFactory.load_account[0;34m(self)[0m
+[1;32m    164[0m credentials_list [38;5;241m=[39m [38;5;28mlist[39m(stored_credentials[38;5;241m.[39mvalues())
+[1;32m    166[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m credentials_list:
+[0;32m--> 167[0m     [38;5;28;01mraise[39;00m IBMQAccountCredentialsNotFound(
+[1;32m    168[0m         [38;5;124m'[39m[38;5;124mNo IBM Quantum Experience credentials found.[39m[38;5;124m'[39m)
+[1;32m    170[0m [38;5;28;01mif[39;00m [38;5;28mlen[39m(credentials_list) [38;5;241m>[39m [38;5;241m1[39m:
+[1;32m    171[0m     [38;5;28;01mraise[39;00m IBMQAccountMultipleCredentialsFound(
+[1;32m    172[0m         [38;5;124m'[39m[38;5;124mMultiple IBM Quantum Experience credentials found. [39m[38;5;124m'[39m [38;5;241m+[39m UPDATE_ACCOUNT_TEXT)
+
+[0;31mIBMQAccountCredentialsNotFound[0m: 'No IBM Quantum Experience credentials found.'
+IBMQAccountCredentialsNotFound: 'No IBM Quantum Experience credentials found.'
+

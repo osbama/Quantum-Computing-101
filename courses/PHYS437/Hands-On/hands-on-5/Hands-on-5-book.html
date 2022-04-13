@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Hands-on 5 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Hands-on session 1" href="../hands-on-1/hands-on-1-online.html" />
+    <link rel="prev" title="Hands on 4" href="../hands-on-4/Hands-on-4-book.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-5">
+<h1>Hands-on 5<a class="headerlink" href="#hands-on-5" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
+<span class="o">%</span><span class="k">qiskit_version_table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71326446533203</td></tr><tr><td colspan='2'>Wed Apr 13 13:57:20 2022 +03</td></tr></table></div></div>
+</div>
+<section id="quantum-coin-game">
+<h2>Quantum Coin Game<a class="headerlink" href="#quantum-coin-game" title="Permalink to this headline">¶</a></h2>
+<p>Please check <a class="reference external" href="https://www.ted.com/talks/shohini_ghose_a_beginner_s_guide_to_quantum_computing#t-208006">Ted talk by Sohini Ghosh</a> and Quantum Coin Flipping from <a class="reference external" href="https://en.wikipedia.org/wiki/Quantum_coin_flipping">Wikipedia</a> first.</p>
+<p>Quantum Coin Game is one of the fundamental concept of quantum computing, which uses simple implementation of quantum gates or more precisely uses the wierdness of quantum mechanics, to win about 97% of the time, when played against an opponent. Flipping of coin and say heads or tails. The concept of Quantum Coin Game came from the idea of classical coin game which can only show heads and tails. But since the game utilizes the concepts of quantum mechanics, it would be interesting to see what could be the outcome of the whole experiment. The main concept of this game is how the quantum computer uses the power of quantum superposition, which tells an object can exists in 2 different states at the same time, to win absolutely everytime.</p>
+<section id="what-are-the-rules-of-this-game">
+<h3>What are the rules of this game ?<a class="headerlink" href="#what-are-the-rules-of-this-game" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Quantum Computer plays a move but it is not revealed to the Opponent(Human).</p></li>
+<li><p>Opponent(Human) plays a move and it is also not revealed to the Quantum Computer.</p></li>
+<li><p>Finally Quantum Computer plays a move.</p></li>
+<li><p>Results are shown. If its heads, then Quantum Computer wins. Else, Opponent(Human) wins.</p></li>
+</ol>
+<p><strong>NOTE</strong>: “Playing a move” refers to “Flipping the coin” and we consider the coin as fair coin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing all the necessary library</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">IBMQ</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">execute</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.jupyter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+
+<span class="c1"># Layout</span>
+<span class="n">button_p</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Play&#39;</span><span class="p">)</span>
+<span class="n">gate_p</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Identity&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Bit Flip&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)],</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Choice: &#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">out_p</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">on_button_clicked</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">out_p</span><span class="p">:</span>
+        
+        <span class="c1"># Initial Circuit</span>
+        <span class="n">circuit_p</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;circuit&#39;</span><span class="p">)</span>
+        <span class="n">measure_p</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span><span class="p">)</span>
+        <span class="n">qc_p</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">,</span> <span class="n">measure_p</span><span class="p">)</span>
+        
+        <span class="c1"># Turn 1</span>
+        <span class="n">qc_p</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="c1"># Turn 2</span>
+        <span class="k">if</span> <span class="n">gate_p</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span>
+            <span class="n">qc_p</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">gate_p</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">qc_p</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="c1"># Turn 3</span>
+        <span class="n">qc_p</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="c1"># Measure  </span>
+        <span class="n">qc_p</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">circuit_p</span><span class="p">,</span> <span class="n">measure_p</span><span class="p">)</span>
+        
+        <span class="c1"># QASM</span>
+        <span class="n">backend_p</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+        <span class="n">job_p</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc_p</span><span class="p">,</span> <span class="n">backend_p</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+        <span class="n">res_p</span> <span class="o">=</span> <span class="n">job_p</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+        
+        <span class="c1"># Result</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">list</span><span class="p">(</span><span class="n">res_p</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You Lose to Quantum. Quantum Computer Wins&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">list</span><span class="p">(</span><span class="n">res_p</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You Win against Quantum Computer&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Either Quantum or You Wins&quot;</span><span class="p">)</span>
+
+<span class="n">button_p</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">on_button_clicked</span><span class="p">)</span>
+<span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">gate_p</span><span class="p">,</span> <span class="n">button_p</span><span class="p">,</span> <span class="n">out_p</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "828ee147fb84494c9b1c30b1239b5ca7"}
+</script></div>
+</div>
+</section>
+<section id="analogy-a-id-analogy-a">
+<h3>Analogy <a id="analogy"></a><a class="headerlink" href="#analogy-a-id-analogy-a" title="Permalink to this headline">¶</a></h3>
+<p>Now that we know what is a quantum coin game, what is it based on and most importantly what are the rules of this game, lets convert the concept of this game in quantum computing terminology.</p>
+<ul class="simple">
+<li><p>The ‘coin’ in flipping a coin we referring here is a ‘single qubit gate’.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+      |\psi\rangle=\begin{bmatrix}\alpha \\ \beta\end{bmatrix}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha, \beta \in \mathbb{C}\)</span> and <span class="math notranslate nohighlight">\(|\alpha|^2 + |\beta|^2 = 1\)</span></p>
+<ul class="simple">
+<li><p>“Flipping” the coin is application of the bit-flip operator</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  X = \begin{bmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{bmatrix}
+\end{split}\]</div>
+<ul class="simple">
+<li><p>The “heads” state is defined as
+$<span class="math notranslate nohighlight">\(
+|0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+\)</span><span class="math notranslate nohighlight">\( and &quot;tails&quot; as 
+\)</span><span class="math notranslate nohighlight">\(
+|1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+\)</span>$</p></li>
+<li><p>The quantum computer “plays” by applying the Hadamard <span class="math notranslate nohighlight">\(H\)</span> operator
+$<span class="math notranslate nohighlight">\(
+H = \frac{1}{\sqrt{2}} \begin{bmatrix}  1 &amp; 1 \\ 1 &amp; -1 \end{bmatrix}
+\)</span>$</p></li>
+</ul>
+</section>
+<section id="approach-a-id-approach-a">
+<h3>Approach <a id="approach"></a><a class="headerlink" href="#approach-a-id-approach-a" title="Permalink to this headline">¶</a></h3>
+<p>Lets see how to approach the game in quantum computing terminology-</p>
+<ul class="simple">
+<li><p>The coin is initialized to the <span class="math notranslate nohighlight">\(|0\rangle\)</span> “heads” state.</p></li>
+<li><p>The computer plays, applying the Hadamard <span class="math notranslate nohighlight">\(H\)</span> operator to the coin (operators are applied using matrix multiplication).
+$<span class="math notranslate nohighlight">\(
+H|0\rangle = \frac{1}{\sqrt2}(|0\rangle + |1\rangle)
+\)</span><span class="math notranslate nohighlight">\(
+The coin enters the 
+\)</span><span class="math notranslate nohighlight">\(
+H|0\rangle = |+\rangle = \frac{1}{\sqrt{2}} \begin{bmatrix}  1 \\ 1 \end{bmatrix}
+\)</span>$
+state.</p></li>
+<li><p>The human plays, choosing whether to flip the coin (apply the <span class="math notranslate nohighlight">\(X\)</span> operator) or do nothing (apply the <span class="math notranslate nohighlight">\(I\)</span> operator). However, since the <span class="math notranslate nohighlight">\(X\)</span> operator just flips the state vector upside down, <span class="math notranslate nohighlight">\(X\)</span> has no effect. Same goes for <span class="math notranslate nohighlight">\(I\)</span>.
+$<span class="math notranslate nohighlight">\(
+X|+\rangle=|+\rangle 
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+I|+\rangle=|+\rangle 
+\)</span><span class="math notranslate nohighlight">\(
+No matter what, the state is \)</span>|+\rangle$ after the human plays.</p></li>
+<li><p>The computer plays, applying the Hadamard <span class="math notranslate nohighlight">\(H\)</span> operator again, taking the coin to the <span class="math notranslate nohighlight">\(|0⟩\)</span> “heads” state.
+$<span class="math notranslate nohighlight">\(
+H|+\rangle = |0\rangle
+\)</span>$</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing all the necessary library</span>
+
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">IBMQ</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">execute</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.jupyter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
+<span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Building the initial circuit</span>
+
+<span class="k">def</span> <span class="nf">initial_circuit</span><span class="p">():</span>
+    <span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;circuit&#39;</span><span class="p">)</span>
+    <span class="n">measure</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span><span class="p">)</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">measure</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qc</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">measure</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Widget Initialization</span>
+
+<span class="n">gate</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+    <span class="n">options</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;Identity&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Bit Flip&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)],</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Choice: &#39;</span><span class="p">,</span>
+    <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optimal-strategy">
+<h3>Optimal Strategy<a class="headerlink" href="#optimal-strategy" title="Permalink to this headline">¶</a></h3>
+<p>Using the above approach the possibility table reduces to-</p>
+<table>
+<tr>
+    <th>Start State</th>
+    <th>Quantum</th>
+    <th>Classical</th>
+    <th>Quantum</th>
+    <th>Result</th>
+    <th>Who Wins?</th>
+</tr>
+<tr>
+    <td>$|0\rangle$</td>
+    <td>$H$</td>
+    <td>$I$</td>
+    <td>$H$</td>
+    <td>$|0\rangle$</td>
+    <td>Quantum</td>
+</tr>
+<tr>
+    <td>$|0\rangle$</td>
+    <td>$H$</td>
+    <td>$X$</td>
+    <td>$H$</td>
+    <td>$|0\rangle$</td>
+    <td>Quantum</td>
+</tr>
+</table>
+<p>Now lets look at the possibilities-</p>
+<ol class="simple">
+<li><p>Quantum Computer Wins ( <span class="math notranslate nohighlight">\(|0\rangle\)</span> ):</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\frac{2}{2} = 100 \%
+\]</div>
+<ol class="simple">
+<li><p>Classical Human Wins ( <span class="math notranslate nohighlight">\(|1\rangle\)</span> ):</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  \frac{0}{2} = 0 \%
+\]</div>
+<ol class="simple">
+<li><p>Either Quantum Computer or Classical Human Wins ( <span class="math notranslate nohighlight">\(|0\rangle + |1\rangle\)</span> ):</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  \frac{0}{2} = 0 \%
+\]</div>
+<p>This table shows the quantum computer wins <span class="math notranslate nohighlight">\(100\%\)</span> of the time. But in Shohini’s talk it is <span class="math notranslate nohighlight">\(~97\%\)</span>, due to errors.</p>
+</section>
+<section id="lets-play-this-version-using-qiskit">
+<h3>Lets play this version using Qiskit<a class="headerlink" href="#lets-play-this-version-using-qiskit" title="Permalink to this headline">¶</a></h3>
+<section id="building-the-initial-circuit">
+<h4>Building the initial circuit<a class="headerlink" href="#building-the-initial-circuit" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">measure</span> <span class="o">=</span> <span class="n">initial_circuit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="turn-1-quantum-computer">
+<h4><strong>Turn 1. Quantum Computer</strong><a class="headerlink" href="#turn-1-quantum-computer" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use H Gate</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">circuit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-5-book_15_0.png" src="../../../../_images/Hands-on-5-book_15_0.png" />
+</div>
+</div>
+</section>
+<section id="turn-2-classical-human">
+<h4><strong>Turn 2. Classical Human</strong><a class="headerlink" href="#turn-2-classical-human" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">gate</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="n">circuit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">if</span> <span class="n">gate</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">circuit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-5-book_17_0.png" src="../../../../_images/Hands-on-5-book_17_0.png" />
+</div>
+</div>
+</section>
+<section id="turn-3-quantum-computer">
+<h4><strong>Turn 3. Quantum Computer</strong><a class="headerlink" href="#turn-3-quantum-computer" title="Permalink to this headline">¶</a></h4>
+<p>Quantum Computer uses Hadamard <span class="math notranslate nohighlight">\(H\)</span> on its first turn</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Used H Gate</span>
+
+<span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">circuit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-5-book_20_0.png" src="../../../../_images/Hands-on-5-book_20_0.png" />
+</div>
+</div>
+</section>
+<section id="measurement-a-id-quantum-measurement-a">
+<h4><strong>Measurement</strong> <a id="quantum_measurement"></a><a class="headerlink" href="#measurement-a-id-quantum-measurement-a" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">measure</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-5-book_22_0.png" src="../../../../_images/Hands-on-5-book_22_0.png" />
+</div>
+</div>
+</section>
+<section id="qasm-simulator-a-id-quantum-qasm-a">
+<h4><strong>QASM_Simulator</strong> <a id="quantum_qasm"></a><a class="headerlink" href="#qasm-simulator-a-id-quantum-qasm-a" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">backend</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;0&#39;: 8192}
+</pre></div>
+</div>
+<img alt="../../../../_images/Hands-on-5-book_24_1.png" src="../../../../_images/Hands-on-5-book_24_1.png" />
+</div>
+</div>
+</section>
+<section id="lets-see-who-wins-a-id-quantum-wins-a">
+<h4><strong>Lets see who wins</strong> <a id="quantum_wins"></a><a class="headerlink" href="#lets-see-who-wins-a-id-quantum-wins-a" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Quantum Computer Wins&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Classical Human Wins&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Either Quantum Computer or Classical Human Wins&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Quantum Computer Wins
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="running-on-quantum-computer-a-id-real-qc-a">
+<h4><strong>Running on Quantum Computer</strong> <a id="real_qc"></a><a class="headerlink" href="#running-on-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h4>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+<span class="n">backend_real</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;ibmq_manila&#39;</span><span class="p">)</span>
+<span class="n">job_real</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">backend_real</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+<span class="n">res_real</span> <span class="o">=</span> <span class="n">job_real</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">res_real</span><span class="p">)</span>
+<span class="n">plot_histogram</span><span class="p">(</span><span class="n">res_real</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IBMQAccountCredentialsNotFound</span><span class="g g-Whitespace">            </span>Traceback (most recent call last)
+<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">backend_real</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;ibmq_manila&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">job_real</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">backend_real</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/ibmq/ibmqfactory.py:167,</span> in <span class="ni">IBMQFactory.load_account</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="n">credentials_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stored_credentials</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_list</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">167</span>     <span class="k">raise</span> <span class="n">IBMQAccountCredentialsNotFound</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="s1">&#39;No IBM Quantum Experience credentials found.&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">credentials_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>     <span class="k">raise</span> <span class="n">IBMQAccountMultipleCredentialsFound</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>         <span class="s1">&#39;Multiple IBM Quantum Experience credentials found. &#39;</span> <span class="o">+</span> <span class="n">UPDATE_ACCOUNT_TEXT</span><span class="p">)</span>
+
+<span class="ne">IBMQAccountCredentialsNotFound</span>: &#39;No IBM Quantum Experience credentials found.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Unlike the perfect simulation, the real quantum computer only wins ~<span class="math notranslate nohighlight">\(99\ \%\)</span> of the time, the <span class="math notranslate nohighlight">\(1\ \%\)</span> in which it loses is due to errors. Quantum computers have improved a bit since <a class="reference external" href="#conclusion">Shohini’s talk</a> where the error is closer to <span class="math notranslate nohighlight">\(3\ \%\)</span>.</p>
+</section>
+</section>
+<section id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h3>
+<p>This simple and yet fun little game shows the basic quantum states <span class="math notranslate nohighlight">\(|0\rangle\)</span>, <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|−\rangle\)</span>, plus the common ways of moving between them with the <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(H\)</span>, <span class="math notranslate nohighlight">\(I\)</span>, <span class="math notranslate nohighlight">\(Z\)</span> gates.</p>
+</section>
+<section id="send-it-after-class-1">
+<h3>Send it after class 1:<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
+<p>Think of other variations of the game, and tweak the game as follows</p>
+<ol class="simple">
+<li><p>What if, instead of quantum computer taking first turn, the classical human take the first turn ?</p></li>
+<li><p>What if, instead of representing head as <span class="math notranslate nohighlight">\(|0\rangle\)</span>, the tail is represented as <span class="math notranslate nohighlight">\(|0\rangle\)</span> ?</p></li>
+<li><p>What if, instead of using fair coin, we used unfair coin ?</p></li>
+<li><p>What if, instead of playing against a classical human, the quantum computer plays with another quantum computer ?</p></li>
+<li><p>What if, instead of having 3 turns, there are <span class="math notranslate nohighlight">\(n\)</span> number of turns ?</p></li>
+<li><p>What if, instead of using all gates, restrict the use of some gates ?</p></li>
+</ol>
+<p>how did the results change?</p>
+</section>
+</section>
+<section id="local-reality-and-the-chsh-inequality">
+<h2>Local Reality and the CHSH inequality<a class="headerlink" href="#local-reality-and-the-chsh-inequality" title="Permalink to this headline">¶</a></h2>
+<p>We have seen in a previous module how quantum entanglement results in strong correlations in a multi-partite system. In fact these correlations appear to be stronger than anything that could be explained using classical physics.</p>
+<p>The historical development of quantum mechanics is filled with agitated discussions about the true nature of reality and the extent to which quantum mechanics can explain it. Given the spectacular empirical success of quantum mechanics, it was going to be clear that people would not simply give it up just because some of its aspects were hard to reconcile with intuition.</p>
+<p>At the root of these different points of views was the question of the nature of measurement. We know there is an element of randomness in quantum measurements, but is that really so? Is there a sneaky way by which the Universe has already decided beforehand which value a given measurement is going to yield at a future time? This hypothesis was the basis for different <em>hidden variable</em> theories. But these theories did not only need to explain randomness at the single particle level. They also needed to explain what happens when different observers measure different parts of a multi-partite entangled system! This went beyond just hidden variable theories. Now a local hidden variable theory was needed in order to reconcile the observations of quantum mechanics with a Universe in which local reality was valid.</p>
+<p>What is local reality? In an Universe where locality holds, it should be possible to separate two systems so far in space that they could not interact with each other. The concept of reality is related to whether a measurable quantity holds a particular value <em>in the absence of any future measurement</em>.</p>
+<p>In 1963, John Stewart Bell published what could be argued as one of the most profound discoveries in the history of science. Bell stated that any theory invoking local hidden variables could be experimentally ruled out. In this section we are going to see how, and we will run a real experiment that demonstrates so! (with some remaining loopholes to close…)</p>
+<section id="the-chsh-inequality">
+<h3>The CHSH inequality<a class="headerlink" href="#the-chsh-inequality" title="Permalink to this headline">¶</a></h3>
+<p>Imagine Alice and Bob are given each one part of a bipartite entangled system. Each of them then performs two measurements on their part in two different bases. Let’s call Alice’s bases <em>A</em> and <em>a</em> and Bob’s <em>B</em> and <em>b</em>. What is the expectation value of the quantity <span class="math notranslate nohighlight">\(\langle CHSH \rangle = \langle AB \rangle - \langle Ab \rangle + \langle aB \rangle + \langle ab \rangle\)</span> ?</p>
+<p>Now, Alice and Bob have one qubit each, so any measurement they perform on their system (qubit) can only yield one of two possible outcomes: +1 or -1. Note that whereas we typically refer to the two qubit states as <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>, these are <em>eigenstates</em>, and a projective measurement will yield their <em>eigenvalues</em>, +1 and -1, respectively.</p>
+<p>Therefore, if any measurement of <em>A</em>, <em>a</em>, <em>B</em>, and <em>b</em> can only yield <span class="math notranslate nohighlight">\(\pm 1\)</span>, the quantities <span class="math notranslate nohighlight">\((B-b)\)</span> and <span class="math notranslate nohighlight">\((B+b)\)</span> can only be 0 or <span class="math notranslate nohighlight">\(\pm2\)</span>. And thus, the quantity <span class="math notranslate nohighlight">\(A(B-b) + a(B+b)\)</span> can only be either +2 or -2, which means that there should be a bound for the expectation value of the quantity we have called <span class="math notranslate nohighlight">\(|\langle CHSH \rangle| =|\langle AB \rangle - \langle Ab \rangle + \langle aB \rangle + \langle ab \rangle| \leq 2\)</span>.</p>
+<p>Now, the above discussion is oversimplified, because we could consider that the outcome on any set of measurements from Alice and Bob could depend on a set of local hidden variables, but it can be shown with some math that, even when that is the case, the expectation value of the quantity <span class="math notranslate nohighlight">\(CHSH\)</span> should be bounded by 2 if local realism held.</p>
+<p>But what happens when we do these experiments with an entangled system? Let’s try it!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#import qiskit tools</span>
+<span class="kn">import</span> <span class="nn">qiskit</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">ClassicalRegister</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">transpile</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">IBMQ</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.visualization</span> <span class="kn">import</span> <span class="n">circuit_drawer</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.monitor</span> <span class="kn">import</span> <span class="n">job_monitor</span><span class="p">,</span> <span class="n">backend_monitor</span><span class="p">,</span> <span class="n">backend_overview</span>
+<span class="kn">from</span> <span class="nn">qiskit.providers.aer</span> <span class="kn">import</span> <span class="n">noise</span>
+
+<span class="c1">#import python stuff</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set devices, if using a real device</span>
+<span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+<span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">get_provider</span><span class="p">(</span><span class="s1">&#39;ibm-q&#39;</span><span class="p">)</span>
+<span class="n">quito</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;ibmq_quito&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we are going to define a function to create our CHSH circuits. We are going to choose, without loss of generality, that Bob always uses the computational (<span class="math notranslate nohighlight">\(Z\)</span>) and the <span class="math notranslate nohighlight">\(X\)</span> bases for his <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(b\)</span> measurements, respectively, whereas Alice chooses also orthogonal bases but whose angle we are going to vary between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(2\pi\)</span> with respect to Bob’s bases. This set of angles is going to be the input argument to our <span class="math notranslate nohighlight">\(CHSH\)</span> circuit building function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_chsh_circuit</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a list of QuantumCircuits for use in a CHSH experiemnt</span>
+<span class="sd">    (one for each value of theta in theta_vec)</span>
+<span class="sd">    </span>
+<span class="sd">        Args:</span>
+<span class="sd">            theta_vec (list): list of values of angles between the bases of Alice and Bob</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            List[QuantumCircuit]: CHSH QuantumCircuits for each value of theta</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chsh_circuits</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">theta_vec</span><span class="p">:</span>
+        <span class="n">obs_vec</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;00&#39;</span><span class="p">,</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;11&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">obs_vec</span><span class="p">:</span>
+            <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">el</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> 
+            <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">chsh_circuits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">chsh_circuits</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we are going to define a function for estimating the quantity <span class="math notranslate nohighlight">\(\langle CHSH \rangle\)</span>. One can define two of such quantities, actually, <span class="math notranslate nohighlight">\(\langle CHSH1 \rangle = \langle AB \rangle - \langle Ab \rangle + \langle aB \rangle + \langle ab \rangle\)</span> and <span class="math notranslate nohighlight">\(\langle CHSH2 \rangle = \langle AB \rangle + \langle Ab \rangle - \langle aB \rangle + \langle ab \rangle\)</span>. Once chosen the corresponding measurement axes for both parties, each expectation value can be simply estimated by adding the counts from the output bitstrings with the appropriate sign (plus for the even terms <span class="math notranslate nohighlight">\(00\)</span> and <span class="math notranslate nohighlight">\(11\)</span> and minus for odd terms <span class="math notranslate nohighlight">\(01\)</span> and <span class="math notranslate nohighlight">\(10\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_chsh_witness</span><span class="p">(</span><span class="n">counts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Computes expectation values for the CHSH inequality, for each</span>
+<span class="sd">    angle (theta) between measurement axis.</span>
+
+<span class="sd">        Args: counts (list[dict]): dict of counts for each experiment</span>
+<span class="sd">              (4 per value of theta)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple(List, List): Tuple of lists with the two CHSH witnesses</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Order is ZZ,ZX,XZ,XX</span>
+    
+    <span class="n">CHSH1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">CHSH2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Divide the list of dictionaries in sets of 4</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">),</span> <span class="mi">4</span><span class="p">):</span>  
+        <span class="n">theta_dict</span> <span class="o">=</span> <span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="n">zz</span> <span class="o">=</span> <span class="n">theta_dict</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">zx</span> <span class="o">=</span> <span class="n">theta_dict</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">xz</span> <span class="o">=</span> <span class="n">theta_dict</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">theta_dict</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="n">no_shots</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">xx</span><span class="p">)</span>
+
+        <span class="n">chsh1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">chsh2</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">zz</span><span class="p">:</span>
+            <span class="n">parity</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">chsh1</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">zz</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="n">chsh2</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">zz</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">zx</span><span class="p">:</span>
+            <span class="n">parity</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">chsh1</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">zx</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="n">chsh2</span><span class="o">-=</span> <span class="n">parity</span><span class="o">*</span><span class="n">zx</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">xz</span><span class="p">:</span>
+            <span class="n">parity</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">chsh1</span><span class="o">-=</span> <span class="n">parity</span><span class="o">*</span><span class="n">xz</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="n">chsh2</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">xz</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">xx</span><span class="p">:</span>
+            <span class="n">parity</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">chsh1</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">xx</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+            <span class="n">chsh2</span><span class="o">+=</span> <span class="n">parity</span><span class="o">*</span><span class="n">xx</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+
+        <span class="n">CHSH1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chsh1</span><span class="o">/</span><span class="n">no_shots</span><span class="p">)</span>
+        <span class="n">CHSH2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chsh2</span><span class="o">/</span><span class="n">no_shots</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">CHSH1</span><span class="p">,</span> <span class="n">CHSH2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we are going to split the interval <span class="math notranslate nohighlight">\([0, 2\pi)\)</span> into 15 angles and will build the corresponding set of <span class="math notranslate nohighlight">\(CHSH\)</span> circuits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_of_thetas</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">theta_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">number_of_thetas</span><span class="p">)</span>
+<span class="n">my_chsh_circuits</span> <span class="o">=</span> <span class="n">make_chsh_circuit</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s have a brief look at how four of these circuits look like for a given <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_chsh_circuits</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_chsh_circuits</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_chsh_circuits</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_chsh_circuits</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>These circuits are simply creating a Bell pair, and then measuring each party in a different basis. While Bob (<span class="math notranslate nohighlight">\(q_1\)</span>) always measures either in the computational basis or the <span class="math notranslate nohighlight">\(X\)</span> basis, Alice’s measurement basis rotates by the angle <span class="math notranslate nohighlight">\(\theta\)</span> with respect to Bob’s.</p>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Execute and get counts</span>
+<span class="n">result_ideal</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">my_chsh_circuits</span><span class="p">)</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">transpiled_circuits</span> <span class="o">=</span> <span class="n">transpile</span><span class="p">(</span><span class="n">my_chsh_circuits</span><span class="p">,</span> <span class="n">quito</span><span class="p">)</span>
+<span class="n">job_real</span> <span class="o">=</span> <span class="n">quito</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">transpiled_circuits</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+<span class="n">job_monitor</span><span class="p">(</span><span class="n">job_real</span><span class="p">)</span>
+<span class="n">result_real</span> <span class="o">=</span> <span class="n">job_real</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">CHSH1_ideal</span><span class="p">,</span> <span class="n">CHSH2_ideal</span> <span class="o">=</span> <span class="n">compute_chsh_witness</span><span class="p">(</span><span class="n">result_ideal</span><span class="o">.</span><span class="n">get_counts</span><span class="p">())</span>
+<span class="n">CHSH1_real</span><span class="p">,</span> <span class="n">CHSH2_real</span> <span class="o">=</span> <span class="n">compute_chsh_witness</span><span class="p">(</span><span class="n">result_real</span><span class="o">.</span><span class="n">get_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we plot the results.</p>
+<div class="cell tag_uses-hardware docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">,</span><span class="n">CHSH1_ideal</span><span class="p">,</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;CHSH1 Noiseless&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">,</span><span class="n">CHSH2_ideal</span><span class="p">,</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;CHSH2 Noiseless&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">,</span><span class="n">CHSH1_real</span><span class="p">,</span><span class="s1">&#39;x-&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;CHSH1 Quito&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta_vec</span><span class="p">,</span><span class="n">CHSH2_real</span><span class="p">,</span><span class="s1">&#39;x-&#39;</span><span class="p">,</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;CHSH2 Quito&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Theta&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;CHSH witness&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note what happened! There are some particular combination of measurement bases for which <span class="math notranslate nohighlight">\(|CHSH| \geq 2\)</span>. How is this possible? Let’s look at our entangled bipartite system. It is easy to show that if <span class="math notranslate nohighlight">\(|\psi \rangle = 1/\sqrt{2} (|00\rangle + |11\rangle)\)</span>, then the expectation value <span class="math notranslate nohighlight">\(\langle AB \rangle = \langle \psi|A \otimes B| \psi \rangle = -\cos \theta_{AB}\)</span> where <span class="math notranslate nohighlight">\(\theta_{AB}\)</span> is the angle between the measurement bases <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. Therefore, for the particular choice of bases <span class="math notranslate nohighlight">\(A = 1/\sqrt{2}(\sigma_z - \sigma_x)\)</span> and <span class="math notranslate nohighlight">\(a = 1/\sqrt{2}(\sigma_z + \sigma_x)\)</span>, letting Bob measure with <span class="math notranslate nohighlight">\(B=\sigma_z\)</span> and <span class="math notranslate nohighlight">\(b=\sigma_x\)</span>, we see that <span class="math notranslate nohighlight">\(|\langle CHSH1 \rangle| = 2\sqrt{2} &gt; 2\)</span>. It can also be shown that <span class="math notranslate nohighlight">\(2\sqrt{2}\)</span> is the maximum possible value attainable, even in the quantum case (dash-dotted line in the plot).</p>
+<p>The above inequality is called CHSH after Clauser, Horne, Shimony, and Holt, and it is the most popular way of presenting the original inequality from Bell.</p>
+<p>The fact that we violated the CHSH inequality in our real device is of significance. Just a decade ago such an experiment would have been of great impact. Nowadays, quantum devices have become significantly better and these results can be replicated easily in state-of-the-art hardware. However, there are a number of loopholes that have to be closed when violating the inequality in order to claim that either locality or realism have been disproven. These are the detection loophole (where our detector is faulty and fails to provide meaningful statistics) and the locality/causality loophole (where the two parts of the entangled system are separated by a distance smaller than the distance covered by the light in the time it takes to perform a measurement). Given we can generate entangled pairs with high fidelity and every measurement yields a result (this is, no measured particle is “lost”), we have closed the detection loophole in our experiments above. However, given the distance between our qubits (a few mm) and the time it takes to perform a measurement (order of <span class="math notranslate nohighlight">\(\mu\)</span>s), we cannot claim we closed the causality loophole.</p>
+</section>
+<section id="send-it-after-class-2">
+<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
+<p>Consider a game where Alice and Bob are put in separate rooms and each is given a bit <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, respectively. These bits are chosen at random and independently of each other. On receiving the bit each of them replies with a bit of their own, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. Now, Alice and Bob win the game if <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are different whenever <span class="math notranslate nohighlight">\(x=y=1\)</span> and equal otherwise. It is easy to see that the best possible strategy for Alice and Bob is to always give <span class="math notranslate nohighlight">\(a=b=0\)</span> (or <span class="math notranslate nohighlight">\(1\)</span>). With this strategy, Alice and Bob can win the game at most 75% of the time.</p>
+<p>Imagine Alice and Bob are allowed to share an entangled two-qubit state. Is there a strategy they can use that would give them a better chance of winning than 75%? (Remember that they can agree upon any strategy beforehand, but once they are given the random bits they cannot communicate anymore. They can take their respective parts of the entangled pair with them at all times, of course.)</p>
+</section>
+</section>
+</section>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"01a62c207172470d84d72adbbc3c1f6a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_da8765f98a9040d88199ec80d9880ad1", "IPY_MODEL_2e32ca6bd09a438cb43eff219e4aa96f", "IPY_MODEL_77cfbbe414c54f3a878a004edc59afb6"], "layout": "IPY_MODEL_84f716ec9dad49c59bc8d791e10db408"}}, "01bc28e42d9d4f40951e7cdda0ce587a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_area": "right", "padding": "0px 0px 0px 0px", "width": "70px"}}, "03b33d61dc464070913d1efaf58553cf": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "03eb9fa8297845e6b414558d9bd09c46": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"overflow_x": "scroll"}}, "0448304521d943fd8a7f2d8e67ebc8ee": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "0478e7f6ce70479f9a49a3a55e077d84": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_74890b5a9711449998df991738fe1a90", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "053ccc96af5c4d978bee350e914fe021": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "05ae3f115652443c9a27869971ae2a7e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_191b621ace7a41e49eb647866965a147", "style": "IPY_MODEL_683bab658b5e4846bfbde53ca2cceb10"}}, "0b81d9b497b8480bb8bb1e185281d9c0": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "145px"}}, "0c86578e5316497b9de1266da6de23be": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "190px"}}, "191b621ace7a41e49eb647866965a147": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "196db6cfb19f490b87d5409ca64b06ba": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "1dd2c7840a794a62b90ba4c02c3a90dd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_e914c289e95a4f3cb07bede7a2098461", "IPY_MODEL_ce10d71b75f048f89234c986099f5a27", "IPY_MODEL_e173cd5a413d49279f05cc4f195c1839", "IPY_MODEL_1ff3ccd7937f4f10875c71a88156b04a", "IPY_MODEL_d021ac1bdcb34bc4ae96e0183abe9ebf", "IPY_MODEL_6645ab0809fc4d059c50da1b499e2022"], "layout": "IPY_MODEL_b73c7e5f0d5d4cb79e9f4838e42ceb10"}}, "1ff3ccd7937f4f10875c71a88156b04a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_55b5117639594882870839360383c397", "style": "IPY_MODEL_2bc695f8bfc747f4b1dded9757658db6", "value": "<font style='color:#34BC6E'>DONE</font>"}}, "2b22dbc942ab4a1794d51eb601dc9ca8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "2bc695f8bfc747f4b1dded9757658db6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "2c6741cbbfd34db6982bf4e6e524848a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "2cce4c0e0cd64ab1805a046de3a66989": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "2d030b8fe69d441587c97ec7f65068e1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "2e32ca6bd09a438cb43eff219e4aa96f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_fe415236e1734fa59b45ab5c9b763db3", "style": "IPY_MODEL_053ccc96af5c4d978bee350e914fe021"}}, "3288755f614d4c2e9795445bbf3eec12": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "342234c953e0463b8fbaadac92b61889": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"button_style": "primary", "description": "Clear", "layout": "IPY_MODEL_01bc28e42d9d4f40951e7cdda0ce587a", "style": "IPY_MODEL_03b33d61dc464070913d1efaf58553cf"}}, "365869ea575940f68fda6fe7093df22b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "3ae4fb83e9194b808f40e71d31f2843d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "3c8cef63d8264756b3bca74a439fd099": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_93728906009e449fa7384e3e5f03ca3c", "style": "IPY_MODEL_3288755f614d4c2e9795445bbf3eec12", "value": "<h5>Queue</h5>"}}, "3d631bd23a114b22b102a6055db89b5d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "40538262773c49ed95e70d3b3939dc92": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_d2fbc71995f04e9a8c02d82cd6f180e9", "IPY_MODEL_9a5184a37f064635a0b0d62aa994c8d3", "IPY_MODEL_fde4561e190a4ca6b2d164d0cbda3f32"], "layout": "IPY_MODEL_589c1fd70d4a431293839c8954dc12d5"}}, "435d562fcd4d4d349f0021be283c5d21": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_90aabd6397ea47d3a6adbcc7d2a7bfec", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "5269a726ec3c4793af9983e1a215334e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "528d9873782f4b99984121119ecf401b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "53ad95a97e7248e7b7cc9cdd83b293fb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "55b5117639594882870839360383c397": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "95px"}}, "572d7eb7cb1b4dba96a2619fc623006f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "57c7c54217214d729f6aeaa14459dd1f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_dd9542c6d8cd469db4312806671512a7", "IPY_MODEL_d083e9725115477db5cdc021f73d211d", "IPY_MODEL_435d562fcd4d4d349f0021be283c5d21"], "layout": "IPY_MODEL_2c6741cbbfd34db6982bf4e6e524848a"}}, "589c1fd70d4a431293839c8954dc12d5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "58eb76353b464b6481224a2e32164265": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_80c2815cc3a04879bbefb72b001750ac", "IPY_MODEL_e4bc260f61094e69bc88a1a0e5a87f61", "IPY_MODEL_62c6020a0da540199509b60ccb0d1da8"], "layout": "IPY_MODEL_3ae4fb83e9194b808f40e71d31f2843d"}}, "5e3434e1002e4daebf41e9c29f086e3c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_f75222f6b3c54714a15840936f4d6b74", "style": "IPY_MODEL_ce35f199e6914651afed0e64df53fe61"}}, "62c6020a0da540199509b60ccb0d1da8": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_9a20f7f7880e4e2da24433ffa07631d2", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "652c10c995ae496e80e8f449c2c3826e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "6645ab0809fc4d059c50da1b499e2022": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_03eb9fa8297845e6b414558d9bd09c46", "style": "IPY_MODEL_572d7eb7cb1b4dba96a2619fc623006f", "value": "job has successfully run"}}, "683bab658b5e4846bfbde53ca2cceb10": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "68f85bd7bb95430da6bae7d567d1aa5e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {"button_color": "white"}}, "6936f974ce7c4601b3fdb9aee9ed2c6b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "6aaed55c18b34a7fa6f79f993bcc84be": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "6b23b533b1d846109bdfe46cd82689ca": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_cfd86107c41646329e199665b279dc8e", "IPY_MODEL_5e3434e1002e4daebf41e9c29f086e3c", "IPY_MODEL_d5122f465fab4a02a8a5796c2c4bc56b"], "layout": "IPY_MODEL_6aaed55c18b34a7fa6f79f993bcc84be"}}, "6f5ce4eb3afb4ad08427358d8ebb4566": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "70085ae15e1e4c5797129eddb1f2fb23": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "717323311da04f32a1b1384b475d43d7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 0, "layout": "IPY_MODEL_6f5ce4eb3afb4ad08427358d8ebb4566", "style": "IPY_MODEL_365869ea575940f68fda6fe7093df22b"}}, "74890b5a9711449998df991738fe1a90": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "77cfbbe414c54f3a878a004edc59afb6": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_83a3fc05ac5e4cf9b3295d3444e6607c", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "7b014028164749a2a0fe5a04c9d6a0a9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "7d3adf44a91d47d1a8f25c83558264cd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_fdc4bf91456e49cba58402e1954b3f36", "IPY_MODEL_05ae3f115652443c9a27869971ae2a7e", "IPY_MODEL_0478e7f6ce70479f9a49a3a55e077d84"], "layout": "IPY_MODEL_af07cb4b1d374ffaae4f318825278c4d"}}, "80310b15c8884a88b9f0962deee8f216": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "80c2815cc3a04879bbefb72b001750ac": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_80310b15c8884a88b9f0962deee8f216", "style": "IPY_MODEL_cbcd1500f93a4087ad732d0958720f75"}}, "83a3fc05ac5e4cf9b3295d3444e6607c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "84f716ec9dad49c59bc8d791e10db408": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "85b9b3ca14364341bde467b2aa26c6d1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "898d18e6a4294bffb658ffa39ddfaffb": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 10px 0px"}}, "8f8fe3ec13204582b50285b6d6ea17a7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "95px"}}, "90aabd6397ea47d3a6adbcc7d2a7bfec": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "923031195ab44ccdb5904dd4f274b5f0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_196db6cfb19f490b87d5409ca64b06ba", "style": "IPY_MODEL_f442eda3e4794d559e86e30723b2c747", "value": "<h5>Message</h5>"}}, "93728906009e449fa7384e3e5f03ca3c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "70px"}}, "98082b3f782449b8b96335f4b0e8830f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "980b17d01f50455f9b8958128067a377": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_5269a726ec3c4793af9983e1a215334e", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "98882cd70ddf4ff6ab911380fc7307b6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "989eac56a2454be7a93d3aec19ffa692": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_c51f1248b8434d94a9accc727a8c23c1", "IPY_MODEL_f1f0ed9b405e44a590a7a8eef8da2fb0", "IPY_MODEL_f6edca1b09d447b5ac43989ef77e86cb", "IPY_MODEL_3c8cef63d8264756b3bca74a439fd099", "IPY_MODEL_923031195ab44ccdb5904dd4f274b5f0"], "layout": "IPY_MODEL_fc80fe51e04642cd84647aab61e217ad"}}, "9a20f7f7880e4e2da24433ffa07631d2": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "9a5184a37f064635a0b0d62aa994c8d3": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_ea06afdb343342459435207e1ba31636", "style": "IPY_MODEL_53ad95a97e7248e7b7cc9cdd83b293fb"}}, "a5de6d8c45ce46e082fc446dc109ab00": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_898d18e6a4294bffb658ffa39ddfaffb", "style": "IPY_MODEL_85b9b3ca14364341bde467b2aa26c6d1", "value": "<p style='font-family: IBM Plex Sans, Arial, Helvetica, sans-serif; font-size: 20px; font-weight: medium;'>Circuit Properties</p>"}}, "a67632a767f1458793dbfd92e85fc41f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "190px"}}, "af07cb4b1d374ffaae4f318825278c4d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "af5062ee9f9a4f418d2aaf521ed93c8b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b54e8bd452394ee3b8e6e812701f2cc8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_d22ebc5c93e74a359cc835785c3be648", "style": "IPY_MODEL_c0319703dfdd416bb49ab92908bc6ce9"}}, "b5fbdda1533949c4a76d4630c053f8f4": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b6ac952e0f2c4faa92fe0d5a23204208": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_7b014028164749a2a0fe5a04c9d6a0a9", "style": "IPY_MODEL_fbb01be3599d4f41856ce2647461d6d5"}}, "b73c7e5f0d5d4cb79e9f4838e42ceb10": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"max_width": "700px", "min_width": "700px"}}, "b8a01452bad14535bde6c9855bea131c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "bb5086ab27c546d09d8f445068ffaf40": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "70px"}}, "c02f07b0a1d74313a8a997abba4e785b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "c0319703dfdd416bb49ab92908bc6ce9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "c182934fc5524febb1c9ca5acbe4b85a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "c2e507f9e6a64e7293c189d63134d684": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"grid_template_areas": "\n                                       \". . . . right \"\n                                        ", "grid_template_columns": "20% 20% 20% 20% 20%", "width": "100%"}}, "c51f1248b8434d94a9accc727a8c23c1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_a67632a767f1458793dbfd92e85fc41f", "style": "IPY_MODEL_dd3233e0650448dd817bff4212aa438e", "value": "<h5>Job ID</h5>"}}, "c7e051d2c75f432f86270885529f91ca": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_b6ac952e0f2c4faa92fe0d5a23204208", "IPY_MODEL_b54e8bd452394ee3b8e6e812701f2cc8", "IPY_MODEL_980b17d01f50455f9b8958128067a377"], "layout": "IPY_MODEL_c182934fc5524febb1c9ca5acbe4b85a"}}, "cbcd1500f93a4087ad732d0958720f75": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "cbd5689b098b4b9d982448d1aed983f9": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 5px 0px 0px", "width": "32px"}}, "cc58125c46644e6eae7c4676218ae569": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ce10d71b75f048f89234c986099f5a27": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_0c86578e5316497b9de1266da6de23be", "style": "IPY_MODEL_98882cd70ddf4ff6ab911380fc7307b6", "value": "615596f61961d1acb74484f9"}}, "ce35f199e6914651afed0e64df53fe61": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "cfb8891445614e5bb17ea3672650e650": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "GridBoxModel", "state": {"children": ["IPY_MODEL_342234c953e0463b8fbaadac92b61889"], "layout": "IPY_MODEL_c2e507f9e6a64e7293c189d63134d684"}}, "cfd86107c41646329e199665b279dc8e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 0, "layout": "IPY_MODEL_af5062ee9f9a4f418d2aaf521ed93c8b", "style": "IPY_MODEL_2d030b8fe69d441587c97ec7f65068e1"}}, "d021ac1bdcb34bc4ae96e0183abe9ebf": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_bb5086ab27c546d09d8f445068ffaf40", "style": "IPY_MODEL_2cce4c0e0cd64ab1805a046de3a66989", "value": "-"}}, "d083e9725115477db5cdc021f73d211d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_ec527b21288f49f09b3bacee8a34cd20", "style": "IPY_MODEL_ff656ad353b14ac9bc4091cdb5a666a0"}}, "d22ebc5c93e74a359cc835785c3be648": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d2fbc71995f04e9a8c02d82cd6f180e9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_d8008ff5f0d94886974b76ddb053c561", "style": "IPY_MODEL_98082b3f782449b8b96335f4b0e8830f"}}, "d3ff854eb038405193661d319de9c4ee": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 0, "layout": "IPY_MODEL_d513ca3226c440199d29ef1ac8d6bb03", "style": "IPY_MODEL_528d9873782f4b99984121119ecf401b"}}, "d5122f465fab4a02a8a5796c2c4bc56b": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_fb797982ee4542ed8d85c76e9227d913"}}, "d513ca3226c440199d29ef1ac8d6bb03": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d8008ff5f0d94886974b76ddb053c561": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "da8765f98a9040d88199ec80d9880ad1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_2b22dbc942ab4a1794d51eb601dc9ca8", "style": "IPY_MODEL_3d631bd23a114b22b102a6055db89b5d"}}, "dd3233e0650448dd817bff4212aa438e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "dd9542c6d8cd469db4312806671512a7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_cc58125c46644e6eae7c4676218ae569", "style": "IPY_MODEL_b8a01452bad14535bde6c9855bea131c"}}, "e173cd5a413d49279f05cc4f195c1839": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_0b81d9b497b8480bb8bb1e185281d9c0", "style": "IPY_MODEL_70085ae15e1e4c5797129eddb1f2fb23", "value": "ibmq_manila"}}, "e4bc260f61094e69bc88a1a0e5a87f61": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Play", "layout": "IPY_MODEL_c02f07b0a1d74313a8a997abba4e785b", "style": "IPY_MODEL_fbbcd70d86b2427cb70d1a185a5c3b8d"}}, "e549659a79c046b486751d468e0fe6fb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "e73cdb901d904440ab4dac4c886feb63": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"width": "145px"}}, "e914c289e95a4f3cb07bede7a2098461": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"icon": "close", "layout": "IPY_MODEL_cbd5689b098b4b9d982448d1aed983f9", "style": "IPY_MODEL_68f85bd7bb95430da6bae7d567d1aa5e"}}, "ea06afdb343342459435207e1ba31636": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ec527b21288f49f09b3bacee8a34cd20": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "f1f0ed9b405e44a590a7a8eef8da2fb0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_e73cdb901d904440ab4dac4c886feb63", "style": "IPY_MODEL_6936f974ce7c4601b3fdb9aee9ed2c6b", "value": "<h5>Backend</h5>"}}, "f442eda3e4794d559e86e30723b2c747": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f6edca1b09d447b5ac43989ef77e86cb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"layout": "IPY_MODEL_8f8fe3ec13204582b50285b6d6ea17a7", "style": "IPY_MODEL_652c10c995ae496e80e8f449c2c3826e", "value": "<h5>Status</h5>"}}, "f75222f6b3c54714a15840936f4d6b74": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fb797982ee4542ed8d85c76e9227d913": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fbb01be3599d4f41856ce2647461d6d5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "fbbcd70d86b2427cb70d1a185a5c3b8d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "fc80fe51e04642cd84647aab61e217ad": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"margin": "0px 0px 0px 37px", "width": "600px"}}, "fdc4bf91456e49cba58402e1954b3f36": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["Identity", "Bit Flip"], "description": "Choice: ", "index": 1, "layout": "IPY_MODEL_b5fbdda1533949c4a76d4630c053f8f4", "style": "IPY_MODEL_e549659a79c046b486751d468e0fe6fb"}}, "fde4561e190a4ca6b2d164d0cbda3f32": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_0448304521d943fd8a7f2d8e67ebc8ee", "outputs": [{"name": "stdout", "output_type": "stream", "text": "You Lose to Quantum. Quantum Computer Wins\n"}]}}, "fe415236e1734fa59b45ab5c9b763db3": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "ff656ad353b14ac9bc4091cdb5a666a0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Hands-On/hands-on-5/Hands-on-5-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
