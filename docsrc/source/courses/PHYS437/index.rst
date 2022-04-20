@@ -46,6 +46,7 @@ Hands-on sessions
    Hands-on 3 <Hands-On/hands-on-3/Hands-on-3-book.ipynb>
    Hands-on 4 <Hands-On/hands-on-4/Hands-on-4-book.ipynb>
    Hands-on 5 <Hands-On/hands-on-5/Hands-on-5-book.ipynb>
+   Hands-on 6 <Hands-On/hands-on-6/Hands-on-6-book.ipynb>
 
 
 .. toctree::
@@ -57,5 +58,6 @@ Hands-on sessions
    Hands-on 3 <Hands-On/hands-on-3/hands-on-3-online.rst>
    Hands-on 4 <Hands-On/hands-on-4/hands-on-4-online.rst>
    Hands-on 5 <Hands-On/hands-on-5/hands-on-5-online.rst>
+   Hands-on 6 <Hands-On/hands-on-6/hands-on-6-online.rst>
 
 
