@@ -4,7 +4,10 @@
    "cell_type": "markdown",
    "id": "9528aa08",
    "metadata": {
-    "id": "TJDBzM7PFsQN"
+    "id": "TJDBzM7PFsQN",
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    },
    "source": [
     "# Hands-on 5\n"
@@ -54,14 +57,21 @@
     "**NOTE**: \"Playing a move\" refers to \"Flipping the coin\" and we consider the coin as fair coin.\n"
    ],
    "metadata": {
-    "collapsed": false
+    "collapsed": false,
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    }
   },
   {
    "cell_type": "code",
    "execution_count": 2,
    "id": "b8474d7b",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -137,7 +147,10 @@
    "cell_type": "markdown",
    "id": "a7cbcd28",
    "metadata": {
-    "id": "TMsXKAxk6-dt"
+    "id": "TMsXKAxk6-dt",
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    },
    "source": [
     "### Analogy <a id=\"analogy\"></a>\n",
@@ -177,7 +190,10 @@
    "cell_type": "markdown",
    "id": "14066634",
    "metadata": {
-    "id": "PdPizFWxBr5m"
+    "id": "PdPizFWxBr5m",
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    },
    "source": [
     "### Approach <a id=\"approach\"></a>\n",
@@ -217,7 +233,10 @@
    "execution_count": 3,
    "id": "aa5a026d",
    "metadata": {
-    "id": "mEDO89d8L1pG"
+    "id": "mEDO89d8L1pG",
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [],
    "source": [
@@ -234,7 +253,11 @@
    "cell_type": "code",
    "execution_count": 4,
    "id": "5c132150",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "# Building the initial circuit\n",
@@ -251,7 +274,11 @@
    "cell_type": "code",
    "execution_count": 5,
    "id": "a0bdf0dc",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "# Widget Initialization\n",
@@ -266,7 +293,11 @@
   {
    "cell_type": "markdown",
    "id": "51292438",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "### Optimal Strategy\n",
     "\n",
@@ -324,7 +355,11 @@
   {
    "cell_type": "markdown",
    "id": "c6ac8039",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "This table shows the quantum computer wins $100\\%$ of the time. But in Shohini's talk it is $~97\\%$, due to errors."
    ]
@@ -332,7 +367,11 @@
   {
    "cell_type": "markdown",
    "id": "b3fbf470",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "### Lets play this version using Qiskit"
    ]
@@ -340,7 +379,11 @@
   {
    "cell_type": "markdown",
    "id": "e8fa09d1",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### Building the initial circuit"
    ]
@@ -349,7 +392,11 @@
    "cell_type": "code",
    "execution_count": 6,
    "id": "1becf96d",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "qc, circuit, measure = initial_circuit()"
@@ -358,7 +405,11 @@
   {
    "cell_type": "markdown",
    "id": "50761468",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### **Turn 1. Quantum Computer**"
    ]
@@ -368,7 +419,10 @@
    "execution_count": 7,
    "id": "5b020ed0",
    "metadata": {
-    "scrolled": true
+    "scrolled": true,
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [
     {
@@ -391,7 +445,11 @@
   {
    "cell_type": "markdown",
    "id": "9460c1ed",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### **Turn 2. Classical Human**"
    ]
@@ -400,7 +458,11 @@
    "cell_type": "code",
    "execution_count": 8,
    "id": "9937d190",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -424,7 +486,11 @@
   {
    "cell_type": "markdown",
    "id": "eaa49c0a",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### **Turn 3. Quantum Computer**"
    ]
@@ -432,7 +498,11 @@
   {
    "cell_type": "markdown",
    "id": "62201773",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Quantum Computer uses Hadamard $H$ on its first turn"
    ]
@@ -442,7 +512,10 @@
    "execution_count": 9,
    "id": "7871350a",
    "metadata": {
-    "scrolled": true
+    "scrolled": true,
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [
     {
@@ -465,7 +538,11 @@
   {
    "cell_type": "markdown",
    "id": "0dcf9d65",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### **Measurement** <a id=\"quantum_measurement\"></a>"
    ]
@@ -474,7 +551,11 @@
    "cell_type": "code",
    "execution_count": 10,
    "id": "1af614ff",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [
     {
      "data": {
@@ -494,7 +575,11 @@
   {
    "cell_type": "markdown",
    "id": "db5bf662",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "#### **QASM_Simulator** <a id=\"quantum_qasm\"></a>"
    ]
@@ -503,7 +588,11 @@
    "cell_type": "code",
    "execution_count": 11,
    "id": "01ec610d",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [
     {
      "name": "stdout",
@@ -534,7 +623,10 @@
    "cell_type": "markdown",
    "id": "14223907",
    "metadata": {
-    "tags": []
+    "tags": [],
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    },
    "source": [
     "#### **Lets see who wins** <a id=\"quantum_wins\"></a>"
@@ -544,7 +636,11 @@
    "cell_type": "code",
    "execution_count": 12,
    "id": "4f2c0789",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [
     {
      "name": "stdout",
@@ -567,7 +663,10 @@
    "cell_type": "markdown",
    "id": "a3e5831d",
    "metadata": {
-    "tags": []
+    "tags": [],
+    "pycharm": {
+     "name": "#%% md\n"
+    }
    },
    "source": [
     "#### **Running on Quantum Computer** <a id=\"real_qc\"></a>"
@@ -580,7 +679,10 @@
    "metadata": {
     "tags": [
      "uses-hardware"
-    ]
+    ],
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [
     {
@@ -608,7 +710,11 @@
   {
    "cell_type": "markdown",
    "id": "f8be92c9",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Unlike the perfect simulation, the real quantum computer only wins ~$99\\ \\%$ of the time, the $1\\ \\%$ in which it loses is due to errors. Quantum computers have improved a bit since [Shohini's talk](#conclusion) where the error is closer to $3\\ \\%$."
    ]
@@ -616,7 +722,11 @@
   {
    "cell_type": "markdown",
    "id": "52f27e41",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "### Conclusion\n",
     "\n",
@@ -626,7 +736,11 @@
   {
    "cell_type": "markdown",
    "id": "a4fc3c5c",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "### Send it after class 1:\n",
     "\n",
@@ -645,7 +759,11 @@
   {
    "cell_type": "markdown",
    "id": "50307881",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "## Local Reality and the CHSH inequality\n",
     "\n",
@@ -663,7 +781,11 @@
   {
    "cell_type": "markdown",
    "id": "393c4477",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "### The CHSH inequality\n",
     "\n",
@@ -682,7 +804,11 @@
    "cell_type": "code",
    "execution_count": 14,
    "id": "350a1a98",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "#import qiskit tools\n",
@@ -705,7 +831,10 @@
    "metadata": {
     "tags": [
      "uses-hardware"
-    ]
+    ],
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [],
    "source": [
@@ -719,7 +848,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "5c7a87c7",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "sim = Aer.get_backend('aer_simulator')"
@@ -728,7 +861,11 @@
   {
    "cell_type": "markdown",
    "id": "a9d70842",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "First we are going to define a function to create our CHSH circuits. We are going to choose, without loss of generality, that Bob always uses the computational ($Z$) and the $X$ bases for his $B$ and $b$ measurements, respectively, whereas Alice chooses also orthogonal bases but whose angle we are going to vary between $0$ and $2\\pi$ with respect to Bob's bases. This set of angles is going to be the input argument to our $CHSH$ circuit building function."
    ]
@@ -737,7 +874,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "6c1de1e7",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "def make_chsh_circuit(theta_vec):\n",
@@ -771,7 +912,11 @@
   {
    "cell_type": "markdown",
    "id": "190dbf81",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Next, we are going to define a function for estimating the quantity $\\langle CHSH \\rangle$. One can define two of such quantities, actually, $\\langle CHSH1 \\rangle = \\langle AB \\rangle - \\langle Ab \\rangle + \\langle aB \\rangle + \\langle ab \\rangle$ and $\\langle CHSH2 \\rangle = \\langle AB \\rangle + \\langle Ab \\rangle - \\langle aB \\rangle + \\langle ab \\rangle$. Once chosen the corresponding measurement axes for both parties, each expectation value can be simply estimated by adding the counts from the output bitstrings with the appropriate sign (plus for the even terms $00$ and $11$ and minus for odd terms $01$ and $10$."
    ]
@@ -780,7 +925,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "c6e3e3be",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "def compute_chsh_witness(counts):\n",
@@ -839,7 +988,11 @@
   {
    "cell_type": "markdown",
    "id": "a217dc49",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Finally, we are going to split the interval $[0, 2\\pi)$ into 15 angles and will build the corresponding set of $CHSH$ circuits."
    ]
@@ -848,7 +1001,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "af544f5c",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "number_of_thetas = 15\n",
@@ -859,7 +1016,11 @@
   {
    "cell_type": "markdown",
    "id": "c21b67b4",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Now, let's have a brief look at how four of these circuits look like for a given $\\theta$."
    ]
@@ -868,7 +1029,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "2ae3d3aa",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "my_chsh_circuits[4].draw()"
@@ -878,7 +1043,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "28fc7631",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "my_chsh_circuits[5].draw()"
@@ -888,7 +1057,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "e06c5583",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "my_chsh_circuits[6].draw()"
@@ -898,7 +1071,11 @@
    "cell_type": "code",
    "execution_count": null,
    "id": "f11dd72c",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
    "outputs": [],
    "source": [
     "my_chsh_circuits[7].draw()"
@@ -907,7 +1084,11 @@
   {
    "cell_type": "markdown",
    "id": "198541f1",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "These circuits are simply creating a Bell pair, and then measuring each party in a different basis. While Bob ($q_1$) always measures either in the computational basis or the $X$ basis, Alice's measurement basis rotates by the angle $\\theta$ with respect to Bob's."
    ]
@@ -920,7 +1101,10 @@
     "scrolled": true,
     "tags": [
      "uses-hardware"
-    ]
+    ],
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [],
    "source": [
@@ -944,7 +1128,10 @@
    "metadata": {
     "tags": [
      "uses-hardware"
-    ]
+    ],
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [],
    "source": [
@@ -955,7 +1142,11 @@
   {
    "cell_type": "markdown",
    "id": "a71408d4",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Now we plot the results."
    ]
@@ -967,7 +1158,10 @@
    "metadata": {
     "tags": [
      "uses-hardware"
-    ]
+    ],
+    "pycharm": {
+     "name": "#%%\n"
+    }
    },
    "outputs": [],
    "source": [
@@ -993,7 +1187,11 @@
   {
    "cell_type": "markdown",
    "id": "95416cc3",
-   "metadata": {},
+   "metadata": {
+    "pycharm": {
+     "name": "#%% md\n"
+    }
+   },
    "source": [
     "Note what happened! There are some particular combination of measurement bases for which $|CHSH| \\geq 2$. How is this possible? Let's look at our entangled bipartite system. It is easy to show that if $|\\psi \\rangle = 1/\\sqrt{2} (|00\\rangle + |11\\rangle)$, then the expectation value $\\langle AB \\rangle = \\langle \\psi|A \\otimes B| \\psi \\rangle = -\\cos \\theta_{AB}$ where $\\theta_{AB}$ is the angle between the measurement bases $A$ and $B$. Therefore, for the particular choice of bases $A = 1/\\sqrt{2}(\\sigma_z - \\sigma_x)$ and $a = 1/\\sqrt{2}(\\sigma_z + \\sigma_x)$, letting Bob measure with $B=\\sigma_z$ and $b=\\sigma_x$, we see that $|\\langle CHSH1 \\rangle| = 2\\sqrt{2} > 2$. It can also be shown that $2\\sqrt{2}$ is the maximum possible value attainable, even in the quantum case (dash-dotted line in the plot).\n",
     "\n",

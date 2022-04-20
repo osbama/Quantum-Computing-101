@@ -24,6 +24,7 @@ Theory sessions
    Lecture 4 (Ch.1) <Theory/Ch1/Theory-Lecture4.ipynb>
    Lecture 5 (Ch.2) <Theory/Ch2/Theory-Lecture5.ipynb>
    Lecture 6 (Ch.2) <Theory/Ch2/Theory-Lecture6.ipynb>
+   Lecture 7 (Ch.2) <Theory/Ch2/Theory-Lecture7.ipynb>
 
  
 .. toctree::
