@@ -137,8 +137,8 @@
   {
    "cell_type": "markdown",
    "source": [
-    "<img alt=\"Grover geometric interpretation\" src=\"images/Grover-graphic.png\" width=\"%30\"/>\n",
     "\n",
+    "![Grover geometric interpretation](images/Grover-graphic.png)\n",
     "\n",
     "Graphic interpretation of Grover\n",
     ": (Left) A reflection of $ \\left|\\psi\\right\\rangle $  about $ \\left|B\\right\\rangle $ to $ \\left|\\psi^\\prime \\right\\rangle $. (Middle) A reflection of $ \\left|\\psi^\\prime \\right\\rangle $ about $ \\left|\\psi\\right\\rangle $. For clarity, the angle $2\\theta$ is between $ \\left|\\psi^{ \\prime\\prime} \\right\\rangle $ and $ \\left|\\psi^\\prime \\right\\rangle $. (Right) The final state $ \\left|\\psi^K\\right\\rangle= \\left(R_\\psi R_B  \\left|\\psi\\right\\rangle  \\right)  $ after running the Grover iterate $K$times."
