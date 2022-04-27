@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Grover’s Algorithm and Amplitude Amplification &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="grover-s-algorithm-and-amplitude-amplification">
+<h1>Grover’s Algorithm and Amplitude Amplification<a class="headerlink" href="#grover-s-algorithm-and-amplitude-amplification" title="Permalink to this headline">¶</a></h1>
+<p>Grover’s algorithm is one of the most famous quantum algorithms introduced by Lov Grover in 1996 [1]. It has initially been proposed for unstructured search problems, i.e. for finding a marked element in a unstructured database. However, Grover’s algorithm is now a subroutine to several other algorithms, such as Grover Adaptive Search [2]. For the details of Grover’s algorithm, please see <a class="reference external" href="https://qiskit.org/textbook/ch-algorithms/grover.html">Grover’s Algorithm</a> in the Qiskit textbook.</p>
+<p>Qiskit implements Grover’s algorithm in the <code class="docutils literal notranslate"><span class="pre">Grover</span></code> class. This class also includes the generalized version, Amplitude Amplification [3], and allows setting individual iterations and other meta-settings to Grover’s algorithm.</p>
+<p><strong>References:</strong></p>
+<p>[1]: L. K. Grover, A fast quantum mechanical algorithm for database search. Proceedings 28th Annual Symposium on
+the Theory of Computing (STOC) 1996, pp. 212-219. https://arxiv.org/abs/quant-ph/9605043</p>
+<p>[2]: A. Gilliam, S. Woerner, C. Gonciulea, Grover Adaptive Search for Constrained Polynomial Binary Optimization.
+https://arxiv.org/abs/1912.04088</p>
+<p>[3]: Brassard, G., Hoyer, P., Mosca, M., &amp; Tapp, A. (2000). Quantum Amplitude Amplification and Estimation. http://arxiv.org/abs/quant-ph/0005055</p>
+<section id="grover-s-algorithm">
+<h2>Grover’s algorithm<a class="headerlink" href="#grover-s-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Grover’s algorithm uses the Grover operator <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> to amplify the amplitudes of the good states:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{Q} = \mathcal{A}\mathcal{S_0}\mathcal{A}^\dagger \mathcal{S_f}
+\]</div>
+<p>Here,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is the initial search state for the algorithm, which is just Hadamards, <span class="math notranslate nohighlight">\(H^{\otimes n}\)</span> for the textbook Grover search, but can be more elaborate for Amplitude Amplification</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{S_0}\)</span> is the reflection about the all 0 state
+$<span class="math notranslate nohighlight">\(
+  |x\rangle \mapsto \begin{cases} -|x\rangle, &amp;x \neq 0 \\ |x\rangle, &amp;x = 0\end{cases}
+\)</span>$</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{S_f}\)</span> is the oracle that applies
+$<span class="math notranslate nohighlight">\(
+  |x\rangle \mapsto (-1)^{f(x)}|x\rangle
+\)</span><span class="math notranslate nohighlight">\( 
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;　where \)</span>f(x)<span class="math notranslate nohighlight">\( is 1 if \)</span>x$ is a good state and otherwise 0.</p></li>
+</ul>
+<p>In a nutshell, Grover’s algorithm applies different powers of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> and after each execution checks whether a good solution has been found.</p>
+<section id="running-grover-s-algorithm">
+<h3>Running Grover’s algorithm<a class="headerlink" href="#running-grover-s-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>To run Grover’s algorithm with the <code class="docutils literal notranslate"><span class="pre">Grover</span></code> class, firstly, we need to specify an oracle for the circuit of Grover’s algorithm. In the following example, we use <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> as the oracle of Grover’s algorithm. However, there are several other class that we can use as the oracle of Grover’s algorithm. We talk about them later in this tutorial.</p>
+<p>Note that the oracle for <code class="docutils literal notranslate"><span class="pre">Grover</span></code> must be a <em>phase-flip</em> oracle. That is, it multiplies the amplitudes of the of “good states” by a factor of <span class="math notranslate nohighlight">\(-1\)</span>. We explain later how to convert a <em>bit-flip</em> oracle to a phase-flip oracle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+<span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">AmplificationProblem</span>
+
+<span class="c1"># the state we desire to find is &#39;11&#39;</span>
+<span class="n">good_state</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">]</span>
+
+<span class="c1"># specify the oracle that marks the state &#39;11&#39; as a good solution</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># define Grover&#39;s algorithm</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+
+<span class="c1"># now we can have a look at the Grover operator that is used in running the algorithm</span>
+<span class="c1"># (Algorithm circuits are wrapped in a gate to be appear in composition as a block</span>
+<span class="c1"># so we have to decompose() the op to see it expanded into its component gates.)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_2_0.png" src="../../../../_images/Hands-on-7-book_2_0.png" />
+</div>
+</div>
+<p>Then, we specify a backend and call the <code class="docutils literal notranslate"><span class="pre">run</span></code> method of <code class="docutils literal notranslate"><span class="pre">Grover</span></code> with a backend to execute the circuits. The returned result type is a <code class="docutils literal notranslate"><span class="pre">GroverResult</span></code>.</p>
+<p>If the search was successful, the <code class="docutils literal notranslate"><span class="pre">oracle_evaluation</span></code> attribute of the result will be <code class="docutils literal notranslate"><span class="pre">True</span></code>. In this case, the most sampled measurement, <code class="docutils literal notranslate"><span class="pre">top_measurement</span></code>, is one of the “good states”. Otherwise, <code class="docutils literal notranslate"><span class="pre">oracle_evaluation</span></code> will be False.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">Aer</span>
+<span class="kn">from</span> <span class="nn">qiskit.utils</span> <span class="kn">import</span> <span class="n">QuantumInstance</span>
+<span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">Grover</span>
+
+<span class="n">aer_simulator</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">quantum_instance</span><span class="o">=</span><span class="n">aer_simulator</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">amplify</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Result type:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">oracle_evaluation</span> <span class="k">else</span> <span class="s1">&#39;Failure!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top measurement:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">top_measurement</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Result type: &lt;class &#39;qiskit.algorithms.amplitude_amplifiers.grover.GroverResult&#39;&gt;
+
+Success!
+Top measurement: 11
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the example, the result of <code class="docutils literal notranslate"><span class="pre">top_measurement</span></code> is <code class="docutils literal notranslate"><span class="pre">11</span></code> which is one of “good state”. Thus, we succeeded to find the answer by using <code class="docutils literal notranslate"><span class="pre">Grover</span></code>.</p>
+</section>
+<section id="using-the-different-types-of-classes-as-the-oracle-of-grover">
+<h3>Using the different types of classes as the oracle of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#using-the-different-types-of-classes-as-the-oracle-of-grover" title="Permalink to this headline">¶</a></h3>
+<p>In the above example, we used <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> as the oracle of <code class="docutils literal notranslate"><span class="pre">Grover</span></code>.
+However, we can also use <code class="docutils literal notranslate"><span class="pre">qiskit.quantum_info.Statevector</span></code> as oracle.
+All the following examples are when <span class="math notranslate nohighlight">\(|11\rangle\)</span> is “good state”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">])</span>
+
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">quantum_instance</span><span class="o">=</span><span class="n">aer_simulator</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">amplify</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Result type:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">oracle_evaluation</span> <span class="k">else</span> <span class="s1">&#39;Failure!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top measurement:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">top_measurement</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Result type: &lt;class &#39;qiskit.algorithms.amplitude_amplifiers.grover.GroverResult&#39;&gt;
+
+Success!
+Top measurement: 11
+</pre></div>
+</div>
+</div>
+</div>
+<p>Internally, the statevector is mapped to a quantum circuit:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">oracle</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_9_0.png" src="../../../../_images/Hands-on-7-book_9_0.png" />
+</div>
+</div>
+<p>Qiskit allows for an easy construction of more complex oracles:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code>: for parsing logical expressions such as <code class="docutils literal notranslate"><span class="pre">'~a</span> <span class="pre">|</span> <span class="pre">b'</span></code>. This is especially useful for solving 3-SAT problems and is shown in the accompanying <span class="xref myst">Grover Examples</span> tutorial.</p></li>
+</ul>
+<p>Here we’ll use the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> for the simple example of finding the state <span class="math notranslate nohighlight">\(|11\rangle\)</span>, which corresponds to <code class="docutils literal notranslate"><span class="pre">'a</span> <span class="pre">&amp;</span> <span class="pre">b'</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.circuit.library.phase_oracle</span> <span class="kn">import</span> <span class="n">PhaseOracle</span>
+<span class="kn">from</span> <span class="nn">qiskit.exceptions</span> <span class="kn">import</span> <span class="n">MissingOptionalLibraryError</span>
+
+<span class="c1"># `Oracle` (`PhaseOracle`) as the `oracle` argument</span>
+<span class="n">expression</span> <span class="o">=</span> <span class="s1">&#39;(a &amp; b)&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">PhaseOracle</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">oracle</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">))</span>
+<span class="k">except</span> <span class="n">MissingOptionalLibraryError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_11_0.png" src="../../../../_images/Hands-on-7-book_11_0.png" />
+</div>
+</div>
+<p>You can observe, that this oracle is actually implemented with three qubits instead of two!</p>
+<p>That is because the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> is not a phase-flip oracle (which flips the phase of the good state) but a bit-flip oracle. This means it flips the state of an auxiliary qubit if the other qubits satisfy the condition.
+For Grover’s algorithm, however, we require a phase-flip oracle. To convert the bit-flip oracle to a phase-flip oracle we sandwich the controlled-NOT by <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(H\)</span> gates, as you can see in the circuit above.</p>
+<p><strong>Note:</strong> This transformation from a bit-flip to a phase-flip oracle holds generally and you can use this to convert your oracle to the right representation.</p>
+</section>
+</section>
+<section id="amplitude-amplification">
+<h2>Amplitude amplification<a class="headerlink" href="#amplitude-amplification" title="Permalink to this headline">¶</a></h2>
+<p>Grover’s algorithm uses Hadamard gates to create the uniform superposition of all the states at the beginning of the Grover operator <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. If some information on the good states is available, it might be useful to not start in a uniform superposition but only initialize specific states. This, generalized, version of Grover’s algorithm is referred to <em>Amplitude Amplification</em>.</p>
+<p>In Qiskit, the initial superposition state can easily be adjusted by setting the <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> argument.</p>
+<section id="state-preparation">
+<h3>State preparation<a class="headerlink" href="#state-preparation" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> argument is used to specify a quantum circuit that prepares a quantum state for the start point of the amplitude amplification.
+By default, a circuit with <span class="math notranslate nohighlight">\(H^{\otimes n}\)</span> is used to prepare uniform superposition (so it will be Grover’s search). The diffusion circuit of the amplitude amplification reflects <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> automatically.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Specifying `state_preparation` </span>
+<span class="c1"># to prepare a superposition of |01&gt;, |10&gt;, and |11&gt;</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">ccx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">state_preparation</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">state_preparation</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">state_preparation</span><span class="o">.</span><span class="n">ch</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">state_preparation</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">state_preparation</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># we only care about the first two bits being in state 1, thus add both possibilities for the last qubit</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">state_preparation</span><span class="o">=</span><span class="n">state_preparation</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;110&#39;</span><span class="p">,</span> <span class="s1">&#39;111&#39;</span><span class="p">])</span>
+
+<span class="c1"># state_preparation</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;state preparation circuit:&#39;</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">state_preparation</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state preparation circuit:
+</pre></div>
+</div>
+<img alt="../../../../_images/Hands-on-7-book_14_1.png" src="../../../../_images/Hands-on-7-book_14_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">quantum_instance</span><span class="o">=</span><span class="n">aer_simulator</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">amplify</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">oracle_evaluation</span> <span class="k">else</span> <span class="s1">&#39;Failure!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top measurement:&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">top_measurement</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Success!
+Top measurement: 111
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="full-flexibility">
+<h3>Full flexibility<a class="headerlink" href="#full-flexibility" title="Permalink to this headline">¶</a></h3>
+<p>For more advanced use, it is also possible to specify the entire Grover operator by setting the <code class="docutils literal notranslate"><span class="pre">grover_operator</span></code> argument. This might be useful if you know more efficient implementation for <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> than the default construction via zero reflection, oracle and state preparation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">qiskit.circuit.library.GroverOperator</span></code> can be a good starting point and offers more options for an automated construction of the Grover operator. You can for instance</p>
+<ul class="simple">
+<li><p>set the <code class="docutils literal notranslate"><span class="pre">mcx_mode</span></code></p></li>
+<li><p>ignore qubits in the zero reflection by setting <code class="docutils literal notranslate"><span class="pre">reflection_qubits</span></code></p></li>
+<li><p>explicitly exchange the <span class="math notranslate nohighlight">\(\mathcal{S_f}, \mathcal{S_0}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> operations using the <code class="docutils literal notranslate"><span class="pre">oracle</span></code>, <code class="docutils literal notranslate"><span class="pre">zero_reflection</span></code> and <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> arguments</p></li>
+</ul>
+<p>For instance, imagine the good state is a three qubit state <span class="math notranslate nohighlight">\(|111\rangle\)</span> but we used 2 additional qubits as auxiliary qubits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.circuit.library</span> <span class="kn">import</span> <span class="n">GroverOperator</span><span class="p">,</span> <span class="n">ZGate</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ZGate</span><span class="p">()</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_18_0.png" src="../../../../_images/Hands-on-7-book_18_0.png" />
+</div>
+</div>
+<p>Then, per default, the Grover operator implements the zero reflection on all five qubits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grover_op</span> <span class="o">=</span> <span class="n">GroverOperator</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">insert_barriers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">grover_op</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_20_0.png" src="../../../../_images/Hands-on-7-book_20_0.png" />
+</div>
+</div>
+<p>But we know that we only need to consider the first three:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grover_op</span> <span class="o">=</span> <span class="n">GroverOperator</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">reflection_qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">insert_barriers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">grover_op</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_22_0.png" src="../../../../_images/Hands-on-7-book_22_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="dive-into-other-arguments-of-grover">
+<h2>Dive into other arguments of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#dive-into-other-arguments-of-grover" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Grover</span></code> has arguments other than <code class="docutils literal notranslate"><span class="pre">oracle</span></code> and <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code>. We will explain them in this section.</p>
+<section id="specifying-good-state">
+<h3>Specifying <code class="docutils literal notranslate"><span class="pre">good_state</span></code><a class="headerlink" href="#specifying-good-state" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">good_state</span></code> is used to check whether the measurement result is correct or not internally. It can be a list of binary strings, a list of integer, <code class="docutils literal notranslate"><span class="pre">Statevector</span></code>, and Callable. If the input is a list of bitstrings, each bitstrings in the list represents a good state. If the input is a list of integer, each integer represent the index of the good state to be <span class="math notranslate nohighlight">\(|1\rangle\)</span>. If it is a <code class="docutils literal notranslate"><span class="pre">Statevector</span></code>, it represents a superposition of all good states.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a list of binary strings good state</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">good_state</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;00&#39;</span><span class="p">]</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">is_good_state</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a list of integer good state</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">good_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">is_good_state</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.quantum_info</span> <span class="kn">import</span> <span class="n">Statevector</span>
+
+<span class="c1"># `Statevector` good state</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">good_state</span> <span class="o">=</span> <span class="n">Statevector</span><span class="o">.</span><span class="n">from_label</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">is_good_state</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Callable good state</span>
+<span class="k">def</span> <span class="nf">callable_good_state</span><span class="p">(</span><span class="n">bitstr</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">bitstr</span> <span class="o">==</span> <span class="s2">&quot;11&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">is_good_state</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-number-of-iterations">
+<h3>The number of <code class="docutils literal notranslate"><span class="pre">iterations</span></code><a class="headerlink" href="#the-number-of-iterations" title="Permalink to this headline">¶</a></h3>
+<p>The number of repetition of applying the Grover operator is important to obtain the correct result with Grover’s algorithm. The number of iteration can be set by the <code class="docutils literal notranslate"><span class="pre">iteration</span></code> argument of <code class="docutils literal notranslate"><span class="pre">Grover</span></code>. The following inputs are supported:</p>
+<ul class="simple">
+<li><p>an integer to specify a single power of the Grover operator that’s applied</p></li>
+<li><p>or a list of integers, in which all these different powers of the Grover operator are run consecutively and after each time we check if a correct solution has been found</p></li>
+</ul>
+<p>Additionally there is the <code class="docutils literal notranslate"><span class="pre">sample_from_iterations</span></code> argument. When it is <code class="docutils literal notranslate"><span class="pre">True</span></code>, instead of the specific power in <code class="docutils literal notranslate"><span class="pre">iterations</span></code>, a random integer between 0 and the value in <code class="docutils literal notranslate"><span class="pre">iteration</span></code> is used as the power Grover’s operator. This approach is useful when we don’t even know the number of solution.</p>
+<p>For more details of the algorithm using <code class="docutils literal notranslate"><span class="pre">sample_from_iterations</span></code>, see [4].</p>
+<p><strong>References:</strong></p>
+<p>[4]: Boyer et al., Tight bounds on quantum searching <a class="reference external" href="https://arxiv.org/abs/quant-ph/9605034">arxiv:quant-ph/9605034</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># integer iteration</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">])</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># list iteration</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">])</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using sample_from_iterations</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">])</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">sample_from_iterations</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When the number of solutions is known, we can also use a static method <code class="docutils literal notranslate"><span class="pre">optimal_num_iterations</span></code> to find the optimal number of iterations. Note that the output iterations is an approximate value. When the number of qubits is small, the output iterations may not be optimal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iterations</span> <span class="o">=</span> <span class="n">Grover</span><span class="o">.</span><span class="n">optimal_num_iterations</span><span class="p">(</span><span class="n">num_solutions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_qubits</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">iterations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-post-processing">
+<h3>Applying <code class="docutils literal notranslate"><span class="pre">post_processing</span></code><a class="headerlink" href="#applying-post-processing" title="Permalink to this headline">¶</a></h3>
+<p>We can apply an optional post processing to the top measurement for ease of readability. It can be used e.g. to convert from the bit-representation of the measurement <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">1]</span></code> to a DIMACS CNF format <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-2,</span> <span class="pre">3]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_DIAMACS_CNF_format</span><span class="p">(</span><span class="n">bit_rep</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">val</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bit_rep</span><span class="p">)]</span>
+
+<span class="n">oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oracle</span><span class="o">.</span><span class="n">cz</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;11&#39;</span><span class="p">],</span> <span class="n">post_processing</span><span class="o">=</span><span class="n">to_DIAMACS_CNF_format</span><span class="p">)</span>
+<span class="n">problem</span><span class="o">.</span><span class="n">post_processing</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, -2, 3]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="grover-s-algorithm-examples">
+<h1>Grover’s algorithm examples<a class="headerlink" href="#grover-s-algorithm-examples" title="Permalink to this headline">¶</a></h1>
+<p>This notebook has examples demonstrating how to use the Qiskit <a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.algorithms.Grover.html">Grover</a> search algorithm, with different oracles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylab</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">Aer</span>
+<span class="kn">from</span> <span class="nn">qiskit.utils</span> <span class="kn">import</span> <span class="n">QuantumInstance</span>
+<span class="kn">from</span> <span class="nn">qiskit.tools.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+<span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">Grover</span><span class="p">,</span> <span class="n">AmplificationProblem</span>
+<span class="kn">from</span> <span class="nn">qiskit.circuit.library.phase_oracle</span> <span class="kn">import</span> <span class="n">PhaseOracle</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="finding-solutions-to-3-sat-problems">
+<h2>Finding solutions to 3-SAT problems<a class="headerlink" href="#finding-solutions-to-3-sat-problems" title="Permalink to this headline">¶</a></h2>
+<p>Let’s look at an example 3-Satisfiability (3-SAT) problem and walk-through how we can use Quantum Search to find its satisfying solutions. 3-SAT problems are usually expressed in <a class="reference external" href="https://en.wikipedia.org/wiki/Conjunctive_normal_form">Conjunctive Normal Forms (CNF)</a> and written in the <a class="reference external" href="http://www.satcompetition.org/2009/format-benchmarks2009.html">DIMACS-CNF</a> format. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_3sat_instance</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">c example DIMACS-CNF 3-SAT</span>
+<span class="s1">p cnf 3 5</span>
+<span class="s1">-1 -2 -3 0</span>
+<span class="s1">1 -2 3 0</span>
+<span class="s1">1 2 -3 0</span>
+<span class="s1">1 -2 -3 0</span>
+<span class="s1">-1 2 3 0</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CNF of this 3-SAT instance contains 3 variables and 5 clauses:</p>
+<p><span class="math notranslate nohighlight">\((\neg v_1 \vee \neg v_2 \vee \neg v_3) \wedge (v_1 \vee \neg v_2 \vee v_3) \wedge (v_1 \vee v_2 \vee \neg v_3) \wedge (v_1 \vee \neg v_2 \vee \neg v_3) \wedge (\neg v_1 \vee v_2 \vee v_3)\)</span></p>
+<p>It can be verified that this 3-SAT problem instance has three satisfying solutions:</p>
+<p><span class="math notranslate nohighlight">\((v_1, v_2, v_3) = (T, F, T)\)</span> or <span class="math notranslate nohighlight">\((F, F, F)\)</span> or <span class="math notranslate nohighlight">\((T, T, F)\)</span></p>
+<p>Or, expressed using the DIMACS notation:</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-2</span> <span class="pre">3</span></code>, or <code class="docutils literal notranslate"><span class="pre">-1</span> <span class="pre">-2</span> <span class="pre">-3</span></code>, or <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">2</span> <span class="pre">-3</span></code>.</p>
+<p>With this example problem input, we then create the corresponding <code class="docutils literal notranslate"><span class="pre">oracle</span></code> for our <code class="docutils literal notranslate"><span class="pre">Grover</span></code> search. In particular, we use the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> component, which supports parsing DIMACS-CNF format strings and constructing the corresponding oracle circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">qiskit.exceptions</span> <span class="kn">import</span> <span class="n">MissingOptionalLibraryError</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w+t&#39;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">input_3sat_instance</span><span class="p">)</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">name</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">oracle</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">PhaseOracle</span><span class="o">.</span><span class="n">from_dimacs_file</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">MissingOptionalLibraryError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">oracle</span></code> can now be used to create an Grover instance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">oracle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">oracle</span><span class="o">.</span><span class="n">evaluate_bitstring</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can then configure the backend and run the Grover instance to get the result:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">backend</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">)</span>
+<span class="n">quantum_instance</span> <span class="o">=</span> <span class="n">QuantumInstance</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">problem</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">amplify</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">assignment</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>101
+</pre></div>
+</div>
+</div>
+</div>
+<p>As seen above, a satisfying solution to the specified 3-SAT problem is obtained. And it is indeed one of the three satisfying solutions.</p>
+<p>Since we used the <code class="docutils literal notranslate"><span class="pre">'aer_simulator'</span></code>, the complete measurement result is also returned, as shown in the plot below, where it can be seen that the binary strings <code class="docutils literal notranslate"><span class="pre">000</span></code>, <code class="docutils literal notranslate"><span class="pre">011</span></code>, and <code class="docutils literal notranslate"><span class="pre">101</span></code> (note the bit order in each string), corresponding to the three satisfying solutions all have high probabilities associated with them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">plot_histogram</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">circuit_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_47_0.png" src="../../../../_images/Hands-on-7-book_47_0.png" />
+</div>
+</div>
+</section>
+<section id="boolean-logical-expressions">
+<h2>Boolean Logical Expressions<a class="headerlink" href="#boolean-logical-expressions" title="Permalink to this headline">¶</a></h2>
+<p>Qiskit’s <code class="docutils literal notranslate"><span class="pre">Grover</span></code> can also be used to perform Quantum Search on an <code class="docutils literal notranslate"><span class="pre">Oracle</span></code> constructed from other means, in addition to DIMACS. For example, the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> can actually be configured using arbitrary Boolean logical expressions, as demonstrated below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span> <span class="o">=</span> <span class="s1">&#39;(w ^ x) &amp; ~(y ^ z) &amp; (x &amp; y &amp; z)&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">oracle</span> <span class="o">=</span> <span class="n">PhaseOracle</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">oracle</span><span class="o">.</span><span class="n">evaluate_bitstring</span><span class="p">)</span>
+    <span class="n">grover</span> <span class="o">=</span> <span class="n">Grover</span><span class="p">(</span><span class="n">quantum_instance</span><span class="o">=</span><span class="n">QuantumInstance</span><span class="p">(</span><span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;aer_simulator&#39;</span><span class="p">),</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1024</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">grover</span><span class="o">.</span><span class="n">amplify</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">plot_histogram</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">circuit_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="k">except</span> <span class="n">MissingOptionalLibraryError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_49_0.png" src="../../../../_images/Hands-on-7-book_49_0.png" />
+</div>
+</div>
+<p>In the example above, the input Boolean logical expression <code class="docutils literal notranslate"><span class="pre">'(w</span> <span class="pre">^</span> <span class="pre">x)</span> <span class="pre">&amp;</span> <span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z)'</span></code> should be quite self-explanatory, where <code class="docutils literal notranslate"><span class="pre">^</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> represent the Boolean logical XOR, NOT, and AND operators, respectively. It should be quite easy to figure out the satisfying solution by examining its parts: <code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">^</span> <span class="pre">x</span></code> calls for <code class="docutils literal notranslate"><span class="pre">w</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> taking different values; <code class="docutils literal notranslate"><span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span></code> requires <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> be the same; <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z</span></code> dictates all three to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. Putting these together, we get the satisfying solution <code class="docutils literal notranslate"><span class="pre">(w,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z)</span> <span class="pre">=</span> <span class="pre">(False,</span> <span class="pre">True,</span> <span class="pre">True,</span> <span class="pre">True)</span></code>, which our <code class="docutils literal notranslate"><span class="pre">Grover</span></code>’s result agrees with.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-amplitude-estimation">
+<h1>Quantum Amplitude Estimation<a class="headerlink" href="#quantum-amplitude-estimation" title="Permalink to this headline">¶</a></h1>
+<p>Given an operator <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> that acts as</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{A}|0\rangle = \sqrt{1 - a}|\Psi_0\rangle + \sqrt{a}|\Psi_1\rangle
+\]</div>
+<p>Quantum Amplitude Estimation (QAE) is the task of finding an estimate for the amplitude <span class="math notranslate nohighlight">\(a\)</span> of the state <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    a = |\langle\Psi_1 | \Psi_1\rangle|^2.
+\]</div>
+<p>This task has first been investigated by Brassard et al. [1] in 2000 and their algorithm uses a combination of the Grover operator</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{Q} = \mathcal{A}\mathcal{S}_0\mathcal{A}^\dagger\mathcal{S}_{\Psi_1}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{S}_0\)</span> and <span class="math notranslate nohighlight">\(\mathcal{S}_{\Psi_1}\)</span> are reflections about the <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span> states, respectively, and phase estimation. However this algorithm, called <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimation</span></code> in Qiskit, requires large circuits and is computationally expensive. Therefore, other variants of QAE have been proposed, which we will showcase in this tutorial for a simple example.</p>
+<p>In our example, <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> describes a Bernoulli random variable with (assumed to be unknown) success probability <span class="math notranslate nohighlight">\(p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{A}|0\rangle = \sqrt{1 - p}|0\rangle + \sqrt{p}|1\rangle.
+\]</div>
+<p>On a quantum computer, we can model this operator with a rotation around the <span class="math notranslate nohighlight">\(Y\)</span>-axis of a single qubit</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{A} = R_Y(\theta_p), \theta_p = 2\sin^{-1}(\sqrt{p}).
+\]</div>
+<p>The Grover operator for this case is particularly simple</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q} = R_Y(2\theta_p),
+\]</div>
+<p>whose powers are very easy to calculate: <span class="math notranslate nohighlight">\(\mathcal{Q}^k = R_Y(2k\theta_p)\)</span>.</p>
+<p>We’ll fix the probability we want to estimate to <span class="math notranslate nohighlight">\(p = 0.2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can define circuits for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+
+
+<span class="k">class</span> <span class="nc">BernoulliA</span><span class="p">(</span><span class="n">QuantumCircuit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A circuit representing the Bernoulli A operator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probability</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># circuit on 1 qubit</span>
+
+        <span class="n">theta_p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">probability</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BernoulliQ</span><span class="p">(</span><span class="n">QuantumCircuit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A circuit representing the Bernoulli Q operator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probability</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># circuit on 1 qubit</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">probability</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="c1"># implement the efficient power of Q</span>
+        <span class="n">q_k</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q_k</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q_k</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">BernoulliA</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">BernoulliQ</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="qiskit-s-amplitude-estimation-workflow">
+<h2>Qiskit’s Amplitude Estimation workflow<a class="headerlink" href="#qiskit-s-amplitude-estimation-workflow" title="Permalink to this headline">¶</a></h2>
+<p>Qiskit implements several QAE algorithms that all derive from the <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimator</span></code> interface. In the initializer we specify algorithm specific settings and the <code class="docutils literal notranslate"><span class="pre">estimate</span></code> method, which does all the work, takes an <code class="docutils literal notranslate"><span class="pre">EstimationProblem</span></code> as input and returns an <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimationResult</span></code> object. Since all QAE variants follow the same interface, we can use them all to solve the same problem instance.</p>
+<p>Next, we’ll run all different QAE algorithms. To do so, we first define the estimation problem which will contain the <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> operators as well as how to identify the <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span> state, which in this simple example is just <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">EstimationProblem</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">EstimationProblem</span><span class="p">(</span>
+    <span class="n">state_preparation</span><span class="o">=</span><span class="n">A</span><span class="p">,</span>  <span class="c1"># A operator</span>
+    <span class="n">grover_operator</span><span class="o">=</span><span class="n">Q</span><span class="p">,</span>  <span class="c1"># Q operator</span>
+    <span class="n">objective_qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># the &quot;good&quot; state Psi1 is identified as measuring |1&gt; in qubit 0</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To execute circuits we’ll use Qiskit’s statevector simulator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">BasicAer</span>
+<span class="kn">from</span> <span class="nn">qiskit.utils</span> <span class="kn">import</span> <span class="n">QuantumInstance</span>
+
+<span class="n">backend</span> <span class="o">=</span> <span class="n">BasicAer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s2">&quot;statevector_simulator&quot;</span><span class="p">)</span>
+<span class="n">quantum_instance</span> <span class="o">=</span> <span class="n">QuantumInstance</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="canonical-ae">
+<h2>Canonical AE<a class="headerlink" href="#canonical-ae" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s solve this with the original QAE implementation by Brassard et al. [1].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">AmplitudeEstimation</span>
+
+<span class="n">ae</span> <span class="o">=</span> <span class="n">AmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">num_eval_qubits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># the number of evaluation qubits specifies circuit width and accuracy</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the algorithm defined, we can call the <code class="docutils literal notranslate"><span class="pre">estimate</span></code> method and provide it with the problem to solve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ae_result</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimate is available in the <code class="docutils literal notranslate"><span class="pre">estimation</span></code> key:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1464466
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that this is not a very good estimate for our target of <span class="math notranslate nohighlight">\(p=0.2\)</span>! That’s due to the fact the canonical AE is restricted to a discrete grid, specified by the number of evaluation qubits:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># plot estimated values</span>
+<span class="n">gridpoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">gridpoints</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">probabilities</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Estimated Values&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Probability&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Amplitude $a$&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_69_0.png" src="../../../../_images/Hands-on-7-book_69_0.png" />
+</div>
+</div>
+<p>To improve the estimate we can interpolate the measurement probabilities and compute the maximum likelihood estimator that produces this probability distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolated MLE estimator:&quot;</span><span class="p">,</span> <span class="n">ae_result</span><span class="o">.</span><span class="n">mle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Interpolated MLE estimator: 0.19999999390907777
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can have a look at the circuit that AE executes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ae_circuit</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">construct_circuit</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="n">ae_circuit</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span>
+<span class="p">)</span>  <span class="c1"># decompose 1 level: exposes the Phase estimation circuit!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_73_0.png" src="../../../../_images/Hands-on-7-book_73_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">transpile</span>
+
+
+<span class="n">basis_gates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;ry&quot;</span><span class="p">,</span> <span class="s2">&quot;cry&quot;</span><span class="p">,</span> <span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="s2">&quot;ccx&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;cp&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;sdg&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;cz&quot;</span><span class="p">]</span>
+<span class="n">transpile</span><span class="p">(</span><span class="n">ae_circuit</span><span class="p">,</span> <span class="n">basis_gates</span><span class="o">=</span><span class="n">basis_gates</span><span class="p">,</span> <span class="n">optimization_level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_74_0.png" src="../../../../_images/Hands-on-7-book_74_0.png" />
+</div>
+</div>
+</section>
+<section id="iterative-amplitude-estimation">
+<h2>Iterative Amplitude Estimation<a class="headerlink" href="#iterative-amplitude-estimation" title="Permalink to this headline">¶</a></h2>
+<p>See [2].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">IterativeAmplitudeEstimation</span>
+
+<span class="n">iae</span> <span class="o">=</span> <span class="n">IterativeAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">epsilon_target</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># target accuracy</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># width of the confidence interval</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">iae_result</span> <span class="o">=</span> <span class="n">iae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">iae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.19999999999999998
+</pre></div>
+</div>
+</div>
+</div>
+<p>The circuits here only consist of Grover powers and are much cheaper!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iae_circuit</span> <span class="o">=</span> <span class="n">iae</span><span class="o">.</span><span class="n">construct_circuit</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">iae_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_78_0.png" src="../../../../_images/Hands-on-7-book_78_0.png" />
+</div>
+</div>
+</section>
+<section id="maximum-likelihood-amplitude-estimation">
+<h2>Maximum Likelihood Amplitude Estimation<a class="headerlink" href="#maximum-likelihood-amplitude-estimation" title="Permalink to this headline">¶</a></h2>
+<p>See [3].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">MaximumLikelihoodAmplitudeEstimation</span>
+
+<span class="n">mlae</span> <span class="o">=</span> <span class="n">MaximumLikelihoodAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">evaluation_schedule</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span>  <span class="c1"># log2 of the maximal Grover power</span>
+<span class="p">)</span>
+<span class="n">mlae_result</span> <span class="o">=</span> <span class="n">mlae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">mlae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20002237175368104
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="faster-amplitude-estimation">
+<h2>Faster Amplitude Estimation<a class="headerlink" href="#faster-amplitude-estimation" title="Permalink to this headline">¶</a></h2>
+<p>See [4].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">FasterAmplitudeEstimation</span>
+
+<span class="n">fae</span> <span class="o">=</span> <span class="n">FasterAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">delta</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># target accuracy</span>
+    <span class="n">maxiter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># determines the maximal power of the Grover operator</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fae_result</span> <span class="o">=</span> <span class="n">fae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">fae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20000000000000018
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/algorithms/amplitude_estimators/estimation_problem.py:194: UserWarning: Rescaling discards the Grover operator.
+  warnings.warn(&quot;Rescaling discards the Grover operator.&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>[1] Quantum Amplitude Amplification and Estimation. Brassard et al (2000). https://arxiv.org/abs/quant-ph/0005055</p>
+<p>[2] Iterative Quantum Amplitude Estimation. Grinko, D., Gacon, J., Zoufal, C., &amp; Woerner, S. (2019). https://arxiv.org/abs/1912.05559</p>
+<p>[3] Amplitude Estimation without Phase Estimation. Suzuki, Y., Uno, S., Raymond, R., Tanaka, T., Onodera, T., &amp; Yamamoto, N. (2019). https://arxiv.org/abs/1904.10246</p>
+<p>[4] Faster Amplitude Estimation. K. Nakaji (2020). https://arxiv.org/pdf/2003.02417.pdf</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Quantum Amplitude Estimation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Given an operator <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> that acts as</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{A}|0\rangle = \sqrt{1 - a}|\Psi_0\rangle + \sqrt{a}|\Psi_1\rangle
+\]</div>
+<p>Quantum Amplitude Estimation (QAE) is the task of finding an estimate for the amplitude <span class="math notranslate nohighlight">\(a\)</span> of the state <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    a = |\langle\Psi_1 | \Psi_1\rangle|^2.
+\]</div>
+<p>This task has first been investigated by Brassard et al. [1] in 2000 and their algorithm uses a combination of the Grover operator</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{Q} = \mathcal{A}\mathcal{S}_0\mathcal{A}^\dagger\mathcal{S}_{\Psi_1}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{S}_0\)</span> and <span class="math notranslate nohighlight">\(\mathcal{S}_{\Psi_1}\)</span> are reflections about the <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span> states, respectively, and phase estimation. However this algorithm, called <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimation</span></code> in Qiskit, requires large circuits and is computationally expensive. Therefore, other variants of QAE have been proposed, which we will showcase in this tutorial for a simple example.</p>
+<p>In our example, <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> describes a Bernoulli random variable with (assumed to be unknown) success probability <span class="math notranslate nohighlight">\(p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mathcal{A}|0\rangle = \sqrt{1 - p}|0\rangle + \sqrt{p}|1\rangle.
+\]</div>
+<p>On a quantum computer, we can model this operator with a rotation around the <span class="math notranslate nohighlight">\(Y\)</span>-axis of a single qubit</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{A} = R_Y(\theta_p), \theta_p = 2\sin^{-1}(\sqrt{p}).
+\]</div>
+<p>The Grover operator for this case is particularly simple</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Q} = R_Y(2\theta_p),
+\]</div>
+<p>whose powers are very easy to calculate: <span class="math notranslate nohighlight">\(\mathcal{Q}^k = R_Y(2k\theta_p)\)</span>.</p>
+<p>We’ll fix the probability we want to estimate to <span class="math notranslate nohighlight">\(p = 0.2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can define circuits for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">qiskit.circuit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+
+
+<span class="k">class</span> <span class="nc">BernoulliA</span><span class="p">(</span><span class="n">QuantumCircuit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A circuit representing the Bernoulli A operator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probability</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># circuit on 1 qubit</span>
+
+        <span class="n">theta_p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">probability</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="n">theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BernoulliQ</span><span class="p">(</span><span class="n">QuantumCircuit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A circuit representing the Bernoulli Q operator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">probability</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># circuit on 1 qubit</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">probability</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="c1"># implement the efficient power of Q</span>
+        <span class="n">q_k</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">q_k</span><span class="o">.</span><span class="n">ry</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theta_p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">q_k</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">BernoulliA</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">BernoulliQ</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>Qiskit’s Amplitude Estimation workflow<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Qiskit implements several QAE algorithms that all derive from the <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimator</span></code> interface. In the initializer we specify algorithm specific settings and the <code class="docutils literal notranslate"><span class="pre">estimate</span></code> method, which does all the work, takes an <code class="docutils literal notranslate"><span class="pre">EstimationProblem</span></code> as input and returns an <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimationResult</span></code> object. Since all QAE variants follow the same interface, we can use them all to solve the same problem instance.</p>
+<p>Next, we’ll run all different QAE algorithms. To do so, we first define the estimation problem which will contain the <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> operators as well as how to identify the <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span> state, which in this simple example is just <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">EstimationProblem</span>
+
+<span class="n">problem</span> <span class="o">=</span> <span class="n">EstimationProblem</span><span class="p">(</span>
+    <span class="n">state_preparation</span><span class="o">=</span><span class="n">A</span><span class="p">,</span>  <span class="c1"># A operator</span>
+    <span class="n">grover_operator</span><span class="o">=</span><span class="n">Q</span><span class="p">,</span>  <span class="c1"># Q operator</span>
+    <span class="n">objective_qubits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># the &quot;good&quot; state Psi1 is identified as measuring |1&gt; in qubit 0</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To execute circuits we’ll use Qiskit’s statevector simulator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">BasicAer</span>
+<span class="kn">from</span> <span class="nn">qiskit.utils</span> <span class="kn">import</span> <span class="n">QuantumInstance</span>
+
+<span class="n">backend</span> <span class="o">=</span> <span class="n">BasicAer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s2">&quot;statevector_simulator&quot;</span><span class="p">)</span>
+<span class="n">quantum_instance</span> <span class="o">=</span> <span class="n">QuantumInstance</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Canonical AE<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s solve this with the original QAE implementation by Brassard et al. [1].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">AmplitudeEstimation</span>
+
+<span class="n">ae</span> <span class="o">=</span> <span class="n">AmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">num_eval_qubits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># the number of evaluation qubits specifies circuit width and accuracy</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the algorithm defined, we can call the <code class="docutils literal notranslate"><span class="pre">estimate</span></code> method and provide it with the problem to solve.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ae_result</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The estimate is available in the <code class="docutils literal notranslate"><span class="pre">estimation</span></code> key:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1464466
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that this is not a very good estimate for our target of <span class="math notranslate nohighlight">\(p=0.2\)</span>! That’s due to the fact the canonical AE is restricted to a discrete grid, specified by the number of evaluation qubits:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># plot estimated values</span>
+<span class="n">gridpoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ae_result</span><span class="o">.</span><span class="n">samples</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">gridpoints</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">probabilities</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Estimated Values&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Probability&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Amplitude $a$&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_102_0.png" src="../../../../_images/Hands-on-7-book_102_0.png" />
+</div>
+</div>
+<p>To improve the estimate we can interpolate the measurement probabilities and compute the maximum likelihood estimator that produces this probability distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolated MLE estimator:&quot;</span><span class="p">,</span> <span class="n">ae_result</span><span class="o">.</span><span class="n">mle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Interpolated MLE estimator: 0.19999999390907777
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can have a look at the circuit that AE executes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ae_circuit</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">construct_circuit</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+<span class="n">ae_circuit</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span>
+<span class="p">)</span>  <span class="c1"># decompose 1 level: exposes the Phase estimation circuit!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_106_0.png" src="../../../../_images/Hands-on-7-book_106_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">transpile</span>
+
+
+<span class="n">basis_gates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;ry&quot;</span><span class="p">,</span> <span class="s2">&quot;cry&quot;</span><span class="p">,</span> <span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="s2">&quot;ccx&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;cp&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;sdg&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;cz&quot;</span><span class="p">]</span>
+<span class="n">transpile</span><span class="p">(</span><span class="n">ae_circuit</span><span class="p">,</span> <span class="n">basis_gates</span><span class="o">=</span><span class="n">basis_gates</span><span class="p">,</span> <span class="n">optimization_level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_107_0.png" src="../../../../_images/Hands-on-7-book_107_0.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Iterative Amplitude Estimation<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>See [2].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">IterativeAmplitudeEstimation</span>
+
+<span class="n">iae</span> <span class="o">=</span> <span class="n">IterativeAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">epsilon_target</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># target accuracy</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># width of the confidence interval</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">iae_result</span> <span class="o">=</span> <span class="n">iae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">iae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.19999999999999998
+</pre></div>
+</div>
+</div>
+</div>
+<p>The circuits here only consist of Grover powers and are much cheaper!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iae_circuit</span> <span class="o">=</span> <span class="n">iae</span><span class="o">.</span><span class="n">construct_circuit</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">iae_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-7-book_111_0.png" src="../../../../_images/Hands-on-7-book_111_0.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>Maximum Likelihood Amplitude Estimation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>See [3].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">MaximumLikelihoodAmplitudeEstimation</span>
+
+<span class="n">mlae</span> <span class="o">=</span> <span class="n">MaximumLikelihoodAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">evaluation_schedule</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span>  <span class="c1"># log2 of the maximal Grover power</span>
+<span class="p">)</span>
+<span class="n">mlae_result</span> <span class="o">=</span> <span class="n">mlae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">mlae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20002237175368104
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h2>Faster Amplitude Estimation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>See [4].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.algorithms</span> <span class="kn">import</span> <span class="n">FasterAmplitudeEstimation</span>
+
+<span class="n">fae</span> <span class="o">=</span> <span class="n">FasterAmplitudeEstimation</span><span class="p">(</span>
+    <span class="n">delta</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># target accuracy</span>
+    <span class="n">maxiter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># determines the maximal power of the Grover operator</span>
+    <span class="n">quantum_instance</span><span class="o">=</span><span class="n">quantum_instance</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fae_result</span> <span class="o">=</span> <span class="n">fae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">fae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20000000000000018
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>References<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>[1] Quantum Amplitude Amplification and Estimation. Brassard et al (2000). https://arxiv.org/abs/quant-ph/0005055</p>
+<p>[2] Iterative Quantum Amplitude Estimation. Grinko, D., Gacon, J., Zoufal, C., &amp; Woerner, S. (2019). https://arxiv.org/abs/1912.05559</p>
+<p>[3] Amplitude Estimation without Phase Estimation. Suzuki, Y., Uno, S., Raymond, R., Tanaka, T., Onodera, T., &amp; Yamamoto, N. (2019). https://arxiv.org/abs/1904.10246</p>
+<p>[4] Faster Amplitude Estimation. K. Nakaji (2020). https://arxiv.org/pdf/2003.02417.pdf</p>
+<p><span style="color:red"><strong>&gt;&gt;&gt;&gt;&gt;&gt;&gt; remote</strong></span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
+<span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">local</span>
+<span class="o">=======</span>
+
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">remote</span>
+<span class="o">%</span><span class="k">qiskit_version_table</span>
+<span class="o">%</span><span class="k">qiskit_copyright</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">59</span><span class="p">]</span>
+    <span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">local</span>
+    <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Hands-On/hands-on-7/Hands-on-7-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
