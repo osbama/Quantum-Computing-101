@@ -23,7 +23,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Hands-on session 1" href="../hands-on-1/hands-on-1-online.html" />
+    <link rel="next" title="Hands-on 7" href="../hands-on-7/Hands-on-7-book.html" />
     <link rel="prev" title="Hands-on 5" href="../hands-on-5/Hands-on-5-book.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -115,7 +115,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.713260650634766</td></tr><tr><td colspan='2'>Wed Apr 20 14:07:59 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71327209472656</td></tr><tr><td colspan='2'>Thu Apr 28 08:28:48 2022 +03</td></tr></table></div></div>
 </div>
 </section>
 <section id="part-i-introduction-to-entanglement-purification-and-the-bbpssw-protocol">
@@ -833,7 +833,7 @@ i &amp; 0 \\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_92855/2766435879.py:1: DeprecationWarning: The QuantumCircuit.__add__() method is being deprecated.Use the compose() method which is more flexible w.r.t circuit register compatibility.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_17952/2766435879.py:1: DeprecationWarning: The QuantumCircuit.__add__() method is being deprecated.Use the compose() method which is more flexible w.r.t circuit register compatibility.
   experiment_circ = source_circ + twirl_circ + purification_circ
 </pre></div>
 </div>
@@ -970,17 +970,8 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <p>At this point, we already import a usefull function from the Python toolkit Mitiq [7], which removes all barriers from a quantum circuit:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mitiq.mitiq_qiskit.conversions</span> <span class="kn">import</span> <span class="n">_remove_barriers</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">Input In [41],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">mitiq.mitiq_qiskit.conversions</span> <span class="kn">import</span> <span class="n">_remove_barriers</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;mitiq&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#from mitiq.mitiq_qiskit.conversions import _remove_barriers</span>
+<span class="kn">from</span> <span class="nn">qiskit.transpiler.passes</span> <span class="kn">import</span> <span class="n">RemoveBarriers</span>
 </pre></div>
 </div>
 </div>
@@ -988,9 +979,14 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <p>The reason for removing the barriers is that circuits as shown above cannot be executed on real IBMQ hardware because no gates are allowed after measurements. Although in the example circuit <code class="docutils literal notranslate"><span class="pre">ancilla_tomography_circs[0]</span></code> above the two Hadamard gates on qubits 0 and 1 “follow” measurements on qubits 2 and 3, this circuit is still considered to be not executable on real IBMQ hardware. Therefore we will simply remove the barrier and by this make it executable:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_remove_barriers</span><span class="p">(</span><span class="n">ancilla_tomography_circs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#_remove_barriers(ancilla_tomography_circs[0]).draw(output=&#39;mpl&#39;)</span>
+<span class="n">ancilla_tomography_circs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">RemoveBarriers</span><span class="p">()(</span><span class="n">ancilla_tomography_circs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ancilla_tomography_circs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/Hands-on-6-book_84_0.png" src="../../../../_images/Hands-on-6-book_84_0.png" />
 </div>
 </div>
 <p>At the end of this Part II, we are at the point where we have generated all the quantum circuits necessary to implement the full BBPSSW protocol. In the following part we can therefore continue with the simulation of the purification experiment and have our implementation run with the simulator integrated in Qiskit.</p>
@@ -1031,6 +1027,57 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">tomography_circs</span><span class="p">,</span> <span class="n">backend_QASM</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="o">=</span><span class="p">[{</span><span class="n">theta</span><span class="p">:</span> <span class="n">F_to_theta</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)}])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AerError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">Input In [45],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">tomography_circs</span><span class="p">,</span> <span class="n">backend_QASM</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="o">=</span><span class="p">[{</span><span class="n">theta</span><span class="p">:</span> <span class="n">F_to_theta</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)}])</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/execute_function.py:393,</span> in <span class="ni">execute</span><span class="nt">(experiments, backend, basis_gates, coupling_map, backend_properties, initial_layout, seed_transpiler, optimization_level, pass_manager, qobj_id, qobj_header, shots, memory, max_credits, seed_simulator, default_qubit_los, default_meas_los, qubit_lo_range, meas_lo_range, schedule_los, meas_level, meas_return, memory_slots, memory_slot_size, rep_time, rep_delay, parameter_binds, schedule_circuit, inst_map, meas_map, scheduling_method, init_qubits, **run_config)</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="n">run_kwargs</span><span class="p">[</span><span class="s2">&quot;parameter_binds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_binds</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span> <span class="n">run_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">run_config</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">393</span> <span class="n">job</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span> <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span> <span class="n">_log_submission_time</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/utils/deprecation.py:27,</span> in <span class="ni">deprecate_arguments.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="n">_rename_kwargs</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">kwarg_map</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">27</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:187,</span> in <span class="ni">AerBackend.run</span><span class="nt">(self, circuits, validate, parameter_binds, **run_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="n">qobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">187</span>     <span class="n">qobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="o">=</span><span class="n">parameter_binds</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="c1"># Optional validation</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span> <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:357,</span> in <span class="ni">AerBackend._assemble</span><span class="nt">(self, circuits, parameter_binds, **run_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">352</span> <span class="n">circuits</span><span class="p">,</span> <span class="n">optypes</span><span class="p">,</span> <span class="n">run_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble_noise_model</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>     <span class="n">circuits</span><span class="p">,</span> <span class="n">optypes</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span> <span class="k">if</span> <span class="n">parameter_binds</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">356</span>     <span class="c1"># Handle parameter binding</span>
+<span class="ne">--&gt; </span><span class="mi">357</span>     <span class="n">parameterizations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_binds</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">358</span>     <span class="n">assemble_binds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">359</span>     <span class="n">assemble_binds</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">parameter_binds</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">bind</span><span class="p">})</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:111,</span> in <span class="ni">AerBackend._convert_binds</span><span class="nt">(self, circuits, parameter_binds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span>     <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_circuit_binds</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter_binds</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">circuits</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">111</span>     <span class="k">raise</span> <span class="n">AerError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span>         <span class="s2">&quot;Number of input circuits does not match number of input &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span>         <span class="s2">&quot;parameter bind dictionaries&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="n">parameterizations</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_convert_circuit_binds</span><span class="p">(</span>
+<span class="nn">    117         circuit, parameter_binds[idx]) for idx, circuit</span> in <span class="ni">enumerate</span><span class="nt">(circuits)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span> <span class="k">return</span> <span class="n">parameterizations</span>
+
+<span class="ne">AerError</span>: &#39;Number of input circuits does not match number of input parameter bind dictionaries&#39;
 </pre></div>
 </div>
 </div>
