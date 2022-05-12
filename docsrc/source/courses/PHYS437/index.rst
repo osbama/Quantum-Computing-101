@@ -25,6 +25,7 @@ Theory sessions
    Lecture 5 (Ch.2) <Theory/Ch2/Theory-Lecture5.ipynb>
    Lecture 6 (Ch.2) <Theory/Ch2/Theory-Lecture6.ipynb>
    Lecture 7 (Ch.2) <Theory/Ch2/Theory-Lecture7.ipynb>
+   Lecture 8 (Ch.3) <Theory/Ch3/Theory-Lecture8.ipynb>
 
  
 .. toctree::
@@ -47,6 +48,7 @@ Hands-on sessions
    Hands-on 4 <Hands-On/hands-on-4/Hands-on-4-book.ipynb>
    Hands-on 5 <Hands-On/hands-on-5/Hands-on-5-book.ipynb>
    Hands-on 6 <Hands-On/hands-on-6/Hands-on-6-book.ipynb>
+   Hands-on 7 <Hands-On/hands-on-7/Hands-on-7-book.ipynb>
 
 
 .. toctree::
@@ -59,5 +61,6 @@ Hands-on sessions
    Hands-on 4 <Hands-On/hands-on-4/hands-on-4-online.rst>
    Hands-on 5 <Hands-On/hands-on-5/hands-on-5-online.rst>
    Hands-on 6 <Hands-On/hands-on-6/hands-on-6-online.rst>
+   Hands-on 7 <Hands-On/hands-on-7/hands-on-7-online.rst>
 
 
