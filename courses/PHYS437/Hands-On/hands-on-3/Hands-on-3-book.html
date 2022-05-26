@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hands on 3 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -20,7 +19,7 @@
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -113,18 +112,28 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71327209472656</td></tr><tr><td colspan='2'>Wed Mar 30 16:55:22 2022 +03</td></tr></table></div></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="hands-on-3">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Tue Apr 12 23:03:41 2022 +03</td></tr></table></div></div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="hands-on-3">
 <h1>Hands on 3<a class="headerlink" href="#hands-on-3" title="Permalink to this headline">¶</a></h1>
 <p>Today’s session starts with a cheatsheet on single qubit gates, and we will delve deeper into measurement</p>
-<section id="single-qubit-gates">
+<div class="section" id="single-qubit-gates">
 <h2>Single Qubit Gates<a class="headerlink" href="#single-qubit-gates" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section we looked at all the possible states a qubit could be in. We saw that qubits could be represented by 2D vectors, and that their states are limited to the form:</p>
 <div class="math notranslate nohighlight">
 \[ |q\rangle = \cos{\tfrac{\theta}{2}}|0\rangle + e^{i\phi}\sin{\tfrac{\theta}{2}}|1\rangle \]</div>
 <p>Where <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> are real numbers. In this section we will cover <em>gates,</em> the operations that change a qubit between these states. Due to the number of gates and the similarities between them, this chapter is at risk of becoming a list. To counter this, we have included a few digressions to introduce important ideas at appropriate places throughout the chapter.</p>
-<section id="contents">
+<div class="section" id="contents">
 <h3>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p><a class="reference external" href="#pauli">The Pauli Gates</a><br />
@@ -151,11 +160,11 @@
 </div>
 </div>
 </div>
-</section>
-<section id="the-pauli-gates-a-id-pauli-a">
+</div>
+<div class="section" id="the-pauli-gates-a-id-pauli-a">
 <h3>1. The Pauli Gates <a id="pauli"></a><a class="headerlink" href="#the-pauli-gates-a-id-pauli-a" title="Permalink to this headline">¶</a></h3>
 <p>You should be familiar with the Pauli matrices from the linear algebra section. If any of the maths here is new to you, you should use the linear algebra section to bring yourself up to speed. We will see here that the Pauli matrices can represent some very commonly used quantum gates.</p>
-<section id="the-x-gate-a-id-xgate-a">
+<div class="section" id="the-x-gate-a-id-xgate-a">
 <h4>1.1 The X-Gate <a id="xgate"></a><a class="headerlink" href="#the-x-gate-a-id-xgate-a" title="Permalink to this headline">¶</a></h4>
 <p>The X-gate is represented by the Pauli-X matrix:</p>
 <div class="math notranslate nohighlight">
@@ -193,8 +202,8 @@
 </div>
 </div>
 <p>We can indeed see the state of the qubit is <span class="math notranslate nohighlight">\(|1\rangle\)</span> as expected. We can think of this as a rotation by <span class="math notranslate nohighlight">\(\pi\)</span> radians around the <em>x-axis</em> of the Bloch sphere. The X-gate is also often called a NOT-gate, referring to its classical analogue.</p>
-</section>
-<section id="the-y-z-gates-a-id-ynzgatez-a">
+</div>
+<div class="section" id="the-y-z-gates-a-id-ynzgatez-a">
 <h4>1.2 The Y &amp; Z-gates  <a id="ynzgatez"></a><a class="headerlink" href="#the-y-z-gates-a-id-ynzgatez-a" title="Permalink to this headline">¶</a></h4>
 <p>Similarly to the X-gate, the Y &amp; Z Pauli matrices also act as the Y &amp; Z-gates in our quantum circuits:</p>
 <div class="math notranslate nohighlight">
@@ -215,11 +224,11 @@
 <img alt="../../../../_images/Hands-on-3-book_10_0.png" src="../../../../_images/Hands-on-3-book_10_0.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="digression-the-x-y-z-bases-a-id-xyzbases-a">
+</div>
+</div>
+<div class="section" id="digression-the-x-y-z-bases-a-id-xyzbases-a">
 <h3>2. Digression: The X, Y &amp; Z-Bases <a id="xyzbases"></a><a class="headerlink" href="#digression-the-x-y-z-bases-a-id-xyzbases-a" title="Permalink to this headline">¶</a></h3>
-<section id="reminder-eigenvectors-of-matrices">
+<div class="section" id="reminder-eigenvectors-of-matrices">
 <h4>Reminder: Eigenvectors of Matrices<a class="headerlink" href="#reminder-eigenvectors-of-matrices" title="Permalink to this headline">¶</a></h4>
 <p>We have seen that multiplying a vector by a matrix results in a vector:</p>
 <div class="math notranslate nohighlight">
@@ -249,8 +258,8 @@
 <div class="math notranslate nohighlight">
 \[ |\circlearrowleft\rangle, \quad |\circlearrowright\rangle\]</div>
 <p>We leave it as an exercise to calculate these. There are in fact an infinite number of bases; to form one, we simply need two orthogonal vectors. The eigenvectors of both Hermitian and unitary matrices form a basis for the vector space. Due to this property, we can be sure that the eigenstates of the X-gate and the Y-gate indeed form a basis for 1-qubit states (read more about this in the <a class="reference external" href="https://qiskit.org/textbook/ch-appendix/linear_algebra.html#Matrices-and-Matrix-Operations">linear algebra page</a> in the appendix)</p>
-</section>
-<section id="send-it-after-class-1">
+</div>
+<div class="section" id="send-it-after-class-1">
 <h4>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h4>
 <ol class="simple">
 <li><p>Verify that <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> are in fact eigenstates of the X-gate.</p></li>
@@ -258,9 +267,9 @@
 <li><p>Find the eigenstates of the Y-gate, and their co-ordinates on the Bloch sphere.</p></li>
 </ol>
 <p>Using only the Pauli-gates it is impossible to move our initialized qubit to any state other than <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>, i.e. we cannot achieve superposition. This means we can see no behaviour different to that of a classical bit. To create more interesting states we will need more gates!</p>
-</section>
-</section>
-<section id="the-hadamard-gate-a-id-hgate-a">
+</div>
+</div>
+<div class="section" id="the-hadamard-gate-a-id-hgate-a">
 <h3>3. The Hadamard Gate  <a id="hgate"></a><a class="headerlink" href="#the-hadamard-gate-a-id-hgate-a" title="Permalink to this headline">¶</a></h3>
 <p>The Hadamard gate (H-gate) is a fundamental quantum gate. It allows us to move away from the poles of the Bloch sphere and create a superposition of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>. It has the matrix:</p>
 <div class="math notranslate nohighlight">
@@ -271,16 +280,16 @@
 <div class="math notranslate nohighlight">
 \[ H|1\rangle = |-\rangle \]</div>
 <p>This can be thought of as a rotation around the Bloch vector <code class="docutils literal notranslate"><span class="pre">[1,0,1]</span></code> (the line between the x &amp; z-axis), or as transforming the state of the qubit between the X and Z bases.</p>
-<section id="send-it-after-class-2">
+<div class="section" id="send-it-after-class-2">
 <h4>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h4>
 <ol class="simple">
 <li><p>Write the H-gate as the outer products of vectors <span class="math notranslate nohighlight">\(|0\rangle\)</span>, <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>.</p></li>
 <li><p>Show that applying the sequence of gates: HZH, to any qubit state is equivalent to applying an X-gate.</p></li>
 <li><p>Find a combination of X, Z and H-gates that is equivalent to a Y-gate (ignoring global phase).</p></li>
 </ol>
-</section>
-</section>
-<section id="digression-measuring-in-different-bases-a-id-measuring-a">
+</div>
+</div>
+<div class="section" id="digression-measuring-in-different-bases-a-id-measuring-a">
 <h3>4. Digression: Measuring in Different Bases  <a id="measuring"></a><a class="headerlink" href="#digression-measuring-in-different-bases-a-id-measuring-a" title="Permalink to this headline">¶</a></h3>
 <p>We have seen that the Z-axis is not intrinsically special, and that there are infinitely many other bases. Similarly with measurement, we don’t always have to measure in the computational basis (the Z-basis), we can measure our qubits in any basis.</p>
 <p>As an example, let’s try measuring in the X-basis. We can calculate the probability of measuring either <span class="math notranslate nohighlight">\(|+\rangle\)</span> or <span class="math notranslate nohighlight">\(|-\rangle\)</span>:</p>
@@ -339,7 +348,7 @@ HZH =
 </div>
 </div>
 <p>We initialized our qubit in the state <span class="math notranslate nohighlight">\(|-\rangle\)</span>, but we can see that, after the measurement, we have collapsed our qubit to the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>. If you run the cell again, you will see the same result, since along the X-basis, the state <span class="math notranslate nohighlight">\(|-\rangle\)</span> is a basis state and measuring it along X will always yield the same result.</p>
-<section id="send-it-after-class-3">
+<div class="section" id="send-it-after-class-3">
 <h4>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h4>
 <ol class="simple">
 <li><p>If we initialize our qubit in the state <span class="math notranslate nohighlight">\(|+\rangle\)</span>, what is the probability of measuring it in state <span class="math notranslate nohighlight">\(|-\rangle\)</span>?</p></li>
@@ -350,9 +359,9 @@ HZH =
 <p>For example, if we put our qubit in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, our measurement in the Z-basis is certain to be <span class="math notranslate nohighlight">\(|0\rangle\)</span>, but our measurement in the X-basis is completely random! Similarly, if we put our qubit in the state <span class="math notranslate nohighlight">\(|-\rangle\)</span>, our measurement in the X-basis is certain to be <span class="math notranslate nohighlight">\(|-\rangle\)</span>, but now any measurement in the Z-basis will be completely random.</p>
 <p>More generally: <em>Whatever state our quantum system is in, there is always a measurement that has a deterministic outcome.</em></p>
 <p>The introduction of the H-gate has allowed us to explore some interesting phenomena, but we are still very limited in our quantum operations. Let us now introduce a new type of gate:</p>
-</section>
-</section>
-<section id="the-p-gate-a-id-rzgate-a">
+</div>
+</div>
+<div class="section" id="the-p-gate-a-id-rzgate-a">
 <h3>5. The P-gate  <a id="rzgate"></a><a class="headerlink" href="#the-p-gate-a-id-rzgate-a" title="Permalink to this headline">¶</a></h3>
 <p>The P-gate (phase gate) is <em>parametrised,</em> that is, it needs a number (<span class="math notranslate nohighlight">\(\phi\)</span>) to tell it exactly what to do. The P-gate performs a rotation of <span class="math notranslate nohighlight">\(\phi\)</span> around the Z-axis direction. It has the matrix form:</p>
 <div class="math notranslate nohighlight">
@@ -374,10 +383,10 @@ P(\phi) = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; e^{i\phi} \end{bmatrix}
 </div>
 </div>
 <p>You may notice that the Z-gate is a special case of the P-gate, with <span class="math notranslate nohighlight">\(\phi = \pi\)</span>. In fact there are three more commonly referenced gates we will mention in this chapter, all of which are special cases of the P-gate:</p>
-</section>
-<section id="the-i-s-and-t-gates-a-id-istgates-a">
+</div>
+<div class="section" id="the-i-s-and-t-gates-a-id-istgates-a">
 <h3>6. The I, S and T-gates  <a id="istgates"></a><a class="headerlink" href="#the-i-s-and-t-gates-a-id-istgates-a" title="Permalink to this headline">¶</a></h3>
-<section id="the-i-gate-a-id-igate-a">
+<div class="section" id="the-i-gate-a-id-igate-a">
 <h4>6.1 The I-gate  <a id="igate"></a><a class="headerlink" href="#the-i-gate-a-id-igate-a" title="Permalink to this headline">¶</a></h4>
 <p>First comes the I-gate (aka ‘Id-gate’ or ‘Identity gate’). This is simply a gate that does nothing. Its matrix is the identity matrix:</p>
 <div class="math notranslate nohighlight">
@@ -388,14 +397,14 @@ I = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1\end{bmatrix}
 <div class="math notranslate nohighlight">
 \[ I = XX \]</div>
 <p>The second, is that it is often useful when considering real hardware to specify a ‘do-nothing’ or ‘none’ operation.</p>
-</section>
-<section id="send-it-after-class-4">
+</div>
+<div class="section" id="send-it-after-class-4">
 <h4>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h4>
 <ol class="simple">
 <li><p>What are the eigenstates of the I-gate?</p></li>
 </ol>
-</section>
-<section id="the-s-gates-a-id-sgate-a">
+</div>
+<div class="section" id="the-s-gates-a-id-sgate-a">
 <h4>6.2 The S-gates  <a id="sgate"></a><a class="headerlink" href="#the-s-gates-a-id-sgate-a" title="Permalink to this headline">¶</a></h4>
 <p>The next gate to mention is the S-gate (sometimes known as the <span class="math notranslate nohighlight">\(\sqrt{Z}\)</span>-gate), this is a P-gate with <span class="math notranslate nohighlight">\(\phi = \pi/2\)</span>. It does a quarter-turn around the Bloch sphere. It is important to note that unlike every gate introduced in this chapter so far, the S-gate is <strong>not</strong> its own inverse! As a result, you will often see the S<sup>†</sup>-gate, (also “S-dagger”, “Sdg” or <span class="math notranslate nohighlight">\(\sqrt{Z}^\dagger\)</span>-gate).  The S<sup>†</sup>-gate is clearly an P-gate with <span class="math notranslate nohighlight">\(\phi = -\pi/2\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -418,8 +427,8 @@ I = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1\end{bmatrix}
 <img alt="../../../../_images/Hands-on-3-book_22_0.png" src="../../../../_images/Hands-on-3-book_22_0.png" />
 </div>
 </div>
-</section>
-<section id="the-t-gate-a-id-tgate-a">
+</div>
+<div class="section" id="the-t-gate-a-id-tgate-a">
 <h4>6.3 The T-gate <a id="tgate"></a><a class="headerlink" href="#the-t-gate-a-id-tgate-a" title="Permalink to this headline">¶</a></h4>
 <p>The T-gate is a very commonly used gate, it is an P-gate with <span class="math notranslate nohighlight">\(\phi = \pi/4\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -439,9 +448,9 @@ I = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1\end{bmatrix}
 <img alt="../../../../_images/Hands-on-3-book_24_0.png" src="../../../../_images/Hands-on-3-book_24_0.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="the-u-gate-a-id-generalu-a">
+</div>
+</div>
+<div class="section" id="the-u-gate-a-id-generalu-a">
 <h3>7. The U-gate  <a id="generalU"></a><a class="headerlink" href="#the-u-gate-a-id-generalu-a" title="Permalink to this headline">¶</a></h3>
 <p>As we saw earlier, the I, Z, S &amp; T-gates were all special cases of the more general P-gate. In the same way, the U-gate is the most general of all single-qubit quantum gates. It is a parametrised gate of the form:</p>
 <div class="math notranslate nohighlight">
@@ -493,11 +502,11 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 </div>
 <p>It should be obvious from this that there are an infinite number of possible gates, and that this also includes R<sub>x</sub> and R<sub>y</sub>-gates, although they are not mentioned here. It must also be noted that there is nothing special about the Z-basis, except that it has been selected as the standard computational basis. Qiskit also provides the X equivalent of the S and Sdg-gate i.e. the SX-gate and SXdg-gate respectively. These gates do a quarter-turn with respect to the X-axis around the Block sphere and are a special case of the R<sub>x</sub>-gate.</p>
 <p>Before running on real IBM quantum hardware, all single-qubit operations are compiled down to <span class="math notranslate nohighlight">\(I\)</span> , <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(SX\)</span> and <span class="math notranslate nohighlight">\(R_{z}\)</span> . For this reason they are sometimes called the <em>physical gates</em>.</p>
-</section>
-</section>
-<section id="quantum-measurements">
+</div>
+</div>
+<div class="section" id="quantum-measurements">
 <h2>Quantum Measurements<a class="headerlink" href="#quantum-measurements" title="Permalink to this headline">¶</a></h2>
-<section id="part-1-measuring-the-state-of-a-qubit">
+<div class="section" id="part-1-measuring-the-state-of-a-qubit">
 <h3>Part 1: Measuring the state of a qubit<a class="headerlink" href="#part-1-measuring-the-state-of-a-qubit" title="Permalink to this headline">¶</a></h3>
 <br>
 <div style="background: #E8E7EB; border-radius: 5px;
@@ -523,7 +532,7 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 </div>
 </div>
 </div>
-<section id="express-the-expectation-values-of-the-pauli-operators-for-an-arbitrary-qubit-state-q-rangle-in-the-computational-basis">
+<div class="section" id="express-the-expectation-values-of-the-pauli-operators-for-an-arbitrary-qubit-state-q-rangle-in-the-computational-basis">
 <h4>1. Express the expectation values of the Pauli operators for an arbitrary qubit state <span class="math notranslate nohighlight">\(|q\rangle\)</span> in the computational basis.<a class="headerlink" href="#express-the-expectation-values-of-the-pauli-operators-for-an-arbitrary-qubit-state-q-rangle-in-the-computational-basis" title="Permalink to this headline">¶</a></h4>
 <p>The case for the expectation value of Pauli Z gate is given as an example.</p>
 <p>Using the diagonal representation, also known as spectral form or orthonormal decomposition, of Pauli <span class="math notranslate nohighlight">\(Z\)</span> gate and the relations among the Pauli gates (see <a class="reference external" href="https://qiskit.org/textbook/ch-states/single-qubit-gates.html">here</a>), expectation values of <span class="math notranslate nohighlight">\( X, Y, Z \)</span> gates can be written as</p>
@@ -539,10 +548,10 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 \end{split}\]</div>
 <p>, respectively.</p>
 <p>Therefore, the expectation values of the Paulis for a qubit state <span class="math notranslate nohighlight">\(|q\rangle\)</span> can be obtained by making a measurement in the standard basis after rotating the standard basis frame to lie along the corresponding axis. The probabilities of obtaining the two possible outcomes 0 and 1 are used to evaluate the desired expectation value as the above equations show.</p>
-</section>
-<section id="measure-the-bloch-sphere-coordinates-of-a-qubit-using-the-aer-simulator-and-plot-the-vector-on-the-bloch-sphere">
+</div>
+<div class="section" id="measure-the-bloch-sphere-coordinates-of-a-qubit-using-the-aer-simulator-and-plot-the-vector-on-the-bloch-sphere">
 <h4>2. Measure the Bloch sphere coordinates of a qubit using the Aer simulator and plot the vector on the Bloch sphere.<a class="headerlink" href="#measure-the-bloch-sphere-coordinates-of-a-qubit-using-the-aer-simulator-and-plot-the-vector-on-the-bloch-sphere" title="Permalink to this headline">¶</a></h4>
-<section id="step-a-create-a-qubit-state-using-the-circuit-method-code-initialize-code-with-two-random-complex-numbers-as-the-parameter">
+<div class="section" id="step-a-create-a-qubit-state-using-the-circuit-method-code-initialize-code-with-two-random-complex-numbers-as-the-parameter">
 <h5>Step A. Create a qubit state using the circuit method, <code>initialize</code> with two random complex numbers as the parameter.<a class="headerlink" href="#step-a-create-a-qubit-state-using-the-circuit-method-code-initialize-code-with-two-random-complex-numbers-as-the-parameter" title="Permalink to this headline">¶</a></h5>
 <p>To learn how to use the function <code class="docutils literal notranslate"><span class="pre">initialize</span></code>, check <a class="reference external" href="https://qiskit.org/documentation/tutorials/circuits/3_summary_of_quantum_operations.html#Arbitrary-initialization">here</a>. (go to the <code class="docutils literal notranslate"><span class="pre">arbitrary</span> <span class="pre">initialization</span></code> section.)</p>
 <div class="cell docutils container">
@@ -554,8 +563,8 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 </div>
 </div>
 </div>
-</section>
-<section id="step-b-build-the-circuits-to-measure-the-expectation-values-of-x-y-z-gate-based-on-your-answers-to-the-question-1-run-the-cell-below-to-estimate-the-bloch-sphere-coordinates-of-the-qubit-from-step-a-using-the-aer-simulator">
+</div>
+<div class="section" id="step-b-build-the-circuits-to-measure-the-expectation-values-of-x-y-z-gate-based-on-your-answers-to-the-question-1-run-the-cell-below-to-estimate-the-bloch-sphere-coordinates-of-the-qubit-from-step-a-using-the-aer-simulator">
 <h5>Step B. Build the circuits to measure the expectation values of <span class="math notranslate nohighlight">\(X, Y, Z\)</span> gate based on your answers to the question 1.  Run the cell below to estimate the Bloch sphere coordinates of the qubit from step A using the Aer simulator.<a class="headerlink" href="#step-b-build-the-circuits-to-measure-the-expectation-values-of-x-y-z-gate-based-on-your-answers-to-the-question-1-run-the-cell-below-to-estimate-the-bloch-sphere-coordinates-of-the-qubit-from-step-a-using-the-aer-simulator" title="Permalink to this headline">¶</a></h5>
 <p>The circuit for <span class="math notranslate nohighlight">\(Z\)</span> gate measurement is given as an example.</p>
 <div class="cell docutils container">
@@ -623,7 +632,7 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 <span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="c1"># calculate the probabilities for each bit value</span>
 <span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="n">probs</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/result/result.py:300,</span> in <span class="ni">Result.get_counts</span><span class="nt">(self, experiment)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/result/result.py:300,</span> in <span class="ni">Result.get_counts</span><span class="nt">(self, experiment)</span>
 <span class="g g-Whitespace">    </span><span class="mi">298</span>         <span class="n">dict_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">statevector</span><span class="o">.</span><span class="n">Statevector</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="o">.</span><span class="n">probabilities_dict</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
 <span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="k">else</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">300</span>         <span class="k">raise</span> <span class="n">QiskitError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No counts for experiment &quot;</span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
@@ -635,8 +644,8 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 </div>
 </div>
 </div>
-</section>
-<section id="step-c-plot-the-vector-on-the-bloch-sphere">
+</div>
+<div class="section" id="step-c-plot-the-vector-on-the-bloch-sphere">
 <h5>Step C. Plot the vector on the Bloch sphere.<a class="headerlink" href="#step-c-plot-the-vector-on-the-bloch-sphere" title="Permalink to this headline">¶</a></h5>
 <p>Note that the following cell for the interactive bloch_sphere would not run properly unless you work in <a class="reference external" href="https://quantum-computing.ibm.com/login">IQX</a>. You can either use <code class="docutils literal notranslate"><span class="pre">plot_bloch_vector</span></code> for the non-interactive version or install <code class="docutils literal notranslate"><span class="pre">kaleidoscope</span></code> by running</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">kaleidoscope</span>
@@ -662,10 +671,10 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="part-2-measuring-energy">
+</div>
+</div>
+</div>
+<div class="section" id="part-2-measuring-energy">
 <h3>Part 2: Measuring Energy<a class="headerlink" href="#part-2-measuring-energy" title="Permalink to this headline">¶</a></h3>
 <br>
 <div style="background: #E8E7EB; border-radius: 5px;
@@ -683,7 +692,7 @@ U(0, 0, \lambda) = \begin{bmatrix} 1 &amp; 0 \\
 <p>The ground state of hydrogen is not defined as a single unique state but actually contains four different states due to the spins of the electron and proton. In part 2 of this lab, we evaluate the energy difference among these four states, which is from the <code class="docutils literal notranslate"><span class="pre">hyperfine</span> <span class="pre">splitting</span></code>, by computing the energy expectation value for the system of two spins with the Hamiltonian expressed in Pauli operators. For more information about <code class="docutils literal notranslate"><span class="pre">hyperfine</span> <span class="pre">structure</span></code>, see <a class="reference external" href="https://www.feynmanlectures.caltech.edu/III_12.html">here</a></p>
 <p>Consider the system with two qubit interaction Hamiltonian <span class="math notranslate nohighlight">\(H = A(XX+YY+ZZ)\)</span> where <span class="math notranslate nohighlight">\(A = 1.47e^{-6} eV\)</span> and <span class="math notranslate nohighlight">\(X, Y, Z\)</span> are Pauli gates. Then the energy expectation value of the system can be evaluated by combining the expectation value of each term in the Hamiltonian.
 In this case, <span class="math notranslate nohighlight">\(E = \langle H\rangle = A( \langle XX\rangle + \langle YY\rangle + \langle ZZ\rangle )\)</span>.</p>
-<section id="express-the-expectation-value-of-each-term-in-the-hamiltonian-for-an-arbitrary-two-qubit-state-psi-rangle-in-the-computational-basis">
+<div class="section" id="express-the-expectation-value-of-each-term-in-the-hamiltonian-for-an-arbitrary-two-qubit-state-psi-rangle-in-the-computational-basis">
 <h4>1. Express the expectation value of each term in the Hamiltonian for an arbitrary two qubit state   <span class="math notranslate nohighlight">\(|\psi \rangle\)</span> in the computational basis.<a class="headerlink" href="#express-the-expectation-value-of-each-term-in-the-hamiltonian-for-an-arbitrary-two-qubit-state-psi-rangle-in-the-computational-basis" title="Permalink to this headline">¶</a></h4>
 <p>The case for the term <span class="math notranslate nohighlight">\(\langle ZZ\rangle\)</span> is given as an example.</p>
 <div class="math notranslate nohighlight">
@@ -695,15 +704,15 @@ In this case, <span class="math notranslate nohighlight">\(E = \langle H\rangle 
 \langle YY\rangle &amp;=
 \end{align}
 \end{split}\]</div>
-</section>
-<section id="measure-the-expected-energy-of-the-system-using-the-aer-simulator-when-two-qubits-are-entangled-regard-the-bell-basis-four-different-entangled-states">
+</div>
+<div class="section" id="measure-the-expected-energy-of-the-system-using-the-aer-simulator-when-two-qubits-are-entangled-regard-the-bell-basis-four-different-entangled-states">
 <h4>2. Measure the expected energy of the system using the Aer simulator when two qubits are entangled. Regard the bell basis, four different entangled states.<a class="headerlink" href="#measure-the-expected-energy-of-the-system-using-the-aer-simulator-when-two-qubits-are-entangled-regard-the-bell-basis-four-different-entangled-states" title="Permalink to this headline">¶</a></h4>
-<section id="step-a-construct-the-circuits-to-prepare-four-different-bell-states">
+<div class="section" id="step-a-construct-the-circuits-to-prepare-four-different-bell-states">
 <h5>Step A. Construct the circuits to prepare four different bell states.<a class="headerlink" href="#step-a-construct-the-circuits-to-prepare-four-different-bell-states" title="Permalink to this headline">¶</a></h5>
 <p>Let’s label each bell state as
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5b39de11-7270-4b39-ae2f-6699519798c0">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5b39de11-7270-4b39-ae2f-6699519798c0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8d61515e-2cb2-4068-86f3-f7e67e7185da">
+<span class="eqno">(1)<a class="headerlink" href="#equation-8d61515e-2cb2-4068-86f3-f7e67e7185da" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Tri1 &amp;= \frac{1}{\sqrt2} (|00\rangle + |11\rangle)\\
 Tri2 &amp;= \frac{1}{\sqrt2} (|00\rangle - |11\rangle)\\
 Tri3 &amp;= \frac{1}{\sqrt2} (|01\rangle + |10\rangle)\\
@@ -745,8 +754,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-b-create-the-circuits-to-measure-the-expectation-value-of-each-term-in-the-hamiltonian-based-on-your-answer-to-the-question-1">
+</div>
+<div class="section" id="step-b-create-the-circuits-to-measure-the-expectation-value-of-each-term-in-the-hamiltonian-based-on-your-answer-to-the-question-1">
 <h5>Step B. Create the circuits to measure the expectation value of each term in the Hamiltonian based on your answer to the question 1.<a class="headerlink" href="#step-b-create-the-circuits-to-measure-the-expectation-value-of-each-term-in-the-hamiltonian-based-on-your-answer-to-the-question-1" title="Permalink to this headline">¶</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -769,8 +778,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-c-execute-the-circuits-on-aer-simulator-by-running-the-cell-below-and-evaluate-the-energy-expectation-value-for-each-state">
+</div>
+<div class="section" id="step-c-execute-the-circuits-on-aer-simulator-by-running-the-cell-below-and-evaluate-the-energy-expectation-value-for-each-state">
 <h5>Step C. Execute the circuits on Aer simulator by running the cell below and evaluate the energy expectation value for each state.<a class="headerlink" href="#step-c-execute-the-circuits-on-aer-simulator-by-running-the-cell-below-and-evaluate-the-energy-expectation-value-for-each-state" title="Permalink to this headline">¶</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -814,8 +823,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-d-understanding-the-result">
+</div>
+<div class="section" id="step-d-understanding-the-result">
 <h5>Step D. Understanding the result.<a class="headerlink" href="#step-d-understanding-the-result" title="Permalink to this headline">¶</a></h5>
 <p>If you found the energy expectation values successfully, you would have obtained exactly the same value, <span class="math notranslate nohighlight">\(A (= 1.47e^{-6} eV)\)</span>, for the triplet states, <span class="math notranslate nohighlight">\(|Tri1\rangle, |Tri2\rangle, |Tri3\rangle\)</span> and one lower energy level, <span class="math notranslate nohighlight">\(-3A (= -4.41e^{-6} eV)\)</span> for the singlet state <span class="math notranslate nohighlight">\(|Sing\rangle\)</span>.</p>
 <p>What we have done here is measuring the energies of the four different spin states corresponding to the ground state of hydrogen and observed <code class="docutils literal notranslate"><span class="pre">hyperfine</span> <span class="pre">structure</span></code> in the energy levels caused by spin-spin coupling.  This tiny energy difference between the singlet and triplet states is the reason for the famous 21-cm wavelength radiation used to map the structure of the galaxy.</p>
@@ -840,10 +849,10 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="part-3-execute-the-circuits-on-quantum-computer">
+</div>
+</div>
+</div>
+<div class="section" id="part-3-execute-the-circuits-on-quantum-computer">
 <h3>Part 3: Execute the circuits on Quantum Computer<a class="headerlink" href="#part-3-execute-the-circuits-on-quantum-computer" title="Permalink to this headline">¶</a></h3>
 <br>
 <div style="background: #E8E7EB; border-radius: 5px;
@@ -856,7 +865,7 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
             "><b>Goal</b></p>
     <p style=" padding: 0px 0px 10px 10px;
               font-size:16px;"> Re-run the circuits on a IBM quantum system.  Perform measurement error mitigations on the result to improve the accuracy in the energy estimation.</p>
-</div><section id="step-a-run-the-following-cells-to-load-your-account-and-select-the-backend">
+</div><div class="section" id="step-a-run-the-following-cells-to-load-your-account-and-select-the-backend">
 <h4>Step A. Run the following cells to load your account and select the backend<a class="headerlink" href="#step-a-run-the-following-cells-to-load-your-account-and-select-the-backend" title="Permalink to this headline">¶</a></h4>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -872,8 +881,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-b-execute-the-circuits-on-the-quantum-system">
+</div>
+<div class="section" id="step-b-execute-the-circuits-on-the-quantum-system">
 <h4>Step B. Execute the circuits on the quantum system.<a class="headerlink" href="#step-b-execute-the-circuits-on-the-quantum-system" title="Permalink to this headline">¶</a></h4>
 <p>In Lab1 when we executed multiple circuits on a real quantum system, we submitted each circuit as a separate job which produces the multiple job ids. This time, we put all the circuits in a list and execute the list of the circuits as one job. In this way, all the circuit executions can happen at once, which would possibly decrease your wait time in the queue.</p>
 <p>&#128211; Check the backend configuration information and error map through the widget to determine your <code>initial_layout</code>.<div class="cell tag_uses-hardware docutils container">
@@ -922,8 +931,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-c-estimate-the-ground-state-energy-levels-from-the-results-of-the-previous-step-by-executing-the-cells-below">
+</div>
+<div class="section" id="step-c-estimate-the-ground-state-energy-levels-from-the-results-of-the-previous-step-by-executing-the-cells-below">
 <h4>Step C. Estimate the ground state energy levels from the results of the previous step by executing the cells below.<a class="headerlink" href="#step-c-estimate-the-ground-state-energy-levels-from-the-results-of-the-previous-step-by-executing-the-cells-below" title="Permalink to this headline">¶</a></h4>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -974,8 +983,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-d-measurement-error-mitigation">
+</div>
+<div class="section" id="step-d-measurement-error-mitigation">
 <h4>Step D. Measurement error mitigation.<a class="headerlink" href="#step-d-measurement-error-mitigation" title="Permalink to this headline">¶</a></h4>
 <p>The results you obtained from running the circuits on the quantum system are not exact due to the noise from the various sources such as enery relaxation, dephasing, crosstalk between qubits, etc. In this step, we will alleviate the effects of the noise through the measurement error mitigation. Before we start, watch this <a class="reference external" href="https://www.youtube.com/watch?v=yuDxHJOKsVA&amp;list=PLOFEBzvs-Vvp2xg9-POLJhQwtVktlYGbY&amp;index=8">video</a>.</p>
 <div class="cell docutils container">
@@ -1028,8 +1037,8 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 </div>
-</section>
-<section id="step-e-interpret-the-result">
+</div>
+<div class="section" id="step-e-interpret-the-result">
 <h4>Step E. Interpret the result.<a class="headerlink" href="#step-e-interpret-the-result" title="Permalink to this headline">¶</a></h4>
 <p>&#128211; Compute the relative errors ( or the fractional error ) of the energy values for all four states with and without measurement error mitigation.<p><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1080,10 +1089,10 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 <p>&#128211; Compare the size of the errors before and after the measurment error mitigation and discuss about the effect of the readout error regarding the error map information of the backend that you selected.<p>  <p><strong>Your answer:</strong></p>
-</section>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
+</div>
 
 
 <script type="application/vnd.jupyter.widget-state+json">
@@ -1111,7 +1120,7 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

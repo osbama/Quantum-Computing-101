@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hands-on 6 : &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -103,9 +104,9 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-6">
+  <div class="tex2jax_ignore mathjax_ignore section" id="hands-on-6">
 <h1>Hands-on 6 :<a class="headerlink" href="#hands-on-6" title="Permalink to this headline">¶</a></h1>
-<section id="entanglement-purification-the-bbpssw-protocol">
+<div class="section" id="entanglement-purification-the-bbpssw-protocol">
 <h2>Entanglement Purification: The BBPSSW Protocol<a class="headerlink" href="#entanglement-purification-the-bbpssw-protocol" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -115,12 +116,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71327209472656</td></tr><tr><td colspan='2'>Thu Apr 28 08:28:48 2022 +03</td></tr></table></div></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
 </div>
-</section>
-<section id="part-i-introduction-to-entanglement-purification-and-the-bbpssw-protocol">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-finance</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78763580322266</td></tr><tr><td colspan='2'>Thu May 26 07:44:30 2022 +03</td></tr></table></div></div>
+</div>
+</div>
+<div class="section" id="part-i-introduction-to-entanglement-purification-and-the-bbpssw-protocol">
 <h2>Part I: Introduction to Entanglement Purification and the BBPSSW Protocol<a class="headerlink" href="#part-i-introduction-to-entanglement-purification-and-the-bbpssw-protocol" title="Permalink to this headline">¶</a></h2>
-<section id="concept">
+<div class="section" id="concept">
 <h3>1.1 Concept<a class="headerlink" href="#concept" title="Permalink to this headline">¶</a></h3>
 <p>The concept of <strong>entanglement purification</strong> was introduced by C. H. Bennett <em>et al.</em> [1]. Following the names of the authors, the original protocol is also called the <strong>BBPSSW protocol</strong>. The basic idea of entanglement purification is to create an (almost) maximally entangled Bell state by distilling entanglement from a larger number of qubit pairs that are not maximally entangled. For this reason, this concept is also referred to as <strong>entanglement distillation</strong>. Purification usually has to be performed by two remote parties, so only local operations, measurements and classical two-way communication are allowed for entanglement purification protocols.</p>
 <p>Many applications of quantum information processing, such as quantum teleportation [2] or entanglement-based quantum cryptography [3], use the maximally entangled <em>Bell states</em> <span class="math notranslate nohighlight">\(\{|\Phi^{\pm}\rangle, |\Psi^{\pm}\rangle\}\)</span>,</p>
@@ -138,10 +149,10 @@ F = \langle \Psi^- | \rho_\textrm{S} | \Psi^- \rangle.
 <a class="reference internal image-reference" href="../../../../_images/fig01.png"><img alt="../../../../_images/fig01.png" src="../../../../_images/fig01.png" style="width: 400px;" /></a>
 <p>The basic idea of the BBPSSW protocol is that Alice and Bob take two copies of the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span> and perform certain quantum operations locally on their qubits to finally generate a single two-qubit state with larger fidelity <span class="math notranslate nohighlight">\(F' &gt; F\)</span>. When this is achieved, the process can be iterated to produce even larger fidelities until a maximally entangled Bell state <span class="math notranslate nohighlight">\(| \Psi^- \rangle\)</span> is obtained.</p>
 <p>In the following section we will explain the BBPSSW protocol step by step and show how Alice and Bob can increase the entanglement of the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>.</p>
-</section>
-<section id="quantum-protocol">
+</div>
+<div class="section" id="quantum-protocol">
 <h3>1.2 Quantum Protocol<a class="headerlink" href="#quantum-protocol" title="Permalink to this headline">¶</a></h3>
-<section id="step-1-creation-of-a-werner-state-through-random-bilateral-rotation">
+<div class="section" id="step-1-creation-of-a-werner-state-through-random-bilateral-rotation">
 <h4>Step 1: Creation of a Werner State through Random Bilateral Rotation<a class="headerlink" href="#step-1-creation-of-a-werner-state-through-random-bilateral-rotation" title="Permalink to this headline">¶</a></h4>
 <p>From the two-qubit source state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span> the two parties Alice and Bob must first create a so-called <strong>Werner state</strong> <span class="math notranslate nohighlight">\(W_F\)</span>,</p>
 <div class="math notranslate nohighlight">
@@ -170,8 +181,8 @@ W_F = \frac{1}{12} \sum_{i=1}^{12} U_i \rho_\textrm{S} U_i^\dagger,
 <p>We summarize the quantum operations performed locally by Alice and Bob in a graphical illustration for the sake of clarity:</p>
 <a class="reference internal image-reference" href="../../../../_images/fig02.png"><img alt="../../../../_images/fig02.png" src="../../../../_images/fig02.png" style="width: 1000px;" /></a>
 <p>Here Alice’s and Bob’s qubit are referred to as <span class="math notranslate nohighlight">\(q_A\)</span> and <span class="math notranslate nohighlight">\(q_B\)</span>, and <span class="math notranslate nohighlight">\(U_{i, A(B)}\)</span> denotes Alice’s (Bob’s) single-qubit part of the randomly selected operation <span class="math notranslate nohighlight">\(U_i\)</span>.</p>
-</section>
-<section id="step-2-exchange-of-psi-rangle-and-phi-rangle-components">
+</div>
+<div class="section" id="step-2-exchange-of-psi-rangle-and-phi-rangle-components">
 <h4>Step 2: Exchange of <span class="math notranslate nohighlight">\(|\Psi^-\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Phi^+\rangle\)</span> Components<a class="headerlink" href="#step-2-exchange-of-psi-rangle-and-phi-rangle-components" title="Permalink to this headline">¶</a></h4>
 <p>After Alice and Bob have prepared the state <span class="math notranslate nohighlight">\(W_F\)</span>, one of the parties rotates its qubit by an angle of <span class="math notranslate nohighlight">\(\pi\)</span> around the <span class="math notranslate nohighlight">\(y\)</span> axis, which corresponds to using a <span class="math notranslate nohighlight">\(Y\)</span> gate,</p>
 <div class="math notranslate nohighlight">
@@ -189,16 +200,16 @@ i &amp; 0 \\
 \]</div>
 <p>where total phases were omitted in this representation. Without loss of generality, we assume that Alice performs this unilateral rotation, so that the quantum circuit of the protocol up to this point looks like this:</p>
 <a class="reference internal image-reference" href="../../../../_images/fig03.png"><img alt="../../../../_images/fig03.png" src="../../../../_images/fig03.png" style="width: 1000px;" /></a>
-</section>
-<section id="step-3-application-of-bilateral-cnot-gate">
+</div>
+<div class="section" id="step-3-application-of-bilateral-cnot-gate">
 <h4>Step 3: Application of Bilateral CNOT Gate<a class="headerlink" href="#step-3-application-of-bilateral-cnot-gate" title="Permalink to this headline">¶</a></h4>
 <p>Now that Alice and Bob can prepare the states <span class="math notranslate nohighlight">\(\rho_F\)</span> from the source states <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>, they will use two copies of <span class="math notranslate nohighlight">\(\rho_F\)</span> to increase the entanglement of one of these copies. In the first step, the two parties must apply a so-called bilateral CNOT gate to the two qubit pairs <span class="math notranslate nohighlight">\(\rho_F\)</span>.</p>
 <p>A bilateral CNOT gate means that Alice and Bob each apply a CNOT gate to the two qubits they have locally available. The qubit from the first pair serves as the control qubit in the local CNOT operation, while the corresponding qubit from the second pair serves as the target qubit. Remember: In a CNOT gate, the state of the target qubit is flipped if and only if the control qubit is in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
 <p>If we now consider all four qubits from the two source qubit pairs <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>, the local quantum circuits of Alice and Bob look like this:</p>
 <a class="reference internal image-reference" href="../../../../_images/fig04.png"><img alt="../../../../_images/fig04.png" src="../../../../_images/fig04.png" style="width: 1000px;" /></a>
 <p>Here we have denoted Alice’s (Bob’s) control qubit <span class="math notranslate nohighlight">\(q_{A(B),c}\)</span> and the corresponding target qubit <span class="math notranslate nohighlight">\(q_{A(B),t}\)</span>.</p>
-</section>
-<section id="step-4-measurement-of-target-qubits">
+</div>
+<div class="section" id="step-4-measurement-of-target-qubits">
 <h4>Step 4: Measurement of Target Qubits<a class="headerlink" href="#step-4-measurement-of-target-qubits" title="Permalink to this headline">¶</a></h4>
 <p>In the second step, Alice and Bob measure the target qubits <span class="math notranslate nohighlight">\(q_{A,t}\)</span> and <span class="math notranslate nohighlight">\(q_{B,t}\)</span> in the computational basis <span class="math notranslate nohighlight">\(\{|0\rangle, |1\rangle \}\)</span>:</p>
 <a class="reference internal image-reference" href="../../../../_images/fig05.png"><img alt="../../../../_images/fig05.png" src="../../../../_images/fig05.png" style="width: 1000px;" /></a>
@@ -255,8 +266,8 @@ F' \equiv F'(F) = \langle \Phi^+ | \rho'_{F'}| \Phi^+ \rangle = \frac{F^2 + \fra
 </div>
 </div>
 <p>So, if the input fidelity <span class="math notranslate nohighlight">\(F\)</span> of the source state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span> is larger than 1/2, Alice and Bob can distill entanglement from two copies of that state and increase the fidelity of one of those copies. The two parties can then use two qubit pairs whose fidelity has already been increased to create another qubit pair with even higher fidelity, and so on. By iterating the procedure of the BBPSSW protocol described above, the fidelity of a two-qubit state can thus be brought arbitrarily close to 1, which in turn corresponds to a maximally-entangled Bell state.</p>
-</section>
-<section id="step-5-restoration-of-werner-state">
+</div>
+<div class="section" id="step-5-restoration-of-werner-state">
 <h4>Step 5: Restoration of Werner State<a class="headerlink" href="#step-5-restoration-of-werner-state" title="Permalink to this headline">¶</a></h4>
 <p>Note that the state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> does not usually have the form of <span class="math notranslate nohighlight">\(\rho_{F}\)</span>, i.e. it can contain off-diagonal elements in the Bell basis and the components of <span class="math notranslate nohighlight">\(|\Phi^{-}\rangle\)</span>, <span class="math notranslate nohighlight">\(|\Psi^{+}\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Psi^{-}\rangle\)</span> differ in size. But in order to perform a subsequent purification round, we must bring <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> into the form of <span class="math notranslate nohighlight">\(\rho_{F}\)</span>, i.e. we must create something like a state <span class="math notranslate nohighlight">\(\rho_{F'}\)</span>,</p>
 <div class="math notranslate nohighlight">
@@ -276,13 +287,13 @@ W_{F'} = F' |\Psi^-\rangle \langle \Psi^-| + \frac{1-F'}{3}\left(|\Psi^+\rangle 
 \]</div>
 <p>because we know the twirl operation leaves the <span class="math notranslate nohighlight">\(|\Psi^- \rangle\)</span> component unchanged.</p>
 <p>Herewith we finish the introductory part and turn to the implementation in Qiskit. We will explain in detail how steps 1 - 4 described above can be implemented in Qiskit to determine the state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> and calcutate the final <span class="math notranslate nohighlight">\(F'\)</span> fidelity.</p>
-</section>
-</section>
-</section>
-<section id="part-ii-implementation-of-quantum-circuit-for-bbpssw-protocol-in-qiskit">
+</div>
+</div>
+</div>
+<div class="section" id="part-ii-implementation-of-quantum-circuit-for-bbpssw-protocol-in-qiskit">
 <h2>Part II: Implementation of Quantum Circuit for BBPSSW Protocol in Qiskit<a class="headerlink" href="#part-ii-implementation-of-quantum-circuit-for-bbpssw-protocol-in-qiskit" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
-<section id="basic-code-imports">
+<div class="section" id="basic-code-imports">
 <h3>2.1 Basic Code Imports<a class="headerlink" href="#basic-code-imports" title="Permalink to this headline">¶</a></h3>
 <p>To use Qiskit in this initial part of the tutorial in which we create a quantum circuit for the BBPSSW protocol, we must first import the necessary base code from the Qiskit module:</p>
 <div class="cell docutils container">
@@ -305,8 +316,8 @@ W_{F'} = F' |\Psi^-\rangle \langle \Psi^-| + \frac{1-F'}{3}\left(|\Psi^+\rangle 
 </div>
 </div>
 </div>
-</section>
-<section id="definitions">
+</div>
+<div class="section" id="definitions">
 <h3>2.2 Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h3>
 <p>As described in <strong>Part I</strong>, to demonstrate entanglement purification, the fidelity of quantum states towards a maximally-entangled Bell state must be calculated. This calculation is later performed with an integrated Qiskit function that returns the fidelity between two states when specified as numpy arrays.</p>
 <p>We therefore define the four Bell states in the basis <span class="math notranslate nohighlight">\(\{|00\rangle, |01\rangle, |10\rangle, |11\rangle\}\)</span> as numpy arrays:</p>
@@ -342,11 +353,11 @@ W_{F'} = F' |\Psi^-\rangle \langle \Psi^-| + \frac{1-F'}{3}\left(|\Psi^+\rangle 
 </div>
 </div>
 </div>
-</section>
-<section id="quantum-register-and-quantum-circuit">
+</div>
+<div class="section" id="quantum-register-and-quantum-circuit">
 <h3>2.3 Quantum Register and Quantum Circuit<a class="headerlink" href="#quantum-register-and-quantum-circuit" title="Permalink to this headline">¶</a></h3>
 <p>This section describes how to implement the quantum circuit for entanglement purififcation in Qiskit. For a better understanding, we divide the quantum circuit into its individual parts according to the individual steps in <strong>Part I</strong>. This means that we first simulate the source of the entangled qubits to create two qubits in the source state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>. We then integrate steps 1 (random bilateral rotation) to 3 (bilateral CNOT gate) individually. Step 4 (measurement of target qubits) will then be dealt with separately later, as the implementation is a little trickier here.</p>
-<section id="quantum-register">
+<div class="section" id="quantum-register">
 <h4>2.3.1 Quantum Register<a class="headerlink" href="#quantum-register" title="Permalink to this headline">¶</a></h4>
 <p>The BBPSSW protocol works with two entangled qubit pairs. In order to implement this protocol, we therefore need a quantum register consisting of four qubits on which our quantum circuit to be defined runs.</p>
 <p>In Qiskit a quantum register is an instance of the class <code class="docutils literal notranslate"><span class="pre">QuantumRegister</span></code> and we can create a register with four qubits in the following way:</p>
@@ -357,8 +368,8 @@ W_{F'} = F' |\Psi^-\rangle \langle \Psi^-| + \frac{1-F'}{3}\left(|\Psi^+\rangle 
 </div>
 </div>
 </div>
-</section>
-<section id="circuit-for-initialization-of-source-state">
+</div>
+<div class="section" id="circuit-for-initialization-of-source-state">
 <h4>2.3.2 Circuit for Initialization of Source State<a class="headerlink" href="#circuit-for-initialization-of-source-state" title="Permalink to this headline">¶</a></h4>
 <p>First of all we have to create qubit pairs in the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>. Our goal at the beginning is therefore to simulate the source <span class="math notranslate nohighlight">\(S\)</span>, which produces entangled qubits in the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>, which have an initial fidelity <span class="math notranslate nohighlight">\(F &gt; 1/2\)</span>. Remember that such a high fidelity is required for the purification protocol to work.</p>
 <p>To achieve this, we will implement a quantum circuit that creates the following state <span class="math notranslate nohighlight">\(|\psi_\textrm{S} \rangle\)</span> between two qubits,</p>
@@ -568,8 +579,8 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 \cos\left(\frac{\theta}{2}\right) |0\rangle_{2} |1\rangle_{3} - \sin\left(\frac{\theta}{2}\right) |1\rangle_{2} |0\rangle_{3}.
 \]</div>
 <p>We call this state <span class="math notranslate nohighlight">\(|\psi_\textrm{target}\rangle\)</span> because the two qubits are the target pair of the BBPSSW protocol.</p>
-</section>
-<section id="send-it-after-class-1">
+</div>
+<div class="section" id="send-it-after-class-1">
 <h4>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h4>
 <p>Add the necessary quantum gates to the circuit <code class="docutils literal notranslate"><span class="pre">source_circ</span></code> so that the state <span class="math notranslate nohighlight">\(|\psi_\textrm{S}\rangle\)</span> is generated between qubits 2 and 3. The implementation can be done in analogy to the above steps in which this state was generated between the control qubits.</p>
 <div class="cell docutils container">
@@ -611,8 +622,8 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 </div>
 </div>
 </div>
-</section>
-<section id="implementation-of-twirl-operation-by-random-bilateral-rotation">
+</div>
+<div class="section" id="implementation-of-twirl-operation-by-random-bilateral-rotation">
 <h4>2.3.3 Implementation of Twirl Operation by Random Bilateral Rotation<a class="headerlink" href="#implementation-of-twirl-operation-by-random-bilateral-rotation" title="Permalink to this headline">¶</a></h4>
 <p>To implement the twirl operation, we create another instance of a quantum circuit called <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code> that performs the random bilateral rotation explained in step 1 of <strong>Sec. 1.2</strong>:</p>
 <div class="cell docutils container">
@@ -741,8 +752,8 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 W_F = F |\Psi^-\rangle \langle \Psi^-| + \frac{1-F}{3}\left(|\Psi^+\rangle \langle \Psi^+|+|\Phi^+\rangle \langle \Phi^+|+|\Phi^-\rangle \langle \Phi^-|\right).  
 \]</div>
 <p>This means that on average the control and target pairs are brought into a Werner state after the circuit <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code> has been applied.</p>
-</section>
-<section id="exchange-of-psi-rangle-and-phi-rangle-components">
+</div>
+<div class="section" id="exchange-of-psi-rangle-and-phi-rangle-components">
 <h4>2.3.4 Exchange of <span class="math notranslate nohighlight">\(|\Psi^-\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Phi^+\rangle\)</span> Components<a class="headerlink" href="#exchange-of-psi-rangle-and-phi-rangle-components" title="Permalink to this headline">¶</a></h4>
 <p>The next step is that Alice applies a unilateral <span class="math notranslate nohighlight">\(\pi\)</span> rotation around the <span class="math notranslate nohighlight">\(y\)</span> axis to her qubits, so that the components of <span class="math notranslate nohighlight">\(|\Psi^-\rangle\)</span> and <span class="math notranslate nohighlight">\(|\Phi^+\rangle\)</span> are exchanged in the control and the target pair, which leads to the transformation of a Werner state <span class="math notranslate nohighlight">\(W_F\)</span> into the state <span class="math notranslate nohighlight">\(\rho_F\)</span> (see step 2, <strong>Sec 1.2</strong>),</p>
 <div class="math notranslate nohighlight">
@@ -785,12 +796,12 @@ i &amp; 0 \\
 </div>
 </div>
 <p>If the quantum circuit <code class="docutils literal notranslate"><span class="pre">purification_circ</span></code> is applied to two qubit pairs in the Werner state <span class="math notranslate nohighlight">\(W_F\)</span>, this results in two qubit pairs in the state <span class="math notranslate nohighlight">\(\rho_F\)</span>.</p>
-</section>
-<section id="application-of-bilateral-cnot-gate">
+</div>
+<div class="section" id="application-of-bilateral-cnot-gate">
 <h4>2.3.5 Application of Bilateral CNOT Gate<a class="headerlink" href="#application-of-bilateral-cnot-gate" title="Permalink to this headline">¶</a></h4>
 <p>The next step of the BBPSSW protocol is that Alice and Bob apply a bilateral CNOT gate. This means that Alice and Bob each perform a CNOT gate between the two qubits they hold locally (step 3, <strong>Sec 1.2</strong>).</p>
-</section>
-<section id="send-it-after-class-2">
+</div>
+<div class="section" id="send-it-after-class-2">
 <h4>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h4>
 <p>We have already defined the arrays <code class="docutils literal notranslate"><span class="pre">control_qubits</span></code> and <code class="docutils literal notranslate"><span class="pre">target_qubits</span></code> above, which contain the qubits of the control and the target pair. The first element of these arrays is Alice’s qubit and the second is Bob’s.</p>
 <p>Add the bilateral CNOT operation to the quantum circuit <code class="docutils literal notranslate"><span class="pre">purification_circ</span></code> by applying CNOT gates between the corresponding elements of the <code class="docutils literal notranslate"><span class="pre">control_qubits</span></code> and <code class="docutils literal notranslate"><span class="pre">target_qubits</span></code> arrays. I.e. a CNOT between Alice’s qubits and a CNOT between Bob’s qubits. Remember that in Qiskit a CNOT gate is implemented using the method <code class="docutils literal notranslate"><span class="pre">cx</span></code>.</p>
@@ -820,8 +831,8 @@ i &amp; 0 \\
 <p>In the subsequent step of the BBPSSW protocol (step 4, <strong>Sec 1.2</strong>) the target qubits (qubits 2 and 3) should be measured in the computational basis. The measurement results must then be compared a successful round of entanglement purification.</p>
 <p>We will implement this step during the process of quantum state tomography, but this is described and explained below (<strong>Sec 2.4</strong>). Briefly summarized: It will work in such a way that we will only perform state tomography of the control qubits if the results of the measurements of the target qubits are the same.</p>
 <p>We would like to point out once again that after the bilateral CNOT gate and the measurement of the target qubits, the control qubit pair must be returned to Werner form in order to perform a subsequent purification round (step 5, <strong>Sec. 1.2</strong>). As already explained, this step is not necessary to prove an increase in fidelity and can therefore be omitted for our purposes.</p>
-</section>
-<section id="concatenation-of-quantum-circuits">
+</div>
+<div class="section" id="concatenation-of-quantum-circuits">
 <h4>2.3.6 Concatenation of Quantum Circuits<a class="headerlink" href="#concatenation-of-quantum-circuits" title="Permalink to this headline">¶</a></h4>
 <p>We have divided the entire quantum circuit for the BBPSSW protocol into three parts for the initialization of the entangled qubit pairs (<code class="docutils literal notranslate"><span class="pre">source_circ</span></code>), the twirl operation (<code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code>) and the purification step itself (<code class="docutils literal notranslate"><span class="pre">purification_circ</span></code>).</p>
 <p>(Note that this was only done for educational reasons. We could have built all gates into a single quantum circuit from the beginning.)</p>
@@ -833,7 +844,7 @@ i &amp; 0 \\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_17952/2766435879.py:1: DeprecationWarning: The QuantumCircuit.__add__() method is being deprecated.Use the compose() method which is more flexible w.r.t circuit register compatibility.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_16141/2766435879.py:1: DeprecationWarning: The QuantumCircuit.__add__() method is being deprecated.Use the compose() method which is more flexible w.r.t circuit register compatibility.
   experiment_circ = source_circ + twirl_circ + purification_circ
 </pre></div>
 </div>
@@ -851,9 +862,9 @@ i &amp; 0 \\
 </div>
 </div>
 <p>We can now compare this with the quantum circuits from the introductory part (<strong>Part I</strong>). The gates up to the first CNOTs are not part of Alice’s and Bob’s circuits presented in the introduction. This is because these gates are needed to first simulate the source that creates the source states <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>. Then we recognize the single-qubit parts <span class="math notranslate nohighlight">\(U_{i,A(B)}\)</span> of the bilateral rotation <span class="math notranslate nohighlight">\(U_i\)</span>, which of course depend here on the random index <code class="docutils literal notranslate"><span class="pre">random_idx</span></code> chosen above. (Only in the case of <code class="docutils literal notranslate"><span class="pre">random_idx</span> <span class="pre">=</span> <span class="pre">0</span></code> do you actually see no parts of the bilateral rotation, as this corresponds to the identity operation.) Then the unilateral rotations Alice performs are implemented on the qubits <span class="math notranslate nohighlight">\(q0_0\)</span> and <span class="math notranslate nohighlight">\(q0_2\)</span>, followed by the bilateral CNOT.</p>
-</section>
-</section>
-<section id="conditional-quantum-state-tomography">
+</div>
+</div>
+<div class="section" id="conditional-quantum-state-tomography">
 <h3>2.4 (Conditional) Quantum State Tomography<a class="headerlink" href="#conditional-quantum-state-tomography" title="Permalink to this headline">¶</a></h3>
 <p>Finally, we want to find out the state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> of the control qubit pair, i.e. the state of the qubits 0 and 1, so that we can calculate its fidelity <span class="math notranslate nohighlight">\(F'\)</span> (see step 4, <strong>Sec 1.2</strong>),</p>
 <div class="math notranslate nohighlight">
@@ -990,9 +1001,9 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 </div>
 </div>
 <p>At the end of this Part II, we are at the point where we have generated all the quantum circuits necessary to implement the full BBPSSW protocol. In the following part we can therefore continue with the simulation of the purification experiment and have our implementation run with the simulator integrated in Qiskit.</p>
-</section>
-</section>
-<section id="part-iii-simulation-of-the-bbpssw-protocol-using-qiskit">
+</div>
+</div>
+<div class="section" id="part-iii-simulation-of-the-bbpssw-protocol-using-qiskit">
 <h2>Part III: Simulation of the BBPSSW Protocol using Qiskit<a class="headerlink" href="#part-iii-simulation-of-the-bbpssw-protocol-using-qiskit" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>In this part we will simulate the quantum circuit for the BBPSSW protocol. For this we use a simulator that is integrated in Qiskit. In the first section we simulate the BBPSSW protocol for a single quantum system. To finally demonstrate a successful purification, we calculate an average of many quantum systems to generate approximately the state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> and extract the purified fidelity <span class="math notranslate nohighlight">\(F'\)</span>.</p>
@@ -1013,7 +1024,7 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 </div>
 </div>
 </div>
-<section id="single-quantum-system">
+<div class="section" id="single-quantum-system">
 <h3>3.1 Single Quantum System<a class="headerlink" href="#single-quantum-system" title="Permalink to this headline">¶</a></h3>
 <p>In the following we will first execute the circuits <code class="docutils literal notranslate"><span class="pre">tomography_circs</span></code> and reconstruct the density matrix for the control qubits. This is done mainly for educational reasons to introduce the functionality of the class <code class="docutils literal notranslate"><span class="pre">StateTomographyFitter</span></code>. Then we run the ancilla circuits <code class="docutils literal notranslate"><span class="pre">ancilla_tomography_circs</span></code> and explain how to edit the execution results to be able to use the fitter.</p>
 <p>We can execute a quantum circuit with the function <code class="docutils literal notranslate"><span class="pre">execute</span></code>, which requires the following input arguments:</p>
@@ -1036,26 +1047,26 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <span class="nn">Input In [45],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">tomography_circs</span><span class="p">,</span> <span class="n">backend_QASM</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="o">=</span><span class="p">[{</span><span class="n">theta</span><span class="p">:</span> <span class="n">F_to_theta</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)}])</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/execute_function.py:393,</span> in <span class="ni">execute</span><span class="nt">(experiments, backend, basis_gates, coupling_map, backend_properties, initial_layout, seed_transpiler, optimization_level, pass_manager, qobj_id, qobj_header, shots, memory, max_credits, seed_simulator, default_qubit_los, default_meas_los, qubit_lo_range, meas_lo_range, schedule_los, meas_level, meas_return, memory_slots, memory_slot_size, rep_time, rep_delay, parameter_binds, schedule_circuit, inst_map, meas_map, scheduling_method, init_qubits, **run_config)</span>
-<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="n">run_kwargs</span><span class="p">[</span><span class="s2">&quot;parameter_binds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_binds</span>
-<span class="g g-Whitespace">    </span><span class="mi">392</span> <span class="n">run_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">run_config</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">393</span> <span class="n">job</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">394</span> <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">395</span> <span class="n">_log_submission_time</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/execute_function.py:401,</span> in <span class="ni">execute</span><span class="nt">(experiments, backend, basis_gates, coupling_map, backend_properties, initial_layout, seed_transpiler, optimization_level, pass_manager, qobj_id, qobj_header, shots, memory, max_credits, seed_simulator, default_qubit_los, default_meas_los, qubit_lo_range, meas_lo_range, schedule_los, meas_level, meas_return, memory_slots, memory_slot_size, rep_time, rep_delay, parameter_binds, schedule_circuit, inst_map, meas_map, scheduling_method, init_qubits, **run_config)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span>     <span class="n">run_kwargs</span><span class="p">[</span><span class="s2">&quot;parameter_binds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_binds</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span> <span class="n">run_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">run_config</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">401</span> <span class="n">job</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiments</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span> <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span> <span class="n">_log_submission_time</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/utils/deprecation.py:27,</span> in <span class="ni">deprecate_arguments.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/utils/deprecation.py:27,</span> in <span class="ni">deprecate_arguments.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
 <span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
 <span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="n">_rename_kwargs</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">kwarg_map</span><span class="p">)</span>
 <span class="ne">---&gt; </span><span class="mi">27</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:187,</span> in <span class="ni">AerBackend.run</span><span class="nt">(self, circuits, validate, parameter_binds, **run_options)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:187,</span> in <span class="ni">AerBackend.run</span><span class="nt">(self, circuits, validate, parameter_binds, **run_options)</span>
 <span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="n">qobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="k">else</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">187</span>     <span class="n">qobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="o">=</span><span class="n">parameter_binds</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="c1"># Optional validation</span>
 <span class="g g-Whitespace">    </span><span class="mi">190</span> <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:357,</span> in <span class="ni">AerBackend._assemble</span><span class="nt">(self, circuits, parameter_binds, **run_options)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:357,</span> in <span class="ni">AerBackend._assemble</span><span class="nt">(self, circuits, parameter_binds, **run_options)</span>
 <span class="g g-Whitespace">    </span><span class="mi">352</span> <span class="n">circuits</span><span class="p">,</span> <span class="n">optypes</span><span class="p">,</span> <span class="n">run_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assemble_noise_model</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">353</span>     <span class="n">circuits</span><span class="p">,</span> <span class="n">optypes</span><span class="p">,</span> <span class="o">**</span><span class="n">run_options</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">355</span> <span class="k">if</span> <span class="n">parameter_binds</span><span class="p">:</span>
@@ -1064,7 +1075,7 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <span class="g g-Whitespace">    </span><span class="mi">358</span>     <span class="n">assemble_binds</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="g g-Whitespace">    </span><span class="mi">359</span>     <span class="n">assemble_binds</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">param</span><span class="p">:</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">parameter_binds</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">bind</span><span class="p">})</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:111,</span> in <span class="ni">AerBackend._convert_binds</span><span class="nt">(self, circuits, parameter_binds)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:111,</span> in <span class="ni">AerBackend._convert_binds</span><span class="nt">(self, circuits, parameter_binds)</span>
 <span class="g g-Whitespace">    </span><span class="mi">109</span>     <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_circuit_binds</span><span class="p">(</span><span class="n">circuits</span><span class="p">,</span> <span class="n">parameter_binds</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
 <span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter_binds</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">circuits</span><span class="p">):</span>
 <span class="ne">--&gt; </span><span class="mi">111</span>     <span class="k">raise</span> <span class="n">AerError</span><span class="p">(</span>
@@ -1309,10 +1320,10 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\rho_n\)</span> denotes the state after the bilateral rotation.</p>
 <p>The interesting figure is therefore not a single control-qubit state <code class="docutils literal notranslate"><span class="pre">conditional_rho_fit</span></code> after execution of the BBPSSW protocol, but rather an average of these states over many execution runs <span class="math notranslate nohighlight">\(N\)</span> with randomly selected operations <span class="math notranslate nohighlight">\(U_i\)</span> in the twirl circuit <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code>. Therefore, in the following section we examine a large number of sources <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span> and calculate the average result of the BBPSSW protocol to demonstrate its working principle.</p>
-</section>
-<section id="ensemble-average">
+</div>
+<div class="section" id="ensemble-average">
 <h3>3.2 Ensemble Average<a class="headerlink" href="#ensemble-average" title="Permalink to this headline">¶</a></h3>
-<section id="definition-of-auxiliary-functions">
+<div class="section" id="definition-of-auxiliary-functions">
 <h4>3.2.1 Definition of Auxiliary Functions<a class="headerlink" href="#definition-of-auxiliary-functions" title="Permalink to this headline">¶</a></h4>
 <p>To make the following section easier to read, we define some helpful functions to implement the tomography for the case of an ensemble. Essentially, these functions summarize the steps from the previous section in a compact way.</p>
 <p>First we define a function <code class="docutils literal notranslate"><span class="pre">experiment_circuit</span></code>, which has the index of the bilateral rotation as input parameter and returns a corresponding experiment circuit for the whole purification procedure:</p>
@@ -1535,8 +1546,8 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 <li><p>Create and execute quantum circuits using <code class="docutils literal notranslate"><span class="pre">execute_purification</span></code>.</p></li>
 <li><p>Reconstruct a density matrix using <code class="docutils literal notranslate"><span class="pre">rho_from_dict</span></code>.</p></li>
 </ol>
-</section>
-<section id="simulation">
+</div>
+<div class="section" id="simulation">
 <h4>3.2.2 Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h4>
 <p>In Section <strong>3.1 Single Quantum System</strong> we have executed the BBPSSW protocol for a single system consisting of two qubit pairs in the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>. In this case, the result of the protocol, i.e. the state of the control qubits, depends on the randomly selected bilateral rotation.</p>
 <p>However, we are interested in the state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span>, which is the average state of the control qubits after applying the BBPSSW protocol. To get this state <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> in our simulation, we calculate the average</p>
@@ -1686,15 +1697,15 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 </div>
 <p>From the simulation, in which we have not included any error sources, we see that the implementation of the BBPSSW protocol for entanglement purification works.</p>
 <p>The ultimate goal is to run the BBPSSW protocol on a real IBM Q device. But before we do this, we will include noise in our simulation model to consider imperfections in the quantum computation and see how much the effects of noise affect output fidelity.</p>
-</section>
-</section>
-</section>
-<section id="part-iv-including-noise-in-the-simulation-model">
+</div>
+</div>
+</div>
+<div class="section" id="part-iv-including-noise-in-the-simulation-model">
 <h2>Part IV: Including Noise in the Simulation Model<a class="headerlink" href="#part-iv-including-noise-in-the-simulation-model" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>In this part we will simulate the quantum circuit for the BBPSSW protocol using a model that includes noise. Noise in this context means errors that occur on real devices such as single-qubit gate errors, two-qubit gate errors and single-qubit readout errors. A simple noise model can e.g. be created using error parameters directly provided through the calibration data of the real devices. This is going to be the way we construct the noise model here.</p>
 <p>In the following, we show how to choose a real IBM Q device as backend and read out the necessary data using an IBM Q account. Afterwards we explain how to generate a noise model using integrated Qiskit functions and run a noisy simulation using the QASM simulator.</p>
-<section id="ibm-q-account">
+<div class="section" id="ibm-q-account">
 <h3>4.1 IBM Q Account<a class="headerlink" href="#ibm-q-account" title="Permalink to this headline">¶</a></h3>
 <p>To use the IBM Q Experience, we first have to import the necessary library:</p>
 <div class="cell docutils container">
@@ -1745,8 +1756,8 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 </div>
 </div>
 </div>
-</section>
-<section id="creation-of-noise-model-in-qiskit">
+</div>
+<div class="section" id="creation-of-noise-model-in-qiskit">
 <h3>4.2 Creation of Noise Model in Qiskit<a class="headerlink" href="#creation-of-noise-model-in-qiskit" title="Permalink to this headline">¶</a></h3>
 <p>It has already been mentioned that Qiskit provides integrated functions to construct simple noise models from device parameters, such as</p>
 <ul class="simple">
@@ -1790,8 +1801,8 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 </div>
 </div>
 <p>With the <code class="docutils literal notranslate"><span class="pre">noise_model</span></code>, the <code class="docutils literal notranslate"><span class="pre">basis_gates</span></code> and the <code class="docutils literal notranslate"><span class="pre">coupling_map</span></code> we have all information at hand that is necessary for a (simple) noisy simulation of the quantum circuit for the BBPSSW protocol.</p>
-</section>
-<section id="simulation-including-noise">
+</div>
+<div class="section" id="simulation-including-noise">
 <h3>4.3 Simulation Including Noise<a class="headerlink" href="#simulation-including-noise" title="Permalink to this headline">¶</a></h3>
 <p>To perform a noisy simulation with the QASM simulator, we can again use the function <code class="docutils literal notranslate"><span class="pre">execute</span></code> and provide three additional input parameters, which are</p>
 <ul class="simple">
@@ -1813,7 +1824,7 @@ F_\textrm{S} \leq F,
 \]</div>
 <p>with equality only in the case of unitary time evolution without any sources of noise. The actual input fidelity <span class="math notranslate nohighlight">\(F\)</span> is thus the fidelity of the two-qubit state after the initialization circuit <code class="docutils literal notranslate"><span class="pre">source_circ</span></code> and the application of the twirl procedure in <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code>.</p>
 <p>In order to compare the input fidelity <span class="math notranslate nohighlight">\(F\)</span> with the output fidelity <span class="math notranslate nohighlight">\(F'\)</span>, we therefore have to simulate the circuits <code class="docutils literal notranslate"><span class="pre">source_circ</span></code> and <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code> first to find the actual input state of the BBPSSW protocol. We must also check whether it is actually a Werner state of the form <span class="math notranslate nohighlight">\(W_F\)</span> and then calculate the actual input fidelity <span class="math notranslate nohighlight">\(F\)</span> from this state.</p>
-<section id="initial-state-and-initial-fidelity">
+<div class="section" id="initial-state-and-initial-fidelity">
 <h4>4.3.1 Initial State and Initial Fidelity<a class="headerlink" href="#initial-state-and-initial-fidelity" title="Permalink to this headline">¶</a></h4>
 <p>As we described above, the input fidelity <span class="math notranslate nohighlight">\(F\)</span> to the BBPSSW protocol is the fidelity of the state <span class="math notranslate nohighlight">\(W_F\)</span> towards the Bell state <span class="math notranslate nohighlight">\(|\Psi^-\rangle\)</span> obtained after the initialization circuit and twirl operation. (We still have to show that it is actually a Werner state, what we can do after the noisy simulation.)</p>
 <p>In the following we will perform a noisy simulation of a quantum circuit consisting of the circuits <code class="docutils literal notranslate"><span class="pre">source_circ</span></code> and <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code>, and to reconstruct the state <span class="math notranslate nohighlight">\(W_F\)</span> we will perform quantum state tomography of the control qubits.</p>
@@ -1945,8 +1956,8 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 </div>
 <p>For all source fidelities <span class="math notranslate nohighlight">\(F_\mathrm{S}\)</span> we observe in the simulation results that the corresponding input fidelity <span class="math notranslate nohighlight">\(F\)</span> is less than <span class="math notranslate nohighlight">\(F_\mathrm{S}\)</span>.</p>
 <p>Besides the magnitude of the initial fidelity, another crucial requirement for the functionality of the BBPSSW protocol is that the input states have Werner form <span class="math notranslate nohighlight">\(W_F\)</span>.</p>
-</section>
-<section id="send-it-after-class-3">
+</div>
+<div class="section" id="send-it-after-class-3">
 <h4>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h4>
 <p>Write a function <code class="docutils literal notranslate"><span class="pre">state_fidelity_Werner</span></code> that returns the fidelity of a two-qubit state towards the Werner state <span class="math notranslate nohighlight">\(W_F\)</span>. The function should use the following input arguments:</p>
 <ul class="simple">
@@ -1976,8 +1987,8 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 </div>
 </div>
 </div>
-</section>
-<section id="send-it-after-class-4">
+</div>
+<div class="section" id="send-it-after-class-4">
 <h4>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h4>
 <p>We want to find out how well a Werner state can be initialized in the noisy simulation. For all states in <code class="docutils literal notranslate"><span class="pre">simulated_initial_states</span></code>, calculate the fidelity towards the corresponding Werner state using the function <code class="docutils literal notranslate"><span class="pre">state_fidelity_Werner</span></code>, which you defined above in exercise 5. Store the calculated fidelities in a list called <code class="docutils literal notranslate"><span class="pre">initial_fidelities_Werner</span></code>.</p>
 <div class="cell docutils container">
@@ -2009,8 +2020,8 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 </div>
 </div>
 <p>In summary, we have shown in this noisy simulation that after initialization by the quantum circuits <code class="docutils literal notranslate"><span class="pre">source_circ</span></code> and <code class="docutils literal notranslate"><span class="pre">twirl_circ</span></code> a Werner state <span class="math notranslate nohighlight">\(W_F\)</span> can be generated, but with a fidelity <span class="math notranslate nohighlight">\(F\)</span> that is less than the fidelity <span class="math notranslate nohighlight">\(F_\mathrm{S}\)</span> of the original source state.</p>
-</section>
-<section id="entanglement-purification-in-the-presence-of-noise">
+</div>
+<div class="section" id="entanglement-purification-in-the-presence-of-noise">
 <h4>4.3.2 Entanglement Purification in the Presence of Noise<a class="headerlink" href="#entanglement-purification-in-the-presence-of-noise" title="Permalink to this headline">¶</a></h4>
 <p>In <strong>Sec. 3.2.1</strong> we have already defined the function <code class="docutils literal notranslate"><span class="pre">execute_purification</span></code>. To perform a noisy simulation of the BBPSSW protocol on the QASM simulator, we can simply pass the additional parameters <code class="docutils literal notranslate"><span class="pre">noise_model</span></code> and <code class="docutils literal notranslate"><span class="pre">coupling_map</span></code> to this function, which are then finally passed to the Qiskit function <code class="docutils literal notranslate"><span class="pre">execute</span></code>.</p>
 <p>Again we calculate the average of <span class="math notranslate nohighlight">\(N=100\)</span> runs,</p>
@@ -2067,20 +2078,20 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 </div>
 <p>We can see that due to the presence of noise, the output fidelity (orange) is smaller than in the case of a unitary time evolution we have examined in <strong>Part III</strong> (red). Nevertheless, for fidelities around 0.7 to 0.8, where the increase in fidelity is largest, it can be observed that the output fidelity is slightly increased. Therefore, it may even be possible to successfully run the entanglement purification protocol on a real IBM Q device.</p>
 <p>And this is exactly what we will do in the following, last part of the tutorial.</p>
-</section>
-</section>
-</section>
-<section id="part-v-entanglement-purification-on-a-real-ibm-q-device">
+</div>
+</div>
+</div>
+<div class="section" id="part-v-entanglement-purification-on-a-real-ibm-q-device">
 <h2>Part V: Entanglement Purification on a Real IBM Q Device<a class="headerlink" href="#part-v-entanglement-purification-on-a-real-ibm-q-device" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>In this last part of the tutorial, we will run the BBPSSW protocol for entanglement purification on a real IBM Q device using the IBM Q Experience.</p>
 <p>The first section explains the necessary details when using the IBM Q Experience. Then we proceed as in the noisy simulation, i.e. we first determine the true input fidelity into the purification protocol and then carry out the complete BBPSSW protocol.</p>
-<section id="ibm-q-experience">
+<div class="section" id="ibm-q-experience">
 <h3>5.1 IBM Q Experience<a class="headerlink" href="#ibm-q-experience" title="Permalink to this headline">¶</a></h3>
 <p>We have already defined the functions <code class="docutils literal notranslate"><span class="pre">execute_initialization</span></code> and <code class="docutils literal notranslate"><span class="pre">execute_purification</span></code> in such a way that we can simply pass the real IBM Q device as the target backend to execute the tomography circuits on it. The reason for this is that the Qiskit function <code class="docutils literal notranslate"><span class="pre">execute</span></code> itself sends a job to a real IBM Q device when this is selected as the backend.</p>
 <p>Furthermore, we have already defined the real device <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> as the backend <code class="docutils literal notranslate"><span class="pre">Backend_IBMQ</span></code>, so we are basically ready to execute our quantum circuits on the <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> machine.</p>
 <p>When working with real IBM Q devices via the IBM Q Experience, there are two points to consider when performing the entanglement purification experiment as in the previous sections. On the one hand we have to take into account a certain waiting time until the execution of a job and on the other hand we can only send a limited number of jobs to a real device. These two points will be explained in the next two subsections.</p>
-<section id="device-queue-job-status-and-job-monitor">
+<div class="section" id="device-queue-job-status-and-job-monitor">
 <h4>5.1.1 Device Queue, Job Status, and Job Monitor<a class="headerlink" href="#device-queue-job-status-and-job-monitor" title="Permalink to this headline">¶</a></h4>
 <p>We have already mentioned that a real device usually has a queue of pending jobs from other users. This means that, in addition to the actual execution time of a quantum circuit, the user must also wait until all pending jobs in the queue have been executed. A job has run successfully when it could be transmitted to the real device, passed the queue, and the quantum circuit could finally be executed. Only then can we obtain the results using the method <code class="docutils literal notranslate"><span class="pre">results</span></code> and perform all subsequent steps to reconstruct a density matrix.</p>
 <p>This is exactly why we store the job object itself in a dictionary in the functions <code class="docutils literal notranslate"><span class="pre">execute_initialization</span></code> and <code class="docutils literal notranslate"><span class="pre">execute_purification</span></code>, so that we can retrieve the results at a later time when the job has been executed.</p>
@@ -2110,8 +2121,8 @@ W_F \approx \frac{1}{N} \sum_{n=1}^N \rho_n,
 </div>
 </div>
 </div>
-</section>
-<section id="personal-credits">
+</div>
+<div class="section" id="personal-credits">
 <h4>5.1.2 Personal Credits<a class="headerlink" href="#personal-credits" title="Permalink to this headline">¶</a></h4>
 <p>The IBM Q Experience regulates the use of real devices with the help of a credit system. This means that an execution on a real device costs a certain number of credits and after a job has been executed, the used credits are replenished. The number of credits that an execution actually costs depends, for example, on the number of experiment shots and the size of the quantum circuits to be executed.</p>
 <p>As a private user you have a limited number of credits and therefore you can only send a maximum number of jobs to a real device.</p>
@@ -2160,9 +2171,9 @@ W_F = \frac{1}{12} \sum_{i=1}^{12} U_i \rho_\textrm{S} U_i^\dagger,
 </table>
 <p>When all batches have been successfully executed, we can finally follow the procedures in <strong>Part III</strong> and <strong>Part IV</strong> to reconstruct the density matrices <span class="math notranslate nohighlight">\(W_F\)</span> and <span class="math notranslate nohighlight">\(\rho'_{F'}\)</span> from the execution results with our predefined function <code class="docutils literal notranslate"><span class="pre">rho_from_dict</span></code>.</p>
 <p>In case you have a different number of credits available, you will see that you can easily adapt the following implementation to your own case.</p>
-</section>
-</section>
-<section id="id1">
+</div>
+</div>
+<div class="section" id="id1">
 <h3>5.2 Initial State and Initial Fidelity<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Due to imperfections in the real device, the actual input fidelity <span class="math notranslate nohighlight">\(F\)</span> to the BBPSSW protocol is less than the source fidelity <span class="math notranslate nohighlight">\(F_\textrm{S}\)</span> (cf. the noisy simulation and the plot in <strong>Sec. 4.3.1</strong>). As in the case of the noisy simulation, we must therefore first determine the actual input fidelity to the BBPSSW protocol.</p>
 <p>In the previous section, we explained why we cannot run the BBPSSW protocol on a real device exactly as we did in the simulations. As a private user you have a limited number of credits and we therefore only run the BBPSSW protocol on the real device for a single source fidelity of <span class="math notranslate nohighlight">\(F_\textrm{S}=1\)</span>:</p>
@@ -2323,8 +2334,8 @@ F &lt; F_\textrm{S}.
 <p>Probably the experimentally observed input fidelity on the device <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> is smaller than that of the noisy simulation. There may be various reasons why the results of the simulation and the use of the real device differ. For example, we used a very simple noise model for the simulation, which most likely does not take into account all the effects that lead to errors in the computation on the real device.</p>
 <p>An analysis of how good the simulation is should not be part of this tutorial. The focus of this section is basically to execute the quantum circuits correctly on a real IBM Q device using the IBM Q Experience.</p>
 <p>Now that we have obtained an experimental value for the input fidelity <span class="math notranslate nohighlight">\(F\)</span>, in the last step of this tutorial we will run the complete BBPSSW protocol on the <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> device.</p>
-</section>
-<section id="execution-of-the-bbpssw-protocol-on-a-real-device">
+</div>
+<div class="section" id="execution-of-the-bbpssw-protocol-on-a-real-device">
 <h3>5.3 Execution of the BBPSSW Protocol on a Real Device<a class="headerlink" href="#execution-of-the-bbpssw-protocol-on-a-real-device" title="Permalink to this headline">¶</a></h3>
 <p>The execution of the complete purification experiment is similar to the steps in the previous section regarding the splitting of all necessary jobs into smaller batches. This is again due to the limited number of credits.</p>
 <p>To run the BBPSSW protocol on a real IBM Q device, we will use our function <code class="docutils literal notranslate"><span class="pre">execute_purification</span></code> and simply pass the IBM Q device <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> as the target backend.</p>
@@ -2481,9 +2492,9 @@ F' = \langle \Phi^+ | \rho'_{F'}| \Phi^+ \rangle,
 </div>
 </div>
 <p>When we compare the results of the <code class="docutils literal notranslate"><span class="pre">ibmqx2</span></code> machine and the noisy simulation, we see a good agreement for the value of the output fidelity <span class="math notranslate nohighlight">\(F'\)</span>. However, we have already seen that the simulator significantly overestimates the value for the actual initial fidelity <span class="math notranslate nohighlight">\(F\)</span>. The errors that come from the part of the circuit that belongs exclusively to the BBPSSW protocol, i.e. gate errors in the circuit <code class="docutils literal notranslate"><span class="pre">purification_circ</span></code> and subsequent measurement errors, are therefore probably underestimated by the noise model used here.</p>
-</section>
-</section>
-<section id="part-vi-conclusion-and-further-ideas">
+</div>
+</div>
+<div class="section" id="part-vi-conclusion-and-further-ideas">
 <h2>Part VI: Conclusion and Further Ideas<a class="headerlink" href="#part-vi-conclusion-and-further-ideas" title="Permalink to this headline">¶</a></h2>
 <p>In this tutorial we showed how to use the IBM framework Qiskit and the online platform IBM Q Experience for quantum information processing, using the BBPSSW protocol for entanglement purification as an example.</p>
 <p>The quantum circuit for the BBPSSW protocol consists of common single-qubit and two-qubit gates and we have explained in detail how this circuit is constructed in Qiskit. Furthermore, we have demonstrated how to use a library integrated in Qiskit to perform conditional quantum state tomography, which is also required in the BBPSSW protocol.</p>
@@ -2502,8 +2513,8 @@ Another possibility is the use of external compilers, such as t|ket⟩™, to op
 <p>But there are also protocols that work with three input pairs <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>, for example, and require a specific measurement outcome of two of these pairs for successful purification. In order to implement such a protocol in Qiskit according to the procedure presented in this tutorial, one would also have to adapt the creation of the ancilla tomography circuits and change the function <code class="docutils literal notranslate"><span class="pre">purification_shots</span></code> so that the conditions for a successful purification are fulfilled.</p>
 <p>Another provider has just been released that enables access to the trapped ion device of Alpine Quantum Technologies (AQT) [10,11]. If you have AQT credentials, it would be great to see how well the purification protocol works on the trapped ion device. The results could then be compared with earlier experimental results demonstrating entanglement purification for ion qubits [12].</p>
 <p>Finally, we would like to emphasize that by providing these ideas, we hope to encourage other users to continue learning with this tutorial notebook by trying out the implementation of the ideas.</p>
-</section>
-<section id="references">
+</div>
+<div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p>[1] C. H. Bennett, H. J. Bernstein, S. Popescu, and B. Schumacher, <em>Concentrating partial entanglement by local operations</em>, Phys. Rev. A <strong>53</strong>, 2046 (1996).</p>
@@ -2519,8 +2530,8 @@ and quantum error correction</em>, Phys. Rev. A <strong>54</strong>, 3824 (1996)
 <p>[10] A. Javadi-Abhari, P. Nation, and J. Gambetta, <em>Qiskit – Write once, target multiple architectures</em>, Retrieved from https://www.ibm.com/blogs/research/2019/11/qiskit-for-multiple-architectures/ (2019, December 1)</p>
 <p>[11] Retrived from https://www.aqt.eu/ (2019, December 1).</p>
 <p>[12] R. Reichle, D. Leibfried, E. Knill, J. Britton, R. B. Blakestad, J. D. Jost, C. Langer, R. Ozeri, S. Seidelin, and D. J. Wineland, <em>Experimental purification of two-atom entanglement</em>, Nature <strong>443</strong>, 838 (2006).</p>
-</section>
-</section>
+</div>
+</div>
 
 
     </div>
@@ -2542,7 +2553,7 @@ and quantum error correction</em>, Phys. Rev. A <strong>54</strong>, 3824 (1996)
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

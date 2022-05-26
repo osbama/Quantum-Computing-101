@@ -1,19 +1,19 @@
 Traceback (most recent call last):
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
     executenb(
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
     return just_run(coro(*args, **kwargs))
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
     return loop.run_until_complete(coro)
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
     return future.result()
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
     await self.async_execute_cell(
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/home/obm/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
@@ -25,26 +25,26 @@ job = execute(tomography_circs, backend_QASM, shots=1024, parameter_binds=[{thet
 Input [0;32mIn [45][0m, in [0;36m<cell line: 1>[0;34m()[0m
 [0;32m----> 1[0m job [38;5;241m=[39m [43mexecute[49m[43m([49m[43mtomography_circs[49m[43m,[49m[43m [49m[43mbackend_QASM[49m[43m,[49m[43m [49m[43mshots[49m[38;5;241;43m=[39;49m[38;5;241;43m1024[39;49m[43m,[49m[43m [49m[43mparameter_binds[49m[38;5;241;43m=[39;49m[43m[[49m[43m{[49m[43mtheta[49m[43m:[49m[43m [49m[43mF_to_theta[49m[43m([49m[38;5;241;43m0.75[39;49m[43m)[49m[43m}[49m[43m][49m[43m)[49m
 
-File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/execute_function.py:393[0m, in [0;36mexecute[0;34m(experiments, backend, basis_gates, coupling_map, backend_properties, initial_layout, seed_transpiler, optimization_level, pass_manager, qobj_id, qobj_header, shots, memory, max_credits, seed_simulator, default_qubit_los, default_meas_los, qubit_lo_range, meas_lo_range, schedule_los, meas_level, meas_return, memory_slots, memory_slot_size, rep_time, rep_delay, parameter_binds, schedule_circuit, inst_map, meas_map, scheduling_method, init_qubits, **run_config)[0m
-[1;32m    391[0m     run_kwargs[[38;5;124m"[39m[38;5;124mparameter_binds[39m[38;5;124m"[39m] [38;5;241m=[39m parameter_binds
-[1;32m    392[0m run_kwargs[38;5;241m.[39mupdate(run_config)
-[0;32m--> 393[0m job [38;5;241m=[39m [43mbackend[49m[38;5;241;43m.[39;49m[43mrun[49m[43m([49m[43mexperiments[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mrun_kwargs[49m[43m)[49m
-[1;32m    394[0m end_time [38;5;241m=[39m time()
-[1;32m    395[0m _log_submission_time(start_time, end_time)
+File [0;32m~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/execute_function.py:401[0m, in [0;36mexecute[0;34m(experiments, backend, basis_gates, coupling_map, backend_properties, initial_layout, seed_transpiler, optimization_level, pass_manager, qobj_id, qobj_header, shots, memory, max_credits, seed_simulator, default_qubit_los, default_meas_los, qubit_lo_range, meas_lo_range, schedule_los, meas_level, meas_return, memory_slots, memory_slot_size, rep_time, rep_delay, parameter_binds, schedule_circuit, inst_map, meas_map, scheduling_method, init_qubits, **run_config)[0m
+[1;32m    399[0m     run_kwargs[[38;5;124m"[39m[38;5;124mparameter_binds[39m[38;5;124m"[39m] [38;5;241m=[39m parameter_binds
+[1;32m    400[0m run_kwargs[38;5;241m.[39mupdate(run_config)
+[0;32m--> 401[0m job [38;5;241m=[39m [43mbackend[49m[38;5;241;43m.[39;49m[43mrun[49m[43m([49m[43mexperiments[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mrun_kwargs[49m[43m)[49m
+[1;32m    402[0m end_time [38;5;241m=[39m time()
+[1;32m    403[0m _log_submission_time(start_time, end_time)
 
-File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/utils/deprecation.py:27[0m, in [0;36mdeprecate_arguments.<locals>.decorator.<locals>.wrapper[0;34m(*args, **kwargs)[0m
+File [0;32m~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/utils/deprecation.py:27[0m, in [0;36mdeprecate_arguments.<locals>.decorator.<locals>.wrapper[0;34m(*args, **kwargs)[0m
 [1;32m     25[0m [38;5;28;01mif[39;00m kwargs:
 [1;32m     26[0m     _rename_kwargs(func[38;5;241m.[39m[38;5;18m__name__[39m, kwargs, kwarg_map)
 [0;32m---> 27[0m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
 
-File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:187[0m, in [0;36mAerBackend.run[0;34m(self, circuits, validate, parameter_binds, **run_options)[0m
+File [0;32m~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:187[0m, in [0;36mAerBackend.run[0;34m(self, circuits, validate, parameter_binds, **run_options)[0m
 [1;32m    185[0m     qobj [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_assemble(circuits, [38;5;241m*[39m[38;5;241m*[39mrun_options)
 [1;32m    186[0m [38;5;28;01melse[39;00m:
 [0;32m--> 187[0m     qobj [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_assemble[49m[43m([49m[43mcircuits[49m[43m,[49m[43m [49m[43mparameter_binds[49m[38;5;241;43m=[39;49m[43mparameter_binds[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mrun_options[49m[43m)[49m
 [1;32m    189[0m [38;5;66;03m# Optional validation[39;00m
 [1;32m    190[0m [38;5;28;01mif[39;00m validate:
 
-File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:357[0m, in [0;36mAerBackend._assemble[0;34m(self, circuits, parameter_binds, **run_options)[0m
+File [0;32m~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:357[0m, in [0;36mAerBackend._assemble[0;34m(self, circuits, parameter_binds, **run_options)[0m
 [1;32m    352[0m circuits, optypes, run_options [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_assemble_noise_model(
 [1;32m    353[0m     circuits, optypes, [38;5;241m*[39m[38;5;241m*[39mrun_options)
 [1;32m    355[0m [38;5;28;01mif[39;00m parameter_binds:
@@ -53,7 +53,7 @@ File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/pro
 [1;32m    358[0m     assemble_binds [38;5;241m=[39m []
 [1;32m    359[0m     assemble_binds[38;5;241m.[39mappend({param: [38;5;241m1[39m [38;5;28;01mfor[39;00m bind [38;5;129;01min[39;00m parameter_binds [38;5;28;01mfor[39;00m param [38;5;129;01min[39;00m bind})
 
-File [0;32m~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:111[0m, in [0;36mAerBackend._convert_binds[0;34m(self, circuits, parameter_binds)[0m
+File [0;32m~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/providers/aer/backends/aerbackend.py:111[0m, in [0;36mAerBackend._convert_binds[0;34m(self, circuits, parameter_binds)[0m
 [1;32m    109[0m     [38;5;28;01mreturn[39;00m [[38;5;28mself[39m[38;5;241m.[39m_convert_circuit_binds(circuits, parameter_binds[[38;5;241m0[39m])]
 [1;32m    110[0m [38;5;28;01melif[39;00m [38;5;28mlen[39m(parameter_binds) [38;5;241m!=[39m [38;5;28mlen[39m(circuits):
 [0;32m--> 111[0m     [38;5;28;01mraise[39;00m AerError(

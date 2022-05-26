@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -101,7 +102,7 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+  <div class="tex2jax_ignore mathjax_ignore section" id="learning-outcomes">
 <h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>Performing basis changes and measurements in other bases.</p></li>
@@ -122,20 +123,19 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_9374</span><span class="o">/</span><span class="mf">2970761755.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">Aer</span><span class="p">,</span> <span class="n">assemble</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">qiskit_textbook.tools</span> <span class="kn">import</span> <span class="n">array_to_latex</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_bloch_multivector</span><span class="p">,</span> <span class="n">plot_histogram</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">qiskit_textbook.widgets</span> <span class="kn">import</span> <span class="n">gate_demo</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1">#array_to_latex(unitary, pretext=&quot;\\text{Circuit = }\n&quot;)</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit_textbook&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="non-standard-basis">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="non-standard-basis">
 <h1>Non-standard Basis<a class="headerlink" href="#non-standard-basis" title="Permalink to this headline">¶</a></h1>
 <p>We call the basis <span class="math notranslate nohighlight">\(\{ |0 \rangle, |1 \rangle \} \)</span> the standard, or computational basis. As you may have noticed this is the eigenbasis for <span class="math notranslate nohighlight">\(Z\)</span> operator. When we call <span class="math notranslate nohighlight">\(\textit{measure()}\)</span> method in Qiskit, we perform measurement in the computational basis. However, there are ways to perform measurements in other bases as well, kind of.</p>
 <p>We define <span class="math notranslate nohighlight">\(\textit{sign basis}\)</span>, <span class="math notranslate nohighlight">\(|+\rangle,|-\rangle\)</span> as follows:</p>
@@ -143,12 +143,12 @@
 \[\begin{split} | + \rangle = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}  \end{bmatrix} \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split} | - \rangle = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ -\frac{1}{\sqrt{2}}  \end{bmatrix} \end{split}\]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-1">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-1">
 <h1>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h1>
 <p>How can we perform a measurement in the sign basis using Qiskit?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="answer">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="answer">
 <h1>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
 <p>Let’s visualize the action of the single qubit gates we have learned so far to get a better understanding of this process.</p>
@@ -156,8 +156,8 @@
 $<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \rangle \)</span><span class="math notranslate nohighlight">\(
 \)</span><span class="math notranslate nohighlight">\( |1 \rangle \leftrightarrow |- \rangle \)</span>$</p>
 <p>Therefore, if we apply a <span class="math notranslate nohighlight">\(H\)</span> gate just before the measurement, we will practically be measuring with respect to the sign basis.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-2">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-2">
 <h1>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h1>
 <p>Write a function that takes in a QuantumCircuit and performs a measurement in the sign basis on all the qubits.</p>
 <div class="cell docutils container">
@@ -225,8 +225,8 @@ $<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \ra
 <img alt="../../../../../_images/lab2-book_14_0.png" src="../../../../../_images/lab2-book_14_0.png" />
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-3">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-3">
 <h1>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h1>
 <p>Write a function that takes in a QuantumCircuit and performs a measurement in the y basis on all the qubits.</p>
 <div class="cell docutils container">
@@ -239,8 +239,8 @@ $<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \ra
 </div>
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-3-2">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-3-2">
 <h1>Exercise 3.2<a class="headerlink" href="#exercise-3-2" title="Permalink to this headline">¶</a></h1>
 <p>Write a function that takes in a quantum circuit with two qubits and performs a measurement in the following basis:</p>
 <div class="math notranslate nohighlight">
@@ -284,8 +284,8 @@ $<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \ra
 </div>
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="multiple-qubit-states">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="multiple-qubit-states">
 <h1>Multiple Qubit States<a class="headerlink" href="#multiple-qubit-states" title="Permalink to this headline">¶</a></h1>
 <p>We can represent any single qubit pure quantum state as:</p>
 <div class="math notranslate nohighlight">
@@ -294,26 +294,26 @@ $<span class="math notranslate nohighlight">\( |0 \rangle \leftrightarrow |+ \ra
 We use tensor products. For example, if we have a two qubit quantum state, then there are four possible state for our qubits. Namely, {00,01,10,11}. We represent an arbitrary superposition as:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} |q_1 \rangle \otimes | q_2 \rangle = a_{00}|00 \rangle + a_{01}|01 \rangle + a_{10}|10 \rangle + a_{11}|11 \rangle   = \begin{bmatrix} a_{00} \\ a_{01} \\ a_{10} \\ a_{11}\end{bmatrix} \end{split}\]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-4">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-4">
 <h1>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h1>
 <p>If we have n qubits, what is the dimension of a statevector in this Hilbert space?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
 <p>One good thing about using little-endian representation, the one which Qiskit uses, is that we can consider each bitstring as representing a decimal number and the corresponding index will simply be this number. For example, when we are asked how can we get the amplitude of <span class="math notranslate nohighlight">\(|010\rangle\)</span> state in a given statevector, we can simply check <span class="math notranslate nohighlight">\(2^{nd}\)</span> element of the statevector.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-5">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-5">
 <h1>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h1>
 <p>Let’s say we are representing each amplitude with a complex number in Python, and each complex number takes up 80 Bytes of memory. Then, how many bytes do we need to represent a quantum state describing a quantum circuit with 10 qubits?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id2">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id2">
 <h1>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[ 80 \text{ bytes} * 2*^{10} = 82000 \text{ bytes} = 0.082 \text{ Megabytes} \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-6">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-6">
 <h1>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h1>
 <p>Let’s say we are trying to simulate the action of a Hamiltonian on a large quantum system, and let’s say this Hamiltonian acts on 30 qubits. Let’s say we are using something like C, instead of Python, to make a better use of the memory. Therefore, let’s say each complex number requires not 80 Bytes, but simply 8 bytes. Then answer the following questions:</p>
 <ul class="simple">
@@ -323,8 +323,8 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <li><p>How many bytes are required to represent the Hamiltonian matrix assuming that we need a complex number for each element in the matrix ? Is it of the order of Megabytes, Gigabytes, or something else ?</p></li>
 <li><p>Can you store both the Hamiltonian matrix and the statevector in your own computer?</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="answers">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="answers">
 <h1>Answers<a class="headerlink" href="#answers" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li></li>
@@ -334,8 +334,8 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <li></li>
 </ul>
 <p>Answering the questions above should give you a clear idea about the computing power of a quantum computer, and why we can’t simply use classical computers to simulate them.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="product-and-entangled-states">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="product-and-entangled-states">
 <h1>Product and Entangled States<a class="headerlink" href="#product-and-entangled-states" title="Permalink to this headline">¶</a></h1>
 <p>Not all multiple qubit states can be represented as tensor products. For example, let’s take the following state:</p>
 <div class="math notranslate nohighlight">
@@ -352,14 +352,14 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <div class="math notranslate nohighlight">
 \[ b_1 \neq 0 \rightarrow  a_0 = 0 \rightarrow \text{coeff of } |00 \rangle = 0 \]</div>
 <p>Which entails a contradiction, implying that our inital assumption that <span class="math notranslate nohighlight">\(| \Phi^+ \rangle\)</span> could be written as tensor product of two states.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-7">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-7">
 <h1>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h1>
 <p>Write the following state as the tensor product of two states:</p>
 <div class="math notranslate nohighlight">
 \[ | \Psi \rangle = \frac{1}{\sqrt{2}} | 00 \rangle + \frac{i}{\sqrt{2}} | 01 \rangle \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id3">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id3">
 <h1>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[ (a_0 |0 \rangle + a_1 |1 \rangle ) \otimes ( b_0 |0 \rangle + b_1 |1 \rangle )  \]</div>
@@ -367,14 +367,14 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 \[ a_0 b_0 |00 \rangle + a_0 b_1 |01 \rangle + a_1 b_0 | 10 \rangle + a_1 b_1 | 11 \rangle \]</div>
 <div class="math notranslate nohighlight">
 \[ |0 \rangle \otimes \bigg( \frac{1}{\sqrt{2}} |0 \rangle + \frac{i}{\sqrt{2}} |1 \rangle \bigg)  \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-8">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-8">
 <h1>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h1>
 <p>Is it possible to write down the following state as the tensor product of three quantum states? If yes, prove that that can’t be the case. If no, show that it can be the case.</p>
 <div class="math notranslate nohighlight">
 \[ | W \rangle = \frac{1}{\sqrt{2}} | 000 \rangle + \frac{1}{\sqrt{2}} | 111 \rangle \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id4">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id4">
 <h1>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
 <p>We can use tensor products to represent the action of a set of quantum gates on qubits as well. For example, if we have the following circuit:</p>
@@ -395,8 +395,8 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <div class="math notranslate nohighlight">
 \[ H \otimes X \]</div>
 <p>Again, careful with the little-endian representation! That is, the correct representation is not <span class="math notranslate nohighlight">\( X \otimes H \)</span>.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-9">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-9">
 <h1>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h1>
 <p>Let’s say we have the following quantum circuit. How can we represent it as a tensor product?</p>
 <div class="cell docutils container">
@@ -411,13 +411,13 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <img alt="../../../../../_images/lab2-book_38_0.png" src="../../../../../_images/lab2-book_38_0.png" />
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id5">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id5">
 <h1>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[I \otimes X \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="cnot-gate">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="cnot-gate">
 <h1>CNOT Gate<a class="headerlink" href="#cnot-gate" title="Permalink to this headline">¶</a></h1>
 <p>We define the action of CNOT, or CX, gate as applying an X gate to the target qubit when the control qubit is in <span class="math notranslate nohighlight">\(| 1 \rangle \)</span> state.</p>
 <div class="math notranslate nohighlight">
@@ -425,16 +425,16 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <div class="math notranslate nohighlight">
 \[ CNOT(1,0) |10\rangle = |11 \rangle, \quad  CNOT(1,0) |11 \rangle = |10 \rangle \]</div>
 <p>Note that CNOT gate is mainly used for creating entanglement between two qubits. But it does not create entanglement on all the cases.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-10">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-10">
 <h1>Exercise 10<a class="headerlink" href="#exercise-10" title="Permalink to this headline">¶</a></h1>
 <p>We define CY gate just like we defined CX gate, it applies a Y gate to the target qubit when the control qubit is in state <span class="math notranslate nohighlight">\(| 1 \rangle \)</span>.</p>
 <ul class="simple">
 <li><p>Write down the action of <span class="math notranslate nohighlight">\(CY(1,0), 1^{st}\)</span> qubit is the control, <span class="math notranslate nohighlight">\(0^{th}\)</span> qubit is the target qubit, on the two dimensional computational basis states, <span class="math notranslate nohighlight">\(\{ |00\rangle,|01\rangle,|10\rangle,|11\rangle \}\)</span></p></li>
 <li><p>Construct the matrix for <span class="math notranslate nohighlight">\(CY(1,0)\)</span> gate.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id6">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id6">
 <h1>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[ CY(1,0) |00\rangle = |00\rangle, \quad  CY(1,0) |01 \rangle = |01\rangle \]</div>
@@ -446,8 +446,8 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
                              ? &amp; ? &amp; ? &amp; ? \\
                              ? &amp; ? &amp; ? &amp; ? \end{bmatrix}\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(CNOT\)</span> gate is one of the most powerful tools in quantum computation. Combining <span class="math notranslate nohighlight">\(CNOT\)</span> gate with some basic single qubit gates, we can aproximate any unitary transformation into a set of gates up to arbitrary error. This provides a way for us to prove that quantum computation can perform any computation a classical computer can. It also makes way for some interesting homework questions as well!</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-11">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-11">
 <h1>Exercise 11<a class="headerlink" href="#exercise-11" title="Permalink to this headline">¶</a></h1>
 <p>Let’s define a more interesting <span class="math notranslate nohighlight">\(CX\)</span> gate, call it <span class="math notranslate nohighlight">\(C0X\)</span> gate. It acts just like a <span class="math notranslate nohighlight">\(CX\)</span> gate, but kind of in reverse. That is, <span class="math notranslate nohighlight">\(C0X\)</span> applies an <span class="math notranslate nohighlight">\(X\)</span> gate to the target qubit when the control qubit is in <span class="math notranslate nohighlight">\(|0\rangle\)</span> state.</p>
 <ul class="simple">
@@ -455,8 +455,8 @@ We use tensor products. For example, if we have a two qubit quantum state, then 
 <li><p>Write down the matrix representation for <span class="math notranslate nohighlight">\(C0X(1,0)\)</span> gate.</p></li>
 <li><p>Write down a function that takes in a QuantumCircuit, a control and a target qubit index, and applies a <span class="math notranslate nohighlight">\(C0X\)</span> gate. Hint: You can do this using <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(CNOT\)</span> gates.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id7">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id7">
 <h1>Answer<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[ C0X(1,0) |00\rangle = |01\rangle, \quad  C0X(1,0) |01 \rangle = |?\rangle \]</div>
@@ -511,8 +511,8 @@ $$
 \end{split}\]</div>
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-12">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-12">
 <h1>Exercise 12<a class="headerlink" href="#exercise-12" title="Permalink to this headline">¶</a></h1>
 <p>Let’s define a way more interesting controlled gate, we call it <span class="math notranslate nohighlight">\(C0H\)</span> gate. It acts just like a <span class="math notranslate nohighlight">\(C0X\)</span> gate, but instead of applying an <span class="math notranslate nohighlight">\(H\)</span> gate to the target qubit when the control qubit is in state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, it applies a <span class="math notranslate nohighlight">\(H\)</span> gate.</p>
 <ul class="simple">
@@ -520,8 +520,8 @@ $$
 <li><p>Write down the matrix representation for <span class="math notranslate nohighlight">\(C0H(1,0)\)</span> gate.</p></li>
 <li><p>Write down a function that takes in a QuantumCircuit, a control and a target qubit index, and applies a <span class="math notranslate nohighlight">\(C0H\)</span> gate.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id8">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id8">
 <h1>Answer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[ C0H(1,0) |00\rangle = |0+\rangle, \quad  C0H(1,0) |01 \rangle = |?\rangle \]</div>
@@ -586,14 +586,14 @@ $$
 <img alt="../../../../../_images/lab2-book_52_0.png" src="../../../../../_images/lab2-book_52_0.png" />
 </div>
 </div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-13">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-13">
 <h1>Exercise 13<a class="headerlink" href="#exercise-13" title="Permalink to this headline">¶</a></h1>
 <p>Given an arbitrary unitary transformation <span class="math notranslate nohighlight">\(U\)</span>, can we construct its controlled version using only single qubit gates and a CNOT ? Please explain your reasoning tentatively.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id9">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id9">
 <h1>Answer<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
-</section>
+</div>
 
 
     </div>
@@ -615,7 +615,7 @@ $$
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

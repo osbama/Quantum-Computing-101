@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phys 437 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Syllabus" href="syllabus.html" />
@@ -101,9 +102,9 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section id="phys-437">
+  <div class="section" id="phys-437">
 <h1>Phys 437<a class="headerlink" href="#phys-437" title="Permalink to this headline">¶</a></h1>
-<section id="general-information">
+<div class="section" id="general-information">
 <h2>General information<a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -111,8 +112,8 @@
 <li class="toctree-l1"><a class="reference internal" href="term_project_ideas.html">Term Project Ideas</a></li>
 </ul>
 </div>
-</section>
-<section id="theory-sessions">
+</div>
+<div class="section" id="theory-sessions">
 <h2>Theory sessions<a class="headerlink" href="#theory-sessions" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Text</span></p>
@@ -273,6 +274,21 @@
 <li class="toctree-l2"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#approximate-counting">Approximate counting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#intuition">Intuition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#quantizing-the-basic-idea">Quantizing the basic idea.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id1">Grover’s algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id2">Send it after class 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id3">Send it after class 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id4">The start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id5">Send it after class 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id6">The goal.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id7">Two reflections make a rotation.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id8">Send it after class 4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id9">The number of iterations required.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id10">Send it after class 5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id11">Approximate counting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id12">Intuition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Theory/Ch3/Theory-Lecture8.html#id13">Quantizing the basic idea.</a></li>
 </ul>
 </li>
 </ul>
@@ -297,8 +313,8 @@
 <li class="toctree-l1"><a class="reference internal" href="Theory/Ch2/Ch2-online.html#lecture-7-online-material">Lecture 7 online material</a></li>
 </ul>
 </div>
-</section>
-<section id="hands-on-sessions">
+</div>
+<div class="section" id="hands-on-sessions">
 <h2>Hands-on sessions<a class="headerlink" href="#hands-on-sessions" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Pre-compiled Jupyter</span></p>
@@ -463,6 +479,28 @@
 <li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-7/Hands-on-7-book.html#send-it-after-class">Send it after class</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html">Hands-on 8</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#portfolio-diversification">Portfolio Diversification</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#the-model">The Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#a-hybrid-approach">A Hybrid Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#references">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#the-implementation">The Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#classical-solution-using-ibm-ilog-cplex">Classical solution using IBM ILOG CPLEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#quantum-computing-with-ibm-q">Quantum Computing with IBM Q</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#step-1">Step 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#step-2">Step 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#step-3">Step 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#step-4">Step 4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#step-5">Step 5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#one-qubit-qarbm">One qubit QARBM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Hands-On/hands-on-8/Hands-on-8-book.html#do-it-yourself">Do it yourself</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -475,10 +513,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Hands-On/hands-on-5/hands-on-5-online.html">Hands-on 5</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hands-On/hands-on-6/hands-on-6-online.html">Hands-on 6</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hands-On/hands-on-7/hands-on-7-online.html">Hands-on 7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hands-On/hands-on-8/hands-on-8-online.html">Hands-on 8</a></li>
 </ul>
 </div>
-</section>
-</section>
+</div>
+</div>
 
 
     </div>
@@ -500,7 +539,7 @@
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

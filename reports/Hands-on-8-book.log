@@ -1,0 +1,115 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+c00lass ClassicalOptimizer:
+    def __init__(self, rho, n, q):
+
+        self.rho = rho
+        self.n = n  # number of inner variables
+        self.q = q  # number of required selection
+
+    def compute_allowed_combinations(self):
+        f = math.factorial
+        return int(f(self.n) / f(self.q) / f(self.n - self.q))
+
+    def cplex_solution(self):
+
+        # refactoring
+        rho = self.rho
+        n = self.n
+        q = self.q
+
+        my_obj = list(rho.reshape(1, n**2)[0]) + [0.0 for x in range(0, n)]
+        my_ub = [1 for x in range(0, n**2 + n)]
+        my_lb = [0 for x in range(0, n**2 + n)]
+        my_ctype = "".join(["I" for x in range(0, n**2 + n)])
+
+        my_rhs = (
+            [q]
+            + [1 for x in range(0, n)]
+            + [0 for x in range(0, n)]
+            + [0.1 for x in range(0, n**2)]
+        )
+        my_sense = (
+            "".join(["E" for x in range(0, 1 + n)])
+            + "".join(["E" for x in range(0, n)])
+            + "".join(["L" for x in range(0, n**2)])
+        )
+
+        try:
+            my_prob = cplex.Cplex()
+            self.populatebyrow(my_prob, my_obj, my_ub, my_lb, my_ctype, my_sense, my_rhs)
+
+            my_prob.solve()
+
+        except CplexError as exc:
+            print(exc)
+            return
+
+        x = my_prob.solution.get_values()
+        x = np.array(x)
+        cost = my_prob.solution.get_objective_value()
+
+        return x, cost
+
+    def populatebyrow(self, prob, my_obj, my_ub, my_lb, my_ctype, my_sense, my_rhs):
+
+        n = self.n
+
+        prob.objective.set_sense(prob.objective.sense.minimize)
+        prob.variables.add(obj=my_obj, lb=my_lb, ub=my_ub, types=my_ctype)
+
+        prob.set_log_stream(None)
+        prob.set_error_stream(None)
+        prob.set_warning_stream(None)
+        prob.set_results_stream(None)
+
+        rows = []
+        col = [x for x in range(n**2, n**2 + n)]
+        coef = [1 for x in range(0, n)]
+        rows.append([col, coef])
+
+        for ii in range(0, n):
+            col = [x for x in range(0 + n * ii, n + n * ii)]
+            coef = [1 for x in range(0, n)]
+
+            rows.append([col, coef])
+
+        for ii in range(0, n):
+            col = [ii * n + ii, n**2 + ii]
+            coef = [1, -1]
+            rows.append([col, coef])
+
+        for ii in range(0, n):
+            for jj in range(0, n):
+                col = [ii * n + jj, n**2 + jj]
+                coef = [1, -1]
+
+                rows.append([col, coef])
+
+        prob.linear_constraints.add(lin_expr=rows, senses=my_sense, rhs=my_rhs)
+------------------
+
+[0;36m  Input [0;32mIn [5][0;36m[0m
+[0;31m    c00lass ClassicalOptimizer:[0m
+[0m            ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+SyntaxError: invalid syntax (3737742522.py, line 1)
+

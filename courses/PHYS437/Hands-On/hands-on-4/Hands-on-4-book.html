@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hands on 4 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -20,7 +19,7 @@
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -112,12 +111,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.71326446533203</td></tr><tr><td colspan='2'>Wed Apr 13 13:13:06 2022 +03</td></tr></table></div></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="hands-on-4">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Tue Apr 12 23:03:45 2022 +03</td></tr></table></div></div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="hands-on-4">
 <h1>Hands on 4<a class="headerlink" href="#hands-on-4" title="Permalink to this headline">¶</a></h1>
 <p>This hands on delves deeper into using the IBM Quantum cloud. You’ll see the following topic simulator parameters, using GPUs in simulators, and noise simulation.</p>
-<section id="using-your-ibm-credentials-locally">
+<div class="section" id="using-your-ibm-credentials-locally">
 <h2>Using your IBM credentials locally<a class="headerlink" href="#using-your-ibm-credentials-locally" title="Permalink to this headline">¶</a></h2>
 <p>The IBM Quantum account has functions for handling administrative tasks. The credentials can be saved to disk, or used in a session and never saved.</p>
 <ul class="simple">
@@ -147,25 +156,6 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading saved account
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IBMQAccountCredentialsNotFound</span><span class="g g-Whitespace">            </span>Traceback (most recent call last)
-<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 7&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="k">if</span> <span class="p">(</span><span class="n">IBMQ</span><span class="o">.</span><span class="n">active_account</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">IBMQ</span><span class="o">.</span><span class="n">stored_account</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading saved account&quot;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">9</span>     <span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/ibmq/ibmqfactory.py:167,</span> in <span class="ni">IBMQFactory.load_account</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="n">credentials_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stored_credentials</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_list</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">167</span>     <span class="k">raise</span> <span class="n">IBMQAccountCredentialsNotFound</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="s1">&#39;No IBM Quantum Experience credentials found.&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">credentials_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>     <span class="k">raise</span> <span class="n">IBMQAccountMultipleCredentialsFound</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>         <span class="s1">&#39;Multiple IBM Quantum Experience credentials found. &#39;</span> <span class="o">+</span> <span class="n">UPDATE_ACCOUNT_TEXT</span><span class="p">)</span>
-
-<span class="ne">IBMQAccountCredentialsNotFound</span>: &#39;No IBM Quantum Experience credentials found.&#39;
 </pre></div>
 </div>
 </div>
@@ -204,7 +194,7 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "97631da5b8af4781a8fd05ff5de85eb1"}
+{"version_major": 2, "version_minor": 0, "model_id": "fa0567081bf34d30b4c352e125ad9822"}
 </script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;IBMQBackend(&#39;ibm_perth&#39;) from IBMQ(hub=&#39;ibm-q-education&#39;, group=&#39;mid-east-tech-un-1&#39;, project=&#39;2300343-Intro-Computational-Methods&#39;)&gt;
 </pre></div>
 </div>
@@ -225,14 +215,14 @@
 </div>
 </div>
 <p>Each quantum computer has different characteristics. Remember, it is not just the number of qubit, but also how the qubits are connected matters. You can check the topologies in the IBM Q webpage</p>
-</section>
-<section id="qiskit-visualization-tools">
+</div>
+<div class="section" id="qiskit-visualization-tools">
 <h2>Qiskit Visualization tools<a class="headerlink" href="#qiskit-visualization-tools" title="Permalink to this headline">¶</a></h2>
 <p>Within the physics community, the qubits of a multi-qubit systems are typically ordered with the first qubit on the left-most side of the tensor product and the last qubit on the right-most side. For instance, if the first qubit is in state <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> and second is in state <span class="math notranslate nohighlight">\( \left|1\right\rangle \)</span>, their joint state would be <span class="math notranslate nohighlight">\( \left|01\right\rangle \)</span>. Qiskit uses a slightly different ordering of the qubits, in which the qubits are represented from the most significant bit (MSB) on the left to the least significant bit (LSB) on the right (big-endian). This is similar to bitstring representation on classical computers, and enables easy conversion from bitstrings to integers after measurements are performed. For the example just given, the joint state would be represented as <span class="math notranslate nohighlight">\( \left|10\right\rangle \)</span>.</p>
 <p>Importantly, this change in the representation of multi-qubit states affects the way multi-qubit gates are represented in Qiskit, as discussed <a class="reference external" href="htps://qiskit.org/documentation/tutorials/circuits/3_summary_of_quantum_operations.html#Two-qubit-gates_">here</a></p>
 <p>The representation used in Qiskit enumerates the basis vectors in increasing order of the integers they represent. For instance, the basis vectors for a 2-qubit system would be ordered as <span class="math notranslate nohighlight">\( \left|00\right\rangle\)</span>, <span class="math notranslate nohighlight">\( \left|01\right\rangle \)</span>, <span class="math notranslate nohighlight">\( \left|10\right\rangle \)</span>, and <span class="math notranslate nohighlight">\( \left|11\right\rangle \)</span>. Thinking of the basis vectors as bit strings, they encode the integers 0,1,2 and 3, respectively.</p>
 <p>We have already seen how to plot the results in a histogram. There are other visualization tools that are useful when working with quantum computers, let’s explore them.</p>
-<section id="plot-a-state">
+<div class="section" id="plot-a-state">
 <h3>Plot a state<a class="headerlink" href="#plot-a-state" title="Permalink to this headline">¶</a></h3>
 <p>In many situations you want to see the state of a quantum computer. This could be for debugging. Here we assume you have this state (either from simulation or state tomography) and the goal is to visualize the quantum state. This requires exponential resources, so we advise to only view the state of small quantum systems. There are several functions for generating different types of visualization of a quantum state</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_state_city</span><span class="p">(</span><span class="n">quantum_state</span><span class="p">)</span>
@@ -265,6 +255,18 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">circuit</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">circuit</span><span class="o">.</span><span class="n">cx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;QuantumCircuit&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -313,7 +315,7 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-<section id="plot-bloch-vector">
+<div class="section" id="plot-bloch-vector">
 <h4>Plot Bloch Vector<a class="headerlink" href="#plot-bloch-vector" title="Permalink to this headline">¶</a></h4>
 <p>A standard way of plotting a quantum system is using the Bloch vector. This only works for a single qubit and takes as input the Bloch vector.</p>
 <div class="cell docutils container">
@@ -330,8 +332,8 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-</section>
-<section id="circuit-visualization">
+</div>
+<div class="section" id="circuit-visualization">
 <h4>Circuit Visualization<a class="headerlink" href="#circuit-visualization" title="Permalink to this headline">¶</a></h4>
 <p>When building a quantum circuit, it often helps to draw the circuit. This is supported natively by a <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> object. You can either call <code class="docutils literal notranslate"><span class="pre">print()</span></code> on the circuit, or call the <code class="docutils literal notranslate"><span class="pre">draw()</span></code> method on the object.</p>
 <div class="cell docutils container">
@@ -377,7 +379,7 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 <p>Depending on the output, there are also options to customize the circuit diagram rendered by the circuit.</p>
-<section id="disable-plot-barriers-and-reversing-bit-order">
+<div class="section" id="disable-plot-barriers-and-reversing-bit-order">
 <h5>Disable Plot Barriers and Reversing Bit Order<a class="headerlink" href="#disable-plot-barriers-and-reversing-bit-order" title="Permalink to this headline">¶</a></h5>
 <p>The first two options are shared among all three backends. They allow you to configure both the bit orders and whether or not you draw barriers. These can be set by the <code class="docutils literal notranslate"><span class="pre">reverse_bits</span></code> `kwarg and <code class="docutils literal notranslate"><span class="pre">plot_barriers</span></code> kwarg, respectively. The examples below will work with any output backend; mpl is used here for brevity.</p>
 <div class="cell docutils container">
@@ -433,8 +435,8 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-</section>
-<section id="backend-specific-costumizations">
+</div>
+<div class="section" id="backend-specific-costumizations">
 <h5>Backend specific costumizations<a class="headerlink" href="#backend-specific-costumizations" title="Permalink to this headline">¶</a></h5>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -470,10 +472,10 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="simulators">
+</div>
+</div>
+</div>
+<div class="section" id="simulators">
 <h3>Simulators<a class="headerlink" href="#simulators" title="Permalink to this headline">¶</a></h3>
 <p>Now we will show how to import the Qiskit Aer simulator backend and use it to run ideal (noise free) Qiskit Terra circuits.</p>
 <div class="cell docutils container">
@@ -536,7 +538,7 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-<section id="simulation-methods">
+<div class="section" id="simulation-methods">
 <h4>Simulation methods<a class="headerlink" href="#simulation-methods" title="Permalink to this headline">¶</a></h4>
 <p>The AerSimulator supports a variety of simulation methods, each of which supports a different set of instructions. The method can be set manually using <code class="docutils literal notranslate"><span class="pre">simulator.set_option(method=value)</span></code> option, or a simulator backend with a preconfigured method can be obtained directly from the Aer provider using <code class="docutils literal notranslate"><span class="pre">Aer.get_backend</span></code>.</p>
 <p>When simulating ideal circuits, changing the method between the exact simulation methods stabilizer, <code class="docutils literal notranslate"><span class="pre">statevector</span></code>, <code class="docutils literal notranslate"><span class="pre">density_matrix</span></code> and <code class="docutils literal notranslate"><span class="pre">matrix_product_state</span></code> should not change the simulation result (other than usual variations from sampling probabilities for measurement outcomes)</p>
@@ -575,8 +577,8 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 <p>The default simulation method is automatic which will automatically select a one of the other simulation methods for each circuit based on the instructions in those circuits. A fixed simulation method can be specified by by adding the method name when getting the backend, or by setting the method option on the backend.</p>
-</section>
-<section id="gpu-simulation">
+</div>
+<div class="section" id="gpu-simulation">
 <h4>GPU simulation<a class="headerlink" href="#gpu-simulation" title="Permalink to this headline">¶</a></h4>
 <p>The statevector, density_matrix and unitary simulators support running on a NVidia GPUs. For these methods the simulation device can also be manually set to CPU or GPU using <code class="docutils literal notranslate"><span class="pre">simulator.set_options(device='GPU')</span></code> backend option. If a GPU device is not available setting this option will raise an exception.</p>
 <div class="cell docutils container">
@@ -601,8 +603,8 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 <li><p><code class="docutils literal notranslate"><span class="pre">aer_simulator_unitary_gpu</span></code></p></li>
 </ul>
 <p>Note: The GPU version of Aer can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">qiskit-aer-gpu</span></code>.</p>
-</section>
-<section id="simulation-precision">
+</div>
+<div class="section" id="simulation-precision">
 <h4>Simulation precision<a class="headerlink" href="#simulation-precision" title="Permalink to this headline">¶</a></h4>
 <p>One of the available simulator options allows setting the float precision for the statevector, density_matrix unitary and superop methods. This is done using the <code class="docutils literal notranslate"><span class="pre">set_precision=&quot;single&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">precision=&quot;double&quot;</span> </code> (default) option:</p>
 <div class="cell docutils container">
@@ -620,11 +622,11 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 <p>Setting the simulation precision applies to both CPU and GPU simulation devices. Single precision will halve the required memory and may provide performance improvements on certain systems.</p>
-</section>
-<section id="can-we-simulate-noise">
+</div>
+<div class="section" id="can-we-simulate-noise">
 <h4>Can we simulate noise?<a class="headerlink" href="#can-we-simulate-noise" title="Permalink to this headline">¶</a></h4>
-</section>
-<section id="device-backend-noise-model-simulations">
+</div>
+<div class="section" id="device-backend-noise-model-simulations">
 <h4>Device backend noise model simulations<a class="headerlink" href="#device-backend-noise-model-simulations" title="Permalink to this headline">¶</a></h4>
 <p>We will now show how to use the Qiskit Aer noise module to automatically generate a basic noise model for an IBMQ hardware device, and use this model to do noisy simulations of QuantumCircuits to study the effects of errors which occur on real devices.</p>
 <p>Note, that these automatic models are only an approximation of the real errors that occur on actual devices, due to the fact that they must be build from a limited set of input parameters related to average error rates on gates. The study of quantum errors on real devices is an active area of research and we discuss the Qiskit Aer tools for configuring more detailed noise models in another notebook.</p>
@@ -714,12 +716,12 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 <ul class="simple">
 <li><p>Applying noise to custom unitary gates https://qiskit.org/documentation/tutorials/simulators/4_custom_gate_noise.html</p></li>
 </ul>
-</section>
-</section>
-</section>
-<section id="introduction-to-quantum-gates-and-circuits-building-circuits-with-multiple-components">
+</div>
+</div>
+</div>
+<div class="section" id="introduction-to-quantum-gates-and-circuits-building-circuits-with-multiple-components">
 <h2>2. Introduction to Quantum Gates and Circuits. Building Circuits with multiple components.<a class="headerlink" href="#introduction-to-quantum-gates-and-circuits-building-circuits-with-multiple-components" title="Permalink to this headline">¶</a></h2>
-<section id="quantum-circuit-properties">
+<div class="section" id="quantum-circuit-properties">
 <h3>Quantum Circuit Properties<a class="headerlink" href="#quantum-circuit-properties" title="Permalink to this headline">¶</a></h3>
 <p>When constructing quantum circuits, there are several properties that help quantify the “size” of the circuits, and their ability to be run on a noisy quantum device. Some of these, like number of qubits, are straightforward to understand, while others like depth and number of tensor components require a bit more explanation. Here we will explain all of these properties, and, in preparation for understanding how circuits change when run on actual devices, highlight the conditions under which they change.</p>
 <div class="cell docutils container">
@@ -785,8 +787,8 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-</section>
-<section id="final-statevector-and-unitary">
+</div>
+<div class="section" id="final-statevector-and-unitary">
 <h3>Final Statevector and Unitary<a class="headerlink" href="#final-statevector-and-unitary" title="Permalink to this headline">¶</a></h3>
 <p>To save the final statevector of the simulation we can append the circuit with the <code class="docutils literal notranslate"><span class="pre">save_statevector</span></code> instruction. Note that this instruction should be applied before any measurements if we do not want to save the collapsed post-measurement state</p>
 <div class="cell docutils container">
@@ -850,7 +852,7 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-<section id="setting-a-custom-statevector">
+<div class="section" id="setting-a-custom-statevector">
 <h4>Setting a custom statevector<a class="headerlink" href="#setting-a-custom-statevector" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">set_statevector</span></code> instruction can be used to set a custom Statevector state. The input statevector must be valid.</p>
 <div class="cell docutils container">
@@ -939,9 +941,9 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
 </div>
 </div>
 <p>Let’s compare both circuit outputs. Which one has more gates?</p>
-</section>
-</section>
-<section id="other-components">
+</div>
+</div>
+<div class="section" id="other-components">
 <h3>Other components<a class="headerlink" href="#other-components" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1190,13 +1192,13 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
 </div>
 </div>
 </div>
-<section id="how-to-create-an-operator">
+<div class="section" id="how-to-create-an-operator">
 <h4>How to create an operator?<a class="headerlink" href="#how-to-create-an-operator" title="Permalink to this headline">¶</a></h4>
 <p>https://qiskit.org/documentation/tutorials/circuits_advanced/02_operators_overview.html</p>
-</section>
-</section>
-</section>
-<section id="run-on-real-hardware-compiling-circuits">
+</div>
+</div>
+</div>
+<div class="section" id="run-on-real-hardware-compiling-circuits">
 <h2>3. Run on real hardware. Compiling Circuits<a class="headerlink" href="#run-on-real-hardware-compiling-circuits" title="Permalink to this headline">¶</a></h2>
 <p>The backends we have access to</p>
 <div class="cell docutils container">
@@ -1359,7 +1361,7 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
 </div>
 </div>
 </div>
-<section id="optimization-level">
+<div class="section" id="optimization-level">
 <h3>Optimization level<a class="headerlink" href="#optimization-level" title="Permalink to this headline">¶</a></h3>
 <p>Higher levels generate more optimized circuits, at the expense of longer transpilation time.</p>
 <ul class="simple">
@@ -1604,16 +1606,16 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="send-it-after-class">
+</div>
+</div>
+<div class="section" id="send-it-after-class">
 <h2>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Compare real noise and simulated noise in a circuit.</p></li>
 <li><p>Does different topologies and transpilation strategies effect the noise? Try!</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
 <script type="application/vnd.jupyter.widget-state+json">
@@ -1641,7 +1643,7 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

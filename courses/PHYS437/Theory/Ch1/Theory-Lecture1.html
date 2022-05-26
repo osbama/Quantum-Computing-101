@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ch1-Lecture 1 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -103,9 +104,9 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="ch1-lecture-1">
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch1-lecture-1">
 <h1>Ch1-Lecture 1<a class="headerlink" href="#ch1-lecture-1" title="Permalink to this headline">¶</a></h1>
-<section id="jupyter">
+<div class="section" id="jupyter">
 <h2>Jupyter<a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h2>
 <p>This is a jupyter notebook.</p>
 <p>It consists of cells.</p>
@@ -123,8 +124,8 @@
 </li>
 </ul>
 <p><a class="reference external" href="https://jupyter.org/install">Installing the Jupyter to your local PC</a> <strong>Use a package manager like miniconda!</strong></p>
-</section>
-<section id="markdown-and-latex">
+</div>
+<div class="section" id="markdown-and-latex">
 <h2>Markdown and LATEX<a class="headerlink" href="#markdown-and-latex" title="Permalink to this headline">¶</a></h2>
 <p>Markdown is a formatted text language that makes writing on the web fast and easy. It allows writing formulas using LATEX.  <strong>We will use it in our exercises and homeworks.</strong></p>
 <ul class="simple">
@@ -140,8 +141,8 @@
 <li><p><a class="reference external" href="http://tug.ctan.org/info/undergradmath/undergradmath.pdf">LaTeX for Undergrads</a></p></li>
 <li><p><a class="reference external" href="https://towardsdatascience.com/write-markdown-latex-in-the-jupyter-notebook-10985edb91fd">LaTeX in Markdown</a></p></li>
 </ul>
-</section>
-<section id="anaconda">
+</div>
+<div class="section" id="anaconda">
 <h2>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h2>
 <p>Python package management is messy, do NOT install packages to your user environment directly without a package manager.</p>
 <p>Anaconda is a distribution of the Python and R programming languages for scientific computing (data science, machine learning applications, large-scale data processing, predictive analytics, etc.), that aims to simplify package management and deployment. The distribution includes data-science packages suitable for Windows, Linux, and macOS.</p>
@@ -149,16 +150,16 @@
 <li><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda download</a></p></li>
 <li><p><a class="reference external" href="https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf">Conda cheat sheet</a></p></li>
 </ul>
-</section>
-<section id="exercise-1">
+</div>
+<div class="section" id="exercise-1">
 <h2>Exercise 1:<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h2>
 <p>Download and install miniconda to your local computer. Create an environment, and switch to it. Install Jupyter notebook to that environment.</p>
-</section>
-<section id="ibm-quantum-cloud">
+</div>
+<div class="section" id="ibm-quantum-cloud">
 <h2>IBM Quantum Cloud<a class="headerlink" href="#ibm-quantum-cloud" title="Permalink to this headline">¶</a></h2>
 <p>In this lecture, we will heavily rely on <a class="reference external" href="https://quantum-computing.ibm.com/login">IBM’s Quantum cloud</a>. Please use <a class="reference external" href="https://forms.gle/zCGvazRC8KnSLYYi8">this form</a> for me to add you to the lecture (you will receive an invitation to create one, if you don’t have an account yet).</p>
-</section>
-<section id="some-useful-links">
+</div>
+<div class="section" id="some-useful-links">
 <h2>Some useful links<a class="headerlink" href="#some-useful-links" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Xanadu offers access to photonic quantum computers, just like IBM Quantum cloud. Apply <a class="reference external" href="https://www.xanadu.ai/cloud">here</a> if you are interested.</p></li>
@@ -167,8 +168,8 @@
 <li><p><a class="reference external" href="https://strawberryfields.readthedocs.io/en/stable/_static/install.html">Strawberry fields</a> (use another conda environment with Python=3.8)</p></li>
 <li><p><a class="reference external" href="https://qutip.org/docs/latest/installation.html">quTip</a> (use another conda environment with Python=3.8)</p></li>
 </ul>
-</section>
-<section id="introduction">
+</div>
+<div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The field of quantum computing is nowadays far too large to be captured in a single course. Here, we shall focus on a broad introduction which aims to cover topics such as: What is quantum mechanics, and how can it
 be harnessed to build a computer? What kind of computational problems can such a computer
@@ -198,7 +199,7 @@ does the study of quantum computing tell us about nature itself?</p>
 \[ \left\langle\left.\psi \right|\phi \right\rangle = \sum_{i=1}^d\psi_i^d\phi_i \]</div>
 <p>The inner product satisfies <span class="math notranslate nohighlight">\(\left(\left\langle\left.\psi \right|\phi \right\rangle\right)^*=\left\langle\left.\phi \right|\psi \right\rangle\)</span>.  The “length” of a vector <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> can now be quantified
 by measuring the overlap of <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> with itself, which yields the Euclidean norm, <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle \right\lVert_2 =\sqrt{\left\langle\left.\psi \right|\phi \right\rangle}\)</span>.</p>
-<section id="send-it-after-class-1">
+<div class="section" id="send-it-after-class-1">
 <h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
 <p>Let  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle =\frac{1}{\sqrt{2}}\left(1,i\right)^T\)</span>, where T denotes the transpose. What are  <span class="math notranslate nohighlight">\( \left\langle\psi\right|\)</span> and <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle \right\lVert_2\)</span>?</p>
 <p>With a norm in hand, we can define a notion of <em><strong>distance</strong></em> between vectors <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span>,<span class="math notranslate nohighlight">\(\left|\phi\right\rangle\)</span> called the Euclidean distance: <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle-\left|\phi\right\rangle \right\lVert_2\)</span>. This distance will play the important role of quantifying how well two quantum states <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\phi\right\rangle\)</span> can be “distinguished” via measurements. Two useful properties of the Euclidean norm are:</p>
@@ -207,12 +208,12 @@ by measuring the overlap of <span class="math notranslate nohighlight">\(\left|\
 <li><p>(Triangle inequality) For any <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|\phi\right\rangle\)</span> one has <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle+\left|\phi\right\rangle \right\lVert_2 \leq \left\lVert\left|\psi\right\rangle\right\lVert_2 +\left\lVert\left|\phi\right\rangle \right\lVert_2\)</span> .</p></li>
 </ol>
 <p>These two properties can be used to show that for all  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \in  \mathbb{C}^d \)</span>, <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle\right\lVert_2\geq 0\)</span></p>
-</section>
-<section id="send-it-after-class-2">
+</div>
+<div class="section" id="send-it-after-class-2">
 <h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
 <p>Let  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle =\frac{1}{\sqrt{2}}\left(1,i\right)^T\)</span> and <span class="math notranslate nohighlight">\( \left|\phi\right\rangle =\left(\frac{1}{2},\frac{\sqrt{3}}{2}\right)^T\)</span>. What is <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle-\left|\phi\right\rangle \right\lVert_2\)</span>?</p>
-</section>
-<section id="orthonormal-bases">
+</div>
+<div class="section" id="orthonormal-bases">
 <h3>Orthonormal bases<a class="headerlink" href="#orthonormal-bases" title="Permalink to this headline">¶</a></h3>
 <p>A much more natural way to represent vectors in this course shall be in terms of <em><strong>orthonormal bases</strong></em>. Recall that a set of vectors <span class="math notranslate nohighlight">\( \left \{\left|\psi\right\rangle\right\} \subseteq  \mathbb{C}^d \)</span> is <em>orthogonal</em> if for all <span class="math notranslate nohighlight">\(i\neq j\)</span>, <span class="math notranslate nohighlight">\(\left\langle\left.\psi_i \right|\psi_j \right\rangle=0\)</span>, and <em>orthonormal</em> if  <span class="math notranslate nohighlight">\(\left\langle\left.\psi_i \right|\psi_j \right\rangle=\delta_{ij}\)</span>. Here, <span class="math notranslate nohighlight">\(\delta_{ij}\)</span> is the Kroenecker delta, whose value is 1 if <span class="math notranslate nohighlight">\(i = j\)</span> and 0 otherwise. For the vector space <span class="math notranslate nohighlight">\(\mathbb{C}^d\)</span> , which has dimension <span class="math notranslate nohighlight">\(d\)</span>, it is necessary and sufficient to use <span class="math notranslate nohighlight">\(d\)</span> orthonormal vectors in order to form an orthonormal basis.</p>
 <p>One of the most common bases we use is the <em>computational basis</em>, defined for <span class="math notranslate nohighlight">\(\mathbb{C}^2\)</span> as</p>
@@ -226,15 +227,15 @@ by measuring the overlap of <span class="math notranslate nohighlight">\(\left|\
    1
    \end{pmatrix} \end{split}\]</div>
 <p>since <span class="math notranslate nohighlight">\( \left \{\left|0\right\rangle,\left|1\right\rangle\right\}\)</span> is an orthonormal basis, any vector  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \in  \mathbb{C}^2 \)</span> can be written as  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle= \alpha\left|0\right\rangle+\beta\left|1\right\rangle  \)</span> for some <span class="math notranslate nohighlight">\(\alpha,\beta\in \mathbb{C}\)</span>. We say <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> is <em>normalized</em> when it has length 1, i.e.  <span class="math notranslate nohighlight">\(\left\lVert\left|\psi\right\rangle\right\lVert_2=1\)</span> or equivalently <span class="math notranslate nohighlight">\(\left|\alpha\right|^2+\left|\beta\right|^2=1\)</span></p>
-</section>
-<section id="send-it-after-class-3">
+</div>
+<div class="section" id="send-it-after-class-3">
 <h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
 <p>Let  <span class="math notranslate nohighlight">\( \left|\psi\right\rangle =\frac{1}{\sqrt{2}}\left(1,1\right)^T\in\mathbb{C}^2\)</span>. Write  <span class="math notranslate nohighlight">\( \left\langle\psi\right|\)</span> in terms of computational basis for <span class="math notranslate nohighlight">\(\mathbb{C}^2\)</span>.
 Is it normalized?</p>
 <p>The computational basis is easily extended to <span class="math notranslate nohighlight">\(d\)</span>-dimensional vectors by defining <span class="math notranslate nohighlight">\(\left|i\right\rangle\in\mathbb{C}^d\)</span> as having a 1 in position i and 0 elsewhere (here, <span class="math notranslate nohighlight">\(0 \leq i \leq d − 1\)</span>).
 In this course, vectors labelled by integers (e.g. <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>, <span class="math notranslate nohighlight">\(\left|3\right\rangle\in\mathbb{C}^d\)</span> ) will be assumed to be <span class="math notranslate nohighlight">\(d\)</span>-dimensional computational basis vectors</p>
-</section>
-<section id="linear-maps">
+</div>
+<div class="section" id="linear-maps">
 <h3>Linear maps.<a class="headerlink" href="#linear-maps" title="Permalink to this headline">¶</a></h3>
 <p>Given a vector <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \in  \mathbb{C}^d \)</span> , we are interested in how <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> can be “mapped” to other vectors. The maps are <em>linear</em>, which by definition means that for map <span class="math notranslate nohighlight">\(\Phi : \mathbb{C}^d \mapsto \mathbb{C}^d\)</span>
 and arbitrary <span class="math notranslate nohighlight">\(\sum_i\alpha_i\left|\psi_i\right\rangle\in  \mathbb{C}^d \)</span>,</p>
@@ -243,8 +244,8 @@ and arbitrary <span class="math notranslate nohighlight">\(\sum_i\alpha_i\left|\
 \Phi\left(\sum_i\alpha_i\left|\psi_i\right\rangle\right)=\sum_i\alpha_i\Phi\left( \left|\psi_i\right\rangle\right)
 \]</div>
 <p>The set of linear maps from vector space <span class="math notranslate nohighlight">\(\mathcal{X}\)</span> to <span class="math notranslate nohighlight">\(\mathcal{Y}\)</span> is denoted <span class="math notranslate nohighlight">\(\mathcal{L}(\mathcal{X} , \mathcal{Y})\)</span>. For brevity, we use the shorthand <span class="math notranslate nohighlight">\(\mathcal{L}(\mathcal{X})\)</span> to mean <span class="math notranslate nohighlight">\(\mathcal{L}(\mathcal{X} , \mathcal{Y})\)</span></p>
-</section>
-<section id="send-it-after-class-4">
+</div>
+<div class="section" id="send-it-after-class-4">
 <h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h3>
 <p>Consider the linear map <span class="math notranslate nohighlight">\(\Phi : \mathbb{C}^d \mapsto \mathbb{C}^d\)</span> with action <span class="math notranslate nohighlight">\(\Phi\left(\left|0\right\rangle\right)=\left|1\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \Phi\left(\left|1\right\rangle\right)=\left|0\right\rangle \)</span>. If <span class="math notranslate nohighlight">\( \left|\psi\right\rangle= \alpha\left|0\right\rangle+\beta\left|1\right\rangle \)</span>, what is <span class="math notranslate nohighlight">\( \Phi\left(\left|\psi\right\rangle\right) \)</span>?</p>
 <p>the action of a linear map <span class="math notranslate nohighlight">\(\Phi \in \mathcal{L}\left(\mathbb{C}^d\right)\)</span> is fully characterized by understanding how <span class="math notranslate nohighlight">\(\Phi\)</span> acts on a basis for <span class="math notranslate nohighlight">\(\mathbb{C}^d\)</span> . This leads to a natural
@@ -256,8 +257,8 @@ matrix <span class="math notranslate nohighlight">\(A_\Phi\)</span> , we use its
 A_\Phi = \left[ \Phi\left(\left|0\right\rangle\right), \Phi\left(\left|1\right\rangle\right), \dots , \Phi\left(\left|d-1\right\rangle\right) \right ]
 \]</div>
 <p>In this course, we use both the matrix and linear map views interchangeably, with the application notion clear from context.</p>
-</section>
-<section id="send-it-after-class-5">
+</div>
+<div class="section" id="send-it-after-class-5">
 <h3>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this headline">¶</a></h3>
 <p>What is the <span class="math notranslate nohighlight">\(2 \times 2\)</span> complex matrix tepresenting the linear map <span class="math notranslate nohighlight">\(\Phi\)</span> from “send it it after class 4” ? What is the linear map whose matrix (with respect to the computational
 basis) is the <em>identity matrix</em></p>
@@ -269,9 +270,9 @@ I=
 0 &amp; 1
 \end{pmatrix}
 \end{split}\]</div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
     </div>
@@ -293,7 +294,7 @@ I=
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

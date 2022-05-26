@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -101,7 +102,7 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+  <div class="tex2jax_ignore mathjax_ignore section" id="learning-outcomes">
 <h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>Quantum Teleportation</p></li>
@@ -109,7 +110,7 @@
 <li><p>Quantum Key Distribution</p></li>
 </ul>
 <p>This notebook demonstrates quantum teleportation. We first use Qiskit’s built-in simulators to test our quantum circuit, and then try it out on a real quantum computer.</p>
-<section id="contents">
+<div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p><a class="reference external" href="#overview">Overview</a></p></li>
@@ -124,16 +125,16 @@
 5.2 <a class="reference external" href="#executing">Executing</a></p></li>
 <li><p><a class="reference external" href="#references">References</a></p></li>
 </ol>
-</section>
-<section id="overview-a-id-overview-a">
+</div>
+<div class="section" id="overview-a-id-overview-a">
 <h2>1. Overview <a id='overview'></a><a class="headerlink" href="#overview-a-id-overview-a" title="Permalink to this headline">¶</a></h2>
 <p>Alice wants to send quantum information to Bob. Specifically, suppose she wants to send the qubit state
 <span class="math notranslate nohighlight">\(\vert\psi\rangle = \alpha\vert0\rangle + \beta\vert1\rangle\)</span>.
 This entails passing on information about <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> to Bob.</p>
 <p>There exists a theorem in quantum mechanics which states that you cannot simply make an exact copy of an unknown quantum state. This is known as the no-cloning theorem. As a result of this we can see that Alice can’t simply generate a copy of <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> and give the copy to Bob. We can only copy classical states (not superpositions).</p>
 <p>However, by taking advantage of two classical bits and an entangled qubit pair, Alice can transfer her state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> to Bob. We call this teleportation because, at the end, Bob will have <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> and Alice won’t anymore.</p>
-</section>
-<section id="the-quantum-teleportation-protocol-a-id-how-a">
+</div>
+<div class="section" id="the-quantum-teleportation-protocol-a-id-how-a">
 <h2>2. The Quantum Teleportation Protocol <a id='how'></a><a class="headerlink" href="#the-quantum-teleportation-protocol-a-id-how-a" title="Permalink to this headline">¶</a></h2>
 <p>To transfer a quantum bit, Alice and Bob must use a third party (Telamon) to send them an entangled qubit pair. Alice then performs some operations on her qubit, sends the results to Bob over a classical communication channel, and Bob then performs some operations on his end to receive Alice’s qubit.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
@@ -178,7 +179,7 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 </div>
-<section id="step-1">
+<div class="section" id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
 <p>A third party, Telamon, creates an entangled pair of qubits and gives one to Bob and one to Alice.</p>
 <p>The pair Telamon creates is a special pair called a Bell pair. In quantum circuit language, the way to create a Bell pair between two qubits is to first transfer one of them to the X-basis (<span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>) using a Hadamard gate, and then to apply a CNOT gate onto the other qubit controlled by the one in the X-basis.</p>
@@ -214,8 +215,8 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <p>Let’s say Alice owns <span class="math notranslate nohighlight">\(q_1\)</span> and Bob owns <span class="math notranslate nohighlight">\(q_2\)</span> after they part ways.</p>
-</section>
-<section id="step-2">
+</div>
+<div class="section" id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
 <p>Alice applies a CNOT gate to <span class="math notranslate nohighlight">\(q_1\)</span>, controlled by <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> (the qubit she is trying to send Bob). Then Alice applies a Hadamard gate to <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>. In our quantum circuit, the qubit (<span class="math notranslate nohighlight">\(|\psi\rangle\)</span>) Alice is trying to send is <span class="math notranslate nohighlight">\(q_0\)</span>:</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -249,8 +250,8 @@ This entails passing on information about <span class="math notranslate nohighli
 <img alt="../../../../../_images/lab7-book_14_0.png" src="../../../../../_images/lab7-book_14_0.png" />
 </div>
 </div>
-</section>
-<section id="step-3">
+</div>
+<div class="section" id="step-3">
 <h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
 <p>Next, Alice applies a measurement to both qubits that she owns, <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span>, and stores this result in two classical bits. She then sends these two bits to Bob.</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -289,8 +290,8 @@ This entails passing on information about <span class="math notranslate nohighli
 <img alt="../../../../../_images/lab7-book_17_0.png" src="../../../../../_images/lab7-book_17_0.png" />
 </div>
 </div>
-</section>
-<section id="step-4">
+</div>
+<div class="section" id="step-4">
 <h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
 <p>Bob, who already has the qubit <span class="math notranslate nohighlight">\(q_2\)</span>, then applies the following gates depending on the state of the classical bits:</p>
 <p>00 <span class="math notranslate nohighlight">\(\rightarrow\)</span> Do nothing</p>
@@ -341,11 +342,11 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <p>And voila! At the end of this protocol, Alice’s qubit has now teleported to Bob.</p>
-</section>
-</section>
-<section id="simulating-the-teleportation-protocol-a-id-simulating-a">
+</div>
+</div>
+<div class="section" id="simulating-the-teleportation-protocol-a-id-simulating-a">
 <h2>3. Simulating the Teleportation Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-teleportation-protocol-a-id-simulating-a" title="Permalink to this headline">¶</a></h2>
-<section id="how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a">
+<div class="section" id="how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a">
 <h3>3.1 How Will We Test the Protocol on a Quantum Computer? <a id='testing'></a><a class="headerlink" href="#how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a" title="Permalink to this headline">¶</a></h3>
 <p>In this notebook, we will initialize Alice’s qubit in a random state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>). This state will be created using an <code class="docutils literal notranslate"><span class="pre">Initialize</span></code> gate on <span class="math notranslate nohighlight">\(|q_0\rangle\)</span>. In this chapter we use the function <code class="docutils literal notranslate"><span class="pre">random_state</span></code> to choose <code class="docutils literal notranslate"><span class="pre">psi</span></code> for us, but feel free to set <code class="docutils literal notranslate"><span class="pre">psi</span></code> to any qubit state you want.</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -386,17 +387,17 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-</section>
-<section id="exercise-1">
+</div>
+<div class="section" id="exercise-1">
 <h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say the state $<span class="math notranslate nohighlight">\(|\phi\rangle = \begin{bmatrix} a_0 + ia_1 \\ b_0 \end{bmatrix} \)</span><span class="math notranslate nohighlight">\( is orthogonal to state \)</span>|\psi\rangle <span class="math notranslate nohighlight">\( we defined above. In order to find the values for \)</span>a_0,a_1<span class="math notranslate nohighlight">\( and \)</span>b_0<span class="math notranslate nohighlight">\( we need three linearly independent equations. Solving them can be a lot of work, so I just want you to write down three linearly independent equations. In other words, what are the conditions for \)</span>|\phi\rangle<span class="math notranslate nohighlight">\( to be a normalized and an orthogonal state to \)</span>|\psi\rangle$?</p>
-</section>
-<section id="answer">
+</div>
+<div class="section" id="answer">
 <h3>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h3>
 <p>?</p>
 <p>(<code class="docutils literal notranslate"><span class="pre">Initialize</span></code> is technically not a gate since it contains a reset operation, and so is not reversible. We call it an ‘instruction’ instead). If the quantum teleportation circuit works, then at the end of the circuit the qubit <span class="math notranslate nohighlight">\(|q_2\rangle\)</span> will be in this state. We will check this using the statevector simulator.</p>
-</section>
-<section id="using-the-statevector-simulator-a-id-simulating-sv-a">
+</div>
+<div class="section" id="using-the-statevector-simulator-a-id-simulating-sv-a">
 <h3>3.2 Using the Statevector Simulator <a id='simulating-sv'></a><a class="headerlink" href="#using-the-statevector-simulator-a-id-simulating-sv-a" title="Permalink to this headline">¶</a></h3>
 <p>We can use the statevector simulator to verify our qubit has been teleported.</p>
 <div class="cell docutils container">
@@ -458,8 +459,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>You can run this cell a few times to make sure. You may notice that the qubits 0 &amp; 1 change states, but qubit 2 is always in the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p>
-</section>
-<section id="using-the-qasm-simulator-a-id-simulating-qs-a">
+</div>
+<div class="section" id="using-the-qasm-simulator-a-id-simulating-qs-a">
 <h3>3.3 Using the QASM Simulator <a id='simulating-qs'></a><a class="headerlink" href="#using-the-qasm-simulator-a-id-simulating-qs-a" title="Permalink to this headline">¶</a></h3>
 <p>Quantum teleportation is designed to send qubits between two parties. We do not have the hardware to demonstrate this, but we can demonstrate that the gates perform the correct transformations on a single quantum chip. Here we use the QASM simulator to simulate how we might test our protocol.</p>
 <p>On a real quantum computer, we would not be able to sample the statevector, so if we wanted to check our teleportation circuit is working, we need to do things slightly differently. The <code class="docutils literal notranslate"><span class="pre">Initialize</span></code> instruction first performs a reset, setting our qubit to the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. It then applies gates to turn our <span class="math notranslate nohighlight">\(|0\rangle\)</span> qubit into the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>:</p>
@@ -552,12 +553,12 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>We can see we have a 100% chance of measuring <span class="math notranslate nohighlight">\(q_2\)</span> (the leftmost bit in the string) in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. This is the expected result, and indicates the teleportation protocol has worked properly.</p>
-</section>
-</section>
-<section id="understanding-quantum-teleportation-a-id-understanding-qt">
+</div>
+</div>
+<div class="section" id="understanding-quantum-teleportation-a-id-understanding-qt">
 <h2>4. Understanding Quantum Teleportation <a id="understanding-qt"><a class="headerlink" href="#understanding-quantum-teleportation-a-id-understanding-qt" title="Permalink to this headline">¶</a></h2>
 <p>As you have worked with the Quantum Teleportation’s implementation, it is time to understand the mathematics behind the protocol.</p>
-<section id="id1">
+<div class="section" id="id1">
 <h3>Step 1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Quantum Teleportation begins with the fact that Alice needs to transmit <span class="math notranslate nohighlight">\(|\psi\rangle = \alpha|0\rangle + \beta|1\rangle\)</span> (a random qubit) to Bob. She doesn’t know the state of the qubit. For this, Alice and Bob take the help of a third party (Telamon). Telamon prepares a pair of entangled qubits for Alice and Bob. The entangled qubits could be written in Dirac Notation as:</p>
 <div class="math notranslate nohighlight">
@@ -571,8 +572,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 |\psi\rangle \otimes |e\rangle &amp;= \frac{1}{\sqrt{2}} (\alpha |0\rangle \otimes (|00\rangle + |11\rangle) + \beta |1\rangle \otimes (|00\rangle + |11\rangle))\\
 &amp;= \frac{1}{\sqrt{2}} (\alpha|000\rangle + \alpha|011\rangle + \beta|100\rangle + \beta|111\rangle) 
 \end{align*}\end{split}\]</div>
-</section>
-<section id="exercise-2">
+</div>
+<div class="section" id="exercise-2">
 <h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say Telamon is unavailable, instead his son Ajax is. But Ajax can only prepare entangled qubits in the following Bell state:</p>
 <div class="math notranslate nohighlight">
@@ -581,11 +582,11 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <li><p>Design the circuit for initializing this state.</p></li>
 <li><p>Write down <span class="math notranslate nohighlight">\(|\psi\rangle \otimes | d \rangle \)</span>.</p></li>
 </ul>
-</section>
-<section id="id2">
+</div>
+<div class="section" id="id2">
 <h3>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>?</p>
-<section id="id3">
+<div class="section" id="id3">
 <h4>Step 2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <p>Now according to the protocol Alice applies CNOT gate on her two qubits followed by Hadamard gate on the first qubit. This results in the state:</p>
 <div class="math notranslate nohighlight">
@@ -607,23 +608,23 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
  &amp; + |11\rangle (\alpha|1\rangle - \beta|0\rangle) \quad )\\
 \end{align*}
 \end{split}\]</div>
-</section>
-</section>
-<section id="exercise-3">
+</div>
+</div>
+<div class="section" id="exercise-3">
 <h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h3>
 <p>In order to use the entangled qubits produced by Ajax to perform quantum teleportation we must modify our protocol. According to the new protocol, Alice will apply a C0NOT gate to her two qubits followed by a Hadamard gate.</p>
 <ul class="simple">
 <li><p>Explicitly write down <span class="math notranslate nohighlight">\( (H \otimes I \otimes I) (CNOT \otimes I) (|\psi\rangle \otimes |e\rangle)  \)</span></p></li>
 <li><p>Decompose the resulted state like the one above. That is <span class="math notranslate nohighlight">\(|00\rangle \otimes (\text{sth})\)</span> for 00,01,10 and 11.</p></li>
 </ul>
-</section>
-<section id="id4">
+</div>
+<div class="section" id="id4">
 <h3>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>?</p>
-</section>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id5">
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id5">
 <h1>Step 4<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
 <p>Bob, on receiving the bits from Alice, knows he can obtain the original state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> by applying appropriate transformations on his qubit that was once part of the entangled pair.</p>
 <p>The transformations he needs to apply are:</p>
@@ -638,7 +639,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 \end{array}
 \end{split}\]</div>
 <p>After this step Bob will have successfully reconstructed Alice’s state.</p>
-<section id="exercise-4">
+<div class="section" id="exercise-4">
 <h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h2>
 <p>Which gates should Bob apply to his qubit to successfully reconstruct Alice’s state? Fill in the table below according to your results from Exercise 3.</p>
 <div class="math notranslate nohighlight">
@@ -651,14 +652,14 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
  &amp; 11                   &amp; 
 \end{array}
 \end{split}\]</div>
-</section>
-<section id="id6">
+</div>
+<div class="section" id="id6">
 <h2>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>?</p>
-</section>
-<section id="teleportation-on-a-real-quantum-computer-a-id-real-qc-a">
+</div>
+<div class="section" id="teleportation-on-a-real-quantum-computer-a-id-real-qc-a">
 <h2>5. Teleportation on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#teleportation-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h2>
-<section id="ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a">
+<div class="section" id="ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a">
 <h3>5.1 IBM hardware and Deferred Measurement <a id='deferred-measurement'></a><a class="headerlink" href="#ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a" title="Permalink to this headline">¶</a></h3>
 <p>The IBM quantum computers currently do not support instructions after measurements, meaning we cannot run the quantum teleportation in its current form on real hardware. Fortunately, this does not limit our ability to perform any computations due to the <em>deferred measurement principle</em> discussed in chapter 4.4 of [1]. The principle states that any measurement can be postponed until the end of the circuit, i.e. we can move all the measurements to the end, and we should see the same results.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
@@ -707,8 +708,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <img alt="../../../../../_images/lab7-book_60_0.png" src="../../../../../_images/lab7-book_60_0.png" />
 </div>
 </div>
-</section>
-<section id="executing-a-id-executing-a">
+</div>
+<div class="section" id="executing-a-id-executing-a">
 <h3>5.2 Executing <a id='executing'></a><a class="headerlink" href="#executing-a-id-executing-a" title="Permalink to this headline">¶</a></h3>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -773,8 +774,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-</section>
-<section id="exercise-5">
+</div>
+<div class="section" id="exercise-5">
 <h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h3>
 <p>Now that all theoretical work for using Ajax’s entangled pairs is completed, let’s try it with a real quantum computer! Complete the below parts and run the next cell and see if you have done it correctly!</p>
 <div class="cell docutils container">
@@ -847,9 +848,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>This notebook demonstrates the Superdense Coding (SDC) protocol. We first use Qiskit’s simulator to test our quantum circuit, and then try it out on a real quantum computer.</p>
-</section>
-</section>
-<section id="id7">
+</div>
+</div>
+<div class="section" id="id7">
 <h2>Contents<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p><a class="reference external" href="#difference">Superdense Coding and Quantum Teleportation</a></p></li>
@@ -861,8 +862,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 3.1 <a class="reference external" href="#visualising">3.1 Visualizing Our Measurements</a></p></li>
 <li><p><a class="reference external" href="#real_qc">Superdense Coding on a Real Quantum Computer</a></p></li>
 </ol>
-</section>
-<section id="the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a">
+</div>
+<div class="section" id="the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a">
 <h2>1. The Difference between Superdense Coding and Quantum Teleportation <a id='difference'></a><a class="headerlink" href="#the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a" title="Permalink to this headline">¶</a></h2>
 <p>Quantum teleportation and superdense coding are closely related, to avoid confusion we need to clarify the difference.</p>
 <p>Quantum teleportation is a process by which the state of qubit (<span class="math notranslate nohighlight">\(|\psi\rangle\)</span>) can be transmitted from one location to another, using two bits of classical communication and a Bell pair. In other words, we can say it is a protocol that destroys the quantum state of a qubit in one location and recreates it on a qubit at a distant location, with the help of shared entanglement. Superdense coding is a procedure that allows someone to send two classical bits to another party using just a single qubit of communication.</p>
@@ -879,14 +880,14 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </tbody>
 </table>
 <p>The teleportation protocol can be thought of as a flipped version of the superdense coding protocol, in the sense that Alice and Bob merely “swap their equipment.”</p>
-</section>
-<section id="the-process-a-id-process-a">
+</div>
+<div class="section" id="the-process-a-id-process-a">
 <h2>2. The Process <a id='process'></a><a class="headerlink" href="#the-process-a-id-process-a" title="Permalink to this headline">¶</a></h2>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
-<section id="step-1-a-id-step1-a">
+<div class="section" id="step-1-a-id-step1-a">
 <h3>2.1 Step 1 <a id='step1'></a><a class="headerlink" href="#step-1-a-id-step1-a" title="Permalink to this headline">¶</a></h3>
 <p>The process starts with a third party, who we’ll call Charlie. Two qubits are prepared by Charlie in an entangled state. He initially starts the 2 qubits in the basis state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. He applies Hadamard gate (<span class="math notranslate nohighlight">\(H\)</span>) to the first qubit to create superposition. He then applies CNOT gate (<span class="math notranslate nohighlight">\(CX\)</span>) using the first qubit as a control and the second as the target. This is the entangled state (Bell pair) we mentioned earlier.</p>
-<section id="outcome-states">
+<div class="section" id="outcome-states">
 <h4>Outcome States<a class="headerlink" href="#outcome-states" title="Permalink to this headline">¶</a></h4>
 <p>Charlie first applies a Hadamard gate.</p>
 <p>When the H-gate is applied to first qubit, it creates superposition and we get the state:</p>
@@ -895,9 +896,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <p>Then Charlie applies the CNOT gate. The CNOT gate entangles both qubits, i.e. it flips the target if the control is <span class="math notranslate nohighlight">\(|1\rangle\)</span>. Note that the control qubit is our rightmost qubit.</p>
 <div class="math notranslate nohighlight">
 \[\text{CNOT} \tfrac{1}{\sqrt{2}}(|00\rangle + |01\rangle) = \tfrac{1}{\sqrt{2}}(|00\rangle + |11\rangle)\]</div>
-</section>
-</section>
-<section id="exercise-6">
+</div>
+</div>
+<div class="section" id="exercise-6">
 <h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say we want to implement a superdense coding protocol but Telamon and Ajax are not available but Ajax’s step brother Teucer is. However, Teucer can only prepare the following entangled state:</p>
 <div class="math notranslate nohighlight">
@@ -905,21 +906,21 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <ul class="simple">
 <li><p>Design the circuit for initializing this state.</p></li>
 </ul>
-</section>
-<section id="id8">
+</div>
+<div class="section" id="id8">
 <h3>Answer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>?</p>
-</section>
-<section id="step-2-a-id-step2-a">
+</div>
+<div class="section" id="step-2-a-id-step2-a">
 <h3>2.2 Step 2 <a id='step2'></a><a class="headerlink" href="#step-2-a-id-step2-a" title="Permalink to this headline">¶</a></h3>
 <p>Charlie sends the first qubit to Alice and the second qubit to Bob. The goal of the protocol is for Alice to send 2 classical bits of information to Bob using her qubit. But before she does, she needs to apply a set of quantum gates to her qubit depending on the 2 bits of information she wants to send:</p>
-<section id="encoding-rules-for-superdense-coding-alice-protocol">
+<div class="section" id="encoding-rules-for-superdense-coding-alice-protocol">
 <h4>Encoding Rules for Superdense Coding (Alice protocol):<a class="headerlink" href="#encoding-rules-for-superdense-coding-alice-protocol" title="Permalink to this headline">¶</a></h4>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
 <p>Thus if she wants to send a <code class="docutils literal notranslate"><span class="pre">00</span></code>, she does nothing to her qubit (apply the identity (<span class="math notranslate nohighlight">\(I\)</span>) gate). If she sends a <code class="docutils literal notranslate"><span class="pre">10</span></code>, then she applies the <span class="math notranslate nohighlight">\(X\)</span> gate. Depending on what she wants to send, she applies the appropriate gate, then sends her qubit to Bob for the final step in the process.</p>
-</section>
-</section>
-<section id="exercise-7">
+</div>
+</div>
+<div class="section" id="exercise-7">
 <h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h3>
 <p>Let’s say Alice does the following operations according to the message she wants to send. Fill in the last column.</p>
 <table class="colwidths-auto docutils align-default">
@@ -948,8 +949,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </tr>
 </tbody>
 </table>
-</section>
-<section id="step-3-a-id-step3-a">
+</div>
+<div class="section" id="step-3-a-id-step3-a">
 <h3>2.3 Step 3 <a id='step3'></a><a class="headerlink" href="#step-3-a-id-step3-a" title="Permalink to this headline">¶</a></h3>
 <p>Bob receives Alice’s qubit (rightmost qubit) and uses his qubit to decode Alice’s message. Notice that he does not need to have knowledge of the state in order to decode it — he simply uses the restoration operation.</p>
 <p>Bob applies a CNOT gate using the rightmost qubit as control and the leftmost as target. Then he applies a Hadamard gate and finally performs a measurement on both qubits to extract Alice’s message.</p>
@@ -980,8 +981,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </tbody>
 </table>
 <p>When Bob performs the measurements, he is certain to get the message Alice sent him. Note that the last outcome has a negative sign <span class="math notranslate nohighlight">\(-|11\rangle\)</span>, writing it as <span class="math notranslate nohighlight">\(|11\rangle\)</span> is also correct as this is global phase and is not measureable.</p>
-</section>
-<section id="exercise-8">
+</div>
+<div class="section" id="exercise-8">
 <h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h3>
 <p>After Bob receives the state in Exercise 7, he should perform three operations to get the classical message. He should first apply a CNOT gate, then a Hadamard to the first qubit, then a X gate to the first qubit. Fill in the table below to see if this procedure allows Bob to receive the classical message correctly. Note that the first column of the following table should be the last column of the table in Exercise 7!</p>
 <table class="colwidths-auto docutils align-default">
@@ -1015,9 +1016,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="simulating-the-superdense-coding-protocol-a-id-simulating-a">
+</div>
+</div>
+<div class="section" id="simulating-the-superdense-coding-protocol-a-id-simulating-a">
 <h2>3. Simulating the Superdense Coding Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-superdense-coding-protocol-a-id-simulating-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1110,7 +1111,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <img alt="../../../../../_images/lab7-book_90_0.png" src="../../../../../_images/lab7-book_90_0.png" />
 </div>
 </div>
-<section id="visualizing-our-measurements-a-id-visualising-a">
+<div class="section" id="visualizing-our-measurements-a-id-visualising-a">
 <h3>3.1 Visualizing Our Measurements <a id='visualising'></a><a class="headerlink" href="#visualizing-our-measurements-a-id-visualising-a" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1131,9 +1132,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>Our simulator simulates a perfect quantum computer. We can see that, without errors, we get a 100% chance of measuring the correct message.</p>
-</section>
-</section>
-<section id="superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a">
+</div>
+</div>
+<div class="section" id="superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a">
 <h2>4. Superdense Coding on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h2>
 <p>We can now see this working on a real quantum computer. First, we want to load our account to get the least busy quantum system:</p>
 <div class="cell tag_uses-hardware docutils container">
@@ -1211,7 +1212,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-<section id="exercise-9">
+<div class="section" id="exercise-9">
 <h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h3>
 <p>Now that all theoretical work for using Teucer’s entangled pairs is completed, let’s try it with a real quantum computer! Complete the below parts and run the next cell and see if you have done it correctly!</p>
 <div class="cell docutils container">
@@ -1303,9 +1304,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <img alt="../../../../../_images/lab7-book_102_3.png" src="../../../../../_images/lab7-book_102_3.png" />
 </div>
 </div>
-</section>
-</section>
-<section id="id9">
+</div>
+</div>
+<div class="section" id="id9">
 <h2>Contents<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>Introduction</p></li>
@@ -1314,14 +1315,14 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <li><p>Qiskit Example: With Interception</p></li>
 <li><p>Risk Analysis</p></li>
 </ol>
-</section>
-<section id="introduction">
+</div>
+<div class="section" id="introduction">
 <h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>When Alice and Bob want to communicate a secret message (such as Bob’s online banking details) over an insecure channel (such as the internet), it is essential to encrypt the message. Since cryptography is a large area and almost all of it is outside the scope of this textbook, we will have to believe that Alice and Bob having a secret key that no one else knows is useful and allows them to communicate using symmetric-key cryptography.</p>
 <p>If Alice and Bob want to use Eve’s classical communication channel to share their key, it is impossible to tell if Eve has made a copy of this key for herself- they must place complete trust in Eve that she is not listening. If, however, Eve provides a quantum communication channel, Alice and Bob no longer need to trust Eve at all- they will know if she tries to read Bob’s message before it gets to Alice.</p>
 <p>For some readers, it may be useful to give an idea of how a quantum channel may be physically implemented. An example of a classical channel could be a telephone line; we send electric signals through the line that represent our message (or bits). A proposed example of a quantum communication channel could be some kind of fibre-optic cable, through which we can send individual photons (particles of light). Photons have a property called <em>polarisation,</em> and this polarisation can be one of two states. We can use this to represent a qubit.</p>
-</section>
-<section id="protocol-overview">
+</div>
+<div class="section" id="protocol-overview">
 <h2>2. Protocol Overview<a class="headerlink" href="#protocol-overview" title="Permalink to this headline">¶</a></h2>
 <p>The protocol makes use of the fact that measuring a qubit can change its state. If Alice sends Bob a qubit, and an eavesdropper (Eve) tries to measure it before Bob does, there is a chance that Eve’s measurement will change the state of the qubit and Bob will not receive the qubit state Alice sent.</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -1415,8 +1416,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <p>Bob and Alice then publicly share which basis they used for each qubit. If Bob measured a qubit in the same basis Alice prepared it in, they use this to form part of their shared secret key, otherwise they discard the information for that bit.</p>
 <p><strong>- Step 5</strong></p>
 <p>Finally, Bob and Alice share a random sample of their keys, and if the samples match, they can be sure (to a small margin of error) that their transmission is successful.</p>
-</section>
-<section id="qiskit-example-without-interception">
+</div>
+<div class="section" id="qiskit-example-without-interception">
 <h2>3. Qiskit Example: Without Interception<a class="headerlink" href="#qiskit-example-without-interception" title="Permalink to this headline">¶</a></h2>
 <p>Let’s first see how the protocol works when no one is listening in, then we can see how Alice and Bob are able to detect an eavesdropper. As always, let’s start by importing everything we need:</p>
 <p>To generate pseudo-random keys, we will use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function from numpy. To make sure you can reproduce the results on this page, we will set the seed to 0:</p>
@@ -1435,7 +1436,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-<section id="id10">
+<div class="section" id="id10">
 <h3>3.1 Step 1:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>Alice generates her random set of bits:</p>
 <div class="cell docutils container">
@@ -1472,8 +1473,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </tr>
 </tbody>
 </table>
-</section>
-<section id="id11">
+</div>
+<div class="section" id="id11">
 <h3>3.2 Step 2:<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>Alice chooses to encode each bit on qubit in the <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Z\)</span>-basis at random, and stores the choice for each qubit in <code class="docutils literal notranslate"><span class="pre">alice_bases</span></code>. In this case, a <code class="docutils literal notranslate"><span class="pre">0</span></code> means “prepare in the <span class="math notranslate nohighlight">\(Z\)</span>-basis”, and a <code class="docutils literal notranslate"><span class="pre">1</span></code> means “prepare in the <span class="math notranslate nohighlight">\(X\)</span>-basis”:</p>
 <div class="cell docutils container">
@@ -1628,8 +1629,8 @@ basis = 0
 </tr>
 </tbody>
 </table>
-</section>
-<section id="id12">
+</div>
+<div class="section" id="id12">
 <h3>3.3 Step 3:<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>Bob then measures each qubit in the <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Z\)</span>-basis at random and stores this information:</p>
 <div class="cell docutils container">
@@ -1799,8 +1800,8 @@ basis = 0
 </tr>
 </tbody>
 </table>
-</section>
-<section id="id13">
+</div>
+<div class="section" id="id13">
 <h3>3.4 Step 4:<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>After this, Alice reveals (through Eve’s channel) which qubits were encoded in which basis:</p>
 <table class="colwidths-auto docutils align-default">
@@ -2041,8 +2042,8 @@ basis = 0
 </tr>
 </tbody>
 </table>
-</section>
-<section id="step-5">
+</div>
+<div class="section" id="step-5">
 <h3>3.5 Step 5:<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h3>
 <p>Finally, Bob and Alice compare a random selection of the bits in their keys to make sure the protocol has worked correctly:</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -2239,9 +2240,9 @@ key length = 33
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="qiskit-example-with-interception">
+</div>
+</div>
+<div class="section" id="qiskit-example-with-interception">
 <h2>4. Qiskit Example: <em>With</em> Interception<a class="headerlink" href="#qiskit-example-with-interception" title="Permalink to this headline">¶</a></h2>
 <p>Let’s now see how Alice and Bob can tell if Eve has been trying to listen in on their quantum message. We repeat the same steps as without interference, but before Bob receives his qubits, Eve will try and extract some information from them. Let’s set a different seed so we get a specific set of reproducible ‘random’ results:</p>
 <div class="cell docutils container">
@@ -2251,7 +2252,7 @@ key length = 33
 </div>
 </div>
 </div>
-<section id="id14">
+<div class="section" id="id14">
 <h3>4.1 Step 1:<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>Alice generates her set of random bits:</p>
 <div class="cell docutils container">
@@ -2271,8 +2272,8 @@ key length = 33
 </div>
 </div>
 </div>
-</section>
-<section id="id15">
+</div>
+<div class="section" id="id15">
 <h3>4.2 Step 2:<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>Alice encodes these in the <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(X\)</span>-bases at random, and sends these to Bob through Eve’s quantum channel:</p>
 <div class="cell docutils container">
@@ -2306,8 +2307,8 @@ key length = 33
 <img alt="../../../../../_images/lab7-book_163_0.png" src="../../../../../_images/lab7-book_163_0.png" />
 </div>
 </div>
-</section>
-<section id="interception">
+</div>
+<div class="section" id="interception">
 <h3>Interception!<a class="headerlink" href="#interception" title="Permalink to this headline">¶</a></h3>
 <p>Oh no! Eve intercepts the message as it passes through her channel. She tries to measure the qubits in a random selection of bases, in the same way Bob will later.</p>
 <div class="cell docutils container">
@@ -2342,8 +2343,8 @@ key length = 33
 <img alt="../../../../../_images/lab7-book_167_0.png" src="../../../../../_images/lab7-book_167_0.png" />
 </div>
 </div>
-</section>
-<section id="id16">
+</div>
+<div class="section" id="id16">
 <h3>4.3 Step 3:<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>Eve then passes on the qubits to Bob, who measures them at random. In this case, Bob chose (by chance) to measure in the same basis Alice prepared the qubit in. Without interception, Bob would be guaranteed to measure <code class="docutils literal notranslate"><span class="pre">0</span></code>, but because Eve tried to read the message he now has a 50% chance of measuring <code class="docutils literal notranslate"><span class="pre">1</span></code> instead.</p>
 <div class="cell docutils container">
@@ -2368,8 +2369,8 @@ key length = 33
 <img alt="../../../../../_images/lab7-book_169_0.png" src="../../../../../_images/lab7-book_169_0.png" />
 </div>
 </div>
-</section>
-<section id="id17">
+</div>
+<div class="section" id="id17">
 <h3>4.4 Step 4:<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <p>Bob and Alice reveal their basis choices, and discard the useless bits:</p>
 <div class="cell docutils container">
@@ -2393,8 +2394,8 @@ key length = 33
 </div>
 </div>
 </div>
-</section>
-<section id="id18">
+</div>
+<div class="section" id="id18">
 <h3>4.5 Step 5:<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <p>Bob and Alice compare the same random selection of their keys to see if the qubits were intercepted:</p>
 <div class="cell docutils container">
@@ -2444,9 +2445,9 @@ alice_sample = [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 <p>Oh no! Bob’s key and Alice’s key do not match. We know this is because Eve tried to read the message between steps 2 and 3, and changed the qubits’ states. For all Alice and Bob know, this could be due to noise in the channel, but either way they must throw away all their results and try again- Eve’s interception attempt has failed.</p>
-</section>
-</section>
-<section id="risk-analysis">
+</div>
+</div>
+<div class="section" id="risk-analysis">
 <h2>5. Risk Analysis<a class="headerlink" href="#risk-analysis" title="Permalink to this headline">¶</a></h2>
 <p>For this type of interception, in which Eve measures all the qubits, there is a small chance that Bob and Alice’s samples could match, and Alice sends her vulnerable message through Eve’s channel. Let’s calculate that chance and see how risky quantum key distribution is.</p>
 <ul class="simple">
@@ -2504,7 +2505,7 @@ alice_sample = [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 </div>
-<section id="exercise-10">
+<div class="section" id="exercise-10">
 <h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Permalink to this headline">¶</a></h3>
 <p>There is nothing unique with X or Z basis states while we are trying to perform a Quantum Key distribution. Let’s say instead of <span class="math notranslate nohighlight">\(|0\rangle, |1\rangle\)</span> set we use <span class="math notranslate nohighlight">\(|R \rangle, |L \rangle\)</span> which we define as:
 $<span class="math notranslate nohighlight">\( |R \rangle = \frac{|0\rangle + i|1 \rangle}{\sqrt{2}} \)</span><span class="math notranslate nohighlight">\(
@@ -2538,14 +2539,14 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <img alt="../../../../../_images/lab7-book_178_2.png" src="../../../../../_images/lab7-book_178_2.png" />
 </div>
 </div>
-</section>
-<section id="id19">
+</div>
+<div class="section" id="id19">
 <h3>Answer<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <p>?</p>
 <p>After completing this exercise, you can actually modify the encode_message and measure_message functions’s relevant parts for preparing and measuring to implement Quantum Key Distribution using these states.</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
     </div>
@@ -2567,7 +2568,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

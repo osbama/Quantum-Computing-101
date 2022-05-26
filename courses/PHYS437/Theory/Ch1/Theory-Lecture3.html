@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ch1-Lecture 3 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -20,7 +19,7 @@
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -105,9 +104,9 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="ch1-lecture-3">
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch1-lecture-3">
 <h1>Ch1-Lecture 3<a class="headerlink" href="#ch1-lecture-3" title="Permalink to this headline">¶</a></h1>
-<section id="z-gate">
+<div class="section" id="z-gate">
 <h2><span class="math notranslate nohighlight">\(Z\)</span> Gate<a class="headerlink" href="#z-gate" title="Permalink to this headline">¶</a></h2>
 <p>The <span class="math notranslate nohighlight">\(Z\)</span> gate, on the other hand, has no classical analogue. It acts as</p>
 <div class="math notranslate nohighlight">
@@ -121,8 +120,8 @@ Z\left|0\right\rangle=\begin{pmatrix}1 &amp; 0 \\0 &amp; -1\end{pmatrix}\begin{p
 Z\left|+\right\rangle=Z\left(\frac{1}{\sqrt 2} \left|0\right\rangle+\frac{1}{\sqrt 2}\left|1\right\rangle\right)=\frac{1}{\sqrt 2} Z \left|0\right\rangle+\frac{1}{\sqrt 2} Z \left|1\right\rangle=\frac{1}{\sqrt 2} \left|0\right\rangle-\frac{1}{\sqrt 2}\left|1\right\rangle=\left|-\right\rangle
 \]</div>
 <p>By relative phase, we mean that only the amplitude on <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span> had its sign changed (or more generally, was multiplied by a phase <span class="math notranslate nohighlight">\(e^{i\pi} = −1\)</span>). If <em>all</em> the amplitudes in the state were instead multiplied by <span class="math notranslate nohighlight">\(e^{i\pi}\)</span> , then we could simply factor out the eiπ from the entire state — in this case,we would call <span class="math notranslate nohighlight">\(e^{i\pi}\)</span> a global phase. It turns out that a global phase is insignificant in that it cannot be experimentally detected. A relative phase may seemingly also look unimportant - yet, as we shall see in this course, it is one of the features of quantum mechanics which allows quantum computers to outperform classical ones!</p>
-</section>
-<section id="hadamard-gate">
+</div>
+<div class="section" id="hadamard-gate">
 <h2>Hadamard Gate<a class="headerlink" href="#hadamard-gate" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we come to a fourth important unitary gate, the Hadamard gate:</p>
 <div class="math notranslate nohighlight">
@@ -134,23 +133,23 @@ H=
 \end{pmatrix}
 \end{split}\]</div>
 <p>The Hadamard gate is special in that it creates superpositions for us. Namely, we have <span class="math notranslate nohighlight">\(H\left|0\right\rangle =\left|+\right\rangle\)</span> and <span class="math notranslate nohighlight">\(H\left|1\right\rangle =\left|-\right\rangle\)</span>. It can also “erase” superpositions, i.e. <span class="math notranslate nohighlight">\(H\left|+\right\rangle =\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(H\left|-\right\rangle =\left|1\right\rangle\)</span> . In other words, <span class="math notranslate nohighlight">\(H\)</span> is self-inverse — we have that <span class="math notranslate nohighlight">\(H^2 = I\)</span> for <span class="math notranslate nohighlight">\(I\)</span> the identity matrix. In fact, the Pauli matrices are also self-inverse.</p>
-</section>
-<section id="send-it-after-class-1">
+</div>
+<div class="section" id="send-it-after-class-1">
 <h2>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h2>
 <p>Verify that <span class="math notranslate nohighlight">\(H\left|0\right\rangle =\left|+\right\rangle\)</span> and <span class="math notranslate nohighlight">\(H\left|1\right\rangle\)</span>. Also verify <span class="math notranslate nohighlight">\(H^2=I\)</span></p>
-<section id="quantum-circuits">
+<div class="section" id="quantum-circuits">
 <h3>Quantum Circuits<a class="headerlink" href="#quantum-circuits" title="Permalink to this headline">¶</a></h3>
 <p>A <em>quantum circuit</em> is a graphical model for depicting quantum computation. The quantum computation is represented by a sequence of quantum gates, measurements, initializations of qubits to known values, and etc. For example, here are three circuits:</p>
 <p><img alt="Three circuit examples" src="../../../../_images/Lecture3-fig1-lr.png" /></p>
 <p>They correspond to evolutions  <span class="math notranslate nohighlight">\(X\left|\psi\right\rangle \)</span>, <span class="math notranslate nohighlight">\(H\left|\psi\right\rangle\)</span>, and <span class="math notranslate nohighlight">\(HX\left|\psi\right\rangle \)</span>, respectively. Each wire in such a diagram denotes a quantum system, and a box labelled by gate <span class="math notranslate nohighlight">\(U\)</span> depicts the action of unitary <span class="math notranslate nohighlight">\(U\)</span> . We think of time going from left to right; for the last circuit above, note that the <span class="math notranslate nohighlight">\(X\)</span> appears on the “left” in the circuit diagram but on the “right” in the expression <span class="math notranslate nohighlight">\(HX\left|\psi\right\rangle \)</span>; this is because <span class="math notranslate nohighlight">\(X\)</span> should be applied first to <span class="math notranslate nohighlight">\(\left|\psi\right\rangle \)</span>, then <span class="math notranslate nohighlight">\(H\)</span>.</p>
-</section>
-</section>
-<section id="send-it-after-class-2">
+</div>
+</div>
+<div class="section" id="send-it-after-class-2">
 <h2>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h2>
 <p>What single-qubit state does the following circuit output? (Hint: Rather than explicitly calculating this, try to use your knowledge of the action of <span class="math notranslate nohighlight">\(H\)</span> on states <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span> and the eigenvectors of <span class="math notranslate nohighlight">\(X\)</span>.)</p>
 <p><img alt="Exercise 2" src="../../../../_images/Lecture3-fig2-lr.png" /></p>
-</section>
-<section id="postulate-3-composite-quantum-systems">
+</div>
+<div class="section" id="postulate-3-composite-quantum-systems">
 <h2>Postulate 3: Composite Quantum Systems<a class="headerlink" href="#postulate-3-composite-quantum-systems" title="Permalink to this headline">¶</a></h2>
 <p>Thus far, we have considered only single quantum systems, i.e. states <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\in  \mathbb{C}^d\)</span> for <span class="math notranslate nohighlight">\(d\geq 2\)</span>. We need multiple qubits interacting simultaneously for quantum computation. How can we mathematically describe, for example, the joint state of two qubits? The correct Linear Algebraic tool for this task is the tensor product, denoted <span class="math notranslate nohighlight">\(\otimes\)</span>. The tensor product allows us to “stitch together” two vectors. For example when two states <span class="math notranslate nohighlight">\(\left|\psi\right\rangle,\left|\phi\right\rangle\in  \mathbb{C}^2\)</span> interact, it results in a larger 4-dimensional vector given by <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\otimes\left|\phi\right\rangle\in  \mathbb{C}^4\)</span> . Formally, we have <span class="math notranslate nohighlight">\(\mathbb{C}^2\otimes\mathbb{C}^2=\mathbb{C}^{2\times2}\)</span> . In other words, the entries of a vector <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\otimes\left|\phi\right\rangle\in  \mathbb{C}^2\otimes\mathbb{C}^2\)</span>  can be referenced via a pair of indices <span class="math notranslate nohighlight">\((i, j)\)</span> for <span class="math notranslate nohighlight">\(i, j \in {0, 1}\)</span>, and the specific rule for doing so is</p>
 <div class="math notranslate nohighlight">
@@ -162,16 +161,16 @@ H=
 \[\begin{split}
 \left|0\right\rangle\otimes\left|0\right\rangle= \begin{pmatrix}1  \\ 0 \end{pmatrix} \otimes \begin{pmatrix}1  \\ 0 \end{pmatrix}=\begin{pmatrix}1  \\ 0 \\ 0 \\ 0 \end{pmatrix} \qquad \left|0\right\rangle\otimes\left|1\right\rangle= \begin{pmatrix}1  \\ 0 \end{pmatrix} \otimes \begin{pmatrix}0  \\ 1 \end{pmatrix}=\begin{pmatrix}0  \\ 1 \\0\\0\end{pmatrix}
 \end{split}\]</div>
-</section>
-<section id="send-it-after-class-3">
+</div>
+<div class="section" id="send-it-after-class-3">
 <h2>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h2>
 <p>Verify that
 $<span class="math notranslate nohighlight">\(
 \left|1\right\rangle\otimes\left|0\right\rangle= \begin{pmatrix}0  \\ 1 \end{pmatrix} \otimes \begin{pmatrix}1  \\ 0 \end{pmatrix}=\begin{pmatrix}0  \\ 0 \\ 1 \\ 0 \end{pmatrix} \qquad \left|1\right\rangle\otimes\left|1\right\rangle= \begin{pmatrix}0  \\ 1 \end{pmatrix} \otimes \begin{pmatrix}0  \\ 1 \end{pmatrix}=\begin{pmatrix}0  \\ 0 \\0\\1\end{pmatrix}
 \)</span>$</p>
 <p>Note that in the four equations above, the four-dimensional vectors obtained are just the computational basis vectors for <span class="math notranslate nohighlight">\(\mathbb{C}^4\)</span> ! This hints at an important fact: If we take orthonormal bases <span class="math notranslate nohighlight">\(B_1 = \left\{\left|\psi_0\right\rangle, \left|\psi_1\right\rangle\right\}\)</span> and  <span class="math notranslate nohighlight">\(B_2 = \left\{\left|\phi_0\right\rangle, \left|\phi_1\right\rangle\right\}\)</span> , then we can obtain an orthonormal basis for <span class="math notranslate nohighlight">\(\mathbb{C}^4\)</span> by tensoring together the elements of <span class="math notranslate nohighlight">\(B_1\)</span> and <span class="math notranslate nohighlight">\(B_2\)</span> in all four possible combinations, i.e. <span class="math notranslate nohighlight">\(\left\{\left|\psi_0\right\rangle\otimes\left|\phi_0\right\rangle, \left|\psi_0\right\rangle\otimes\left|\phi_1\right\rangle,\left|\psi_1\right\rangle\otimes\left|\phi_0\right\rangle,\left|\psi_1\right\rangle\otimes\left|\phi_1\right\rangle \right\}\)</span> forms an orthonormal basis for <span class="math notranslate nohighlight">\(\mathbb{C}^4\)</span> . For brevity, we shall often drop the notation <span class="math notranslate nohighlight">\(\otimes\)</span> and simply write <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\otimes\left|\phi\right\rangle=\left|\psi\right\rangle\left|\phi\right\rangle\)</span>.</p>
-</section>
-<section id="send-it-after-class-4">
+</div>
+<div class="section" id="send-it-after-class-4">
 <h2>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h2>
 <p>Compute
 $<span class="math notranslate nohighlight">\(
@@ -189,11 +188,11 @@ c \left(\left|a\right\rangle\otimes\left|c\right\rangle\right) &amp;=\left(c\lef
 \left(\left\langle a\right|\otimes\left\langle c\right|\right)\left(\left|b\right\rangle\otimes\left|d\right\rangle\right)&amp;=\left\langle a \middle| b\right\rangle\left\langle c \middle| d\right\rangle
 \end{align}
 \end{split}\]</div>
-</section>
-<section id="send-it-after-class-5">
+</div>
+<div class="section" id="send-it-after-class-5">
 <h2>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this headline">¶</a></h2>
 <p>What are the inner products of <span class="math notranslate nohighlight">\(\left|0\right\rangle\left|1\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\left|0\right\rangle\)</span> ; <span class="math notranslate nohighlight">\(\left|0\right\rangle\left|0\right\rangle\)</span>, and <span class="math notranslate nohighlight">\(\left|+\right\rangle\left|-\right\rangle\)</span>?</p>
-<section id="quantum-entanglement">
+<div class="section" id="quantum-entanglement">
 <h3>Quantum Entanglement<a class="headerlink" href="#quantum-entanglement" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know how to stitch together a pair of single qubit states, it turns out we have opened Pandora’s box. For we can now talk about the two-qubit state which troubled Einstein to the end of his days — the innocuous-looking <em>Bell state</em>:</p>
 <div class="math notranslate nohighlight">
@@ -211,12 +210,12 @@ c \left(\left|a\right\rangle\otimes\left|c\right\rangle\right) &amp;=\left(c\lef
 \end{align}
 \end{split}\]</div>
 <p>Note that here we have further simplified notation by letting (e.g.) <span class="math notranslate nohighlight">\(\left|0\right\rangle\left|0\right\rangle=\left|00\right\rangle\)</span>. The four Bell states <span class="math notranslate nohighlight">\(\left\{\left|\Phi^+\right\rangle, \left|\Phi^-\right\rangle, \left|\Psi^+\right\rangle, \left|\Psi^-\right\rangle\right\}\)</span> form an orthonormal basis for <span class="math notranslate nohighlight">\(\mathbb{C}^{4}\)</span> known as the Bell basis, after Northern Irish physicist John Bell.</p>
-</section>
-</section>
-<section id="send-it-after-class-6">
+</div>
+</div>
+<div class="section" id="send-it-after-class-6">
 <h2>Send it after class 6<a class="headerlink" href="#send-it-after-class-6" title="Permalink to this headline">¶</a></h2>
 <p>Verify that the Bell basis indeed forms an orthonormal basis, i.e. check that the Bell states are pairwise orthogonal unit vectors.</p>
-<section id="two-qubit-quantum-gates">
+<div class="section" id="two-qubit-quantum-gates">
 <h3>Two-qubit quantum gates.<a class="headerlink" href="#two-qubit-quantum-gates" title="Permalink to this headline">¶</a></h3>
 <p>We have seen that two-qubit quantum states are described by unit vectors in <span class="math notranslate nohighlight">\(\mathbb{C}^{4}\)</span> . We can thus discuss two-qubit quantum gates, i.e. unitary operators <span class="math notranslate nohighlight">\(U \in\mathcal L (\mathbb{C}^{4})\)</span>. There are two types of such gates: The first are simply tensor products of one-qubit gates, such as <span class="math notranslate nohighlight">\(X \otimes Z\)</span> or <span class="math notranslate nohighlight">\(H \otimes H\)</span>. Here, the tensor product is defined analogously for matrices as it is for vectors. (The formal description is cumbersome, but we follow with a helpful illustration to clarify.) For any <span class="math notranslate nohighlight">\(A \in\mathcal L (\mathbb{C}^{d_1})\)</span>,<span class="math notranslate nohighlight">\(B \in\mathcal L (\mathbb{C}^{d_2})\)</span> , <span class="math notranslate nohighlight">\(A \otimes B\)</span> is a <span class="math notranslate nohighlight">\(d_1d_2 \times d_1d_2\)</span> complex matrix whose entries are indexed by <span class="math notranslate nohighlight">\(([d_1] \times [d_2], [d_1] \times [d_2])\)</span> (where <span class="math notranslate nohighlight">\([d] = \{0, . . . , d − 1\}\)</span> here), such that</p>
 <div class="math notranslate nohighlight">
@@ -295,9 +294,9 @@ Tr(A \otimes B) &amp;= Tr(A)Tr(B).
 <p><img alt="CNOT" src="../../../../_images/Lecture3-fig4-lr.png" /></p>
 <p>With this in hand, we can do our first interesting computation — we can prepare the Bell state <span class="math notranslate nohighlight">\(\Phi^+\)</span> starting from an initial state of <span class="math notranslate nohighlight">\(\left|00\right\rangle\)</span> The preparation circuit is given as:</p>
 <p><img alt="Entangler" src="../../../../_images/Lecture3-fig5-lr.png" /></p>
-</section>
-</section>
-<section id="send-it-after-class-7">
+</div>
+</div>
+<div class="section" id="send-it-after-class-7">
 <h2>Send it after class 7<a class="headerlink" href="#send-it-after-class-7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>What is <span class="math notranslate nohighlight">\(X \otimes I\)</span>? How about <span class="math notranslate nohighlight">\(Z \otimes H\)</span>?</p></li>
@@ -305,8 +304,8 @@ Tr(A \otimes B) &amp;= Tr(A)Tr(B).
 <li><p>What are the circuit diagrams for <span class="math notranslate nohighlight">\(Z \otimes Z\)</span>, <span class="math notranslate nohighlight">\((X \otimes X)\left|01\right\rangle\)</span>?</p></li>
 <li><p>What is the equivalent of the Bell state circuit above?</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
 
     </div>
@@ -328,7 +327,7 @@ Tr(A \otimes B) &amp;= Tr(A)Tr(B).
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

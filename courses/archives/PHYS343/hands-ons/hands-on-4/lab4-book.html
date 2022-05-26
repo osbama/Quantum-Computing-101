@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
@@ -19,6 +18,8 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -101,7 +102,7 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+  <div class="tex2jax_ignore mathjax_ignore section" id="learning-outcomes">
 <h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>What outer product means.</p></li>
@@ -109,8 +110,8 @@
 <li><p>Big-O notation.</p></li>
 <li><p>Deustch’s algorithm.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="outer-product">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="outer-product">
 <h1>Outer Product<a class="headerlink" href="#outer-product" title="Permalink to this headline">¶</a></h1>
 <p>So far we have learned two new operations we can do with bras and kets, namely, tensor and inner product.</p>
 <div class="math notranslate nohighlight">
@@ -125,8 +126,8 @@
 |1\rangle\langle0| = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \begin{pmatrix} 1 &amp; 0 \end{pmatrix} = \begin{pmatrix} 0&amp;0 \\ 1&amp;0 \end{pmatrix},\\
 |1\rangle\langle1| = \begin{pmatrix} 0 \\ 1 \end{pmatrix} \begin{pmatrix} 0 &amp; 1 \end{pmatrix} = \begin{pmatrix} 0&amp;0 \\ 0&amp;1 \end{pmatrix}.\\
 \end{split}\]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-1">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-1">
 <h1>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h1>
 <p>Which of the below statements are true and which are false? If they are false, write down the correct version.</p>
 <ul class="simple">
@@ -134,12 +135,12 @@
 <li><p>Tensor product combines two kets and produces an operator.</p></li>
 <li><p>Outer product combines one bra and one ket and produces a new ket.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="answer">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="answer">
 <h1>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-2">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-2">
 <h1>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h1>
 <p>You can either write your answers using LaTeX functionality of Jupyter notebook or just write it down on a piece of paper and upload its image. Given:</p>
 <div class="math notranslate nohighlight">
@@ -151,8 +152,8 @@
 \[ \text{a) }|\psi \rangle \langle \phi | = ? \]</div>
 <div class="math notranslate nohighlight">
 \[ \text{b) }|\phi \rangle \langle \psi | = ? \]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>a.</p>
 <p>b.</p>
@@ -171,12 +172,12 @@ M= \begin{pmatrix} m_{0,0}&amp;m_{0,1} \\ m_{1,0}&amp;m_{1,1} \end{pmatrix} = m_
 |0\rangle\langle1| = |0\rangle\langle0|X = \frac{1}{2}(1+Z)~X = \frac{X+iY}{2},\\\\
 |1\rangle\langle0| = X|0\rangle\langle0| = X~\frac{1}{2}(1+Z) = \frac{X-iY}{2}.
 \end{split}\]</div>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-3">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-3">
 <h1>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h1>
 <p>Prove that <span class="math notranslate nohighlight">\(|0\rangle \langle 1| \)</span> is not a unitary operator.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id2">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id2">
 <h1>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
 <p>So for any unitary transformation <span class="math notranslate nohighlight">\(M\)</span>, we can write it in terms of Pauli matrices as follows:</p>
@@ -185,8 +186,8 @@ M= \begin{pmatrix} m_{0,0}&amp;m_{0,1} \\ m_{1,0}&amp;m_{1,1} \end{pmatrix} = m_
 M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m_{1,0}}{2}~Y~+~\frac{m_{0,0}-m_{1,1}}{2}~Z.
 \]</div>
 <p>Of course there are more details on how we can decompose any given unitary transformation into a basis set of gates, but it is enough to have a some idea about how to do it. You can check chapter 2.5 of Qiskit textbook for more details.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-4">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-4">
 <h1>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h1>
 <p>Write the following operators in terms of outer products:</p>
 <ul class="simple">
@@ -197,12 +198,12 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 <li><p>S,  <span class="math notranslate nohighlight">\( S|0 \rangle = | 0 \rangle \text{, } S|1 \rangle = i| 1 \rangle \)</span></p></li>
 <li><p>CNOT(0,1), <span class="math notranslate nohighlight">\( CNOT(0,1)|00 \rangle = |00\rangle \text{, } CNOT(0,1)|01 \rangle = |11 \rangle \text{, } CNOT(0,1)|10 \rangle = |10 \rangle \text{, } CNOT(0,1)|11 \rangle = |01 \rangle\)</span></p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="answers">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="answers">
 <h1>Answers<a class="headerlink" href="#answers" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="measuring-time-complexity">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="measuring-time-complexity">
 <h1>Measuring Time Complexity<a class="headerlink" href="#measuring-time-complexity" title="Permalink to this headline">¶</a></h1>
 <p>Now, before we move on to our first quantum algorithm we must discuss what time complexity is. As you can probably guess, when you want to solve a problem using computers, there are a lot of ways to go about it. However, some solutions might be more efficient than others in terms of their memory or time usage. We are mainly interested in time complexity of an algorithm. What we want to understand is how does our algorithm scale as the input size gets bigger. For this purpose, we are neglecting the constant time operations most of the time and focus on the repetetive parts of the algorithm.</p>
 <p>Most of the time we represent the complexity of an algorithm using big-O notation which is  we define as follows:</p>
@@ -210,37 +211,37 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 <p><img alt="image-2.png" src="courses/archives/PHYS343/hands-ons/hands-on-4/attachment:image-2.png" /></p>
 <p>So basically, <span class="math notranslate nohighlight">\(g(x)\)</span> is an upper bound for <span class="math notranslate nohighlight">\(f(x)\)</span>.</p>
 <p>This notation saves us from a lot of trouble. For example, given a <span class="math notranslate nohighlight">\(f(x) = x^4 + 20000 x^3 + 199 x^2 + 10^9 \)</span>, we can immediately write <span class="math notranslate nohighlight">\( f(x) = O(x^4)\)</span>. Even though the <span class="math notranslate nohighlight">\(x^3\)</span> term and the constant term is quite large in <span class="math notranslate nohighlight">\(f(x)\)</span>, we can be sure that we can always find <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> such that <span class="math notranslate nohighlight">\(f(x) \leq C g(x)\)</span> for all <span class="math notranslate nohighlight">\(x \geq x_0\)</span>.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-5">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-5">
 <h1>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h1>
 <p>Find two different <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(x_0\)</span> values such that <span class="math notranslate nohighlight">\(f(x) \leq C g(x)\)</span> for all <span class="math notranslate nohighlight">\(x \geq x_0\)</span> when <span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g\)</span> have the above mentioned form.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id3">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id3">
 <h1>Answers<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
 <p>Let us use our new tool to analyze a search algorithm. Let’s say we are given a sorted list of numbers <span class="math notranslate nohighlight">\(L\)</span> and we develop two algorithms for it. The first one just starts from the smallest value, L[0], and looks at all the elements until we find the desired one. If the element is not in the list, we will have checked all the elements.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-4/attachment:image.png" /></p>
 <p>Another way to approach the problem would be to perform a binary search. That is, we first look at the middle element and check if it is the one we are looking for. If it is, nice job! If not, we check if it is smaller or larger than the one we are looking for. If it is larger, than we simply focus on the first half of the list and discard the other half. If it is smallr, then we simply focus on the other half of the list.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-6">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-6">
 <h1>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h1>
 <p>What are the time complexities of the above mentioned algorithms ?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id4">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id4">
 <h1>Answers<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
 <p>?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="deutsch-s-algorithm">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="deutsch-s-algorithm">
 <h1>Deutsch’s Algorithm<a class="headerlink" href="#deutsch-s-algorithm" title="Permalink to this headline">¶</a></h1>
 <p>In Deutch’s problem, we are given an oracle that implements a binary function <span class="math notranslate nohighlight">\(f: \{0,1\} \rightarrow \{0, 1 \}\)</span>, and we are asked to determine whether this function is <span class="math notranslate nohighlight">\(\textit{constant}\)</span> or <span class="math notranslate nohighlight">\(\textit{balanced}\)</span>. We say a binary function <span class="math notranslate nohighlight">\(f(x)\)</span> is constant if <span class="math notranslate nohighlight">\(f(0) = f(1)\)</span> and it is balanced if <span class="math notranslate nohighlight">\(f(0) \neq f(1)\)</span>. In quantum computing words, we have the following gate:</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-4/attachment:image.png" /></p>
 <p>Now, we have defined a function <span class="math notranslate nohighlight">\(oracle1(qc)\)</span> as an oracle and it takes in a QuantumCircuit, where ancilla qubit is the second one, and implements the oracle function. Now, let us write down a quantum circuit that decides whether the function <span class="math notranslate nohighlight">\(oracle1(qc)\)</span> is constant or balanced.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-7">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-7">
 <h1>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h1>
 <p>Let’s say <span class="math notranslate nohighlight">\(f\)</span> takes <span class="math notranslate nohighlight">\(x\)</span> to its complement. That is, <span class="math notranslate nohighlight">\(f(0) = 1\)</span> and <span class="math notranslate nohighlight">\(f(1) = 0\)</span>. Is <span class="math notranslate nohighlight">\(f\)</span> balanced or constant?</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id5">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="id5">
 <h1>Answer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
 <p>Yes or no ?</p>
 <p>So in order to solve this problem without quantum computers, we have to check oracle’s output for 0 and 1, and decide accordingly. Hence, best classical algorithm we can come up with uses the oracle 2 times. But we can do better with a quantum computer:</p>
@@ -253,8 +254,8 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 <div class="math notranslate nohighlight">
 \[ |\phi_2 \rangle =  \frac{1}{\sqrt{2}} \big( (-1)^{f(0)} |0\rangle + (-1)^{f(1)} |1\rangle \big)\otimes |- \rangle \]</div>
 <p>So if <span class="math notranslate nohighlight">\(f\)</span> is balanced, there will be no phase difference between the coefficients of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> on the first qubit, hence it will be a <span class="math notranslate nohighlight">\(|+\rangle\)</span> state. If the function is balanced, then the signs of the coefficients of <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span> will be different and the first qubit will be in <span class="math notranslate nohighlight">\(|-\rangle\)</span> state. Hence applying a Hadamard will either transform the first qubit to <span class="math notranslate nohighlight">\(|0\rangle\)</span> if <span class="math notranslate nohighlight">\(f\)</span> is constant, <span class="math notranslate nohighlight">\(|1\rangle\)</span> if <span class="math notranslate nohighlight">\(f\)</span> is balanced.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise-8">
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="exercise-8">
 <h1>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h1>
 <p>Fill in the blanks below for implementing the Deutsch’s algorithm. You can follow the instructions in the code and fill between the lines.</p>
 <div class="cell docutils container">
@@ -267,12 +268,12 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/IPython/core/magics/execution.py:696,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/IPython/core/magics/execution.py:696,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
 <span class="g g-Whitespace">    </span><span class="mi">695</span>     <span class="n">fpath</span> <span class="o">=</span> <span class="n">arg_lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="ne">--&gt; </span><span class="mi">696</span>     <span class="n">filename</span> <span class="o">=</span> <span class="n">file_finder</span><span class="p">(</span><span class="n">fpath</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">697</span> <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/IPython/utils/path.py:91,</span> in <span class="ni">get_py_filename</span><span class="nt">(name)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/IPython/utils/path.py:91,</span> in <span class="ni">get_py_filename</span><span class="nt">(name)</span>
 <span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="k">else</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">91</span>     <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;File `</span><span class="si">%r</span><span class="s1">` not found.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
 
@@ -284,13 +285,13 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 <span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="s1">&#39;oracles.py&#39;</span><span class="p">)</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/IPython/core/interactiveshell.py:2285,</span> in <span class="ni">InteractiveShell.run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2283</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2284</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2285</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2286</span> <span class="k">return</span> <span class="n">result</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/IPython/core/interactiveshell.py:2294,</span> in <span class="ni">InteractiveShell.run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2292</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2293</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2294</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2295</span> <span class="k">return</span> <span class="n">result</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/IPython/core/magics/execution.py:707,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/IPython/core/magics/execution.py:707,</span> in <span class="ni">ExecutionMagics.run</span><span class="nt">(self, parameter_s, runner, file_finder)</span>
 <span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^&#39;.*&#39;$&quot;</span><span class="p">,</span><span class="n">fpath</span><span class="p">):</span>
 <span class="g g-Whitespace">    </span><span class="mi">706</span>         <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;For Windows, use double quotes to wrap a filename: </span><span class="si">%r</span><span class="s1">un &quot;mypath</span><span class="se">\\</span><span class="s1">myfile.py&quot;&#39;</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">707</span>     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -345,7 +346,7 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
 </div>
 <p>By looking at the results you have obtained, can you tell whether your oracle was constant or balanced ? Be careful though, everytime you run it the oracle is randomly chosen to be constant or balanced!</p>
 <p>Your explanation here:</p>
-</section>
+</div>
 
 
     </div>
@@ -367,7 +368,7 @@ M = \frac{m_{0,0}+m_{1,1}}{2}~1~+~\frac{m_{0,1}+m_{1,0}}{2}~X~+~i\frac{m_{0,1}-m
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

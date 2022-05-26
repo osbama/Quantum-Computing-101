@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hands-on 5 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -20,12 +19,12 @@
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Hands-on 5 :" href="../hands-on-6/Hands-on-6-book.html" />
+    <link rel="next" title="Hands-on 6 :" href="../hands-on-6/Hands-on-6-book.html" />
     <link rel="prev" title="Hands on 4" href="../hands-on-4/Hands-on-4-book.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -105,7 +104,7 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-5">
+  <div class="tex2jax_ignore mathjax_ignore section" id="hands-on-5">
 <h1>Hands-on 5<a class="headerlink" href="#hands-on-5" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -115,13 +114,23 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.713260650634766</td></tr><tr><td colspan='2'>Wed Apr 20 13:59:05 2022 +03</td></tr></table></div></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
 </div>
-<section id="quantum-coin-game">
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-finance</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78763580322266</td></tr><tr><td colspan='2'>Thu May 26 07:43:55 2022 +03</td></tr></table></div></div>
+</div>
+<div class="section" id="quantum-coin-game">
 <h2>Quantum Coin Game<a class="headerlink" href="#quantum-coin-game" title="Permalink to this headline">¶</a></h2>
 <p>Please check <a class="reference external" href="https://www.ted.com/talks/shohini_ghose_a_beginner_s_guide_to_quantum_computing#t-208006">Ted talk by Sohini Ghosh</a> and Quantum Coin Flipping from <a class="reference external" href="https://en.wikipedia.org/wiki/Quantum_coin_flipping">Wikipedia</a> first.</p>
 <p>Quantum Coin Game is one of the fundamental concept of quantum computing, which uses simple implementation of quantum gates or more precisely uses the wierdness of quantum mechanics, to win about 97% of the time, when played against an opponent. Flipping of coin and say heads or tails. The concept of Quantum Coin Game came from the idea of classical coin game which can only show heads and tails. But since the game utilizes the concepts of quantum mechanics, it would be interesting to see what could be the outcome of the whole experiment. The main concept of this game is how the quantum computer uses the power of quantum superposition, which tells an object can exists in 2 different states at the same time, to win absolutely everytime.</p>
-<section id="what-are-the-rules-of-this-game">
+<div class="section" id="what-are-the-rules-of-this-game">
 <h3>What are the rules of this game ?<a class="headerlink" href="#what-are-the-rules-of-this-game" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Quantum Computer plays a move but it is not revealed to the Opponent(Human).</p></li>
@@ -191,11 +200,11 @@
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "eb44d1b1a3aa4b678ab3d7126c838782"}
+{"version_major": 2, "version_minor": 0, "model_id": "f1d89702b74b492f8e1b3171843d8a3a"}
 </script></div>
 </div>
-</section>
-<section id="analogy-a-id-analogy-a">
+</div>
+<div class="section" id="analogy-a-id-analogy-a">
 <h3>Analogy <a id="analogy"></a><a class="headerlink" href="#analogy-a-id-analogy-a" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know what is a quantum coin game, what is it based on and most importantly what are the rules of this game, lets convert the concept of this game in quantum computing terminology.</p>
 <ul class="simple">
@@ -226,8 +235,8 @@ $<span class="math notranslate nohighlight">\(
 H = \frac{1}{\sqrt{2}} \begin{bmatrix}  1 &amp; 1 \\ 1 &amp; -1 \end{bmatrix}
 \)</span>$</p></li>
 </ul>
-</section>
-<section id="approach-a-id-approach-a">
+</div>
+<div class="section" id="approach-a-id-approach-a">
 <h3>Approach <a id="approach"></a><a class="headerlink" href="#approach-a-id-approach-a" title="Permalink to this headline">¶</a></h3>
 <p>Lets see how to approach the game in quantum computing terminology-</p>
 <ul class="simple">
@@ -294,8 +303,8 @@ H|+\rangle = |0\rangle
 </div>
 </div>
 </div>
-</section>
-<section id="optimal-strategy">
+</div>
+<div class="section" id="optimal-strategy">
 <h3>Optimal Strategy<a class="headerlink" href="#optimal-strategy" title="Permalink to this headline">¶</a></h3>
 <p>Using the above approach the possibility table reduces to-</p>
 <table>
@@ -347,10 +356,10 @@ H|+\rangle = |0\rangle
   \frac{0}{2} = 0 \%
 \]</div>
 <p>This table shows the quantum computer wins <span class="math notranslate nohighlight">\(100\%\)</span> of the time. But in Shohini’s talk it is <span class="math notranslate nohighlight">\(~97\%\)</span>, due to errors.</p>
-</section>
-<section id="lets-play-this-version-using-qiskit">
+</div>
+<div class="section" id="lets-play-this-version-using-qiskit">
 <h3>Lets play this version using Qiskit<a class="headerlink" href="#lets-play-this-version-using-qiskit" title="Permalink to this headline">¶</a></h3>
-<section id="building-the-initial-circuit">
+<div class="section" id="building-the-initial-circuit">
 <h4>Building the initial circuit<a class="headerlink" href="#building-the-initial-circuit" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -359,8 +368,8 @@ H|+\rangle = |0\rangle
 </div>
 </div>
 </div>
-</section>
-<section id="turn-1-quantum-computer">
+</div>
+<div class="section" id="turn-1-quantum-computer">
 <h4><strong>Turn 1. Quantum Computer</strong><a class="headerlink" href="#turn-1-quantum-computer" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -375,8 +384,8 @@ H|+\rangle = |0\rangle
 <img alt="../../../../_images/Hands-on-5-book_15_0.png" src="../../../../_images/Hands-on-5-book_15_0.png" />
 </div>
 </div>
-</section>
-<section id="turn-2-classical-human">
+</div>
+<div class="section" id="turn-2-classical-human">
 <h4><strong>Turn 2. Classical Human</strong><a class="headerlink" href="#turn-2-classical-human" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -393,8 +402,8 @@ H|+\rangle = |0\rangle
 <img alt="../../../../_images/Hands-on-5-book_17_0.png" src="../../../../_images/Hands-on-5-book_17_0.png" />
 </div>
 </div>
-</section>
-<section id="turn-3-quantum-computer">
+</div>
+<div class="section" id="turn-3-quantum-computer">
 <h4><strong>Turn 3. Quantum Computer</strong><a class="headerlink" href="#turn-3-quantum-computer" title="Permalink to this headline">¶</a></h4>
 <p>Quantum Computer uses Hadamard <span class="math notranslate nohighlight">\(H\)</span> on its first turn</p>
 <div class="cell docutils container">
@@ -410,8 +419,8 @@ H|+\rangle = |0\rangle
 <img alt="../../../../_images/Hands-on-5-book_20_0.png" src="../../../../_images/Hands-on-5-book_20_0.png" />
 </div>
 </div>
-</section>
-<section id="measurement-a-id-quantum-measurement-a">
+</div>
+<div class="section" id="measurement-a-id-quantum-measurement-a">
 <h4><strong>Measurement</strong> <a id="quantum_measurement"></a><a class="headerlink" href="#measurement-a-id-quantum-measurement-a" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -424,8 +433,8 @@ H|+\rangle = |0\rangle
 <img alt="../../../../_images/Hands-on-5-book_22_0.png" src="../../../../_images/Hands-on-5-book_22_0.png" />
 </div>
 </div>
-</section>
-<section id="qasm-simulator-a-id-quantum-qasm-a">
+</div>
+<div class="section" id="qasm-simulator-a-id-quantum-qasm-a">
 <h4><strong>QASM_Simulator</strong> <a id="quantum_qasm"></a><a class="headerlink" href="#qasm-simulator-a-id-quantum-qasm-a" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -444,8 +453,8 @@ H|+\rangle = |0\rangle
 <img alt="../../../../_images/Hands-on-5-book_24_1.png" src="../../../../_images/Hands-on-5-book_24_1.png" />
 </div>
 </div>
-</section>
-<section id="lets-see-who-wins-a-id-quantum-wins-a">
+</div>
+<div class="section" id="lets-see-who-wins-a-id-quantum-wins-a">
 <h4><strong>Lets see who wins</strong> <a id="quantum_wins"></a><a class="headerlink" href="#lets-see-who-wins-a-id-quantum-wins-a" title="Permalink to this headline">¶</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -464,8 +473,8 @@ H|+\rangle = |0\rangle
 </div>
 </div>
 </div>
-</section>
-<section id="running-on-quantum-computer-a-id-real-qc-a">
+</div>
+<div class="section" id="running-on-quantum-computer-a-id-real-qc-a">
 <h4><strong>Running on Quantum Computer</strong> <a id="real_qc"></a><a class="headerlink" href="#running-on-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h4>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -478,36 +487,15 @@ H|+\rangle = |0\rangle
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IBMQAccountCredentialsNotFound</span><span class="g g-Whitespace">            </span>Traceback (most recent call last)
-<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">backend_real</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;ibmq_manila&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">job_real</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">backend_real</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/QisKit/lib/python3.8/site-packages/qiskit/providers/ibmq/ibmqfactory.py:167,</span> in <span class="ni">IBMQFactory.load_account</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span> <span class="n">credentials_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stored_credentials</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_list</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">167</span>     <span class="k">raise</span> <span class="n">IBMQAccountCredentialsNotFound</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="s1">&#39;No IBM Quantum Experience credentials found.&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">credentials_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>     <span class="k">raise</span> <span class="n">IBMQAccountMultipleCredentialsFound</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>         <span class="s1">&#39;Multiple IBM Quantum Experience credentials found. &#39;</span> <span class="o">+</span> <span class="n">UPDATE_ACCOUNT_TEXT</span><span class="p">)</span>
-
-<span class="ne">IBMQAccountCredentialsNotFound</span>: &#39;No IBM Quantum Experience credentials found.&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Unlike the perfect simulation, the real quantum computer only wins ~<span class="math notranslate nohighlight">\(99\ \%\)</span> of the time, the <span class="math notranslate nohighlight">\(1\ \%\)</span> in which it loses is due to errors. Quantum computers have improved a bit since <a class="reference external" href="#conclusion">Shohini’s talk</a> where the error is closer to <span class="math notranslate nohighlight">\(3\ \%\)</span>.</p>
-</section>
-</section>
-<section id="conclusion">
+</div>
+</div>
+<div class="section" id="conclusion">
 <h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h3>
 <p>This simple and yet fun little game shows the basic quantum states <span class="math notranslate nohighlight">\(|0\rangle\)</span>, <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|−\rangle\)</span>, plus the common ways of moving between them with the <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(H\)</span>, <span class="math notranslate nohighlight">\(I\)</span>, <span class="math notranslate nohighlight">\(Z\)</span> gates.</p>
-</section>
-<section id="send-it-after-class-1">
+</div>
+<div class="section" id="send-it-after-class-1">
 <h3>Send it after class 1:<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
 <p>Think of other variations of the game, and tweak the game as follows</p>
 <ol class="simple">
@@ -519,16 +507,16 @@ H|+\rangle = |0\rangle
 <li><p>What if, instead of using all gates, restrict the use of some gates ?</p></li>
 </ol>
 <p>how did the results change?</p>
-</section>
-</section>
-<section id="local-reality-and-the-chsh-inequality">
+</div>
+</div>
+<div class="section" id="local-reality-and-the-chsh-inequality">
 <h2>Local Reality and the CHSH inequality<a class="headerlink" href="#local-reality-and-the-chsh-inequality" title="Permalink to this headline">¶</a></h2>
 <p>We have seen in a previous module how quantum entanglement results in strong correlations in a multi-partite system. In fact these correlations appear to be stronger than anything that could be explained using classical physics.</p>
 <p>The historical development of quantum mechanics is filled with agitated discussions about the true nature of reality and the extent to which quantum mechanics can explain it. Given the spectacular empirical success of quantum mechanics, it was going to be clear that people would not simply give it up just because some of its aspects were hard to reconcile with intuition.</p>
 <p>At the root of these different points of views was the question of the nature of measurement. We know there is an element of randomness in quantum measurements, but is that really so? Is there a sneaky way by which the Universe has already decided beforehand which value a given measurement is going to yield at a future time? This hypothesis was the basis for different <em>hidden variable</em> theories. But these theories did not only need to explain randomness at the single particle level. They also needed to explain what happens when different observers measure different parts of a multi-partite entangled system! This went beyond just hidden variable theories. Now a local hidden variable theory was needed in order to reconcile the observations of quantum mechanics with a Universe in which local reality was valid.</p>
 <p>What is local reality? In an Universe where locality holds, it should be possible to separate two systems so far in space that they could not interact with each other. The concept of reality is related to whether a measurable quantity holds a particular value <em>in the absence of any future measurement</em>.</p>
 <p>In 1963, John Stewart Bell published what could be argued as one of the most profound discoveries in the history of science. Bell stated that any theory invoking local hidden variables could be experimentally ruled out. In this section we are going to see how, and we will run a real experiment that demonstrates so! (with some remaining loopholes to close…)</p>
-<section id="the-chsh-inequality">
+<div class="section" id="the-chsh-inequality">
 <h3>The CHSH inequality<a class="headerlink" href="#the-chsh-inequality" title="Permalink to this headline">¶</a></h3>
 <p>Imagine Alice and Bob are given each one part of a bipartite entangled system. Each of them then performs two measurements on their part in two different bases. Let’s call Alice’s bases <em>A</em> and <em>a</em> and Bob’s <em>B</em> and <em>b</em>. What is the expectation value of the quantity <span class="math notranslate nohighlight">\(\langle CHSH \rangle = \langle AB \rangle - \langle Ab \rangle + \langle aB \rangle + \langle ab \rangle\)</span> ?</p>
 <p>Now, Alice and Bob have one qubit each, so any measurement they perform on their system (qubit) can only yield one of two possible outcomes: +1 or -1. Note that whereas we typically refer to the two qubit states as <span class="math notranslate nohighlight">\(|0\rangle\)</span> and <span class="math notranslate nohighlight">\(|1\rangle\)</span>, these are <em>eigenstates</em>, and a projective measurement will yield their <em>eigenvalues</em>, +1 and -1, respectively.</p>
@@ -752,14 +740,14 @@ H|+\rangle = |0\rangle
 <p>Note what happened! There are some particular combination of measurement bases for which <span class="math notranslate nohighlight">\(|CHSH| \geq 2\)</span>. How is this possible? Let’s look at our entangled bipartite system. It is easy to show that if <span class="math notranslate nohighlight">\(|\psi \rangle = 1/\sqrt{2} (|00\rangle + |11\rangle)\)</span>, then the expectation value <span class="math notranslate nohighlight">\(\langle AB \rangle = \langle \psi|A \otimes B| \psi \rangle = -\cos \theta_{AB}\)</span> where <span class="math notranslate nohighlight">\(\theta_{AB}\)</span> is the angle between the measurement bases <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. Therefore, for the particular choice of bases <span class="math notranslate nohighlight">\(A = 1/\sqrt{2}(\sigma_z - \sigma_x)\)</span> and <span class="math notranslate nohighlight">\(a = 1/\sqrt{2}(\sigma_z + \sigma_x)\)</span>, letting Bob measure with <span class="math notranslate nohighlight">\(B=\sigma_z\)</span> and <span class="math notranslate nohighlight">\(b=\sigma_x\)</span>, we see that <span class="math notranslate nohighlight">\(|\langle CHSH1 \rangle| = 2\sqrt{2} &gt; 2\)</span>. It can also be shown that <span class="math notranslate nohighlight">\(2\sqrt{2}\)</span> is the maximum possible value attainable, even in the quantum case (dash-dotted line in the plot).</p>
 <p>The above inequality is called CHSH after Clauser, Horne, Shimony, and Holt, and it is the most popular way of presenting the original inequality from Bell.</p>
 <p>The fact that we violated the CHSH inequality in our real device is of significance. Just a decade ago such an experiment would have been of great impact. Nowadays, quantum devices have become significantly better and these results can be replicated easily in state-of-the-art hardware. However, there are a number of loopholes that have to be closed when violating the inequality in order to claim that either locality or realism have been disproven. These are the detection loophole (where our detector is faulty and fails to provide meaningful statistics) and the locality/causality loophole (where the two parts of the entangled system are separated by a distance smaller than the distance covered by the light in the time it takes to perform a measurement). Given we can generate entangled pairs with high fidelity and every measurement yields a result (this is, no measured particle is “lost”), we have closed the detection loophole in our experiments above. However, given the distance between our qubits (a few mm) and the time it takes to perform a measurement (order of <span class="math notranslate nohighlight">\(\mu\)</span>s), we cannot claim we closed the causality loophole.</p>
-</section>
-<section id="send-it-after-class-2">
+</div>
+<div class="section" id="send-it-after-class-2">
 <h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
 <p>Consider a game where Alice and Bob are put in separate rooms and each is given a bit <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, respectively. These bits are chosen at random and independently of each other. On receiving the bit each of them replies with a bit of their own, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. Now, Alice and Bob win the game if <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are different whenever <span class="math notranslate nohighlight">\(x=y=1\)</span> and equal otherwise. It is easy to see that the best possible strategy for Alice and Bob is to always give <span class="math notranslate nohighlight">\(a=b=0\)</span> (or <span class="math notranslate nohighlight">\(1\)</span>). With this strategy, Alice and Bob can win the game at most 75% of the time.</p>
 <p>Imagine Alice and Bob are allowed to share an entangled two-qubit state. Is there a strategy they can use that would give them a better chance of winning than 75%? (Remember that they can agree upon any strategy beforehand, but once they are given the random bits they cannot communicate anymore. They can take their respective parts of the entangled pair with them at all times, of course.)</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
 <script type="application/vnd.jupyter.widget-state+json">
@@ -787,7 +775,7 @@ H|+\rangle = |0\rangle
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>

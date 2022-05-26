@@ -3,8 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ch2-Lecture 7 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
@@ -19,11 +18,13 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Lecture 1 online material" href="../Ch1/Ch1-online.html" />
+    <link rel="next" title="Ch3-Lecture 8" href="../Ch3/Theory-Lecture8.html" />
     <link rel="prev" title="Ch2-Lecture 6" href="Theory-Lecture6.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -103,9 +104,9 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section class="tex2jax_ignore mathjax_ignore" id="ch2-lecture-7">
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch2-lecture-7">
 <h1>Ch2-Lecture 7<a class="headerlink" href="#ch2-lecture-7" title="Permalink to this headline">¶</a></h1>
-<section id="entropy-and-entanglement-distillation">
+<div class="section" id="entropy-and-entanglement-distillation">
 <h2>Entropy and Entanglement Distillation<a class="headerlink" href="#entropy-and-entanglement-distillation" title="Permalink to this headline">¶</a></h2>
 <p>The theme of the last two lectures has been of a quantum information theoretic nature — we have studied cloning (or rather, lack thereof), entanglement, and non-local correlations. Before progressing to our next main theme of quantum algorithms, we now give a brief taste of more advanced ideas in quantum information. In the process, we will continue getting used to working with quantum states in both the state vector and density operator formalisms.</p>
 <p>The main questions we ask in this lecture are the following:</p>
@@ -114,11 +115,11 @@
 <li><p>Under what conditions can “less entangled” states be “converted” to “more entangled” states?</p></li>
 </ul>
 <p>The first question will require the foundational concept of entropy, introduced in the context of classical information theory by Claude Shannon in 1948. The entropy is worthy of a lecture in itself, being an extremely important quantity. The second question above is tied to the discovery of entanglement distillation, in which, similar to the age-old process of distilling potable water from salt water (or more fittingly for our analogy, “pure” water from “dirty” water), one can “distill” pure entanglement from noisy entanglement.</p>
-</section>
-<section id="entropy">
+</div>
+<div class="section" id="entropy">
 <h2>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h2>
 <p>One of the most influential scientific contributions of the 20th century was the 1948 paper of Claude Shannon, “A Mathematical Theory of Communication”, which single-handed founded the field of information theory. Roughly, the aim of information theory is to study information transmission and compression. For this, Shannon introduced the notion of entropy, which intuitively quantifies “how random” a data source is, or the “average information content” of the source. It turns out that a quantum generalization of entropy will be vital to quantifying entanglement; as such, we begin by defining and motivating the classical Shannon entropy.</p>
-<section id="shannon-entropy">
+<div class="section" id="shannon-entropy">
 <h3>Shannon entropy<a class="headerlink" href="#shannon-entropy" title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> be a discrete random variable taking values from set <span class="math notranslate nohighlight">\( \left\{x_1,\dots,x_n\right\} \)</span>, where <span class="math notranslate nohighlight">\( \text{Pr}\left(x_i\right) :=  \text{Pr}\left(X=x_i\right)\)</span> denotes the probability that <span class="math notranslate nohighlight">\(X\)</span> takes value <span class="math notranslate nohighlight">\(x_i\)</span> . Then, the Shannon entropy <span class="math notranslate nohighlight">\(H(X)\)</span> is defined as</p>
 <div class="math notranslate nohighlight">
@@ -133,12 +134,12 @@ H(X)= \sum_{i=1}^{n} -\text{Pr}\left(x_i\right) \log \left( \text{Pr}\left(x_i\r
 H(X)=- \frac{1}{2}  \log\left( \frac{1}{2} \right)- \frac{1}{2}  \log\left( \frac{1}{2} \right)= \frac{1}{2} + \frac{1}{2} =1
 \]</div>
 <p>Therefore, we interpret a fair coin as encoding, on average, <em>one</em> bit of information. Alternatively, in the information transmission setting, we would need to transmit a single bit to convey the answer of the coin flip from Germany to Canada. This intuitively makes sense — since the outcome of the coin flip is completely random, there is no way to guess its outcome in Canada with success probability greater than 1/2 (i.e. a random guess).</p>
-<section id="send-it-after-class-1">
+<div class="section" id="send-it-after-class-1">
 <h4>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h4>
 <p>Suppose random variable <span class="math notranslate nohighlight">\(Y\)</span> models a biased coin, e.g. takes value HEADS and TAILS with probability 1 and 0, respectively. What is <span class="math notranslate nohighlight">\(H(Y)\)</span>?</p>
 <p>In the above exercise, there is no “uncertainty”; we know the outcome will be HEADS. Thus, in the communication setting, one can interpret this as saying zero bits of communication are required to transmit the outcome of the coin flip from Germany to Canada (assuming both Germany and Canada know the probabilities of obtaining HEADS and TAILS beforehand). Indeed, the answer to the exercise above is <span class="math notranslate nohighlight">\(H(Y) = 0\)</span>.</p>
-</section>
-<section id="send-it-after-class-2">
+</div>
+<div class="section" id="send-it-after-class-2">
 <h4>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h4>
 <p>Let random variable <span class="math notranslate nohighlight">\(Z\)</span> take values in set <span class="math notranslate nohighlight">\(\{0, 1, 2\}\)</span> with probabilities <span class="math notranslate nohighlight">\(\{1/4, 1/4, 1/2\}\)</span>, respectively. What is <span class="math notranslate nohighlight">\(H(Z)\)</span></p>
 <p>The entropy formula is odd-looking; to understand how it is derived, the key observation is the intuition behind the coin flip examples, which says that “when an event is <em>less</em> likely to happen, it reveals <em>more</em> information”. To capture this intuition, Shannon started with a formula for <em>information content</em> <span class="math notranslate nohighlight">\(I(x_i)\)</span>, which for any possible event <span class="math notranslate nohighlight">\(x_i\)</span> for random variable <span class="math notranslate nohighlight">\(X\)</span>, is given by</p>
@@ -157,14 +158,14 @@ I  \left(x_i\right)= \log\left( \frac{1}{ \text{Pr}\left(x_i\right) } \right)=- 
  \text{Pr}\left(X = x \text{ and } Y = y\right)=  \text{Pr}\left(X = x\right)\text{Pr}\left(Y = y\right) .
 \]</div>
 <p>Moreover, if <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are independent, then intuitively one expects the information conveyed by the joint event <span class="math notranslate nohighlight">\(z := (X = x \text{ and } Y = y)\)</span> to be <em>additive</em>, i.e. <span class="math notranslate nohighlight">\(I(z) = I(x) + I(y)\)</span>. But this is precisely what the information content I(x) satisfies, due to its use of the log function.</p>
-</section>
-</section>
-<section id="send-it-after-class-3">
+</div>
+</div>
+<div class="section" id="send-it-after-class-3">
 <h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> be independent random variables. Then, for <span class="math notranslate nohighlight">\(z := (X = x \text{ and } Y =y)\)</span>, express <span class="math notranslate nohighlight">\(I(z)\)</span> in terms of <span class="math notranslate nohighlight">\(I(x)\)</span> and <span class="math notranslate nohighlight">\(I(y)\)</span>.</p>
 <p>We can now use the information content to derive the formula for entropy — <span class="math notranslate nohighlight">\(H(X)\)</span> is simply the <em>expected</em> information content over all possible events <span class="math notranslate nohighlight">\( \left\{  x_1 \dots  x_n \right\} \)</span>. (Recall here that for random variable <span class="math notranslate nohighlight">\(X\)</span> taking values <span class="math notranslate nohighlight">\(x  \in  \{x_i\}\)</span>, its expectation <span class="math notranslate nohighlight">\(E[x]\)</span> is given by <span class="math notranslate nohighlight">\(E[x] =  \sum_{i} \text{Pr}\left(x_i\right). xi\)</span> ) This is precisely why at the start of this section, we referred to <span class="math notranslate nohighlight">\(H(x)\)</span> as the <strong>average</strong> information content of a data source.</p>
-</section>
-<section id="von-neumann-entropy">
+</div>
+<div class="section" id="von-neumann-entropy">
 <h3>Von Neumann Entropy<a class="headerlink" href="#von-neumann-entropy" title="Permalink to this headline">¶</a></h3>
 <p>Recall the first aim of this lecture was to use entropy to measure entanglement. For this, we shall require a quantum generalization of the Shannon entropy <span class="math notranslate nohighlight">\(H(X)\)</span>, named as  the <em>von Neumann entropy</em> <span class="math notranslate nohighlight">\(S( \rho )\)</span>, for density operator <span class="math notranslate nohighlight">\( \rho \)</span>. To motivate this definition, let us recall the “hierarchy of matrix classes” we introduced in discussing measurements:</p>
 <ul class="simple">
@@ -173,7 +174,7 @@ I  \left(x_i\right)= \log\left( \frac{1}{ \text{Pr}\left(x_i\right) } \right)=- 
 <li><p>Orthogonal projection operators, <span class="math notranslate nohighlight">\(\Pi\left(\mathbb{C}^d\right)\)</span>, which generalize the set <span class="math notranslate nohighlight">\(\{0, 1\}\)</span>.</p></li>
 </ul>
 <p>Note that <span class="math notranslate nohighlight">\(\Pi\left(\mathbb{C}^d\right) \subseteq \text{Pos} \left(\mathbb{C}^d\right) \subseteq \text{Herm}  \left(\mathbb{C}^d\right)\)</span> , and that the notion of “generalize” above means the eigenvalues of the operators fall into the respective class the operators generalize. (For example, matrices in <span class="math notranslate nohighlight">\(\text{Pos}  \left(\mathbb{C}^d\right)\)</span> have non-negative eigenvalues.) Applying this same interpretation to the set of <em>density operators</em> acting on <span class="math notranslate nohighlight">\(\mathbb{C}^d\)</span>, <span class="math notranslate nohighlight">\(D  \left(\mathbb{C}^d\right)\)</span> , we thus have that density operators generalize the notion of a <em>probability distribution</em>. Indeed, any probability distribution can be embedded into a diagonal density matrix.</p>
-<section id="send-it-after-class-4">
+<div class="section" id="send-it-after-class-4">
 <h4>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h4>
 <p>Let <span class="math notranslate nohighlight">\( \left\{p_i\right\}^d_{i=1} \)</span> denote a probability distribution. Define diagonal matrix <span class="math notranslate nohighlight">\( \rho  \in  \mathcal{L}  \left( \mathbb{C}^d\right) \)</span> such that <span class="math notranslate nohighlight">\( \rho  \left(i,i\right)=p_i \)</span> . Show that <span class="math notranslate nohighlight">\( \rho \)</span> is a density matrix.</p>
 <p>Since the eigenvalues <span class="math notranslate nohighlight">\( \lambda_i \left( \rho \right) \)</span> of a density operator <span class="math notranslate nohighlight">\( \rho  \in D \left( \mathbb{C} ^d\right) \)</span> form a probability distribution, the natural approach for defining a quantum entropy formula is to apply the classical Shannon entropy to the spectrum of <span class="math notranslate nohighlight">\( \rho \)</span>:</p>
@@ -192,8 +193,8 @@ e^x= \sum_{i=1}^{\infty} \frac{x^n}{n!}=1+x+ \frac{x^2}{2!}+\frac{x^3}{3!}+\dots
 e^H:= I+H+ \frac{H^2}{2!}+\frac{H^3}{3!}+\dots
 \]</div>
 <p>Indeed, this leads to our desired definition; that to generalize the function <span class="math notranslate nohighlight">\(f(x) = e^x\)</span> to Hermitian matrices, we apply <span class="math notranslate nohighlight">\(f\)</span> to the eigenvalues of <span class="math notranslate nohighlight">\(H\)</span>.</p>
-</section>
-<section id="send-it-after-class-5">
+</div>
+<div class="section" id="send-it-after-class-5">
 <h4>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this headline">¶</a></h4>
 <p>Let <span class="math notranslate nohighlight">\(H\)</span> have spectral decomposition <span class="math notranslate nohighlight">\(H =  \sum_{i=1} \lambda_i \left| \lambda_i \right\rangle\!\left\langle \lambda_i \right|\)</span>. Show that</p>
 <div class="math notranslate nohighlight">
@@ -205,8 +206,8 @@ e^H=\sum_{i=1} e^{\lambda_i} \left| \lambda_i \right\rangle\!\left\langle \lambd
 \[
 S( \rho )=- \text{Tr}\left( \rho  \log\left( \rho \right) \right)
 \]</div>
-</section>
-<section id="send-it-after-class-6">
+</div>
+<div class="section" id="send-it-after-class-6">
 <h4>Send it after class 6<a class="headerlink" href="#send-it-after-class-6" title="Permalink to this headline">¶</a></h4>
 <ol class="simple">
 <li><p>Verify <span class="math notranslate nohighlight">\(\sum_{i=1}^{d}- \lambda_i \left(\rho\right) \log\left(\lambda_i \left(\rho\right)\right)=- \text{Tr}\left( \rho  \log\left( \rho \right) \right)\)</span></p></li>
@@ -214,8 +215,8 @@ S( \rho )=- \text{Tr}\left( \rho  \log\left( \rho \right) \right)
 <li><p>Let <span class="math notranslate nohighlight">\(f (x) =\sqrt{x}\)</span>. For any pure state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C} ^d \)</span> define rank one density operator <span class="math notranslate nohighlight">\( \rho = \left| \psi \right\rangle\!\left\langle \psi \right| \)</span>. What is <span class="math notranslate nohighlight">\(\sqrt{\rho}\)</span>?</p></li>
 <li><p>What is <span class="math notranslate nohighlight">\(\sqrt{Z}\)</span> for the Pauli <span class="math notranslate nohighlight">\(Z\)</span> operator? Is it uniquely defined?</p></li>
 </ol>
-</section>
-<section id="properties-of-the-von-neumann-entropy">
+</div>
+<div class="section" id="properties-of-the-von-neumann-entropy">
 <h4>Properties of the von Neumann entropy<a class="headerlink" href="#properties-of-the-von-neumann-entropy" title="Permalink to this headline">¶</a></h4>
 <p>Let us now see how properties of <span class="math notranslate nohighlight">\(H(X)\)</span> carry over to <span class="math notranslate nohighlight">\(S( \rho )\)</span>. These will prove crucial in our understanding of quantifying entanglement shortly.</p>
 <ol class="simple">
@@ -233,18 +234,18 @@ Recall that in defining information content, the log function was chosen so as t
 \[
  \rho_A :=  \text{Tr}_B\left( \rho_{AB}\right)
 \]</div>
-</section>
-</section>
-<section id="send-it-after-class-7">
+</div>
+</div>
+<div class="section" id="send-it-after-class-7">
 <h3>Send it after class 7<a class="headerlink" href="#send-it-after-class-7" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Prove that for any pure state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, <span class="math notranslate nohighlight">\(S( \left| \psi \right\rangle\!\left\langle \psi \right| ) = 0\)</span>.</p></li>
 <li><p>For <span class="math notranslate nohighlight">\( \rho =I/d\)</span>, what is <span class="math notranslate nohighlight">\(S( \rho )\)</span>?</p></li>
 <li><p>Prove that <span class="math notranslate nohighlight">\(S( \rho  \otimes  \sigma ) = S( \rho ) + S( \sigma )\)</span></p></li>
 </ol>
-</section>
-</section>
-<section id="quantifying-entanglement-in-composite-quantum-systems">
+</div>
+</div>
+<div class="section" id="quantifying-entanglement-in-composite-quantum-systems">
 <h2>Quantifying entanglement in composite quantum systems<a class="headerlink" href="#quantifying-entanglement-in-composite-quantum-systems" title="Permalink to this headline">¶</a></h2>
 <p>With the notion of entropy in hand, we return to the following fundamental question. Let
 <span class="math notranslate nohighlight">\( \rho_{AB} \in D \left( \mathbb{C}^d \otimes  \mathbb{C}^d\right)  \)</span> be a bipartite quantum state. Can one efficiently determine if <span class="math notranslate nohighlight">\(\rho_{AB}\)</span> is entangled? (Recall this means that <span class="math notranslate nohighlight">\(\rho_{AB}\)</span> cannot be written <span class="math notranslate nohighlight">\(\rho_{AB} =  \sum_{i=1} p_i  \rho_{A,i}  \otimes  \rho_{B,i}\)</span> as a convex combination of product states.) Roughly, if one uses <span class="math notranslate nohighlight">\(d\)</span> to encode the size of the input (i.e. the input is the entire <span class="math notranslate nohighlight">\(d^2\times d^2\)</span> matrix representing <span class="math notranslate nohighlight">\(\rho_{A,B}\)</span> ), then deciding this question turns out to be NP-hard. This directly implies that quantifying “how much” entanglement is in <span class="math notranslate nohighlight">\(\rho_{A,B}\)</span> is also NP-hard. However, there is a special case in which we <em>can</em> do both tasks efficiently — the case of bipartite <em>pure</em> states <span class="math notranslate nohighlight">\( \left|\psi_{AB}\right\rangle \in  \mathbb{C}^d \otimes  \mathbb{C}^d \)</span> . It is here in which the von Neumann entropy plays a role.</p>
@@ -264,7 +265,7 @@ Recall that in defining information content, the log function was chosen so as t
   E \left(\left|\psi_{AB}\right\rangle\right):=S \left( \rho_A\right)
   \]</div>
 <p>Finally, let us close this section with a natural question — does <span class="math notranslate nohighlight">\(E \left(\left|\psi_{AB}\right\rangle\right)\)</span> still measure entanglement when its input is allowed to be a mixed state <span class="math notranslate nohighlight">\( \rho_{AB} \)</span> (as opposed to a pure state <span class="math notranslate nohighlight">\( \left|\psi_{AB}\right\rangle \)</span>? This is the last question in the following exercise.</p>
-<section id="send-it-after-class-8">
+<div class="section" id="send-it-after-class-8">
 <h3>Send it after class 8<a class="headerlink" href="#send-it-after-class-8" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>What is <span class="math notranslate nohighlight">\(E \left(\left|  \Phi^+_{AB}\right\rangle\right) \)</span> for <span class="math notranslate nohighlight">\(  \left|\Phi^+\right\rangle =  \frac{1}{2}  \left( \left|00\right\rangle + \left|11\right\rangle \right)\)</span> a Bell state?</p></li>
@@ -272,9 +273,9 @@ Recall that in defining information content, the log function was chosen so as t
 <li><p>Unlike the example of the fair coin, the Schmidt coefficients <span class="math notranslate nohighlight">\(s_i\)</span> of <span class="math notranslate nohighlight">\( \left|\psi_{AB}\right\rangle \)</span> are not probabilities, but amplitudes (i.e. we do not have <span class="math notranslate nohighlight">\( \sum_{i=1}  s_i = 1\)</span>, but rather <span class="math notranslate nohighlight">\( \sum_{i=1}  s_i^2 = 1\)</span>). Show, however, that the notion of probabilities is recovered in the formula <span class="math notranslate nohighlight">\(S( \rho_A)\)</span>, i.e. show that the eigenvalues of <span class="math notranslate nohighlight">\( \rho_A\)</span> are the precisely set <span class="math notranslate nohighlight">\( \left\{s_i^2\right\}_{i=1}^d \)</span>, which <em>do</em> form a distribution.</p></li>
 <li><p>Define <span class="math notranslate nohighlight">\(E \left( \rho_{AB} \right):=S \left( \text{Tr}_B\left( \rho_{AB} \right) \right)=S \left( \rho_A \right)\)</span>. Recall that the maximally mixed state on two qubits is a product state, i.e. <span class="math notranslate nohighlight">\(I/4 = I/2  \otimes  I/2\)</span>. Show that <span class="math notranslate nohighlight">\(E(I/4) = 1\)</span>. Why does this imply when cannot use <span class="math notranslate nohighlight">\(E\)</span> as an entanglement measure for bipartite mixed states?</p></li>
 </ol>
-</section>
-</section>
-<section id="entanglement-distillation">
+</div>
+</div>
+<div class="section" id="entanglement-distillation">
 <h2>Entanglement distillation<a class="headerlink" href="#entanglement-distillation" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have a notion of how to quantify entanglement in pure states, we can become greedy — under what circumstances is it possible to “increase” the amount of entanglement in a composite quantum system? This is a highly non-trivial question, as fundamental communication tasks such as teleportation require highly entangled Bell pairs as a resource. Unfortunately, experimentally producing such pure states is generally a difficult task due to noise from the environment. In other words, in a lab one is typically able to produce <em>mixed</em> states, as opposed to pure states. Moreover, <em>even if</em> Alice could produce perfect Bell pairs in a lab on Earth, when she sends half of a Bell pair to Bob on Mars, the transmitted qubit will again typically be subject to noise, yielding a shared mixed state <span class="math notranslate nohighlight">\( \rho_{AB}\)</span> between Alice and Bob. Do Alice and Bob have any hope of running the teleportation protocol given <span class="math notranslate nohighlight">\( \rho_{AB}\)</span> ?</p>
 <p><strong>Local Operations and Classical Communication (LOCC).</strong> To answer the question,it is important to first define the rules of the game. Since Alice and Bob are spatially separated, they are not able to apply joint quantum operations to both systems <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, e.g. they cannot apply a non-factorizable unitary <span class="math notranslate nohighlight">\(U_{AB}  \in  U \left( \mathbb{C}^d \otimes  \mathbb{C}^d\right)\)</span> to <span class="math notranslate nohighlight">\( \rho_{AB}\)</span> . However, they <em>can</em> apply local unitaries and measurements, e.g. factorizable unitaries of the form <span class="math notranslate nohighlight">\(U_A \otimes U_B\)</span> for <span class="math notranslate nohighlight">\(U_A,UB  \in  U( \mathbb{C}^d)\)</span> (i.e.
@@ -330,7 +331,7 @@ terms where bits match, i.e. <span class="math notranslate nohighlight">\( \left
 F (  \sigma^\prime_{A_1B_1} )= \frac{F_\rho^2+ \frac{1}{9} \left(1-F_\rho\right)^2  }{F_\rho^2+ \frac{2}{3}F_\rho \left(1-F_\rho\right)+ \frac{5}{9} \left(1-F_\rho\right)^2    }
 \]</div>
 <p>So long as <span class="math notranslate nohighlight">\(F_\rho &gt; 1/2\)</span>, one can show <span class="math notranslate nohighlight">\(F (  \sigma^\prime_{A_1B_1} )&gt;F_\rho\)</span> ; thus, recursively applying this protocol (using many pairs of input states <span class="math notranslate nohighlight">\( \rho_{AB}\)</span> ) improves our overlap with our desired target state of <span class="math notranslate nohighlight">\( \left|\Psi^-\right\rangle \)</span>.</p>
-<section id="send-it-after-class-9">
+<div class="section" id="send-it-after-class-9">
 <h3>Send it after class 9<a class="headerlink" href="#send-it-after-class-9" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Show that <span class="math notranslate nohighlight">\(\sqrt{Z} \otimes \sqrt{Z}\)</span> maps <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\Phi^-\right\rangle \)</span> and vice  versa.  Using the additional identities that <span class="math notranslate nohighlight">\(\sqrt{X}  \otimes  \sqrt{X}\)</span> maps <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\Psi^+\right\rangle \)</span> and vice versa, and <span class="math notranslate nohighlight">\(\sqrt{Y}  \otimes  \sqrt{Y}\)</span> maps <span class="math notranslate nohighlight">\( \left|\Phi^-\right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\Psi^+\right\rangle \)</span> and vice versa, show that the twirling map leaves <span class="math notranslate nohighlight">\(\rho_{AB}=  \frac{1}{2}  \left| \Psi^- \right\rangle\!\left\langle \Psi^- \right| +  \frac{1}{8} I = \frac{3}{4} \left| \Psi^- \right\rangle\!\left\langle \Psi^- \right| + \frac{1}{12} \left| \Psi^+ \right\rangle\!\left\langle \Psi^+ \right| + \frac{1}{12} \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| + \frac{1}{12} \left| \Phi^- \right\rangle\!\left\langle \Phi^- \right|\)</span> invariant.</p></li>
@@ -347,9 +348,9 @@ F (  \sigma^\prime_{A_1B_1} )= \frac{F_\rho^2+ \frac{1}{9} \left(1-F_\rho\right)
   (\text{CNOT}_{A_1A_2}  \otimes  \text{CNOT}_{B_1B_2} ) \left|\Phi^+\right\rangle_{A_1B_1} \otimes \left|\Phi^+\right\rangle_{A_2B_2} =  \frac{1}{2}  \left( \left|0000\right\rangle+\left|0011\right\rangle+\left|1100\right\rangle +\left|1111\right\rangle\right)_{A_1B_1A_2B_2}
   \]</div>
 <p>If Alice and Bob run Step 4 on this state and obtain matching outcomes <span class="math notranslate nohighlight">\(a = b\)</span>, what does the state on qubits <span class="math notranslate nohighlight">\(A_1B_1\)</span> collapse to?</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 
     </div>
@@ -371,7 +372,7 @@ F (  \sigma^\prime_{A_1B_1} )= \frac{F_\rho^2+ \frac{1}{9} \left(1-F_\rho\right)
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
     </p>
   </div>
 </footer>
