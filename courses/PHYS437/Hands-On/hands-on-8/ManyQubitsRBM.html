@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">IBMQ</span>
+<span class="c1"># IBMQ.save_account(MY_API_TOKEN)</span>
+<span class="kn">import</span> <span class="nn">qiskit</span> 
+<span class="n">qiskit</span><span class="o">.</span><span class="n">__version__</span>
+
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">QuantumRegister</span><span class="p">,</span> <span class="n">ClassicalRegister</span>
+<span class="kn">from</span> <span class="nn">qiskit.quantum_info.operators</span> <span class="kn">import</span> <span class="n">Operator</span>
+<span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span><span class="p">(</span><span class="n">QuantumCircuit</span><span class="p">,</span> <span class="n">execute</span><span class="p">,</span> <span class="n">Aer</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+<span class="kn">from</span> <span class="nn">qiskit.extensions</span> <span class="kn">import</span> <span class="n">Initialize</span> <span class="c1"># Import the Inititialize function</span>
+<span class="kn">from</span> <span class="nn">qiskit.aqua.circuits.gates</span> <span class="kn">import</span> <span class="n">multi_control_toffoli_gate</span>
+<span class="kn">from</span> <span class="nn">qiskit.aqua.circuits.gates</span> <span class="kn">import</span> <span class="n">multi_control_multi_target_gate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 15&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">qiskit.extensions</span> <span class="kn">import</span> <span class="n">Initialize</span> <span class="c1"># Import the Inititialize function</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">qiskit.aqua.circuits.gates</span> <span class="kn">import</span> <span class="n">multi_control_toffoli_gate</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">qiskit.aqua.circuits.gates</span> <span class="kn">import</span> <span class="n">multi_control_multi_target_gate</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit.aqua&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#definicja rozmiaru sieci</span>
+<span class="n">visible</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ancilla</span> <span class="o">=</span> <span class="n">visible</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="c1">#definicja wejścia (x) oraz inicjalizacja macierzy wag</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)])</span>
+<span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">hidden</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># definicja obwodu (linii qubitów)</span>
+<span class="c1"># qc = QuantumCircuit(visible + hidden, visible)</span>
+
+<span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+<span class="c1"># inicjalizacja wartości qubitów wejściowych (x) na razie randomowa</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
+
+<span class="c1"># inicjalizacja wartości qubitów wejściowych i bramka Hadamarda</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+    <span class="n">initialize_qubit</span> <span class="o">=</span> <span class="n">Initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">initialize_qubit</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="c1"># ciąg bramek CNOT i bramek rotacji R (zależnych od parametrów)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">multi_control_toffoli_gate</span><span class="o">.</span><span class="n">mct</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)],</span> <span class="n">qr</span><span class="p">[</span><span class="n">visible</span> <span class="o">+</span> <span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">)],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+    
+    
+    
+<span class="c1"># bramki Hadamarda na warstwie ukrytej</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+
+    
+<span class="c1"># pomiar linii visible</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="p">)))</span>
+
+
+<span class="c1">### OBWÓD DRUGĄ STRONĘ</span>
+
+<span class="c1"># wyzerowanie wartości qubitów visible</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+    <span class="n">initialize_qubit</span> <span class="o">=</span> <span class="n">Initialize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">initialize_qubit</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+<span class="c1"># bramka Hadamarda na qubitach hidden</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">visible</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="c1">#odwrócone rotacje i CNOTy</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+        <span class="n">multi_control_toffoli_gate</span><span class="o">.</span><span class="n">mct</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">)],</span> <span class="n">qr</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">)],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="o">-</span><span class="n">weight_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">hidden</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+        
+<span class="c1"># bramka Hadamarda i pomiar na qubitach visible</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)))</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use Aer&#39;s qasm_simulator</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+
+<span class="c1"># Execute the circuit on the qasm simulator</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">simulator</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Grab results from the job</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+<span class="c1"># Returns counts</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total count for 0 and 1 are:&quot;</span><span class="p">,</span><span class="n">counts</span><span class="p">)</span>
+<span class="c1"># qc.draw(output=&#39;mpl&#39;)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total count for 0 and 1 are: {&#39;11&#39;: 252, &#39;10&#39;: 262, &#39;00&#39;: 248, &#39;01&#39;: 238}
+</pre></div>
+</div>
+<div class="output text_html"><pre style="word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace">        ┌─────────────────────────────┐┌───┐┌────────────┐     »
+q_0: |0>┤ Initialize(0.73918,0.67351) ├┤ H ├┤ Rz(2.6096) ├──■──»
+        └─────────────────────────────┘└───┘└────────────┘┌─┴─┐»
+q_1: |0>──────────────────────────────────────────────────┤ X ├»
+                                                          └───┘»
+ c_0: 0 ═══════════════════════════════════════════════════════»
+                                                               »
+ c_1: 0 ═══════════════════════════════════════════════════════»
+                                                               »
+«     ┌─────────────────┐        ┌───┐┌─────────────┐┌───┐┌─┐
+«q_0: ┤ Initialize(1,0) ├────────┤ X ├┤ Rz(-2.6096) ├┤ H ├┤M├
+«     └──────┬───┬──────┘┌─┐┌───┐└─┬─┘└─────────────┘└───┘└╥┘
+«q_1: ───────┤ H ├───────┤M├┤ H ├──■───────────────────────╫─
+«            └───┘       └╥┘└───┘                          ║ 
+«c_0: ════════════════════╬════════════════════════════════╩═
+«                         ║                                  
+«c_1: ════════════════════╩══════════════════════════════════
+«                                                            </pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># komórka do testowania wieloqubitowej bramki CNOT</span>
+<span class="c1"># NIE ZALEŻNA OD WŁAŚCIWEJ SIECI</span>
+
+<span class="c1"># work = ancilla</span>
+<span class="k">def</span> <span class="nf">n_control_gate</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">control</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">work</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">gate_type</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">control</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">work</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Wrong number of control or work qubits!&quot;</span><span class="p">)</span>
+
+    <span class="n">qc</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">control</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">control</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">work</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">control_left</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c_bit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">control_left</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">c_bit</span><span class="p">,</span> <span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">qc</span><span class="o">.</span><span class="n">gate_type</span><span class="p">(</span><span class="n">work</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c_bit</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">control_left</span><span class="p">))):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">c_bit</span><span class="p">,</span> <span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">work</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">qc</span><span class="o">.</span><span class="n">toffoli</span><span class="p">(</span><span class="n">control</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">control</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">work</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    
+
+        
+
+<span class="n">visible</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ancilla</span> <span class="o">=</span> <span class="n">visible</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="c1"># qr_visible = QuantumRegister(visible, &#39;visible&#39;)</span>
+<span class="c1"># qr_hidden = QuantumRegister(hidden, &#39;hidden&#39;)</span>
+<span class="c1"># cr = ClassicalRegister(3, &#39;c&#39;)</span>
+<span class="c1"># if visible &gt; 2:</span>
+<span class="c1">#     anc = QuantumRegister(visible - 2, &#39;ancilla&#39;)</span>
+<span class="c1">#     qc = QuantumCircuit(qr_visible, qr_hidden, anc, cr)</span>
+<span class="c1"># else:</span>
+<span class="c1">#     qc = QuantumCircuit(qr_visible, qr_hidden, cr)</span>
+
+
+<span class="c1"># qr_visible = QuantumRegister(visible, &#39;visible&#39;)</span>
+<span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span>
+<span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">):</span>
+    <span class="n">initialize_qubit</span> <span class="o">=</span> <span class="n">Initialize</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">initialize_qubit</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="c1"># initialize_qubit = Initialize([1, 0])</span>
+<span class="c1"># qc.append(initialize_qubit, [2])</span>
+<span class="c1"># for i in range(hidden):</span>
+<span class="c1">#     for j in range(visible):</span>
+<span class="c1">#         qc.rz(weight_matrix[j][i], j)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">visible</span> <span class="o">+</span> <span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="o">+</span><span class="n">ancilla</span><span class="p">)))</span>
+<span class="c1"># multi_control_multi_target_gate.mcmt(qc, list(range(visible)), [], QuantumCircuit.cx, [visible])</span>
+
+<span class="c1"># print([qr_visible[i] for i in range(visible)])</span>
+<span class="c1"># print([anc[i] for i in range(ancilla)])</span>
+<span class="c1"># print([qr_hidden[i] for i in range(hidden)])</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+    <span class="n">multi_control_multi_target_gate</span><span class="o">.</span><span class="n">mcmt</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)],</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">)],</span> <span class="n">QuantumCircuit</span><span class="o">.</span><span class="n">cx</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">visible</span> <span class="o">+</span> <span class="n">j</span><span class="p">]])</span>
+
+<span class="c1"># multi_control_multi_target_gate.mcmt(qc, [qr_visible[i] for i in range(visible)], [anc[i] for i in range(ancilla)], QuantumCircuit.cx, [qr_hidden[0]])</span>
+<span class="c1"># qc.measure(list(range(visible+hidden)), list(range(visible + hidden)))</span>
+<span class="c1"># (qc, list(range(visible)) + [visible + 0], qancilla = 6)</span>
+
+
+<span class="c1"># Use Aer&#39;s qasm_simulator</span>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+
+<span class="c1"># Execute the circuit on the qasm simulator</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">simulator</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Grab results from the job</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+<span class="c1"># Returns counts</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total count for 0 and 1 are:&quot;</span><span class="p">,</span><span class="n">counts</span><span class="p">)</span>
+<span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No measurements in circuit &quot;circuit230&quot;: count data will return all zeros.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2]
+[4]
+
+Total count for 0 and 1 are: {&#39;000&#39;: 1000}
+</pre></div>
+</div>
+<div class="output text_html"><pre style="word-wrap: normal;white-space: pre;background: #fff0;line-height: 1.1;font-family: &quot;Courier New&quot;,Courier,monospace">        ┌─────────────────┐                              
+q_0: |0>┤ Initialize(0,1) ├──■─────────■────■─────────■──
+        ├─────────────────┤  │         │    │         │  
+q_1: |0>┤ Initialize(0,1) ├──■─────────■────■─────────■──
+        ├─────────────────┤  │  ┌───┐  │    │         │  
+q_2: |0>┤ Initialize(0,1) ├──┼──┤ X ├──┼────┼─────────┼──
+        ├─────────────────┤  │  └─┬─┘  │    │  ┌───┐  │  
+q_3: |0>┤ Initialize(0,1) ├──┼────┼────┼────┼──┤ X ├──┼──
+        └─────────────────┘┌─┴─┐  │  ┌─┴─┐┌─┴─┐└─┬─┘┌─┴─┐
+q_4: |0>───────────────────┤ X ├──■──┤ X ├┤ X ├──■──┤ X ├
+                           └───┘     └───┘└───┘     └───┘
+ c_0: 0 ═════════════════════════════════════════════════
+
+ c_1: 0 ═════════════════════════════════════════════════
+
+ c_2: 0 ═════════════════════════════════════════════════
+                                                         </pre></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">sinus_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">weight_matrix</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sinus_matrix</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sinus_matrix</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">sinus_matrix</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">psi</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ph</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ph</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># ph_normalized = preprocessing.normalize([ph], norm = &#39;l1&#39;)[0]</span>
+<span class="c1"># print(ph_normalized)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.81414165 1.71981054]
+ [1.11110563 1.20259205]] 
+
+[[0.99958693 0.59429113]
+ [0.94742459 0.91422957]] 
+
+[0.94703324 0.54331852] 
+
+[1.24386802 0.57438492] 
+
+[2.02926619 1.35978308] 
+
+[0.80412604 0.95613037] 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exctract_single_qubit_measurment</span><span class="p">(</span><span class="n">dict_of_counts</span><span class="p">,</span> <span class="n">qubit_range</span><span class="p">):</span>
+    <span class="n">num_qubits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)))</span>
+<span class="c1">#     result = np.zeros(len(qubit_range))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">dict_of_counts</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">):</span>
+<span class="c1">#             print(&quot;i&quot;, i)</span>
+<span class="c1">#             print(&quot;el[i]&quot;, el[i])</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">qubit_range</span> <span class="ow">and</span> <span class="n">el</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dict_of_counts</span><span class="p">[</span><span class="n">el</span><span class="p">]</span>
+<span class="c1">#     print(result)</span>
+<span class="c1">#     print(result[qubit_range])</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="n">qubit_range</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># template do uczenia</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">exp_ph</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">weight_matrix</span>
+    <span class="c1">#obliczanie prawdopodobieństwa p(|h&gt;) ze wzoru</span>
+    <span class="n">sinus_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">weight_matrix</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">sinus_matrix</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">))</span>
+<span class="c1">#     print(&#39;phi&#39;, phi)</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="c1">#     print(&#39;psi&#39;, psi)</span>
+    <span class="n">ph</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+<span class="c1">#     print(&#39;ph&#39;, ph)</span>
+    
+    <span class="c1">#obliczanie gradientu i,k</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">#     print(&quot;S&quot;, S)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">weight_matrix</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1">#     print(&quot;T&quot;, T)</span>
+<span class="c1">#     print(&quot;sum products&quot;, (exp_ph - ph) * ph * np.cos(2*psi) * S * T)</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+        <span class="n">gradient</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">exp_ph</span> <span class="o">-</span> <span class="n">ph</span><span class="p">)</span> <span class="o">*</span> <span class="n">ph</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">psi</span><span class="p">)</span> <span class="o">*</span> <span class="n">S</span> <span class="o">*</span> <span class="n">T</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+<span class="c1">#     print(&quot;gradient = &quot;, gradient)</span>
+<span class="c1">#     print([gradient] * len(weight_matrix))</span>
+    
+    <span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">weight_matrix</span> <span class="o">+</span> <span class="p">([</span><span class="n">gradient</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">))</span>
+
+
+    
+<span class="c1">#definicja rozmiaru sieci</span>
+<span class="n">visible</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">hidden</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">ancilla</span> <span class="o">=</span> <span class="n">visible</span><span class="o">-</span><span class="mi">1</span>
+
+<span class="c1">#definicja wejścia (x)oraz inicjalizacja macierzy wag</span>
+<span class="c1"># x = np.array([random.uniform(0, 1) for n in range(visible)])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)])</span>
+<span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">hidden</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="c1">#definicja parametrów uczenia</span>
+<span class="n">num_shots</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+    <span class="c1">##########################</span>
+    <span class="c1"># definicja obwodu (linii qubitów)</span>
+    <span class="c1"># qc = QuantumCircuit(visible + hidden, visible)</span>
+
+    <span class="n">qr</span> <span class="o">=</span> <span class="n">QuantumRegister</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">)</span>
+    <span class="n">cr</span> <span class="o">=</span> <span class="n">ClassicalRegister</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="n">cr</span><span class="p">)</span>
+
+    <span class="c1"># inicjalizacja wartości qubitów wejściowych (x) na razie randomowa</span>
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
+
+    <span class="c1"># inicjalizacja wartości qubitów wejściowych i bramka Hadamarda</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+        <span class="n">initialize_qubit</span> <span class="o">=</span> <span class="n">Initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">initialize_qubit</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># ciąg bramek CNOT i bramek rotacji R (zależnych od parametrów)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+        <span class="n">multi_control_toffoli_gate</span><span class="o">.</span><span class="n">mct</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)],</span> <span class="n">qr</span><span class="p">[</span><span class="n">visible</span> <span class="o">+</span> <span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">)],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+
+
+
+    <span class="c1"># bramki Hadamarda na warstwie ukrytej</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+
+
+    <span class="c1"># pomiar linii visible</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span><span class="o">+</span><span class="n">hidden</span><span class="p">)))</span>
+
+
+    <span class="c1">### OBWÓD DRUGĄ STRONĘ</span>
+
+    <span class="c1"># wyzerowanie wartości qubitów visible</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+        <span class="n">initialize_qubit</span> <span class="o">=</span> <span class="n">Initialize</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">initialize_qubit</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="c1"># bramka Hadamarda na qubitach hidden</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">visible</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1">#odwrócone rotacje i CNOTy</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+            <span class="n">multi_control_toffoli_gate</span><span class="o">.</span><span class="n">mct</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">)],</span> <span class="n">qr</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="n">qr</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span> <span class="o">+</span> <span class="n">ancilla</span><span class="p">)],</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;basic&#39;</span><span class="p">)</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">rz</span><span class="p">(</span><span class="o">-</span><span class="n">weight_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">hidden</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">],</span> <span class="n">j</span><span class="p">)</span>
+
+    <span class="c1"># bramka Hadamarda i pomiar na qubitach visible</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">):</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">)))</span>
+    
+    
+    <span class="c1">#################################</span>
+    <span class="c1">#eksperyment:</span>
+    <span class="c1">#symylator</span>
+    <span class="n">simulator</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Execute the circuit on the qasm simulator</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">qc</span><span class="p">,</span> <span class="n">simulator</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="n">num_shots</span><span class="p">)</span>
+
+    <span class="c1"># Grab results from the job</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+    <span class="c1"># Returns counts</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_counts</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+    <span class="n">exp_ph</span> <span class="o">=</span> <span class="n">exctract_single_qubit_measurment</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">visible</span><span class="p">,</span> <span class="n">visible</span> <span class="o">+</span> <span class="n">hidden</span><span class="p">)))</span> <span class="o">/</span> <span class="n">num_shots</span>
+<span class="c1">#     print(&quot;\nTotal count for hidden qubits &#39;1&#39; measurments are:&quot;,exctract_single_qubit_measurment(counts))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Probabilities are:&quot;</span><span class="p">,</span><span class="n">exp_ph</span><span class="p">)</span>
+<span class="c1">#     print(&quot;\nTotal count for 0 and 1 are:&quot;,counts)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">weight_matrix</span><span class="p">)</span>
+    <span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>    
+    
+    <span class="n">update</span><span class="p">(</span><span class="n">exp_ph</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probabilities are: [0.517 0.525]
+[[1.97331488 3.14045789]
+ [1.31677121 1.36912852]
+ [2.72154589 1.31136893]]
+
+Probabilities are: [0.511 0.508]
+[[1.97545297 3.14541158]
+ [1.31890929 1.37408221]
+ [2.72368397 1.31632262]]
+
+Probabilities are: [0.495 0.483]
+[[1.97766693 3.15064739]
+ [1.32112326 1.37931802]
+ [2.72589794 1.32155843]]
+
+Probabilities are: [0.512 0.488]
+[[1.97986547 3.15594993]
+ [1.32332179 1.38462056]
+ [2.72809647 1.32686097]]
+
+Probabilities are: [0.511 0.478]
+[[1.98233531 3.16201592]
+ [1.32579163 1.39068655]
+ [2.73056631 1.33292696]]
+
+Probabilities are: [0.512 0.479]
+[[1.98493662 3.16852631]
+ [1.32839295 1.39719694]
+ [2.73316763 1.33943735]]
+
+Probabilities are: [0.499 0.501]
+[[1.98773857 3.17566843]
+ [1.3311949  1.40433906]
+ [2.73596958 1.34657947]]
+
+Probabilities are: [0.483 0.498]
+[[1.99076999 3.18353694]
+ [1.33422632 1.41220756]
+ [2.73900099 1.35444797]]
+
+Probabilities are: [0.494 0.513]
+[[1.99389495 3.19179535]
+ [1.33735128 1.42046598]
+ [2.74212595 1.36270639]]
+
+Probabilities are: [0.539 0.496]
+[[1.99742823 3.2012924 ]
+ [1.34088456 1.42996302]
+ [2.74565924 1.37220343]]
+
+Probabilities are: [0.486 0.506]
+[[2.00151046 3.2124568 ]
+ [1.34496678 1.44112743]
+ [2.74974146 1.38336784]]
+
+Probabilities are: [0.485 0.501]
+[[2.00553035 3.22364874]
+ [1.34898667 1.45231937]
+ [2.75376135 1.39455978]]
+
+Probabilities are: [0.505 0.5  ]
+[[2.00982491 3.23579371]
+ [1.35328123 1.46446433]
+ [2.75805591 1.40670474]]
+
+Probabilities are: [0.504 0.503]
+[[2.0146668  3.24968892]
+ [1.35812313 1.47835955]
+ [2.7628978  1.42059995]]
+
+Probabilities are: [0.476 0.506]
+[[2.01994464 3.26505203]
+ [1.36340097 1.49372265]
+ [2.76817565 1.43596306]]
+
+Probabilities are: [0.495 0.514]
+[[2.02539742 3.2811308 ]
+ [1.36885374 1.50980143]
+ [2.77362842 1.45204184]]
+
+Probabilities are: [0.52  0.528]
+[[2.03166172 3.29980266]
+ [1.37511805 1.52847328]
+ [2.77989272 1.47071369]]
+
+Probabilities are: [0.488 0.507]
+[[2.03903435 3.32198375]
+ [1.38249068 1.55065438]
+ [2.78726536 1.49289479]]
+
+Probabilities are: [0.503 0.508]
+[[2.04640748 3.34432384]
+ [1.38986381 1.57299447]
+ [2.79463848 1.51523487]]
+
+Probabilities are: [0.499 0.451]
+[[2.05472452 3.36960486]
+ [1.39818085 1.59827549]
+ [2.80295552 1.5405159 ]]
+
+Probabilities are: [0.493 0.486]
+[[2.06270033 3.3938307 ]
+ [1.40615666 1.62250133]
+ [2.81093133 1.56474174]]
+
+Probabilities are: [0.478 0.51 ]
+[[2.071915   3.42168619]
+ [1.41537133 1.65035682]
+ [2.82014601 1.59259723]]
+
+Probabilities are: [0.492 0.463]
+[[2.08214794 3.45230872]
+ [1.42560427 1.68097935]
+ [2.83037895 1.62321976]]
+
+Probabilities are: [0.496 0.515]
+[[2.09210619 3.48161971]
+ [1.43556252 1.71029034]
+ [2.8403372  1.65253075]]
+
+Probabilities are: [0.47  0.488]
+[[2.10411187 3.51621934]
+ [1.4475682  1.74488997]
+ [2.85234288 1.68713037]]
+
+Probabilities are: [0.492 0.517]
+[[2.11515054 3.54705388]
+ [1.45860687 1.77572451]
+ [2.86338154 1.71796492]]
+
+Probabilities are: [0.506 0.5  ]
+[[2.12773705 3.58104412]
+ [1.47119337 1.80971475]
+ [2.87596805 1.75195516]]
+
+Probabilities are: [0.516 0.512]
+[[2.13984001 3.61233484]
+ [1.48329634 1.84100546]
+ [2.88807101 1.78324587]]
+
+Probabilities are: [0.523 0.504]
+[[2.15220511 3.64285818]
+ [1.49566144 1.87152881]
+ [2.90043612 1.81376922]]
+
+Probabilities are: [0.51  0.478]
+[[2.16374842 3.66993939]
+ [1.50720474 1.89861002]
+ [2.91197942 1.84085043]]
+
+Probabilities are: [0.493 0.508]
+[[2.17317647 3.69097677]
+ [1.5166328  1.9196474 ]
+ [2.92140747 1.86188781]]
+
+Probabilities are: [0.51  0.516]
+[[2.18279068 3.71153992]
+ [1.52624701 1.94021055]
+ [2.93102168 1.88245096]]
+
+Probabilities are: [0.518 0.509]
+[[2.19234678 3.73109425]
+ [1.53580311 1.95976487]
+ [2.94057778 1.90200528]]
+
+Probabilities are: [0.495 0.51 ]
+[[2.20101984 3.74806467]
+ [1.54447617 1.9767353 ]
+ [2.94925084 1.91897571]]
+
+Probabilities are: [0.492 0.482]
+[[2.20857589 3.76225441]
+ [1.55203222 1.99092504]
+ [2.95680689 1.93316545]]
+
+Probabilities are: [0.527 0.501]
+[[2.21441082 3.77282468]
+ [1.55786714 2.00149531]
+ [2.96264182 1.94373572]]
+
+Probabilities are: [0.494 0.495]
+[[2.22122003 3.78482151]
+ [1.56467636 2.01349214]
+ [2.96945103 1.95573255]]
+
+Probabilities are: [0.496 0.498]
+[[2.22668378 3.79413947]
+ [1.5701401  2.0228101 ]
+ [2.97491478 1.96505051]]
+
+Probabilities are: [0.494 0.469]
+[[2.23191898 3.80283789]
+ [1.57537531 2.03150852]
+ [2.98014998 1.97374893]]
+
+Probabilities are: [0.509 0.501]
+[[2.23575152 3.80904883]
+ [1.57920784 2.03771946]
+ [2.98398252 1.97995987]]
+
+Probabilities are: [0.516 0.525]
+[[2.24072339 3.81696089]
+ [1.58417972 2.04563152]
+ [2.9889544  1.98787193]]
+
+Probabilities are: [0.521 0.494]
+[[2.24630504 3.82563614]
+ [1.58976137 2.05430677]
+ [2.99453604 1.99654718]]
+
+Probabilities are: [0.478 0.489]
+[[2.25058355 3.83211247]
+ [1.59403988 2.0607831 ]
+ [2.99881455 2.00302351]]
+
+Probabilities are: [0.526 0.496]
+[[2.25376706 3.83683516]
+ [1.59722339 2.06550579]
+ [3.00199806 2.0077462 ]]
+
+Probabilities are: [0.508 0.497]
+[[2.25775304 3.84266073]
+ [1.60120937 2.07133136]
+ [3.00598405 2.01357177]]
+
+Probabilities are: [0.494 0.492]
+[[2.26127493 3.84771291]
+ [1.60473126 2.07638354]
+ [3.00950593 2.01862395]]
+
+Probabilities are: [0.492 0.486]
+[[2.26425722 3.85192141]
+ [1.60771354 2.08059204]
+ [3.01248822 2.02283245]]
+
+Probabilities are: [0.501 0.51 ]
+[[2.26689035 3.85558615]
+ [1.61034668 2.08425678]
+ [3.01512135 2.02649719]]
+
+Probabilities are: [0.485 0.51 ]
+[[2.27022927 3.86017699]
+ [1.6136856  2.08884762]
+ [3.01846027 2.03108803]]
+
+Probabilities are: [0.508 0.494]
+[[2.27318819 3.86418319]
+ [1.61664452 2.09285382]
+ [3.02141919 2.03509423]]
+
+Probabilities are: [0.486 0.509]
+[[2.27586629 3.86776025]
+ [1.61932261 2.09643088]
+ [3.02409729 2.03867128]]
+
+Probabilities are: [0.466 0.482]
+[[2.27855862 3.87131255]
+ [1.62201495 2.09998318]
+ [3.02678963 2.04222359]]
+
+Probabilities are: [0.488 0.478]
+[[2.28015819 3.8733973 ]
+ [1.62361451 2.10206793]
+ [3.02838919 2.04430834]]
+
+Probabilities are: [0.499 0.508]
+[[2.28186436 3.87560492]
+ [1.62532069 2.10427555]
+ [3.03009537 2.04651596]]
+
+Probabilities are: [0.504 0.514]
+[[2.28443581 3.87890654]
+ [1.62789214 2.10757717]
+ [3.03266682 2.04981758]]
+
+Probabilities are: [0.513 0.506]
+[[2.28711545 3.8823073 ]
+ [1.63057178 2.11097793]
+ [3.03534645 2.05321833]]
+
+Probabilities are: [0.496 0.501]
+[[2.28957981 3.88539732]
+ [1.63303613 2.11406795]
+ [3.03781081 2.05630835]]
+
+Probabilities are: [0.508 0.492]
+[[2.29163512 3.88794611]
+ [1.63509145 2.11661674]
+ [3.03986612 2.05885714]]
+
+Probabilities are: [0.501 0.483]
+[[2.29352029 3.89026254]
+ [1.63697662 2.11893317]
+ [3.0417513  2.06117358]]
+
+Probabilities are: [0.509 0.511]
+[[2.29504759 3.89212353]
+ [1.63850392 2.12079416]
+ [3.04327859 2.06303457]]
+
+Probabilities are: [0.513 0.52 ]
+[[2.29728329 3.8948293 ]
+ [1.64073962 2.12349993]
+ [3.04551429 2.06574034]]
+
+Probabilities are: [0.515 0.509]
+[[2.29968917 3.89771232]
+ [1.6431455  2.12638295]
+ [3.04792017 2.06862336]]
+
+Probabilities are: [0.511 0.482]
+[[2.30176509 3.90017364]
+ [1.64522142 2.12884427]
+ [3.04999609 2.07108468]]
+
+Probabilities are: [0.507 0.505]
+[[2.30310998 3.90175371]
+ [1.6465663  2.13042434]
+ [3.05134098 2.07266475]]
+
+Probabilities are: [0.508 0.512]
+[[2.3049041  3.9038492 ]
+ [1.64836043 2.13251983]
+ [3.05313511 2.07476024]]
+
+Probabilities are: [0.512 0.508]
+[[2.30680657 3.90605386]
+ [1.6502629  2.13472448]
+ [3.05503757 2.07696489]]
+
+Probabilities are: [0.509 0.476]
+[[2.30859123 3.9081049 ]
+ [1.65204756 2.13677553]
+ [3.05682224 2.07901594]]
+
+Probabilities are: [0.476 0.509]
+[[2.30959563 3.9092503 ]
+ [1.65305196 2.13792093]
+ [3.05782664 2.08016134]]
+
+Probabilities are: [0.502 0.493]
+[[2.3110336  3.91088302]
+ [1.65448993 2.13955365]
+ [3.05926461 2.08179405]]
+
+Probabilities are: [0.515 0.502]
+[[2.31228869 3.91229924]
+ [1.65574501 2.14096987]
+ [3.06051969 2.08321028]]
+
+Probabilities are: [0.502 0.514]
+[[2.31379812 3.91399328]
+ [1.65725445 2.14266391]
+ [3.06202913 2.08490431]]
+
+Probabilities are: [0.527 0.513]
+[[2.31542331 3.91580541]
+ [1.65887964 2.14447604]
+ [3.06365432 2.08671644]]
+
+Probabilities are: [0.511 0.498]
+[[2.31715336 3.91772103]
+ [1.66060969 2.14639166]
+ [3.06538436 2.08863207]]
+
+Probabilities are: [0.518 0.512]
+[[2.31841687 3.91910974]
+ [1.6618732  2.14778037]
+ [3.06664787 2.09002078]]
+
+Probabilities are: [0.488 0.504]
+[[2.31997606 3.92081421]
+ [1.66343239 2.14948484]
+ [3.06820706 2.09172525]]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probabilities are: [0.513 0.502]
+[[2.32114696 3.92208574]
+ [1.66460329 2.15075637]
+ [3.06937797 2.09299678]]
+
+Probabilities are: [0.504 0.483]
+[[2.32240086 3.92344064]
+ [1.66585719 2.15211127]
+ [3.07063186 2.09435167]]
+
+Probabilities are: [0.496 0.512]
+[[2.32319888 3.92429836]
+ [1.66665521 2.15296899]
+ [3.07142988 2.0952094 ]]
+
+Probabilities are: [0.487 0.481]
+[[2.32450139 3.92569361]
+ [1.66795772 2.15436424]
+ [3.07273239 2.09660465]]
+
+Probabilities are: [0.506 0.475]
+[[2.32512735 3.92636047]
+ [1.66858368 2.1550311 ]
+ [3.07335836 2.09727151]]
+
+Probabilities are: [0.522 0.474]
+[[2.32572813 3.92699881]
+ [1.66918446 2.15566944]
+ [3.07395913 2.09790984]]
+
+Probabilities are: [0.482 0.487]
+[[2.32638159 3.92769137]
+ [1.66983792 2.156362  ]
+ [3.07461259 2.0986024 ]]
+
+Probabilities are: [0.521 0.5  ]
+[[2.32706589 3.92841463]
+ [1.67052222 2.15708525]
+ [3.07529689 2.09932566]]
+
+Probabilities are: [0.479 0.495]
+[[2.32817817 3.92958686]
+ [1.6716345  2.15825749]
+ [3.07640917 2.1004979 ]]
+
+Probabilities are: [0.493 0.511]
+[[2.32897    3.93041749]
+ [1.67242633 2.15908811]
+ [3.077201   2.10132852]]
+
+Probabilities are: [0.521 0.524]
+[[2.33011179 3.93161126]
+ [1.67356812 2.16028189]
+ [3.07834279 2.1025223 ]]
+
+Probabilities are: [0.502 0.5  ]
+[[2.33159445 3.93315404]
+ [1.67505078 2.16182467]
+ [3.07982545 2.10406508]]
+
+Probabilities are: [0.504 0.508]
+[[2.33252155 3.93411279]
+ [1.67597788 2.16278342]
+ [3.08075255 2.10502382]]
+
+Probabilities are: [0.53  0.496]
+[[2.33358348 3.93520674]
+ [1.67703981 2.16387737]
+ [3.08181448 2.10611777]]
+
+Probabilities are: [0.498 0.489]
+[[2.3345096  3.93615659]
+ [1.67796593 2.16482722]
+ [3.08274061 2.10706763]]
+
+Probabilities are: [0.485 0.485]
+[[2.33517203 3.93683339]
+ [1.67862836 2.16550402]
+ [3.08340303 2.10774443]]
+
+Probabilities are: [0.492 0.521]
+[[2.33570668 3.93737815]
+ [1.67916301 2.16604877]
+ [3.08393768 2.10828918]]
+
+Probabilities are: [0.488 0.496]
+[[2.33689176 3.93858296]
+ [1.68034809 2.16725359]
+ [3.08512276 2.109494  ]]
+
+Probabilities are: [0.499 0.496]
+[[2.33760618 3.93930574]
+ [1.68106251 2.16797637]
+ [3.08583719 2.11021678]]
+
+Probabilities are: [0.499 0.494]
+[[2.33834547 3.94005147]
+ [1.6818018  2.1687221 ]
+ [3.08657647 2.11096251]]
+
+Probabilities are: [0.516 0.494]
+[[2.33903869 3.94074862]
+ [1.68249502 2.16941925]
+ [3.0872697  2.11165966]]
+
+Probabilities are: [0.506 0.522]
+[[2.33977132 3.9414833 ]
+ [1.68322765 2.17015393]
+ [3.08800232 2.11239434]]
+
+Probabilities are: [0.504 0.483]
+[[2.34093791 3.94264966]
+ [1.68439424 2.17132029]
+ [3.08916892 2.1135607 ]]
+
+Probabilities are: [0.487 0.493]
+[[2.34142065 3.94313   ]
+ [1.68487698 2.17180062]
+ [3.08965165 2.11404103]]
+
+Probabilities are: [0.489 0.488]
+[[2.34202102 3.94372621]
+ [1.68547735 2.17239683]
+ [3.09025202 2.11463724]]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Hands-On/hands-on-8/ManyQubitsRBM.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

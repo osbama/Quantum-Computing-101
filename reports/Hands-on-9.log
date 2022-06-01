@@ -1,0 +1,71 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Import and preliminaries
+import strawberryfields as sf
+from strawberryfields.ops import Ket, BSgate, Interferometer
+import numpy as np
+
+cutoff_dim = 5  # (1+ total number of photons)
+paths = 4
+modes = 2 * paths
+
+initial_state = np.zeros([cutoff_dim] * modes, dtype=np.complex)
+# The ket below corresponds to a single horizontal photon in each of the modes
+initial_state[1, 0, 1, 0, 1, 0, 1, 0] = 1
+# Permutation matrix
+X = np.array([[0, 1], [1, 0]])
+
+# Here is the main program
+# We create the input state and then send it through a network of beamsplitters and swaps.
+prog = sf.Program(8)
+with prog.context as q:
+    Ket(initial_state) | q  # Initial state preparation
+    for i in range(paths):
+        BSgate() | (q[2 * i], q[2 * i + 1])  # First layer of beamsplitters
+    Interferometer(X) | (q[1], q[3])
+    Interferometer(X) | (q[5], q[7])
+    BSgate() | (q[2], q[3])
+    BSgate() | (q[4], q[5])
+    Interferometer(X) | (q[3], q[5])
+    BSgate().H | (q[2], q[3])
+    BSgate().H | (q[4], q[5])
+
+# We run the simulation
+eng = sf.Engine("fock", backend_options={"cutoff_dim": cutoff_dim})
+result = eng.run(prog)
+state = result.state
+ket = state.ket()
+
+# Check the normalization of the ket.
+# This does give the exact answer because of the cutoff we chose.
+print("The norm of the ket is ", np.linalg.norm(ket))
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Input [0;32mIn [1][0m, in [0;36m<cell line: 2>[0;34m()[0m
+[1;32m      1[0m [38;5;66;03m# Import and preliminaries[39;00m
+[0;32m----> 2[0m [38;5;28;01mimport[39;00m [38;5;21;01mstrawberryfields[39;00m [38;5;28;01mas[39;00m [38;5;21;01msf[39;00m
+[1;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mstrawberryfields[39;00m[38;5;21;01m.[39;00m[38;5;21;01mops[39;00m [38;5;28;01mimport[39;00m Ket, BSgate, Interferometer
+[1;32m      4[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+
+[0;31mModuleNotFoundError[0m: No module named 'strawberryfields'
+ModuleNotFoundError: No module named 'strawberryfields'
+

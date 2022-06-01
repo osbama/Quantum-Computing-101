@@ -64,5 +64,6 @@ Hands-on sessions
    Hands-on 6 <Hands-On/hands-on-6/hands-on-6-online.rst>
    Hands-on 7 <Hands-On/hands-on-7/hands-on-7-online.rst>
    Hands-on 8 <Hands-On/hands-on-8/hands-on-8-online.rst>
+   Hands-on 9 <Hands-On/hands-on-9/hands-on-9-online.rst>
 
 

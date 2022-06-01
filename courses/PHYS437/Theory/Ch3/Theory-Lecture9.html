@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ch3-Lecture 9 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch3-lecture-9">
+<h1>Ch3-Lecture 9<a class="headerlink" href="#ch3-lecture-9" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="information-encoding">
+<h2>Information Encoding<a class="headerlink" href="#information-encoding" title="Permalink to this headline">¶</a></h2>
+<p>The strategy of how to represent information as a quantum state provides the context of how to design the quantum algorithm and what speedups one can hope to harvest. The actual procedure of encoding data into the quantum system is part of the algorithm and may account for a crucial part of the complexity.1 Theoretical frameworks, software and hardware that address the interface between the classical memory and the quantum device are therefore central for technological implementations of quantum machine learning. Issues of efficiency, precision and noise play an important role in performance evaluation. This is even more true since most quantum machine learning algorithms deliver probabilistic results and the entire routine—including state preparation—may have to be repeated many times. These arguments call for a thorough discussion of “data encoding” approaches and routines, which is why we dedicate this entire chapter to questions of data representation with quantum states.</p>
+<dl class="simple myst">
+<dt>Table 1</dt><dd><p>Comparison of the four encoding strategies for a dataset of <span class="math notranslate nohighlight">\(M\)</span> inputs with <span class="math notranslate nohighlight">\(N\)</span> features each. While basis, amplitude and Hamiltonian encoding aim at representing a full data set by the quantum system, qsample encoding works a little different in that it represents a probability distribution over random variables. It therefore does not have a dependency on the number of inputs <span class="math notranslate nohighlight">\(M\)</span> . *Only certain datasets or models can be encoded in this time.</p>
+</dd>
+</dl>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Encoding</p></th>
+<th class="head"><p>Number of qubits</p></th>
+<th class="head"><p>Runtime of state prep</p></th>
+<th class="head"><p>Input features</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Basis</p></td>
+<td><p><span class="math notranslate nohighlight">\(N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathcal{O}(MN)\)</span></p></td>
+<td><p>Binary</p></td>
+</tr>
+<tr class="row-odd"><td><p>Amplitude</p></td>
+<td><p><span class="math notranslate nohighlight">\(\log N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathcal{O}(MN)/\mathcal{O}(\log(MN))^*\)</span></p></td>
+<td><p>Continuous</p></td>
+</tr>
+<tr class="row-even"><td><p>Qsample</p></td>
+<td><p><span class="math notranslate nohighlight">\(N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathcal{O}(2^N)/\mathcal{O}(N)^*\)</span></p></td>
+<td><p>Binary</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hamiltonian</p></td>
+<td><p><span class="math notranslate nohighlight">\(\log N\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathcal{O}(MN)/\mathcal{O}(\log(MN))^*\)</span></p></td>
+<td><p>Continuous</p></td>
+</tr>
+</tbody>
+</table>
+<p>A central figure of merit for state preparation is the asymptotic runtime, and an overview of runtimes for the four encoding methods is provided in the above Table. In quantum computing an efficient algorithm has a polynomial runtime with respect to the number of qubits. Since data can be encoded into qubits or amplitudes, the expression “efficient” can have different meanings, and this easily gets confusing. To facilitate the discussion, we will call an algorithm either <strong>amplitude-efficient</strong> or <strong>qubit-efficient</strong>, depending on what we consider as an input. It is obvious that if the data is encoded into the amplitudes or operators of a quantum system (as in amplitude and Hamiltonian encoding), amplitude-efficient state preparation routines are also efficient in terms of the data set. If we encode data into qubits, qubit-efficient state preparation is efficient in the data set size. We will see that there are some very interesting cases in which we encode data into amplitudes or Hamiltonians, but can guarantee qubit-efficient state preparation routines. In these cases, we prepare data in time which is logarithmic in the data size itself. Of course, this requires either a very specific access to or a very special structure of the data.</p>
+<p>Before we start, a safe assumption when nothing more about the hardware is known is that we have a <span class="math notranslate nohighlight">\(n\)</span>-qubit system in the ground state <span class="math notranslate nohighlight">\( \left|0\dots 0\right\rangle \)</span> and that the data is accessible from a classical memory. In some cases we will also require some specific classical preprocessing. We consider data sets <span class="math notranslate nohighlight">\( \mathcal{D}= \left\{x^1,\dots,x^M\right\}  \)</span> of <span class="math notranslate nohighlight">\(N\)</span>-dimensional real feature vectors. Note that many algorithms require the labels to be encoded in qubits entangled with the inputs, but for the sake of simplicity we will focus on unlabelled data.</p>
+<div class="section" id="basis-encoding">
+<h3>Basis Encoding<a class="headerlink" href="#basis-encoding" title="Permalink to this headline">¶</a></h3>
+<p>Assume we are given a binary dataset <span class="math notranslate nohighlight">\( \mathcal{D} \)</span> where each pattern <span class="math notranslate nohighlight">\( x^m \in \mathcal{D} \)</span>  is a binary string of the form <span class="math notranslate nohighlight">\(x^m=(b_1^m,\dots,b_N^m)\)</span> with <span class="math notranslate nohighlight">\(b_i^m\in \left\{0,1\right\} \)</span> for <span class="math notranslate nohighlight">\(i = 1, \dots, N \)</span>. We can prepare a superposition of basis states <span class="math notranslate nohighlight">\( \left|x^m\right\rangle \)</span> that qubit-wise correspond to the binary input patterns,</p>
+<div class="math notranslate nohighlight">
+\[
+ \left| \mathcal{D} \right\rangle = \frac{1}{\sqrt{M}} \sum_{m=1}^{M}  \left|x^m\right\rangle
+\]</div>
+<p>For example, given two binary inputs <span class="math notranslate nohighlight">\(x^1 = (01, 01)^T\)</span> , <span class="math notranslate nohighlight">\(x^2 = (11, 10)^T\)</span> , where features are encoded with a binary precision of <span class="math notranslate nohighlight">\(\tau = 2\)</span>, we can write them as binary patterns <span class="math notranslate nohighlight">\(x^1 = (0110)\)</span>, <span class="math notranslate nohighlight">\(x^2 = (1110)\)</span>. These patterns can be associated with basis states <span class="math notranslate nohighlight">\( \left|0110\right\rangle \)</span>, <span class="math notranslate nohighlight">\( \left|1110\right\rangle \)</span>, and the full data superposition reads</p>
+<div class="math notranslate nohighlight">
+\[
+ \left| \mathcal{D} \right\rangle = \frac{1}{\sqrt{2}}\left|0110\right\rangle + \frac{1}{\sqrt{2}} \left|1110\right\rangle
+\]</div>
+<p>The amplitude vector corresponding to this state has entries <span class="math notranslate nohighlight">\( \frac{1}{\sqrt{M}} \)</span> for basis states that are associated with a binary pattern from the dataset, and zero entries otherwise. The amplitude vector is given by</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha=(0,0,0,0,0, \frac{1}{\sqrt{2}} ,0,0,0,0,0,0,0,0, \frac{1}{\sqrt{2}}, 0)^T
+\]</div>
+<p>Since—except in very low dimensions—the total number of amplitudes <span class="math notranslate nohighlight">\(2^{N_\tau}\)</span> is much larger than the number of nonzero amplitudes <span class="math notranslate nohighlight">\(M\)</span> , basis encoded datasets generally give rise to sparse amplitude vectors.</p>
+<div class="section" id="computing-in-basis-encoding">
+<h4>Computing in Basis Encoding<a class="headerlink" href="#computing-in-basis-encoding" title="Permalink to this headline">¶</a></h4>
+<p>Acting on binary features encoded as qubits gives us the most computational freedom to design quantum algorithms. In principle, each operation on bits that we can execute on a classical computer can be done on a quantum computer as well. The argument is roughly the following: A Toffoli gate implements the logic operation
+Input
+000
+001
+010
+011
+100
+101
+110
+111
+Output
+000
+001
+010
+011
+100
+101
+111
+110
+and is a universal gate for Boolean logic [8]. Universality implies that any binary
+function f : {0, 1}⊗N → {0, 1}⊗D can be implemented by a succession of Toffoli
+gates and possibly some ‘garbage’ bits. The special role of the Toffoli gate stems
+from the fact that it is reversible. If one only sees the state after the operation, one
+can deduce the exact state before the operation (i.e., if the first two bits are 11,
+flip the third one). No information is lost in the operation, which is in physical
+terms a non-dissipative operation. In mathematical terms the matrix representing
+the operation has an inverse. Reversible gates, and hence also the Toffoli gate, can
+be implemented on a quantum computer. In conclusion, if any classical algorithm
+can efficiently be formulated in terms of Toffoli gates, and these can always be
+implemented on a quantum computer, this means that any classical algorithm can
+efficiently be translated to a quantum algorithm. The reformulation of a classical
+algorithm with Toffoli gates may however have a large polynomial overhead and
+slow down the routines significantly.
+Note that once encoded into a superposition, the data inputs can be processed in
+quantum parallel (see Sect. 3.2.4). For example, if a routine
+A(|x ⊗ |0) → |x ⊗ |f (x)146
+5 Information Encoding
+is known to implement a machine learning model f and write the binary predic-
+tion f (x) into the state of a qubit, we can perform inference in parallel on the data
+superposition,
+M
+M
+1  m
+1  m
+A √
+|x  ⊗ |0 → √
+|x  ⊗ |f (xm ).
+M m=1
+M m=1
+From this superposition one can extract statistical information, for example by mea-
+suring the last qubit. Such a measurement reveals the expectation value of the pre-
+diction of the entire dataset.</p>
+</div>
+<div class="section" id="sampling-from-a-qubit">
+<h4>Sampling from a Qubit<a class="headerlink" href="#sampling-from-a-qubit" title="Permalink to this headline">¶</a></h4>
+<p>As the previous example shows, the result of a quantum machine learning model can
+be basis encoded as well. For binary classification this only requires one qubit. If the
+qubit is in state |f (x) = |1 the prediction is 1 and if the qubit is in state |f (x) = |0
+the prediction is 0. A superposition can be interpreted as a probabilistic output that
+provides information on the uncertainty of the result.
+In order to read out the state of the qubit we have to measure it, and we want to
+briefly address how to obtain the prediction estimate from measurements, as well
+as what number of measurements are needed for a reliable prediction. The field of
+reconstructing a quantum state from measurements is called quantum tomography,
+and there are very sophisticated ways in which samples from these measurements
+can be used to estimate the density matrix that describe the state. Here we consider a
+much simpler problem, namely to estimate the probability of measuring basis state
+|0 or |1. In other words, we are just interested in the diagonal elements of the
+density matrix, not in the entire state. Estimating the ouptut of a quantum model in
+basis encoding is therefore a ‘classical’ rather than a ‘quantum task’.
+Let the final state of the output qubit be given by the density matrix
+ρ=
+ρ00 ρ01
+.
+ρ10 ρ11
+We need the density matrix formalism from Chap. 3 here because the quantum com-
+puter may be in a state where other qubits are entangled with the output qubit, and the
+single-qubit-state is therefore a mixed state. We assume that the quantum algorithm
+is error-free, so that repeating it always leads to precisely the same density matrix ρ
+to take measurements from. The diagonal elements ρ00 and ρ11 fulfil ρ00 + ρ11 = 1
+and give us the probability of measuring the qubit in state |0 or |1 respectively. We
+associate ρ11 with the probabilistic output f (x) = p which gives us the probability
+that model f predicts y = 1 for the input x.5.1 Basis Encoding
+147
+To get an estimate p̂ of p we have to repeat the entire algorithm S times and
+perform a computational basis measurement on the output qubit in each run. This
+produces a set of samples Ω = {y1 , …, yS } of outcomes, and we assume the samples
+stem from a distribution that returns 0 with probability 1 − p and 1 with probability
+p. Measuring a single qubit is therefore equivalent to sampling from a Bernoulli
+distribution, a problem widely investigated in statistics.2 There are various strategies
+of how to get an estimate p̂ from samples Ω. Most prominent, maximum likelihood
+estimation leads to the rather intuitive ‘frequentist estimator’ p̂ = p̄ = S1 Si=1 yi
+which is nothing else than the average over all outcomes.
+An important question is how many samples from the single qubit measurement
+we need to estimate p with error . In physics language, we want an ‘error bar’  of our
+estimation p̂ ± , or the confidence interval [p̂ − , p̂ + ]. A confidence interval is
+valid for a pre-defined confidence level, for example of 99%. The confidence level has
+the following meaning: If we have different sets of samples S1 , …, SS and compute
+estimators and confidence intervals for each of them, p̂S1 ± S1 , …, p̂SS ± SS , the
+confidence level is the proportion of sample sets for which the true value p lies within
+the confidence interval around p̂. The confidence level is usually expressed by a so
+called z-value, for example, a z-value of 2.58 corresponds to a confidence of 99%.
+This correspondence can be looked up in tables.
+Frequently used is the Wald interval which is suited for cases of large S and
+p ≈ 0.5. The error  can be calculated as
+
+=z
+p̂(1 − p̂)
+.
+S
+This is maximised for p = 0.5, so that we can assume the overall error of our esti-
+mation  to be at most
+z
+≤ √
+2 S
+with a confidence level of z. In other words, for a given  and z we need O(−2 )
+samples of the qubit measurement. If we want to have an error bar of at most  = 0.1
+and a confidence level of 99% we need about 167 samples, and an error of  = 0.01
+with confidence 99% requires at most 17, 000 samples. This is a vast number, but
+only needed if the estimator is equal to 0.5, which is the worst case scenario of an
+undecided classifier (and we may not want to rely on the decision very much in any
+case). One can also see that the bound fails for p → 0, 1 [9].
+There are other estimates that also work when p is close to either zero or one. A
+more refined alternative is the Wilson score interval [10] with the following estimator
+for p,
+z2
+1
+p̄
++
+,
+p̂ =
+2
+2S
+1 + zS
+2 Bernoulli sampling is equivalent to a (biased) coin toss experiment: We flip a coin S times and
+want to estimate the bias p, i.e. with what probability the coin produces ‘heads’.148
+5 Information Encoding
+Fig. 5.4 Relationship
+between the sample size S
+and the mean value
+p̄ = S1 Si=1 yi for different
+errors  for the Wilson score
+interval of a Bernoulli
+parameter estimation
+problem as described in the
+text
+and the error
+=
+z
+2
+1 + zS
+p̄(1 − p̄)
+z2</p>
+<ul class="simple">
+<li><p>2
+S
+4S
+1
+2
+,
+with p̄ being the average of all samples as defined above. Again this is maximised
+for p̄ = 0.5 and with a confidence level z we can state that the overall error of our
+estimation is bounded by
+
+S + z2
+ ≤ z2
+.
+4S 2
+This can be solved for S as
+S≤
+2
+
+z 4 (162 +1)</p></li>
+<li><p>z2
+4
+.
+82
+With the Wilson score, a confidence level of 99% suggests that we need 173 single
+qubit measurements to guarantee an error of less than 0.1. However, now we can
+test the cases p̄ = 0, 1 for which S = z 2 ( 21 − 1). For  = 0.1 we only need about 27
+measurements for the same confidence level (see Fig. 5.4).</p></li>
+</ul>
+</div>
+<div class="section" id="preparing-superpositions-of-inputs">
+<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#preparing-superpositions-of-inputs" title="Permalink to this headline">¶</a></h4>
+<p>n elegant way to construct such ‘data superpositions’ in time linear in M and N
+has been introduced by Ventura, Martinez and others [3, 4], and will be summarised
+here as an example of basis encoded state preparation. The circuit for one step in the
+routine is shown in Fig. 5.2. We will simplify things by considering binary inputs in
+which every bit represents one feature, or τ = 1.
+We require a quantum system
+|l1 , …, lN ; a1 , a2 ; s1 , …, sN 
+with three registers: a loading register of N qubits |l1 , …, lN , the ancilla register
+|a1 , a2  with two qubits and the N -qubit storage register |s1 , …, sN . We start in the
+ground state and apply a Hadamard to the second ancilla to get
+1
+1
+√ |0, …, 0; 0, 0; 0, …, 0 + √ |0, …, 0; 0, 1; 0, …, 0.
+2
+2
+The left term, flagged with a2 = 0, is called the memory branch, while the right term,
+flagged with a2 = 1, is the processing branch. The algorithm iteratively loads patterns
+into the loading register and ‘breaks away’ the right size of terms from the processing</p>
+<p>branch to add it to the memory branch (Fig. 5.3). This way the superposition of
+patterns is ‘grown’ step by step.
+To explain how one iteration works, assume that the first m training vectors have
+already been encoded after iterations 1, …, m of the algorithm. This leads to the
+state
+
+m
+M −m
+1 
+(m)
+k
+k
+|0, …, 0; 01; 0, …, 0.
+|0, …, 0; 00; x1 , …, xN  +
+|ψ  = √
+M
+M
+k=1
+(5.3)
+The memory branch stores the first m inputs in its storage register, while the storage
+register of the processing branch is in the ground state. In both branches the loading
+register is also in the ground state.
+To execute the (m + 1)th step of the algorithm, write the (m + 1)th pattern xm+1 =
+m+1
+(x1 , …, xNm+1 ) into the qubits of the loading register (which will write it into both
+branches). This can be done by applying an X gate to all qubits that correspond
+to nonzero bits in the input pattern. Next, in the processing branch the pattern gets
+copied into the storage register using a CNOT gate on each of the N qubits. To limit
+the execution to the processing branch only we have to control the CNOTs with the
+second ancilla being in a2 = 1. This leads to
+1  m+1
+|x1 , …, xNm+1 ;00; x1k , …, xNk 
+√
+M k=1
+
+M − m m+1
+|x1 , …, xNm+1 ; 01; x1m+1 , …, xNm+1 .
++
+M
+m
+Using a CNOT gate, we flip a1 = 1 if a2 = 1, which is only true for the processing
+branch. Afterwards apply the single qubit unitary
+⎛
+Ua2 (μ) = ⎝
+μ−1
+μ
+−1
+√
+μ
+⎞
+√1
+ μ ⎠
+μ−1
+μ
+with μ = M + 1 − (m + 1) to qubit a2 but controlled by a1 . On the full quantum
+state, this operation amounts to
+1loading ⊗ ca1 Ua2 (μ) ⊗ 1storage .
+This splits the processing branch into two subbranches, one that can be “added” to
+the memory branch and one that will remain the processing branch for the next step,</p>
+<p>To add the subbranch marked by |a1 a2  = |10 to the memory branch, we have to
+flip a1 back to 1. To confine this operation to the desired subbranch we can condition
+it on an operation that compares if the loading and storage register are in the same
+state (which is only true for the two processing subbranches), and that a2 = 1 (which
+is only true for the desired subbranch). Also, the storage register of the processing
+branch as well as the loading register of both branches has to be reset to the ground
+state by reversing the previous operations, before the next iteration begins. After the
+(m + 1)th iteration we start with a state similar to Eq. (5.3) but with m → m + 1.
+The routine requires O(MN ) steps, and succeeds with certainty.
+There are interesting alternative proposals for architectures of quantum Random
+Access Memories, devices that load patterns ‘in parallel’ into a quantum register.
+These devices are designed to query an index register |m and load the mth binary
+pattern into a second register in basis encoding, |m|0…0 → |m|xm . Most impor-
+tantly, this operation can be executed in parallel. Given a superposition of the index
+register, the quantum random access memory is supposed to implement the operation
+M −1
+M −1
+1 
+1 
+|m|0…0 → √
+|m|xm .
+√
+M m=0
+M m=0
+(5.4)
+We will get back to this in the next section, where another step allows us to prepare
+amplitude encoded quantum states. Ideas for architectures which realise this kind of5.1 Basis Encoding
+145
+‘query access’ in logarithmic time regarding the number of items to be loaded have
+been brought forward [5], but a hardware realising such an operation is still an open
+challenge [6, 7].</p>
+</div>
+<div class="section" id="id1">
+<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>n elegant way to construct such ‘data superpositions’ in time linear in M and N
+has been introduced by Ventura, Martinez and others [3, 4], and will be summarised
+here as an example of basis encoded state preparation. The circuit for one step in the
+routine is shown in Fig. 5.2. We will simplify things by considering binary inputs in
+which every bit represents one feature, or τ = 1.
+We require a quantum system
+|l1 , …, lN ; a1 , a2 ; s1 , …, sN 
+with three registers: a loading register of N qubits |l1 , …, lN , the ancilla register
+|a1 , a2  with two qubits and the N -qubit storage register |s1 , …, sN . We start in the
+ground state and apply a Hadamard to the second ancilla to get
+1
+1
+√ |0, …, 0; 0, 0; 0, …, 0 + √ |0, …, 0; 0, 1; 0, …, 0.
+2
+2
+The left term, flagged with a2 = 0, is called the memory branch, while the right term,
+flagged with a2 = 1, is the processing branch. The algorithm iteratively loads patterns
+into the loading register and ‘breaks away’ the right size of terms from the processing</p>
+<p>branch to add it to the memory branch (Fig. 5.3). This way the superposition of
+patterns is ‘grown’ step by step.
+To explain how one iteration works, assume that the first m training vectors have
+already been encoded after iterations 1, …, m of the algorithm. This leads to the
+state
+
+m
+M −m
+1 
+(m)
+k
+k
+|0, …, 0; 01; 0, …, 0.
+|0, …, 0; 00; x1 , …, xN  +
+|ψ  = √
+M
+M
+k=1
+(5.3)
+The memory branch stores the first m inputs in its storage register, while the storage
+register of the processing branch is in the ground state. In both branches the loading
+register is also in the ground state.
+To execute the (m + 1)th step of the algorithm, write the (m + 1)th pattern xm+1 =
+m+1
+(x1 , …, xNm+1 ) into the qubits of the loading register (which will write it into both
+branches). This can be done by applying an X gate to all qubits that correspond
+to nonzero bits in the input pattern. Next, in the processing branch the pattern gets
+copied into the storage register using a CNOT gate on each of the N qubits. To limit
+the execution to the processing branch only we have to control the CNOTs with the
+second ancilla being in a2 = 1. This leads to
+1  m+1
+|x1 , …, xNm+1 ;00; x1k , …, xNk 
+√
+M k=1
+
+M − m m+1
+|x1 , …, xNm+1 ; 01; x1m+1 , …, xNm+1 .
++
+M
+m
+Using a CNOT gate, we flip a1 = 1 if a2 = 1, which is only true for the processing
+branch. Afterwards apply the single qubit unitary
+⎛
+Ua2 (μ) = ⎝
+μ−1
+μ
+−1
+√
+μ
+⎞
+√1
+ μ ⎠
+μ−1
+μ
+with μ = M + 1 − (m + 1) to qubit a2 but controlled by a1 . On the full quantum
+state, this operation amounts to
+1loading ⊗ ca1 Ua2 (μ) ⊗ 1storage .
+This splits the processing branch into two subbranches, one that can be “added” to
+the memory branch and one that will remain the processing branch for the next step,</p>
+<p>To add the subbranch marked by |a1 a2  = |10 to the memory branch, we have to
+flip a1 back to 1. To confine this operation to the desired subbranch we can condition
+it on an operation that compares if the loading and storage register are in the same
+state (which is only true for the two processing subbranches), and that a2 = 1 (which
+is only true for the desired subbranch). Also, the storage register of the processing
+branch as well as the loading register of both branches has to be reset to the ground
+state by reversing the previous operations, before the next iteration begins. After the
+(m + 1)th iteration we start with a state similar to Eq. (5.3) but with m → m + 1.
+The routine requires O(MN ) steps, and succeeds with certainty.
+There are interesting alternative proposals for architectures of quantum Random
+Access Memories, devices that load patterns ‘in parallel’ into a quantum register.
+These devices are designed to query an index register |m and load the mth binary
+pattern into a second register in basis encoding, |m|0…0 → |m|xm . Most impor-
+tantly, this operation can be executed in parallel. Given a superposition of the index
+register, the quantum random access memory is supposed to implement the operation
+M −1
+M −1
+1 
+1 
+|m|0…0 → √
+|m|xm .
+√
+M m=0
+M m=0
+(5.4)
+We will get back to this in the next section, where another step allows us to prepare
+amplitude encoded quantum states. Ideas for architectures which realise this kind of5.1 Basis Encoding
+145
+‘query access’ in logarithmic time regarding the number of items to be loaded have
+been brought forward [5], but a hardware realising such an operation is still an open
+challenge [6, 7].</p>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS437/Theory/Ch3/Theory-Lecture9.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

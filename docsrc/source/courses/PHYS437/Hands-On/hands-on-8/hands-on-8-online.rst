@@ -1,6 +1,6 @@
 
 =====================
-Hands-on session 7
+Hands-on session 8
 =====================
 
 Session Recording
