@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Linux Terminal Primer &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
     <script src="../../../../../_static/jquery.js"></script>
     <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
     <link rel="next" title="Session Recording" href="../hands-on-1/lab1.html" />
@@ -66,6 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../../archives.html">Archives</a></li>
 </ul>
 </li>
@@ -102,19 +98,19 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/rcAMixKZYog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><div class="section" id="linux-terminal-primer">
-<h1>Linux Terminal Primer<a class="headerlink" href="#linux-terminal-primer" title="Permalink to this headline">¶</a></h1>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/rcAMixKZYog" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><section id="linux-terminal-primer">
+<h1>Linux Terminal Primer<a class="headerlink" href="#linux-terminal-primer" title="Permalink to this heading">¶</a></h1>
 <p>Please familiarise yourself well with the Linux Terminal. There are many tutorials, <a class="reference external" href="https://www.digitalocean.com/community/tutorials/a-linux-command-line-primer">such as this one</a></p>
-</div>
-<div class="section" id="getting-your-computer-ready">
-<h1>Getting your computer ready<a class="headerlink" href="#getting-your-computer-ready" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="getting-your-computer-ready">
+<h1>Getting your computer ready<a class="headerlink" href="#getting-your-computer-ready" title="Permalink to this heading">¶</a></h1>
 <p>If you are using Windows, installing <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Window Subsystem for Linux</a> is highly recommended. Otherwise please consider using <a class="reference internal" href="#dilhan"><span class="std std-ref">Dilhan</span></a></p>
-<div class="section" id="conda">
-<h2>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h2>
+<section id="conda">
+<h2>Conda<a class="headerlink" href="#conda" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://docs.conda.io/en/latest/">Conda</a> is a package, dependency and environment management solution. We will need it to install python packages related to Qiskit. Conda is already installed in <a class="reference internal" href="#dilhan"><span class="std std-ref">Dilhan</span></a></p>
-</div>
-<div class="section" id="qiskit">
-<span id="install-qiskit"></span><h2>Qiskit<a class="headerlink" href="#qiskit" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="qiskit">
+<span id="install-qiskit"></span><h2>Qiskit<a class="headerlink" href="#qiskit" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://qiskit.org/">Qiskit [kiss-kit]</a>  is the IBM’s open source SDK for working with quantum computers at the level of pulses, circuits and application modules.</p>
 <p>You can install Qiskit using the instructions <a class="reference external" href="https://qiskit.org/documentation/getting_started.html?highlight=conda">here</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conda create -n qiskit <span class="nv">python</span><span class="o">=</span><span class="m">3</span>
@@ -126,16 +122,16 @@ $ pip install qiskit
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install <span class="s1">&#39;qiskit[visualization]&#39;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="dilhan">
-<span id="id2"></span><h1>Dilhan<a class="headerlink" href="#dilhan" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section id="dilhan">
+<span id="id2"></span><h1>Dilhan<a class="headerlink" href="#dilhan" title="Permalink to this heading">¶</a></h1>
 <p>As a part of this lesson, you should’ve received a user name and ssh-key for an academic user in Dilhan (named after Dilhan Eroğlu).</p>
-<div class="section" id="connecting-to-dilhan">
-<h2>Connecting to Dilhan<a class="headerlink" href="#connecting-to-dilhan" title="Permalink to this headline">¶</a></h2>
+<section id="connecting-to-dilhan">
+<h2>Connecting to Dilhan<a class="headerlink" href="#connecting-to-dilhan" title="Permalink to this heading">¶</a></h2>
 <p>You may connect to Dilhan via <em>SSH</em> to <code class="docutils literal notranslate"><span class="pre">144.122.31.1</span></code> as long as you are in the <code class="docutils literal notranslate"><span class="pre">144.122.*.*</span></code> network. This means that on Linux and MacOs you may directly connect by opening a terminal and writing <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">username&#64;144.122.31.1</span></code>. From Windows, if you do not install WSL you may still connect via <a class="reference external" href="https://www.putty.org/">PuTTY</a>. Please see the <a class="reference external" href="https://metu-physics.github.io/HPC">web page for Dilhan</a> for more info.</p>
-<div class="section" id="using-the-ssh-key">
-<h3>Using the ssh-key<a class="headerlink" href="#using-the-ssh-key" title="Permalink to this headline">¶</a></h3>
+<section id="using-the-ssh-key">
+<h3>Using the ssh-key<a class="headerlink" href="#using-the-ssh-key" title="Permalink to this heading">¶</a></h3>
 <p>On Linux, MacOs and Windows WSL you need to start an agent before adding your key to your keychain. Note the backquotes! Once the agent is started, you can add your key and connect to Dilhan.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">eval</span> <span class="sb">`</span>ssh-agent<span class="sb">`</span>
 Agent pid <span class="m">41514</span>
@@ -143,16 +139,16 @@ $ ssh-add keyfile
 $ ssh user@144.122.31.1
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="which-software-is-installed-on-dilhan">
-<h2>Which software is installed on Dilhan<a class="headerlink" href="#which-software-is-installed-on-dilhan" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="which-software-is-installed-on-dilhan">
+<h2>Which software is installed on Dilhan<a class="headerlink" href="#which-software-is-installed-on-dilhan" title="Permalink to this heading">¶</a></h2>
 <p>To find out what software packages are available, type:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ module avail
 </pre></div>
 </div>
-<div class="section" id="using-qiskit-with-conda-in-dilhan">
-<h3>Using Qiskit with Conda in Dilhan<a class="headerlink" href="#using-qiskit-with-conda-in-dilhan" title="Permalink to this headline">¶</a></h3>
+<section id="using-qiskit-with-conda-in-dilhan">
+<h3>Using Qiskit with Conda in Dilhan<a class="headerlink" href="#using-qiskit-with-conda-in-dilhan" title="Permalink to this heading">¶</a></h3>
 <p>You need to load the miniconda3 module, and source the conda profile startup script</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ module load conda/miniconda3
 You will now leave the environment modules. Source conda startup script <span class="k">for</span>     your user
@@ -169,18 +165,18 @@ $ <span class="nb">source</span> /opt/miniconda3/etc/profile.d/conda.sh
 $ conda activate qiskit
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="batch-system">
-<span id="id3"></span><h2>Batch system<a class="headerlink" href="#batch-system" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="batch-system">
+<span id="id3"></span><h2>Batch system<a class="headerlink" href="#batch-system" title="Permalink to this heading">¶</a></h2>
 <p><strong>NEVER RUN PROGRAMS ON HEADNODE of Dilhan</strong></p>
 <p>The Dilhan system is a resource that is shared between many of users and to
 ensure fair use everyone must do their computations by submitting jobs through
 a batch system that will execute the applications on the available resources.</p>
 <p>The batch system on Dilhan is <a class="reference external" href="https://slurm.schedmd.com/">SLURM</a> (Simple
 Linux Utility for Resource Management.)</p>
-<div class="section" id="creating-and-submitting-a-job-script">
-<h3>Creating and submitting a job script<a class="headerlink" href="#creating-and-submitting-a-job-script" title="Permalink to this headline">¶</a></h3>
+<section id="creating-and-submitting-a-job-script">
+<h3>Creating and submitting a job script<a class="headerlink" href="#creating-and-submitting-a-job-script" title="Permalink to this heading">¶</a></h3>
 <p>To run a job on the system you need to create a job script. A job script is a
 regular shell script (bash) with some directives specifying the number of CPUs,
 memory, etc., that will be interpreted by the batch system upon submission.</p>
@@ -188,9 +184,9 @@ memory, etc., that will be interpreted by the batch system upon submission.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbatch</span> <span class="n">jobscript</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="finding-queuing-information-with-squeue">
-<h3>Finding queuing information with <cite>squeue</cite><a class="headerlink" href="#finding-queuing-information-with-squeue" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="finding-queuing-information-with-squeue">
+<h3>Finding queuing information with <cite>squeue</cite><a class="headerlink" href="#finding-queuing-information-with-squeue" title="Permalink to this heading">¶</a></h3>
 <p>The <cite>squeue</cite> command is a tool we use to pull up information about the
 jobs in queue. By default, the squeue command will print out the
 <em>__job ID__</em>, <em>__partition__</em>, <em>__username__</em>, <em>__job status__</em>,
@@ -201,9 +197,9 @@ you are running with the <cite>–user</cite> flag:</p>
 <p><code class="docutils literal notranslate"><span class="pre">`bash</span>
 <span class="pre">$</span> <span class="pre">squeue</span>
 <span class="pre">`</span></code></p>
-</div>
-<div class="section" id="stopping-jobs-with-scancel">
-<h3>Stopping jobs with <cite>scancel</cite><a class="headerlink" href="#stopping-jobs-with-scancel" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="stopping-jobs-with-scancel">
+<h3>Stopping jobs with <cite>scancel</cite><a class="headerlink" href="#stopping-jobs-with-scancel" title="Permalink to this heading">¶</a></h3>
 <p>Sometimes you may need to stop a job entirely while it’s running. The
 best way to accomplish this is with the <cite>scancel</cite> command. The scancel
 command allows you to cancel jobs you are running on Research
@@ -211,9 +207,9 @@ Computing resources using the job’s ID. The command looks like this:</p>
 <p><code class="docutils literal notranslate"><span class="pre">`bash</span>
 <span class="pre">$</span> <span class="pre">scancel</span> <span class="pre">your_job-id</span>
 <span class="pre">`</span></code></p>
-</div>
-<div class="section" id="helper-scripts">
-<h3>Helper scripts<a class="headerlink" href="#helper-scripts" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="helper-scripts">
+<h3>Helper scripts<a class="headerlink" href="#helper-scripts" title="Permalink to this heading">¶</a></h3>
 <p>To enable helper scripts in Dilhan load the <code class="docutils literal notranslate"><span class="pre">helper-scripts</span></code> module (this is loaded by default):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="n">helper</span><span class="o">-</span><span class="n">scripts</span>
 </pre></div>
@@ -233,9 +229,9 @@ Computing resources using the job’s ID. The command looks like this:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sjobs
 </pre></div>
 </div>
-</div>
-<div class="section" id="example-slurm-job-script-for-running-a-qiskit-python-script">
-<h3>Example Slurm job script for running a qiskit python script<a class="headerlink" href="#example-slurm-job-script-for-running-a-qiskit-python-script" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="example-slurm-job-script-for-running-a-qiskit-python-script">
+<h3>Example Slurm job script for running a qiskit python script<a class="headerlink" href="#example-slurm-job-script-for-running-a-qiskit-python-script" title="Permalink to this heading">¶</a></h3>
 <p>The slurm script <a class="reference download internal" download="" href="../../../../../_downloads/860aeac546d9cd6656d15115754944d5/slurm-simple-python.sh"><code class="xref download docutils literal notranslate"><span class="pre">slurm-simple-python.sh</span></code></a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -l</span>
 
@@ -286,9 +282,9 @@ date
 </div>
 <p>The qiskit script <a class="reference download internal" download="" href="../../../../../_downloads/b230625b237c03dec002bd4cdd3cadd5/qiskit_hello_world.py"><code class="xref download docutils literal notranslate"><span class="pre">qiskit_hello_world.py</span></code></a></p>
 <p>The output output of this script is quite simple</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -310,7 +306,7 @@ date
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

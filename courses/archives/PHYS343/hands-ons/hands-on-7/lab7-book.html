@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
     <script src="../../../../../_static/jquery.js"></script>
     <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -64,6 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Courses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives.html">Archives</a></li>
 </ul>
 </li>
@@ -100,40 +98,40 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="learning-outcomes">
-<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>Quantum Teleportation</p></li>
 <li><p>Superdense Coding</p></li>
 <li><p>Quantum Key Distribution</p></li>
 </ul>
 <p>This notebook demonstrates quantum teleportation. We first use Qiskit’s built-in simulators to test our quantum circuit, and then try it out on a real quantum computer.</p>
-<div class="section" id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p><a class="reference external" href="#overview">Overview</a></p></li>
-<li><p><a class="reference external" href="#how">The Quantum Teleportation Protocol</a></p></li>
-<li><p><a class="reference external" href="#simulating">Simulating the Teleportation Protocol</a><br />
-3.1 <a class="reference external" href="#testing">How will we Test this Result on a Real Quantum Computer?</a><br />
-3.2 <a class="reference external" href="#simulating-sv">Using the Statevector Simulator</a><br />
-3.3 <a class="reference external" href="#simulating-qs">Using the QASM Simulator</a></p></li>
-<li><p><a class="reference external" href="#understanding-qt">Understanding Quantum Teleportation</a></p></li>
-<li><p><a class="reference external" href="#real_qc">Teleportation on a Real Quantum Computer</a><br />
-5.1 <a class="reference external" href="#deferred-measurement">IBM hardware and Deferred Measurement</a><br />
-5.2 <a class="reference external" href="#executing">Executing</a></p></li>
-<li><p><a class="reference external" href="#references">References</a></p></li>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Overview</span></p></li>
+<li><p><span class="xref myst">The Quantum Teleportation Protocol</span></p></li>
+<li><p><span class="xref myst">Simulating the Teleportation Protocol</span><br />
+3.1 <span class="xref myst">How will we Test this Result on a Real Quantum Computer?</span><br />
+3.2 <span class="xref myst">Using the Statevector Simulator</span><br />
+3.3 <span class="xref myst">Using the QASM Simulator</span></p></li>
+<li><p><span class="xref myst">Understanding Quantum Teleportation</span></p></li>
+<li><p><span class="xref myst">Teleportation on a Real Quantum Computer</span><br />
+5.1 <span class="xref myst">IBM hardware and Deferred Measurement</span><br />
+5.2 <span class="xref myst">Executing</span></p></li>
+<li><p><span class="xref myst">References</span></p></li>
 </ol>
-</div>
-<div class="section" id="overview-a-id-overview-a">
-<h2>1. Overview <a id='overview'></a><a class="headerlink" href="#overview-a-id-overview-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="overview-a-id-overview-a">
+<h2>1. Overview <a id='overview'></a><a class="headerlink" href="#overview-a-id-overview-a" title="Permalink to this heading">¶</a></h2>
 <p>Alice wants to send quantum information to Bob. Specifically, suppose she wants to send the qubit state
 <span class="math notranslate nohighlight">\(\vert\psi\rangle = \alpha\vert0\rangle + \beta\vert1\rangle\)</span>.
 This entails passing on information about <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> to Bob.</p>
 <p>There exists a theorem in quantum mechanics which states that you cannot simply make an exact copy of an unknown quantum state. This is known as the no-cloning theorem. As a result of this we can see that Alice can’t simply generate a copy of <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> and give the copy to Bob. We can only copy classical states (not superpositions).</p>
 <p>However, by taking advantage of two classical bits and an entangled qubit pair, Alice can transfer her state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> to Bob. We call this teleportation because, at the end, Bob will have <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> and Alice won’t anymore.</p>
-</div>
-<div class="section" id="the-quantum-teleportation-protocol-a-id-how-a">
-<h2>2. The Quantum Teleportation Protocol <a id='how'></a><a class="headerlink" href="#the-quantum-teleportation-protocol-a-id-how-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-quantum-teleportation-protocol-a-id-how-a">
+<h2>2. The Quantum Teleportation Protocol <a id='how'></a><a class="headerlink" href="#the-quantum-teleportation-protocol-a-id-how-a" title="Permalink to this heading">¶</a></h2>
 <p>To transfer a quantum bit, Alice and Bob must use a third party (Telamon) to send them an entangled qubit pair. Alice then performs some operations on her qubit, sends the results to Bob over a classical communication channel, and Bob then performs some operations on his end to receive Alice’s qubit.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
 <p>We will describe the steps on a quantum circuit below. Here, no qubits are actually ‘sent’, you’ll just have to imagine that part!</p>
@@ -177,8 +175,8 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 </div>
-<div class="section" id="step-1">
-<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
+<section id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this heading">¶</a></h3>
 <p>A third party, Telamon, creates an entangled pair of qubits and gives one to Bob and one to Alice.</p>
 <p>The pair Telamon creates is a special pair called a Bell pair. In quantum circuit language, the way to create a Bell pair between two qubits is to first transfer one of them to the X-basis (<span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>) using a Hadamard gate, and then to apply a CNOT gate onto the other qubit controlled by the one in the X-basis.</p>
 <div class="cell tag_thebelab-init docutils container">
@@ -209,13 +207,13 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_11_0.png" src="../../../../../_images/lab7-book_11_0.png" />
+<img alt="../../../../../_images/347d6bc5eea382282ce4bc46c7b9a14483525901cb392f01aa2c0bc1ea1acedc.png" src="../../../../../_images/347d6bc5eea382282ce4bc46c7b9a14483525901cb392f01aa2c0bc1ea1acedc.png" />
 </div>
 </div>
 <p>Let’s say Alice owns <span class="math notranslate nohighlight">\(q_1\)</span> and Bob owns <span class="math notranslate nohighlight">\(q_2\)</span> after they part ways.</p>
-</div>
-<div class="section" id="step-2">
-<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this heading">¶</a></h3>
 <p>Alice applies a CNOT gate to <span class="math notranslate nohighlight">\(q_1\)</span>, controlled by <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> (the qubit she is trying to send Bob). Then Alice applies a Hadamard gate to <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>. In our quantum circuit, the qubit (<span class="math notranslate nohighlight">\(|\psi\rangle\)</span>) Alice is trying to send is <span class="math notranslate nohighlight">\(q_0\)</span>:</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -245,12 +243,12 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_14_0.png" src="../../../../../_images/lab7-book_14_0.png" />
+<img alt="../../../../../_images/c8f0e4c0ec49f605a3f4b6c9e5348abdecc7f4ba43c766fb77d8ae54e1372fc7.png" src="../../../../../_images/c8f0e4c0ec49f605a3f4b6c9e5348abdecc7f4ba43c766fb77d8ae54e1372fc7.png" />
 </div>
 </div>
-</div>
-<div class="section" id="step-3">
-<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this heading">¶</a></h3>
 <p>Next, Alice applies a measurement to both qubits that she owns, <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span>, and stores this result in two classical bits. She then sends these two bits to Bob.</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -285,12 +283,12 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_17_0.png" src="../../../../../_images/lab7-book_17_0.png" />
+<img alt="../../../../../_images/b6a117d4528456b423f56c8e03f45a2b56e4e09c87c1a303a7d74b7e66f1e4f1.png" src="../../../../../_images/b6a117d4528456b423f56c8e03f45a2b56e4e09c87c1a303a7d74b7e66f1e4f1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="step-4">
-<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this heading">¶</a></h3>
 <p>Bob, who already has the qubit <span class="math notranslate nohighlight">\(q_2\)</span>, then applies the following gates depending on the state of the classical bits:</p>
 <p>00 <span class="math notranslate nohighlight">\(\rightarrow\)</span> Do nothing</p>
 <p>01 <span class="math notranslate nohighlight">\(\rightarrow\)</span> Apply <span class="math notranslate nohighlight">\(X\)</span> gate</p>
@@ -336,16 +334,16 @@ This entails passing on information about <span class="math notranslate nohighli
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_20_0.png" src="../../../../../_images/lab7-book_20_0.png" />
+<img alt="../../../../../_images/c13b7c98cf7d232b06dbd548768b0ad75453181bd8b9fb57e9e26f92e54bc678.png" src="../../../../../_images/c13b7c98cf7d232b06dbd548768b0ad75453181bd8b9fb57e9e26f92e54bc678.png" />
 </div>
 </div>
 <p>And voila! At the end of this protocol, Alice’s qubit has now teleported to Bob.</p>
-</div>
-</div>
-<div class="section" id="simulating-the-teleportation-protocol-a-id-simulating-a">
-<h2>3. Simulating the Teleportation Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-teleportation-protocol-a-id-simulating-a" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a">
-<h3>3.1 How Will We Test the Protocol on a Quantum Computer? <a id='testing'></a><a class="headerlink" href="#how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="simulating-the-teleportation-protocol-a-id-simulating-a">
+<h2>3. Simulating the Teleportation Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-teleportation-protocol-a-id-simulating-a" title="Permalink to this heading">¶</a></h2>
+<section id="how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a">
+<h3>3.1 How Will We Test the Protocol on a Quantum Computer? <a id='testing'></a><a class="headerlink" href="#how-will-we-test-the-protocol-on-a-quantum-computer-a-id-testing-a" title="Permalink to this heading">¶</a></h3>
 <p>In this notebook, we will initialize Alice’s qubit in a random state <span class="math notranslate nohighlight">\(\vert\psi\rangle\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>). This state will be created using an <code class="docutils literal notranslate"><span class="pre">Initialize</span></code> gate on <span class="math notranslate nohighlight">\(|q_0\rangle\)</span>. In this chapter we use the function <code class="docutils literal notranslate"><span class="pre">random_state</span></code> to choose <code class="docutils literal notranslate"><span class="pre">psi</span></code> for us, but feel free to set <code class="docutils literal notranslate"><span class="pre">psi</span></code> to any qubit state you want.</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -373,7 +371,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
   x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_25_2.png" src="../../../../../_images/lab7-book_25_2.png" />
+<img alt="../../../../../_images/2d7f6f2ea0c7f3cda4d5d66a460edc913e2799647d46ca6a9b914fc4fcfd96cb.png" src="../../../../../_images/2d7f6f2ea0c7f3cda4d5d66a460edc913e2799647d46ca6a9b914fc4fcfd96cb.png" />
 </div>
 </div>
 <p>Let’s create our initialization instruction to create <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> from the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>:</p>
@@ -385,18 +383,18 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-1">
-<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say the state $<span class="math notranslate nohighlight">\(|\phi\rangle = \begin{bmatrix} a_0 + ia_1 \\ b_0 \end{bmatrix} \)</span><span class="math notranslate nohighlight">\( is orthogonal to state \)</span>|\psi\rangle <span class="math notranslate nohighlight">\( we defined above. In order to find the values for \)</span>a_0,a_1<span class="math notranslate nohighlight">\( and \)</span>b_0<span class="math notranslate nohighlight">\( we need three linearly independent equations. Solving them can be a lot of work, so I just want you to write down three linearly independent equations. In other words, what are the conditions for \)</span>|\phi\rangle<span class="math notranslate nohighlight">\( to be a normalized and an orthogonal state to \)</span>|\psi\rangle$?</p>
-</div>
-<div class="section" id="answer">
-<h3>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="answer">
+<h3>Answer<a class="headerlink" href="#answer" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
 <p>(<code class="docutils literal notranslate"><span class="pre">Initialize</span></code> is technically not a gate since it contains a reset operation, and so is not reversible. We call it an ‘instruction’ instead). If the quantum teleportation circuit works, then at the end of the circuit the qubit <span class="math notranslate nohighlight">\(|q_2\rangle\)</span> will be in this state. We will check this using the statevector simulator.</p>
-</div>
-<div class="section" id="using-the-statevector-simulator-a-id-simulating-sv-a">
-<h3>3.2 Using the Statevector Simulator <a id='simulating-sv'></a><a class="headerlink" href="#using-the-statevector-simulator-a-id-simulating-sv-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-the-statevector-simulator-a-id-simulating-sv-a">
+<h3>3.2 Using the Statevector Simulator <a id='simulating-sv'></a><a class="headerlink" href="#using-the-statevector-simulator-a-id-simulating-sv-a" title="Permalink to this heading">¶</a></h3>
 <p>We can use the statevector simulator to verify our qubit has been teleported.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -434,7 +432,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_32_0.png" src="../../../../../_images/lab7-book_32_0.png" />
+<img alt="../../../../../_images/9bc92a5602f7255be9333631bd2ff93b94a40db6276c0568b6c653914be8e9a3.png" src="../../../../../_images/9bc92a5602f7255be9333631bd2ff93b94a40db6276c0568b6c653914be8e9a3.png" />
 </div>
 </div>
 <p>We can see below, using our statevector simulator, that the state of <span class="math notranslate nohighlight">\(|q_2\rangle\)</span> is the same as the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> we created above, while the states of <span class="math notranslate nohighlight">\(|q_0\rangle\)</span> and <span class="math notranslate nohighlight">\(|q_1\rangle\)</span> have been collapsed to either <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>. The state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> has been teleported from qubit 0 to qubit 2.</p>
@@ -453,13 +451,13 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
   x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_34_1.png" src="../../../../../_images/lab7-book_34_1.png" />
+<img alt="../../../../../_images/fac78f57423d29cb11c6f17a9e1257f91bc33604a3393969f7a08c82c9a88666.png" src="../../../../../_images/fac78f57423d29cb11c6f17a9e1257f91bc33604a3393969f7a08c82c9a88666.png" />
 </div>
 </div>
 <p>You can run this cell a few times to make sure. You may notice that the qubits 0 &amp; 1 change states, but qubit 2 is always in the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>.</p>
-</div>
-<div class="section" id="using-the-qasm-simulator-a-id-simulating-qs-a">
-<h3>3.3 Using the QASM Simulator <a id='simulating-qs'></a><a class="headerlink" href="#using-the-qasm-simulator-a-id-simulating-qs-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-the-qasm-simulator-a-id-simulating-qs-a">
+<h3>3.3 Using the QASM Simulator <a id='simulating-qs'></a><a class="headerlink" href="#using-the-qasm-simulator-a-id-simulating-qs-a" title="Permalink to this heading">¶</a></h3>
 <p>Quantum teleportation is designed to send qubits between two parties. We do not have the hardware to demonstrate this, but we can demonstrate that the gates perform the correct transformations on a single quantum chip. Here we use the QASM simulator to simulate how we might test our protocol.</p>
 <p>On a real quantum computer, we would not be able to sample the statevector, so if we wanted to check our teleportation circuit is working, we need to do things slightly differently. The <code class="docutils literal notranslate"><span class="pre">Initialize</span></code> instruction first performs a reset, setting our qubit to the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. It then applies gates to turn our <span class="math notranslate nohighlight">\(|0\rangle\)</span> qubit into the state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -516,7 +514,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_39_0.png" src="../../../../../_images/lab7-book_39_0.png" />
+<img alt="../../../../../_images/be723eef350f3dce7858e48c903ac612402821f1f81e6cc07b6943718e10473c.png" src="../../../../../_images/be723eef350f3dce7858e48c903ac612402821f1f81e6cc07b6943718e10473c.png" />
 </div>
 </div>
 <p>We can see the <code class="docutils literal notranslate"><span class="pre">inverse_init_gate</span></code> appearing, labelled ‘disentangler’ on the circuit diagram. Finally, we measure the third qubit and store the result in the third classical bit:</p>
@@ -532,7 +530,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_41_0.png" src="../../../../../_images/lab7-book_41_0.png" />
+<img alt="../../../../../_images/2abc4818565752d65c4073ee6a27560d747f2e9f9a1df5cc224019dabffeb096.png" src="../../../../../_images/2abc4818565752d65c4073ee6a27560d747f2e9f9a1df5cc224019dabffeb096.png" />
 </div>
 </div>
 <p>and we run our experiment:</p>
@@ -547,17 +545,17 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_43_0.png" src="../../../../../_images/lab7-book_43_0.png" />
+<img alt="../../../../../_images/f4776966c50b878c8ee343f4394d666f3f440af72b5a6176c90dc28490a09d04.png" src="../../../../../_images/f4776966c50b878c8ee343f4394d666f3f440af72b5a6176c90dc28490a09d04.png" />
 </div>
 </div>
 <p>We can see we have a 100% chance of measuring <span class="math notranslate nohighlight">\(q_2\)</span> (the leftmost bit in the string) in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. This is the expected result, and indicates the teleportation protocol has worked properly.</p>
-</div>
-</div>
-<div class="section" id="understanding-quantum-teleportation-a-id-understanding-qt">
-<h2>4. Understanding Quantum Teleportation <a id="understanding-qt"><a class="headerlink" href="#understanding-quantum-teleportation-a-id-understanding-qt" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="understanding-quantum-teleportation-a-id-understanding-qt">
+<h2>4. Understanding Quantum Teleportation <a id="understanding-qt"><a class="headerlink" href="#understanding-quantum-teleportation-a-id-understanding-qt" title="Permalink to this heading">¶</a></h2>
 <p>As you have worked with the Quantum Teleportation’s implementation, it is time to understand the mathematics behind the protocol.</p>
-<div class="section" id="id1">
-<h3>Step 1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<section id="id1">
+<h3>Step 1<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>Quantum Teleportation begins with the fact that Alice needs to transmit <span class="math notranslate nohighlight">\(|\psi\rangle = \alpha|0\rangle + \beta|1\rangle\)</span> (a random qubit) to Bob. She doesn’t know the state of the qubit. For this, Alice and Bob take the help of a third party (Telamon). Telamon prepares a pair of entangled qubits for Alice and Bob. The entangled qubits could be written in Dirac Notation as:</p>
 <div class="math notranslate nohighlight">
 \[ |e \rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle) \]</div>
@@ -570,9 +568,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 |\psi\rangle \otimes |e\rangle &amp;= \frac{1}{\sqrt{2}} (\alpha |0\rangle \otimes (|00\rangle + |11\rangle) + \beta |1\rangle \otimes (|00\rangle + |11\rangle))\\
 &amp;= \frac{1}{\sqrt{2}} (\alpha|000\rangle + \alpha|011\rangle + \beta|100\rangle + \beta|111\rangle) 
 \end{align*}\end{split}\]</div>
-</div>
-<div class="section" id="exercise-2">
-<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say Telamon is unavailable, instead his son Ajax is. But Ajax can only prepare entangled qubits in the following Bell state:</p>
 <div class="math notranslate nohighlight">
 \[ |d \rangle =  \frac{1}{\sqrt{2}} (|01\rangle + |10\rangle) \]</div>
@@ -580,12 +578,12 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <li><p>Design the circuit for initializing this state.</p></li>
 <li><p>Write down <span class="math notranslate nohighlight">\(|\psi\rangle \otimes | d \rangle \)</span>.</p></li>
 </ul>
-</div>
-<div class="section" id="id2">
-<h3>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id2">
+<h3>Answer<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-<div class="section" id="id3">
-<h4>Step 2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<section id="id3">
+<h4>Step 2<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h4>
 <p>Now according to the protocol Alice applies CNOT gate on her two qubits followed by Hadamard gate on the first qubit. This results in the state:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} 
@@ -606,24 +604,24 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
  &amp; + |11\rangle (\alpha|1\rangle - \beta|0\rangle) \quad )\\
 \end{align*}
 \end{split}\]</div>
-</div>
-</div>
-<div class="section" id="exercise-3">
-<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this heading">¶</a></h3>
 <p>In order to use the entangled qubits produced by Ajax to perform quantum teleportation we must modify our protocol. According to the new protocol, Alice will apply a C0NOT gate to her two qubits followed by a Hadamard gate.</p>
 <ul class="simple">
 <li><p>Explicitly write down <span class="math notranslate nohighlight">\( (H \otimes I \otimes I) (CNOT \otimes I) (|\psi\rangle \otimes |e\rangle)  \)</span></p></li>
 <li><p>Decompose the resulted state like the one above. That is <span class="math notranslate nohighlight">\(|00\rangle \otimes (\text{sth})\)</span> for 00,01,10 and 11.</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h3>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3>Answer<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="id5">
-<h1>Step 4<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id5">
+<h1>Step 4<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h1>
 <p>Bob, on receiving the bits from Alice, knows he can obtain the original state <span class="math notranslate nohighlight">\(|\psi\rangle\)</span> by applying appropriate transformations on his qubit that was once part of the entangled pair.</p>
 <p>The transformations he needs to apply are:</p>
 <div class="math notranslate nohighlight">
@@ -637,8 +635,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 \end{array}
 \end{split}\]</div>
 <p>After this step Bob will have successfully reconstructed Alice’s state.</p>
-<div class="section" id="exercise-4">
-<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h2>
+<section id="exercise-4">
+<h2>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this heading">¶</a></h2>
 <p>Which gates should Bob apply to his qubit to successfully reconstruct Alice’s state? Fill in the table below according to your results from Exercise 3.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -650,15 +648,15 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
  &amp; 11                   &amp; 
 \end{array}
 \end{split}\]</div>
-</div>
-<div class="section" id="id6">
-<h2>Answer<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>Answer<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>?</p>
-</div>
-<div class="section" id="teleportation-on-a-real-quantum-computer-a-id-real-qc-a">
-<h2>5. Teleportation on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#teleportation-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a">
-<h3>5.1 IBM hardware and Deferred Measurement <a id='deferred-measurement'></a><a class="headerlink" href="#ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="teleportation-on-a-real-quantum-computer-a-id-real-qc-a">
+<h2>5. Teleportation on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#teleportation-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this heading">¶</a></h2>
+<section id="ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a">
+<h3>5.1 IBM hardware and Deferred Measurement <a id='deferred-measurement'></a><a class="headerlink" href="#ibm-hardware-and-deferred-measurement-a-id-deferred-measurement-a" title="Permalink to this heading">¶</a></h3>
 <p>The IBM quantum computers currently do not support instructions after measurements, meaning we cannot run the quantum teleportation in its current form on real hardware. Fortunately, this does not limit our ability to perform any computations due to the <em>deferred measurement principle</em> discussed in chapter 4.4 of [1]. The principle states that any measurement can be postponed until the end of the circuit, i.e. we can move all the measurements to the end, and we should see the same results.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
 <p>Any benefits of measuring early are hardware related: If we can measure early, we may be able to reuse qubits, or reduce the amount of time our qubits are in their fragile superposition. In this example, the early measurement in quantum teleportation would have allowed us to transmit a qubit state without a direct quantum communication channel.</p>
@@ -703,12 +701,12 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_60_0.png" src="../../../../../_images/lab7-book_60_0.png" />
+<img alt="../../../../../_images/acaf1523c9afe32b28dc7bdec03a8c7b58f114f7dce0b6d06145b22490e3b57e.png" src="../../../../../_images/acaf1523c9afe32b28dc7bdec03a8c7b58f114f7dce0b6d06145b22490e3b57e.png" />
 </div>
 </div>
-</div>
-<div class="section" id="executing-a-id-executing-a">
-<h3>5.2 Executing <a id='executing'></a><a class="headerlink" href="#executing-a-id-executing-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="executing-a-id-executing-a">
+<h3>5.2 Executing <a id='executing'></a><a class="headerlink" href="#executing-a-id-executing-a" title="Permalink to this heading">¶</a></h3>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, see what devices we are allowed to use by loading our saved accounts</span>
@@ -756,7 +754,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;0&#39;: 977, &#39;1&#39;: 47}
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_64_1.png" src="../../../../../_images/lab7-book_64_1.png" />
+<img alt="../../../../../_images/475c6fa32519881cda0a0f8121ebf057406a72c0f260b06e3f22cefb5015e7f1.png" src="../../../../../_images/475c6fa32519881cda0a0f8121ebf057406a72c0f260b06e3f22cefb5015e7f1.png" />
 </div>
 </div>
 <p>As we see here, there are a few results in which we measured <span class="math notranslate nohighlight">\(|1\rangle\)</span>. These arise due to errors in the gates and the qubits. In contrast, our simulator in the earlier part of the notebook had zero errors in its gates, and allowed error-free teleportation.</p>
@@ -772,9 +770,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="exercise-5">
-<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this heading">¶</a></h3>
 <p>Now that all theoretical work for using Ajax’s entangled pairs is completed, let’s try it with a real quantum computer! Complete the below parts and run the next cell and see if you have done it correctly!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -846,47 +844,47 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>This notebook demonstrates the Superdense Coding (SDC) protocol. We first use Qiskit’s simulator to test our quantum circuit, and then try it out on a real quantum computer.</p>
-</div>
-</div>
-<div class="section" id="id7">
-<h2>Contents<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p><a class="reference external" href="#difference">Superdense Coding and Quantum Teleportation</a></p></li>
-<li><p><a class="reference external" href="#process">The Process</a><br />
-2.1 <a class="reference external" href="#step1">Step 1</a><br />
-2.2 <a class="reference external" href="#step2">Step 2</a><br />
-2.3 <a class="reference external" href="#step3">Step 3</a></p></li>
-<li><p><a class="reference external" href="#simulating">Simulating the Superdense Coding Protocol</a><br />
-3.1 <a class="reference external" href="#visualising">3.1 Visualizing Our Measurements</a></p></li>
-<li><p><a class="reference external" href="#real_qc">Superdense Coding on a Real Quantum Computer</a></p></li>
+</section>
+</section>
+<section id="id7">
+<h2>Contents<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Superdense Coding and Quantum Teleportation</span></p></li>
+<li><p><span class="xref myst">The Process</span><br />
+2.1 <span class="xref myst">Step 1</span><br />
+2.2 <span class="xref myst">Step 2</span><br />
+2.3 <span class="xref myst">Step 3</span></p></li>
+<li><p><span class="xref myst">Simulating the Superdense Coding Protocol</span><br />
+3.1 <span class="xref myst">3.1 Visualizing Our Measurements</span></p></li>
+<li><p><span class="xref myst">Superdense Coding on a Real Quantum Computer</span></p></li>
 </ol>
-</div>
-<div class="section" id="the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a">
-<h2>1. The Difference between Superdense Coding and Quantum Teleportation <a id='difference'></a><a class="headerlink" href="#the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a">
+<h2>1. The Difference between Superdense Coding and Quantum Teleportation <a id='difference'></a><a class="headerlink" href="#the-difference-between-superdense-coding-and-quantum-teleportation-a-id-difference-a" title="Permalink to this heading">¶</a></h2>
 <p>Quantum teleportation and superdense coding are closely related, to avoid confusion we need to clarify the difference.</p>
 <p>Quantum teleportation is a process by which the state of qubit (<span class="math notranslate nohighlight">\(|\psi\rangle\)</span>) can be transmitted from one location to another, using two bits of classical communication and a Bell pair. In other words, we can say it is a protocol that destroys the quantum state of a qubit in one location and recreates it on a qubit at a distant location, with the help of shared entanglement. Superdense coding is a procedure that allows someone to send two classical bits to another party using just a single qubit of communication.</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Teleportation</p></th>
-<th class="text-align:center head"><p>Superdense Coding</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Teleportation</p></th>
+<th class="head text-center"><p>Superdense Coding</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>Transmit one<br>qubit using two<br>classical bits</p></td>
-<td class="text-align:center"><p>Transmit two<br>classical bits<br>using one<br>qubit</p></td>
+<tr class="row-even"><td class="text-center"><p>Transmit one<br>qubit using two<br>classical bits</p></td>
+<td class="text-center"><p>Transmit two<br>classical bits<br>using one<br>qubit</p></td>
 </tr>
 </tbody>
 </table>
 <p>The teleportation protocol can be thought of as a flipped version of the superdense coding protocol, in the sense that Alice and Bob merely “swap their equipment.”</p>
-</div>
-<div class="section" id="the-process-a-id-process-a">
-<h2>2. The Process <a id='process'></a><a class="headerlink" href="#the-process-a-id-process-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-process-a-id-process-a">
+<h2>2. The Process <a id='process'></a><a class="headerlink" href="#the-process-a-id-process-a" title="Permalink to this heading">¶</a></h2>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
-<div class="section" id="step-1-a-id-step1-a">
-<h3>2.1 Step 1 <a id='step1'></a><a class="headerlink" href="#step-1-a-id-step1-a" title="Permalink to this headline">¶</a></h3>
+<section id="step-1-a-id-step1-a">
+<h3>2.1 Step 1 <a id='step1'></a><a class="headerlink" href="#step-1-a-id-step1-a" title="Permalink to this heading">¶</a></h3>
 <p>The process starts with a third party, who we’ll call Charlie. Two qubits are prepared by Charlie in an entangled state. He initially starts the 2 qubits in the basis state <span class="math notranslate nohighlight">\(|0\rangle\)</span>. He applies Hadamard gate (<span class="math notranslate nohighlight">\(H\)</span>) to the first qubit to create superposition. He then applies CNOT gate (<span class="math notranslate nohighlight">\(CX\)</span>) using the first qubit as a control and the second as the target. This is the entangled state (Bell pair) we mentioned earlier.</p>
-<div class="section" id="outcome-states">
-<h4>Outcome States<a class="headerlink" href="#outcome-states" title="Permalink to this headline">¶</a></h4>
+<section id="outcome-states">
+<h4>Outcome States<a class="headerlink" href="#outcome-states" title="Permalink to this heading">¶</a></h4>
 <p>Charlie first applies a Hadamard gate.</p>
 <p>When the H-gate is applied to first qubit, it creates superposition and we get the state:</p>
 <div class="math notranslate nohighlight">
@@ -894,130 +892,130 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <p>Then Charlie applies the CNOT gate. The CNOT gate entangles both qubits, i.e. it flips the target if the control is <span class="math notranslate nohighlight">\(|1\rangle\)</span>. Note that the control qubit is our rightmost qubit.</p>
 <div class="math notranslate nohighlight">
 \[\text{CNOT} \tfrac{1}{\sqrt{2}}(|00\rangle + |01\rangle) = \tfrac{1}{\sqrt{2}}(|00\rangle + |11\rangle)\]</div>
-</div>
-</div>
-<div class="section" id="exercise-6">
-<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="exercise-6">
+<h3>Exercise 6<a class="headerlink" href="#exercise-6" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say we want to implement a superdense coding protocol but Telamon and Ajax are not available but Ajax’s step brother Teucer is. However, Teucer can only prepare the following entangled state:</p>
 <div class="math notranslate nohighlight">
 \[ |f \rangle  = \frac{1}{\sqrt{2}} ( |00\rangle - |11 \rangle ) \]</div>
 <ul class="simple">
 <li><p>Design the circuit for initializing this state.</p></li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h3>Answer<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>Answer<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-<div class="section" id="step-2-a-id-step2-a">
-<h3>2.2 Step 2 <a id='step2'></a><a class="headerlink" href="#step-2-a-id-step2-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-2-a-id-step2-a">
+<h3>2.2 Step 2 <a id='step2'></a><a class="headerlink" href="#step-2-a-id-step2-a" title="Permalink to this heading">¶</a></h3>
 <p>Charlie sends the first qubit to Alice and the second qubit to Bob. The goal of the protocol is for Alice to send 2 classical bits of information to Bob using her qubit. But before she does, she needs to apply a set of quantum gates to her qubit depending on the 2 bits of information she wants to send:</p>
-<div class="section" id="encoding-rules-for-superdense-coding-alice-protocol">
-<h4>Encoding Rules for Superdense Coding (Alice protocol):<a class="headerlink" href="#encoding-rules-for-superdense-coding-alice-protocol" title="Permalink to this headline">¶</a></h4>
+<section id="encoding-rules-for-superdense-coding-alice-protocol">
+<h4>Encoding Rules for Superdense Coding (Alice protocol):<a class="headerlink" href="#encoding-rules-for-superdense-coding-alice-protocol" title="Permalink to this heading">¶</a></h4>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-7/attachment:image.png" /></p>
 <p>Thus if she wants to send a <code class="docutils literal notranslate"><span class="pre">00</span></code>, she does nothing to her qubit (apply the identity (<span class="math notranslate nohighlight">\(I\)</span>) gate). If she sends a <code class="docutils literal notranslate"><span class="pre">10</span></code>, then she applies the <span class="math notranslate nohighlight">\(X\)</span> gate. Depending on what she wants to send, she applies the appropriate gate, then sends her qubit to Bob for the final step in the process.</p>
-</div>
-</div>
-<div class="section" id="exercise-7">
-<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="exercise-7">
+<h3>Exercise 7<a class="headerlink" href="#exercise-7" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say Alice does the following operations according to the message she wants to send. Fill in the last column.</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Intended Message:</p></th>
-<th class="text-align:center head"><p>Applied Gate:</p></th>
-<th class="text-align:center head"><p>Resulting State(<span class="math notranslate nohighlight">\(\cdot \sqrt{2})\)</span>:</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Intended Message:</p></th>
+<th class="head text-center"><p>Applied Gate:</p></th>
+<th class="head text-center"><p>Resulting State(<span class="math notranslate nohighlight">\(\cdot \sqrt{2})\)</span>:</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>00</p></td>
-<td class="text-align:center"><p>I</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>00</p></td>
+<td class="text-center"><p>I</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>01</p></td>
-<td class="text-align:center"><p>X</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>01</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>10</p></td>
-<td class="text-align:center"><p>Z</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>10</p></td>
+<td class="text-center"><p>Z</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>11</p></td>
-<td class="text-align:center"><p>XZ</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>11</p></td>
+<td class="text-center"><p>XZ</p></td>
+<td class="text-center"><p></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="step-3-a-id-step3-a">
-<h3>2.3 Step 3 <a id='step3'></a><a class="headerlink" href="#step-3-a-id-step3-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-3-a-id-step3-a">
+<h3>2.3 Step 3 <a id='step3'></a><a class="headerlink" href="#step-3-a-id-step3-a" title="Permalink to this heading">¶</a></h3>
 <p>Bob receives Alice’s qubit (rightmost qubit) and uses his qubit to decode Alice’s message. Notice that he does not need to have knowledge of the state in order to decode it — he simply uses the restoration operation.</p>
 <p>Bob applies a CNOT gate using the rightmost qubit as control and the leftmost as target. Then he applies a Hadamard gate and finally performs a measurement on both qubits to extract Alice’s message.</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Bob Receives:</p></th>
-<th class="text-align:center head"><p>After CNOT-gate:</p></th>
-<th class="text-align:center head"><p>After H-gate:</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Bob Receives:</p></th>
+<th class="head text-center"><p>After CNOT-gate:</p></th>
+<th class="head text-center"><p>After H-gate:</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>$</p></td>
-<td class="text-align:center"><p>00\rangle +</p></td>
-<td class="text-align:center"><p>11\rangle$</p></td>
+<tr class="row-even"><td class="text-center"><p>$</p></td>
+<td class="text-center"><p>00\rangle +</p></td>
+<td class="text-center"><p>11\rangle$</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>$</p></td>
-<td class="text-align:center"><p>01\rangle +</p></td>
-<td class="text-align:center"><p>10\rangle$</p></td>
+<tr class="row-odd"><td class="text-center"><p>$</p></td>
+<td class="text-center"><p>01\rangle +</p></td>
+<td class="text-center"><p>10\rangle$</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>$</p></td>
-<td class="text-align:center"><p>00\rangle -</p></td>
-<td class="text-align:center"><p>11\rangle$</p></td>
+<tr class="row-even"><td class="text-center"><p>$</p></td>
+<td class="text-center"><p>00\rangle -</p></td>
+<td class="text-center"><p>11\rangle$</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>$-</p></td>
-<td class="text-align:center"><p>01\rangle +</p></td>
-<td class="text-align:center"><p>10\rangle$</p></td>
+<tr class="row-odd"><td class="text-center"><p>$-</p></td>
+<td class="text-center"><p>01\rangle +</p></td>
+<td class="text-center"><p>10\rangle$</p></td>
 </tr>
 </tbody>
 </table>
 <p>When Bob performs the measurements, he is certain to get the message Alice sent him. Note that the last outcome has a negative sign <span class="math notranslate nohighlight">\(-|11\rangle\)</span>, writing it as <span class="math notranslate nohighlight">\(|11\rangle\)</span> is also correct as this is global phase and is not measureable.</p>
-</div>
-<div class="section" id="exercise-8">
-<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-8">
+<h3>Exercise 8<a class="headerlink" href="#exercise-8" title="Permalink to this heading">¶</a></h3>
 <p>After Bob receives the state in Exercise 7, he should perform three operations to get the classical message. He should first apply a CNOT gate, then a Hadamard to the first qubit, then a X gate to the first qubit. Fill in the table below to see if this procedure allows Bob to receive the classical message correctly. Note that the first column of the following table should be the last column of the table in Exercise 7!</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Bob Receives:</p></th>
-<th class="text-align:center head"><p>After CNOT-gate:</p></th>
-<th class="text-align:center head"><p>After H-gate:</p></th>
-<th class="text-align:center head"><p>After X-gate:</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Bob Receives:</p></th>
+<th class="head text-center"><p>After CNOT-gate:</p></th>
+<th class="head text-center"><p>After H-gate:</p></th>
+<th class="head text-center"><p>After X-gate:</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="simulating-the-superdense-coding-protocol-a-id-simulating-a">
-<h2>3. Simulating the Superdense Coding Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-superdense-coding-protocol-a-id-simulating-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="simulating-the-superdense-coding-protocol-a-id-simulating-a">
+<h2>3. Simulating the Superdense Coding Protocol <a id='simulating'></a><a class="headerlink" href="#simulating-the-superdense-coding-protocol-a-id-simulating-a" title="Permalink to this heading">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing everything</span>
@@ -1106,11 +1104,11 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_90_0.png" src="../../../../../_images/lab7-book_90_0.png" />
+<img alt="../../../../../_images/a7489a8372fbda12f577469c636e7875b1fabed63b5f7da329d46e05119b9863.png" src="../../../../../_images/a7489a8372fbda12f577469c636e7875b1fabed63b5f7da329d46e05119b9863.png" />
 </div>
 </div>
-<div class="section" id="visualizing-our-measurements-a-id-visualising-a">
-<h3>3.1 Visualizing Our Measurements <a id='visualising'></a><a class="headerlink" href="#visualizing-our-measurements-a-id-visualising-a" title="Permalink to this headline">¶</a></h3>
+<section id="visualizing-our-measurements-a-id-visualising-a">
+<h3>3.1 Visualizing Our Measurements <a id='visualising'></a><a class="headerlink" href="#visualizing-our-measurements-a-id-visualising-a" title="Permalink to this heading">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qasm_sim</span> <span class="o">=</span> <span class="n">Aer</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;qasm_simulator&#39;</span><span class="p">)</span>
@@ -1126,14 +1124,14 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;10&#39;: 1024}
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_92_1.png" src="../../../../../_images/lab7-book_92_1.png" />
+<img alt="../../../../../_images/ef601f9af40231a476e569ce3ec71e844a99fa49407c6154353074a18b206f57.png" src="../../../../../_images/ef601f9af40231a476e569ce3ec71e844a99fa49407c6154353074a18b206f57.png" />
 </div>
 </div>
 <p>Our simulator simulates a perfect quantum computer. We can see that, without errors, we get a 100% chance of measuring the correct message.</p>
-</div>
-</div>
-<div class="section" id="superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a">
-<h2>4. Superdense Coding on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a">
+<h2>4. Superdense Coding on a Real Quantum Computer <a id='real_qc'></a><a class="headerlink" href="#superdense-coding-on-a-real-quantum-computer-a-id-real-qc-a" title="Permalink to this heading">¶</a></h2>
 <p>We can now see this working on a real quantum computer. First, we want to load our account to get the least busy quantum system:</p>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -1192,7 +1190,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_97_0.png" src="../../../../../_images/lab7-book_97_0.png" />
+<img alt="../../../../../_images/4800d79f2ba8509e44339c33acfe9fdd3334742d917715ad6851ee1921696c94.png" src="../../../../../_images/4800d79f2ba8509e44339c33acfe9fdd3334742d917715ad6851ee1921696c94.png" />
 </div>
 </div>
 <p>As we see that there are a few results from the other three states when run in a real quantum computer. These are due to errors in the gates and qubit decoherence. We will learn more about these errors in later sections.</p>
@@ -1210,8 +1208,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-<div class="section" id="exercise-9">
-<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this headline">¶</a></h3>
+<section id="exercise-9">
+<h3>Exercise 9<a class="headerlink" href="#exercise-9" title="Permalink to this heading">¶</a></h3>
 <p>Now that all theoretical work for using Teucer’s entangled pairs is completed, let’s try it with a real quantum computer! Complete the below parts and run the next cell and see if you have done it correctly!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1256,7 +1254,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_101_0.png" src="../../../../../_images/lab7-book_101_0.png" />
+<img alt="../../../../../_images/b5ea9bdaad5d630aa53cfa22b4268f8503fbe8f1338b82a83e4d2a4acf4b0f20.png" src="../../../../../_images/b5ea9bdaad5d630aa53cfa22b4268f8503fbe8f1338b82a83e4d2a4acf4b0f20.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1299,29 +1297,29 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
   job = backend.run(qobj)
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_102_3.png" src="../../../../../_images/lab7-book_102_3.png" />
+<img alt="../../../../../_images/840518bf4f35e81ab5a8b66923a8b7bafdbc7f3672634b73716e354f0a0c7e08.png" src="../../../../../_images/840518bf4f35e81ab5a8b66923a8b7bafdbc7f3672634b73716e354f0a0c7e08.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="id9">
-<h2>Contents<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
+</section>
+</section>
+<section id="id9">
+<h2>Contents<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
 <li><p>Introduction</p></li>
 <li><p>Protocol Overview</p></li>
 <li><p>Qiskit Example: Without Interception</p></li>
 <li><p>Qiskit Example: With Interception</p></li>
 <li><p>Risk Analysis</p></li>
 </ol>
-</div>
-<div class="section" id="introduction">
-<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>When Alice and Bob want to communicate a secret message (such as Bob’s online banking details) over an insecure channel (such as the internet), it is essential to encrypt the message. Since cryptography is a large area and almost all of it is outside the scope of this textbook, we will have to believe that Alice and Bob having a secret key that no one else knows is useful and allows them to communicate using symmetric-key cryptography.</p>
 <p>If Alice and Bob want to use Eve’s classical communication channel to share their key, it is impossible to tell if Eve has made a copy of this key for herself- they must place complete trust in Eve that she is not listening. If, however, Eve provides a quantum communication channel, Alice and Bob no longer need to trust Eve at all- they will know if she tries to read Bob’s message before it gets to Alice.</p>
 <p>For some readers, it may be useful to give an idea of how a quantum channel may be physically implemented. An example of a classical channel could be a telephone line; we send electric signals through the line that represent our message (or bits). A proposed example of a quantum communication channel could be some kind of fibre-optic cable, through which we can send individual photons (particles of light). Photons have a property called <em>polarisation,</em> and this polarisation can be one of two states. We can use this to represent a qubit.</p>
-</div>
-<div class="section" id="protocol-overview">
-<h2>2. Protocol Overview<a class="headerlink" href="#protocol-overview" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="protocol-overview">
+<h2>2. Protocol Overview<a class="headerlink" href="#protocol-overview" title="Permalink to this heading">¶</a></h2>
 <p>The protocol makes use of the fact that measuring a qubit can change its state. If Alice sends Bob a qubit, and an eavesdropper (Eve) tries to measure it before Bob does, there is a chance that Eve’s measurement will change the state of the qubit and Bob will not receive the qubit state Alice sent.</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -1360,8 +1358,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_108_0.png" src="../../../../../_images/lab7-book_108_0.png" />
-<img alt="../../../../../_images/lab7-book_108_1.png" src="../../../../../_images/lab7-book_108_1.png" />
+<img alt="../../../../../_images/7cdc10d5631122558350ddd5fd5d9eda8a12fd39c6eee8a41939d22e767ee950.png" src="../../../../../_images/7cdc10d5631122558350ddd5fd5d9eda8a12fd39c6eee8a41939d22e767ee950.png" />
+<img alt="../../../../../_images/e8b35dd3a474da1cdce60adb71fbe31659ffb35c963352e7476f6c225a7c0d37.png" src="../../../../../_images/e8b35dd3a474da1cdce60adb71fbe31659ffb35c963352e7476f6c225a7c0d37.png" />
 </div>
 </div>
 <p>But if Eve tries to measure this qubit in the <span class="math notranslate nohighlight">\(Z\)</span>-basis before it reaches Bob, she will change the qubit’s state from <span class="math notranslate nohighlight">\(|+\rangle\)</span> to either <span class="math notranslate nohighlight">\(|0\rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>, and Bob is no longer certain to measure <code class="docutils literal notranslate"><span class="pre">0</span></code>:</p>
@@ -1388,8 +1386,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_110_0.png" src="../../../../../_images/lab7-book_110_0.png" />
-<img alt="../../../../../_images/lab7-book_110_1.png" src="../../../../../_images/lab7-book_110_1.png" />
+<img alt="../../../../../_images/743448cc64a64ff99aef7462f2e21fab3ca4dd2bb79081be569db70f1dc6a653.png" src="../../../../../_images/743448cc64a64ff99aef7462f2e21fab3ca4dd2bb79081be569db70f1dc6a653.png" />
+<img alt="../../../../../_images/7a6ea9c7eee622dd1ce684811979f1c5a0e4f4307879525ea98b6e5b97fae633.png" src="../../../../../_images/7a6ea9c7eee622dd1ce684811979f1c5a0e4f4307879525ea98b6e5b97fae633.png" />
 </div>
 </div>
 <p>We can see here that Bob now has a 50% chance of measuring <code class="docutils literal notranslate"><span class="pre">1</span></code>, and if he does, he and Alice will know there is something wrong with their channel.</p>
@@ -1414,9 +1412,9 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 <p>Bob and Alice then publicly share which basis they used for each qubit. If Bob measured a qubit in the same basis Alice prepared it in, they use this to form part of their shared secret key, otherwise they discard the information for that bit.</p>
 <p><strong>- Step 5</strong></p>
 <p>Finally, Bob and Alice share a random sample of their keys, and if the samples match, they can be sure (to a small margin of error) that their transmission is successful.</p>
-</div>
-<div class="section" id="qiskit-example-without-interception">
-<h2>3. Qiskit Example: Without Interception<a class="headerlink" href="#qiskit-example-without-interception" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="qiskit-example-without-interception">
+<h2>3. Qiskit Example: Without Interception<a class="headerlink" href="#qiskit-example-without-interception" title="Permalink to this heading">¶</a></h2>
 <p>Let’s first see how the protocol works when no one is listening in, then we can see how Alice and Bob are able to detect an eavesdropper. As always, let’s start by importing everything we need:</p>
 <p>To generate pseudo-random keys, we will use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function from numpy. To make sure you can reproduce the results on this page, we will set the seed to 0:</p>
 <div class="cell docutils container">
@@ -1434,8 +1432,8 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3>3.1 Step 1:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<section id="id10">
+<h3>3.1 Step 1:<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
 <p>Alice generates her random set of bits:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1457,23 +1455,23 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>At the moment, the set of bits ‘<code class="docutils literal notranslate"><span class="pre">alice_bits</span></code>’ is only known to Alice. We will keep track of what information is only known to Alice, what information is only known to Bob, and what has been sent over Eve’s channel in a table like this:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p> </p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p> </p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="id11">
-<h3>3.2 Step 2:<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id11">
+<h3>3.2 Step 2:<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h3>
 <p>Alice chooses to encode each bit on qubit in the <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Z\)</span>-basis at random, and stores the choice for each qubit in <code class="docutils literal notranslate"><span class="pre">alice_bases</span></code>. In this case, a <code class="docutils literal notranslate"><span class="pre">0</span></code> means “prepare in the <span class="math notranslate nohighlight">\(Z\)</span>-basis”, and a <code class="docutils literal notranslate"><span class="pre">1</span></code> means “prepare in the <span class="math notranslate nohighlight">\(X\)</span>-basis”:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1500,21 +1498,21 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
 </div>
 </div>
 <p>Alice also keeps this knowledge private:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p> </p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p> </p></td>
 </tr>
 </tbody>
 </table>
@@ -1584,7 +1582,7 @@ basis = 1
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_127_0.png" src="../../../../../_images/lab7-book_127_0.png" />
+<img alt="../../../../../_images/a823dbce7ccd94c93da06c599d3c2bd0d36d2f80ee7193e81f0a09781e2310c2.png" src="../../../../../_images/a823dbce7ccd94c93da06c599d3c2bd0d36d2f80ee7193e81f0a09781e2310c2.png" />
 </div>
 </div>
 <p>As another example, we can see that the fourth bit in <code class="docutils literal notranslate"><span class="pre">alice_bits</span></code> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, and it is encoded in the <span class="math notranslate nohighlight">\(Z\)</span>-basis, Alice prepares the corresponding qubit in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>:</p>
@@ -1601,35 +1599,35 @@ basis = 1
 basis = 0
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_129_1.png" src="../../../../../_images/lab7-book_129_1.png" />
+<img alt="../../../../../_images/cfdc85f0d071a3f56eba899317e6e765b7cd9f2f671a9e0fedde1079378e89ec.png" src="../../../../../_images/cfdc85f0d071a3f56eba899317e6e765b7cd9f2f671a9e0fedde1079378e89ec.png" />
 </div>
 </div>
 <p>This message of qubits is then sent to Bob over Eve’s quantum channel:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="id12">
-<h3>3.3 Step 3:<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id12">
+<h3>3.3 Step 3:<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>Bob then measures each qubit in the <span class="math notranslate nohighlight">\(X\)</span> or <span class="math notranslate nohighlight">\(Z\)</span>-basis at random and stores this information:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1662,29 +1660,29 @@ basis = 0
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">bob_bases</span></code> stores Bob’s choice for which basis he measures each qubit in.</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
 </tbody>
 </table>
@@ -1741,7 +1739,7 @@ basis = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_136_0.png" src="../../../../../_images/lab7-book_136_0.png" />
+<img alt="../../../../../_images/7cdc10d5631122558350ddd5fd5d9eda8a12fd39c6eee8a41939d22e767ee950.png" src="../../../../../_images/7cdc10d5631122558350ddd5fd5d9eda8a12fd39c6eee8a41939d22e767ee950.png" />
 </div>
 </div>
 <p>Since Bob has by chance chosen to measure in the same basis Alice encoded the qubit in, Bob is guaranteed to get the result <code class="docutils literal notranslate"><span class="pre">0</span></code>. For the 6th qubit (shown below), Bob’s random choice of measurement is not the same as Alice’s, and Bob’s result has only a 50% chance of matching Alices’.</p>
@@ -1752,7 +1750,7 @@ basis = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_138_0.png" src="../../../../../_images/lab7-book_138_0.png" />
+<img alt="../../../../../_images/c066be11461988cb0c3296f568e34386aacb5cada25ddb9d8e1b4d5dd289850e.png" src="../../../../../_images/c066be11461988cb0c3296f568e34386aacb5cada25ddb9d8e1b4d5dd289850e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1768,110 +1766,110 @@ basis = 0
 </div>
 </div>
 <p>Bob keeps his results private.</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="id13">
-<h3>3.4 Step 4:<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id13">
+<h3>3.4 Step 4:<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <p>After this, Alice reveals (through Eve’s channel) which qubits were encoded in which basis:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
 </tbody>
 </table>
 <p>And Bob reveals which basis he measured each qubit in:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p> </p></td>
+<tr class="row-even"><td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p> </p></td>
 </tr>
 </tbody>
 </table>
@@ -1923,45 +1921,45 @@ basis = 0
 </div>
 </div>
 </div>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_key</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p> </p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_key</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p> </p></td>
 </tr>
 </tbody>
 </table>
@@ -1998,51 +1996,51 @@ basis = 0
 </div>
 </div>
 </div>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_key</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_key</p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_key</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_key</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="step-5">
-<h3>3.5 Step 5:<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-5">
+<h3>3.5 Step 5:<a class="headerlink" href="#step-5" title="Permalink to this heading">¶</a></h3>
 <p>Finally, Bob and Alice compare a random selection of the bits in their keys to make sure the protocol has worked correctly:</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -2104,53 +2102,53 @@ alice_sample = [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 </div>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_key</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_key</p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_key</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_key</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_sample</p></td>
-<td class="text-align:center"><p>bob_sample</p></td>
-<td class="text-align:center"><p>bob_sample</p></td>
+<tr class="row-even"><td class="text-center"><p>bob_sample</p></td>
+<td class="text-center"><p>bob_sample</p></td>
+<td class="text-center"><p>bob_sample</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_sample</p></td>
-<td class="text-align:center"><p>alice_sample</p></td>
-<td class="text-align:center"><p>alice_sample</p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_sample</p></td>
+<td class="text-center"><p>alice_sample</p></td>
+<td class="text-center"><p>alice_sample</p></td>
 </tr>
 </tbody>
 </table>
@@ -2168,57 +2166,57 @@ alice_sample = [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 <p>If their samples match, it means (with high probability) <code class="docutils literal notranslate"><span class="pre">alice_key</span> <span class="pre">==</span> <span class="pre">bob_key</span></code>. They now share a secret key they can use to encrypt their messages!</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Alice’s Knowledge</p></th>
-<th class="text-align:center head"><p>Over Eve’s Channel</p></th>
-<th class="text-align:center head"><p>Bob’s Knowledge</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Alice’s Knowledge</p></th>
+<th class="head text-center"><p>Over Eve’s Channel</p></th>
+<th class="head text-center"><p>Bob’s Knowledge</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>alice_bits</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>alice_bits</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
-<td class="text-align:center"><p>message</p></td>
+<tr class="row-even"><td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
+<td class="text-center"><p>message</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_results</p></td>
+<tr class="row-even"><td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_results</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
-<td class="text-align:center"><p>alice_bases</p></td>
+<tr class="row-odd"><td class="text-center"><p></p></td>
+<td class="text-center"><p>alice_bases</p></td>
+<td class="text-center"><p>alice_bases</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p>bob_bases</p></td>
-<td class="text-align:center"><p></p></td>
+<tr class="row-even"><td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p>bob_bases</p></td>
+<td class="text-center"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_key</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>bob_key</p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_key</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>bob_key</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>bob_sample</p></td>
-<td class="text-align:center"><p>bob_sample</p></td>
-<td class="text-align:center"><p>bob_sample</p></td>
+<tr class="row-even"><td class="text-center"><p>bob_sample</p></td>
+<td class="text-center"><p>bob_sample</p></td>
+<td class="text-center"><p>bob_sample</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>alice_sample</p></td>
-<td class="text-align:center"><p>alice_sample</p></td>
-<td class="text-align:center"><p>alice_sample</p></td>
+<tr class="row-odd"><td class="text-center"><p>alice_sample</p></td>
+<td class="text-center"><p>alice_sample</p></td>
+<td class="text-center"><p>alice_sample</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>shared_key</p></td>
-<td class="text-align:center"><p></p></td>
-<td class="text-align:center"><p>shared_key</p></td>
+<tr class="row-even"><td class="text-center"><p>shared_key</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p>shared_key</p></td>
 </tr>
 </tbody>
 </table>
@@ -2238,10 +2236,10 @@ key length = 33
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="qiskit-example-with-interception">
-<h2>4. Qiskit Example: <em>With</em> Interception<a class="headerlink" href="#qiskit-example-with-interception" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="qiskit-example-with-interception">
+<h2>4. Qiskit Example: <em>With</em> Interception<a class="headerlink" href="#qiskit-example-with-interception" title="Permalink to this heading">¶</a></h2>
 <p>Let’s now see how Alice and Bob can tell if Eve has been trying to listen in on their quantum message. We repeat the same steps as without interference, but before Bob receives his qubits, Eve will try and extract some information from them. Let’s set a different seed so we get a specific set of reproducible ‘random’ results:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2250,8 +2248,8 @@ key length = 33
 </div>
 </div>
 </div>
-<div class="section" id="id14">
-<h3>4.1 Step 1:<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<section id="id14">
+<h3>4.1 Step 1:<a class="headerlink" href="#id14" title="Permalink to this heading">¶</a></h3>
 <p>Alice generates her set of random bits:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2270,9 +2268,9 @@ key length = 33
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id15">
-<h3>4.2 Step 2:<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id15">
+<h3>4.2 Step 2:<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h3>
 <p>Alice encodes these in the <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(X\)</span>-bases at random, and sends these to Bob through Eve’s quantum channel:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2302,12 +2300,12 @@ key length = 33
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_163_0.png" src="../../../../../_images/lab7-book_163_0.png" />
+<img alt="../../../../../_images/a823dbce7ccd94c93da06c599d3c2bd0d36d2f80ee7193e81f0a09781e2310c2.png" src="../../../../../_images/a823dbce7ccd94c93da06c599d3c2bd0d36d2f80ee7193e81f0a09781e2310c2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="interception">
-<h3>Interception!<a class="headerlink" href="#interception" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="interception">
+<h3>Interception!<a class="headerlink" href="#interception" title="Permalink to this heading">¶</a></h3>
 <p>Oh no! Eve intercepts the message as it passes through her channel. She tries to measure the qubits in a random selection of bases, in the same way Bob will later.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2338,12 +2336,12 @@ key length = 33
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_167_0.png" src="../../../../../_images/lab7-book_167_0.png" />
+<img alt="../../../../../_images/dc5df6431f18d9288ff80c16942dfe05833144b721d38194602a0801c40e4608.png" src="../../../../../_images/dc5df6431f18d9288ff80c16942dfe05833144b721d38194602a0801c40e4608.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id16">
-<h3>4.3 Step 3:<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id16">
+<h3>4.3 Step 3:<a class="headerlink" href="#id16" title="Permalink to this heading">¶</a></h3>
 <p>Eve then passes on the qubits to Bob, who measures them at random. In this case, Bob chose (by chance) to measure in the same basis Alice prepared the qubit in. Without interception, Bob would be guaranteed to measure <code class="docutils literal notranslate"><span class="pre">0</span></code>, but because Eve tried to read the message he now has a 50% chance of measuring <code class="docutils literal notranslate"><span class="pre">1</span></code> instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2364,12 +2362,12 @@ key length = 33
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab7-book_169_0.png" src="../../../../../_images/lab7-book_169_0.png" />
+<img alt="../../../../../_images/557b3ba92f5500016d6a2ac0b234f9dbde73bdad4f052fa024cb35fc2224e200.png" src="../../../../../_images/557b3ba92f5500016d6a2ac0b234f9dbde73bdad4f052fa024cb35fc2224e200.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id17">
-<h3>4.4 Step 4:<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id17">
+<h3>4.4 Step 4:<a class="headerlink" href="#id17" title="Permalink to this heading">¶</a></h3>
 <p>Bob and Alice reveal their basis choices, and discard the useless bits:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2392,9 +2390,9 @@ key length = 33
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id18">
-<h3>4.5 Step 5:<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id18">
+<h3>4.5 Step 5:<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h3>
 <p>Bob and Alice compare the same random selection of their keys to see if the qubits were intercepted:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2443,10 +2441,10 @@ alice_sample = [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 <p>Oh no! Bob’s key and Alice’s key do not match. We know this is because Eve tried to read the message between steps 2 and 3, and changed the qubits’ states. For all Alice and Bob know, this could be due to noise in the channel, but either way they must throw away all their results and try again- Eve’s interception attempt has failed.</p>
-</div>
-</div>
-<div class="section" id="risk-analysis">
-<h2>5. Risk Analysis<a class="headerlink" href="#risk-analysis" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="risk-analysis">
+<h2>5. Risk Analysis<a class="headerlink" href="#risk-analysis" title="Permalink to this heading">¶</a></h2>
 <p>For this type of interception, in which Eve measures all the qubits, there is a small chance that Bob and Alice’s samples could match, and Alice sends her vulnerable message through Eve’s channel. Let’s calculate that chance and see how risky quantum key distribution is.</p>
 <ul class="simple">
 <li><p>For Alice and Bob to use a qubit’s result, they must both have chosen the same basis. If Eve chooses this basis too, she will successfully intercept this bit without introducing any error. There is a 50% chance of this happening.</p></li>
@@ -2503,8 +2501,8 @@ alice_sample = [1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
 </div>
 </div>
 </div>
-<div class="section" id="exercise-10">
-<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Permalink to this headline">¶</a></h3>
+<section id="exercise-10">
+<h3>Exercise 10<a class="headerlink" href="#exercise-10" title="Permalink to this heading">¶</a></h3>
 <p>There is nothing unique with X or Z basis states while we are trying to perform a Quantum Key distribution. Let’s say instead of <span class="math notranslate nohighlight">\(|0\rangle, |1\rangle\)</span> set we use <span class="math notranslate nohighlight">\(|R \rangle, |L \rangle\)</span> which we define as:
 $<span class="math notranslate nohighlight">\( |R \rangle = \frac{|0\rangle + i|1 \rangle}{\sqrt{2}} \)</span><span class="math notranslate nohighlight">\(
 \)</span><span class="math notranslate nohighlight">\( |L \rangle = \frac{|0\rangle - i|1 \rangle}{\sqrt{2}} \)</span>$</p>
@@ -2534,17 +2532,17 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
   x_s, y_s, _ = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab7-book_178_2.png" src="../../../../../_images/lab7-book_178_2.png" />
+<img alt="../../../../../_images/452f436cb3fb22aff30a4115b15e2c0086c0151fe4791f359fd405be05cc0908.png" src="../../../../../_images/452f436cb3fb22aff30a4115b15e2c0086c0151fe4791f359fd405be05cc0908.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id19">
-<h3>Answer<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id19">
+<h3>Answer<a class="headerlink" href="#id19" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
 <p>After completing this exercise, you can actually modify the encode_message and measure_message functions’s relevant parts for preparing and measuring to implement Quantum Key Distribution using these states.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -2566,7 +2564,7 @@ The M attribute was deprecated in Matplotlib 3.4 and will be removed two minor r
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

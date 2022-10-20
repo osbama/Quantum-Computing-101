@@ -1,0 +1,4108 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Preliminary setup\n",
+    "\n",
+    "Before we delve into coding, you need to prepare your own pc, or your account in an HPC to be able to run codes.\n",
+    "\n",
+    "The below instructions are some highlights. I assume you already know how to install the rest (for example the jupyter notebook), or how to run a python script without a jupyter notebook. I also assume you are familiar with terminal and linux."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Anaconda/Miniconda\n",
+    "\n",
+    "This recipe is intended for Linux, specifically Ubuntu 16.04 or higher (64-bit). If you are using windows, please consider installing WSL2. There is no official GPU support for MacOs, so please avoid.\n",
+    "\n",
+    "1. Install Miniconda\n",
+    "\n",
+    "Miniconda is the recommended approach for installing TensorFlow with GPU support. It creates a separate environment to avoid changing any installed software in your system. This is also the easiest way to install the required software especially for the GPU setup.\n",
+    "\n",
+    "You can use the following command to install Miniconda. During installation, you may need to press enter and type \"yes\".\n",
+    "\n",
+    "curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh\n",
+    "bash Miniconda3-latest-Linux-x86_64.sh\n",
+    "\n",
+    "You may need to restart your terminal or source ~/.bashrc to enable the conda command. Use conda -V to test if it is installed successfully.\n",
+    "2. Create a conda environment\n",
+    "\n",
+    "Create a new conda environment named qml with the following command.\n",
+    "\n",
+    "conda create --name qml python=3.8\n",
+    "\n",
+    "You can deactivate and activate it with the following commands.\n",
+    "\n",
+    "conda deactivate\n",
+    "conda activate qml\n",
+    "\n",
+    "Make sure it is activated for the rest of the installation.\n",
+    "3. GPU setup\n",
+    "\n",
+    "You can skip this section if you only run TensorFlow on the CPU.\n",
+    "\n",
+    "First install the NVIDIA GPU driver if you have not. You can use the following command to verify it is installed.\n",
+    "\n",
+    "```bash\n",
+    "nvidia-smi\n",
+    "```\n",
+    "\n",
+    "Then install CUDA and cuDNN with conda.\n",
+    "\n",
+    "```bash\n",
+    "conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0\n",
+    "```\n",
+    "\n",
+    "Configure the system paths. You can do it with following command everytime your start a new terminal after activating your conda environment.\n",
+    "\n",
+    "```bash\n",
+    "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/\n",
+    "```\n",
+    "\n",
+    "For your convenience it is recommended that you automate it with the following commands. The system paths will be automatically configured when you activate this conda environment.\n",
+    "\n",
+    "```bash\n",
+    "mkdir -p $CONDA_PREFIX/etc/conda/activate.d\n",
+    "echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/' > $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh\n",
+    "```\n",
+    "\n",
+    "4. Install TensorFlow\n",
+    "\n",
+    "TensorFlow requires a recent version of pip, so upgrade your pip installation to be sure you're running the latest version.\n",
+    "\n",
+    "```bash\n",
+    "pip install --upgrade pip\n",
+    "```\n",
+    "\n",
+    "Then, install TensorFlow with pip.\n",
+    "Note: Do not install TensorFlow with conda. It may not have the latest stable version. pip is recommended since TensorFlow is only officially released to PyPI.\n",
+    "```bash\n",
+    "pip install tensorflow\n",
+    "```\n",
+    "\n",
+    "6. Verify install\n",
+    "\n",
+    "Verify the CPU setup:\n",
+    "\n",
+    "```bash\n",
+    "python3 -c \"import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))\"\n",
+    "```\n",
+    "\n",
+    "If a tensor is returned, you've installed TensorFlow successfully.\n",
+    "\n",
+    "Verify the GPU setup:\n",
+    "\n",
+    "```bash\n",
+    "python3 -c \"import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))\"\n",
+    "```\n",
+    "\n",
+    "If a list of GPU devices is returned, you've installed TensorFlow successfully.\n",
+    "\n",
+    "We will install other packages as we progress\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Aptainer (formerly Singularity)\n",
+    "\n",
+    "Apptainer/Singularity is the most widely used container system for HPC. It is designed to execute applications at bare-metal performance while being secure, portable, and 100% reproducible. Apptainer is an open-source project with a friendly community of developers and users. The user base continues to expand, with Apptainer/Singularity now used across industry and academia in many areas.\n",
+    "\n",
+    " Apptainer/Singularity is already installed in carbon.physics.metu.edu.tr, so you can start using it immediately. If you want to install it to your own pc, the instructions are at https://docs.sylabs.io/guides/3.0/user-guide/quick_start.html\n",
+    "\n",
+    "NVIDIA kindly provides, optimized containers for numerous academic software. Please check out [NGC Catalog](https://catalog.ngc.nvidia.com/)\n",
+    "\n",
+    "In carbon, you can find the TensorFlow Containers at `/share/apps/singularity-containers/`\n",
+    "\n",
+    "If you want to \"pull\" i.e. download and compile a container from NGC, try something like `singularity pull tensorflow-22.09-tf1-py3.sif docker://nvcr.io/nvidia/tensorflow:22.09-tf1-py`. This will download (a lot) and compile (a lot) to produce a sif image for you. Then you can run this image with `singularity run --nv '-B<your working directory>:/host_pwd' --pwd /host_pwd tensorflow-22.09-tf1-py3.sif`\n",
+    "\n",
+    "Running a singularity container in an HPC environment is similar to running it in your own computer. An example script can be found [here](https://obm.physics.metu.edu.tr/node/111). \n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Basic regression: Predict fuel efficiency"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "In a *regression* problem, the aim is to predict the output of a continuous value, like a price or a probability. Contrast this with a *classification* problem, where the aim is to select a class from a list of classes (for example, where a picture contains an apple or an orange, recognizing which fruit is in the picture).\n",
+    "\n",
+    "This tutorial uses the classic [Auto MPG](https://archive.ics.uci.edu/ml/datasets/auto+mpg) dataset and demonstrates how to build models to predict the fuel efficiency of the late-1970s and early 1980s automobiles. To do this, you will provide the models with a description of many automobiles from that time period. This description includes attributes like cylinders, displacement, horsepower, and weight.\n",
+    "\n",
+    "This example uses the Keras API. (Visit the Keras [tutorials](https://www.tensorflow.org/tutorials/keras) and [guides](https://www.tensorflow.org/guide/keras) to learn more.)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "outputs": [],
+   "source": [
+    "# Use seaborn for pairplot.\n",
+    "!pip install -q seaborn"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "import seaborn as sns\n",
+    "\n",
+    "# Make NumPy printouts easier to read.\n",
+    "np.set_printoptions(precision=3, suppress=True)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2022-10-20 11:16:51.499026: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\n",
+      "To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n",
+      "2022-10-20 11:16:51.604559: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:16:51.604575: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.\n",
+      "2022-10-20 11:16:51.627754: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered\n",
+      "2022-10-20 11:16:52.195947: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:16:52.196006: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:16:52.196010: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2.10.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "import tensorflow as tf\n",
+    "\n",
+    "from tensorflow import keras\n",
+    "from tensorflow.keras import layers\n",
+    "\n",
+    "print(tf.__version__)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## The Auto MPG dataset\n",
+    "\n",
+    "The dataset is available from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/).\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Get the data\n",
+    "First download and import the dataset using pandas:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data'\n",
+    "column_names = ['MPG', 'Cylinders', 'Displacement', 'Horsepower', 'Weight',\n",
+    "                'Acceleration', 'Model Year', 'Origin']\n",
+    "\n",
+    "raw_dataset = pd.read_csv(url, names=column_names,\n",
+    "                          na_values='?', comment='\\t',\n",
+    "                          sep=' ', skipinitialspace=True)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dataset = raw_dataset.copy()\n",
+    "dataset.tail()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Clean the data\n",
+    "\n",
+    "The dataset contains a few unknown values:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dataset.isna().sum()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Drop those rows to keep this initial tutorial simple:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dataset = dataset.dropna()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The `\"Origin\"` column is categorical, not numeric. So the next step is to one-hot encode the values in the column with [pd.get_dummies](https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html).\n",
+    "\n",
+    "Note: You can set up the `tf.keras.Model` to do this kind of transformation for you but that's beyond the scope of this tutorial. Check out the [Classify structured data using Keras preprocessing layers](../structured_data/preprocessing_layers.ipynb) or [Load CSV data](../load_data/csv.ipynb) tutorials for examples."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dataset['Origin'] = dataset['Origin'].map({1: 'USA', 2: 'Europe', 3: 'Japan'})"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dataset = pd.get_dummies(dataset, columns=['Origin'], prefix='', prefix_sep='')\n",
+    "dataset.tail()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Split the data into training and test sets\n",
+    "\n",
+    "Now, split the dataset into a training set and a test set. You will use the test set in the final evaluation of your models."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "train_dataset = dataset.sample(frac=0.8, random_state=0)\n",
+    "test_dataset = dataset.drop(train_dataset.index)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Inspect the data\n",
+    "\n",
+    "Review the joint distribution of a few pairs of columns from the training set.\n",
+    "\n",
+    "The top row suggests that the fuel efficiency (MPG) is a function of all the other parameters. The other rows indicate they are functions of each other."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "sns.pairplot(train_dataset[['MPG', 'Cylinders', 'Displacement', 'Weight']], diag_kind='kde')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Let's also check the overall statistics. Note how each feature covers a very different range:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "train_dataset.describe().transpose()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Split features from labels\n",
+    "\n",
+    "Separate the target value—the \"label\"—from the features. This label is the value that you will train the model to predict."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "train_features = train_dataset.copy()\n",
+    "test_features = test_dataset.copy()\n",
+    "\n",
+    "train_labels = train_features.pop('MPG')\n",
+    "test_labels = test_features.pop('MPG')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Normalization\n",
+    "\n",
+    "In the table of statistics it's easy to see how different the ranges of each feature are:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "train_dataset.describe().transpose()[['mean', 'std']]"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "It is good practice to normalize features that use different scales and ranges.\n",
+    "\n",
+    "One reason this is important is because the features are multiplied by the model weights. So, the scale of the outputs and the scale of the gradients are affected by the scale of the inputs.\n",
+    "\n",
+    "Although a model *might* converge without feature normalization, normalization makes training much more stable.\n",
+    "\n",
+    "Note: There is no advantage to normalizing the one-hot features—it is done here for simplicity. For more details on how to use the preprocessing layers, refer to the [Working with preprocessing layers](https://www.tensorflow.org/guide/keras/preprocessing_layers) guide and the [Classify structured data using Keras preprocessing layers](../structured_data/preprocessing_layers.ipynb) tutorial."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### The Normalization layer\n",
+    "\n",
+    "The `tf.keras.layers.Normalization` is a clean and simple way to add feature normalization into your model.\n",
+    "\n",
+    "The first step is to create the layer:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "normalizer = tf.keras.layers.Normalization(axis=-1)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Then, fit the state of the preprocessing layer to the data by calling `Normalization.adapt`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "normalizer.adapt(np.array(train_features))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Calculate the mean and variance, and store them in the layer:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "print(normalizer.mean.numpy())"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "When the layer is called, it returns the input data, with each feature independently normalized:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "first = np.array(train_features[:1])\n",
+    "\n",
+    "with np.printoptions(precision=2, suppress=True):\n",
+    "  print('First example:', first)\n",
+    "  print()\n",
+    "  print('Normalized:', normalizer(first).numpy())"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Linear regression\n",
+    "\n",
+    "Before building a deep neural network model, start with linear regression using one and several variables."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Linear regression with one variable\n",
+    "\n",
+    "Begin with a single-variable linear regression to predict `'MPG'` from `'Horsepower'`.\n",
+    "\n",
+    "Training a model with `tf.keras` typically starts by defining the model architecture. Use a `tf.keras.Sequential` model, which [represents a sequence of steps](https://www.tensorflow.org/guide/keras/sequential_model).\n",
+    "\n",
+    "There are two steps in your single-variable linear regression model:\n",
+    "\n",
+    "- Normalize the `'Horsepower'` input features using the `tf.keras.layers.Normalization` preprocessing layer.\n",
+    "- Apply a linear transformation ($y = mx+b$) to produce 1 output using a linear layer (`tf.keras.layers.Dense`).\n",
+    "\n",
+    "The number of _inputs_ can either be set by the `input_shape` argument, or automatically when the model is run for the first time."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "First, create a NumPy array made of the `'Horsepower'` features. Then, instantiate the `tf.keras.layers.Normalization` and fit its state to the `horsepower` data:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "horsepower = np.array(train_features['Horsepower'])\n",
+    "\n",
+    "horsepower_normalizer = layers.Normalization(input_shape=[1,], axis=None)\n",
+    "horsepower_normalizer.adapt(horsepower)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Build the Keras Sequential model:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "horsepower_model = tf.keras.Sequential([\n",
+    "    horsepower_normalizer,\n",
+    "    layers.Dense(units=1)\n",
+    "])\n",
+    "\n",
+    "horsepower_model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "This model will predict `'MPG'` from `'Horsepower'`.\n",
+    "\n",
+    "Run the untrained model on the first 10 'Horsepower' values. The output won't be good, but notice that it has the expected shape of `(10, 1)`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "horsepower_model.predict(horsepower[:10])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Once the model is built, configure the training procedure using the Keras `Model.compile` method. The most important arguments to compile are the `loss` and the `optimizer`, since these define what will be optimized (`mean_absolute_error`) and how (using the `tf.keras.optimizers.Adam`)."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "horsepower_model.compile(\n",
+    "    optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),\n",
+    "    loss='mean_absolute_error')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Use Keras `Model.fit` to execute the training for 100 epochs:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "history = horsepower_model.fit(\n",
+    "    train_features['Horsepower'],\n",
+    "    train_labels,\n",
+    "    epochs=100,\n",
+    "    # Suppress logging.\n",
+    "    verbose=0,\n",
+    "    # Calculate validation results on 20% of the training data.\n",
+    "    validation_split = 0.2)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Visualize the model's training progress using the stats stored in the `history` object:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "hist = pd.DataFrame(history.history)\n",
+    "hist['epoch'] = history.epoch\n",
+    "hist.tail()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def plot_loss(history):\n",
+    "  plt.plot(history.history['loss'], label='loss')\n",
+    "  plt.plot(history.history['val_loss'], label='val_loss')\n",
+    "  plt.ylim([0, 10])\n",
+    "  plt.xlabel('Epoch')\n",
+    "  plt.ylabel('Error [MPG]')\n",
+    "  plt.legend()\n",
+    "  plt.grid(True)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_loss(history)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Collect the results on the test set for later:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "test_results = {}\n",
+    "\n",
+    "test_results['horsepower_model'] = horsepower_model.evaluate(\n",
+    "    test_features['Horsepower'],\n",
+    "    test_labels, verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Since this is a single variable regression, it's easy to view the model's predictions as a function of the input:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "x = tf.linspace(0.0, 250, 251)\n",
+    "y = horsepower_model.predict(x)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def plot_horsepower(x, y):\n",
+    "  plt.scatter(train_features['Horsepower'], train_labels, label='Data')\n",
+    "  plt.plot(x, y, color='k', label='Predictions')\n",
+    "  plt.xlabel('Horsepower')\n",
+    "  plt.ylabel('MPG')\n",
+    "  plt.legend()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_horsepower(x, y)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Linear regression with multiple inputs"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "You can use an almost identical setup to make predictions based on multiple inputs. This model still does the same $y = mx+b$ except that $m$ is a matrix and $b$ is a vector.\n",
+    "\n",
+    "Create a two-step Keras Sequential model again with the first layer being `normalizer` (`tf.keras.layers.Normalization(axis=-1)`) you defined earlier and adapted to the whole dataset:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "linear_model = tf.keras.Sequential([\n",
+    "    normalizer,\n",
+    "    layers.Dense(units=1)\n",
+    "])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "When you call `Model.predict` on a batch of inputs, it produces `units=1` outputs for each example:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "linear_model.predict(train_features[:10])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "When you call the model, its weight matrices will be built—check that the `kernel` weights (the $m$ in $y=mx+b$) have a shape of `(9, 1)`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "linear_model.layers[1].kernel"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Configure the model with Keras `Model.compile` and train with `Model.fit` for 100 epochs:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "linear_model.compile(\n",
+    "    optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),\n",
+    "    loss='mean_absolute_error')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "history = linear_model.fit(\n",
+    "    train_features,\n",
+    "    train_labels,\n",
+    "    epochs=100,\n",
+    "    # Suppress logging.\n",
+    "    verbose=0,\n",
+    "    # Calculate validation results on 20% of the training data.\n",
+    "    validation_split = 0.2)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Using all the inputs in this regression model achieves a much lower training and validation error than the `horsepower_model`, which had one input:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_loss(history)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Collect the results on the test set for later:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "test_results['linear_model'] = linear_model.evaluate(\n",
+    "    test_features, test_labels, verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Regression with a deep neural network (DNN)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "In the previous section, you implemented two linear models for single and multiple inputs.\n",
+    "\n",
+    "Here, you will implement single-input and multiple-input DNN models.\n",
+    "\n",
+    "The code is basically the same except the model is expanded to include some \"hidden\" non-linear layers. The name \"hidden\" here just means not directly connected to the inputs or outputs."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "These models will contain a few more layers than the linear model:\n",
+    "\n",
+    "* The normalization layer, as before (with `horsepower_normalizer` for a single-input model and `normalizer` for a multiple-input model).\n",
+    "* Two hidden, non-linear, `Dense` layers with the ReLU (`relu`) activation function nonlinearity.\n",
+    "* A linear `Dense` single-output layer.\n",
+    "\n",
+    "Both models will use the same training procedure, so the `compile` method is included in the `build_and_compile_model` function below."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def build_and_compile_model(norm):\n",
+    "  model = keras.Sequential([\n",
+    "      norm,\n",
+    "      layers.Dense(64, activation='relu'),\n",
+    "      layers.Dense(64, activation='relu'),\n",
+    "      layers.Dense(1)\n",
+    "  ])\n",
+    "\n",
+    "  model.compile(loss='mean_absolute_error',\n",
+    "                optimizer=tf.keras.optimizers.Adam(0.001))\n",
+    "  return model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Regression using a DNN and a single input"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Create a DNN model with only `'Horsepower'` as input and `horsepower_normalizer` (defined earlier) as the normalization layer:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dnn_horsepower_model = build_and_compile_model(horsepower_normalizer)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "This model has quite a few more trainable parameters than the linear models:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dnn_horsepower_model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Train the model with Keras `Model.fit`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "history = dnn_horsepower_model.fit(\n",
+    "    train_features['Horsepower'],\n",
+    "    train_labels,\n",
+    "    validation_split=0.2,\n",
+    "    verbose=0, epochs=100)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "This model does slightly better than the linear single-input `horsepower_model`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_loss(history)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "If you plot the predictions as a function of `'Horsepower'`, you should notice how this model takes advantage of the nonlinearity provided by the hidden layers:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "x = tf.linspace(0.0, 250, 251)\n",
+    "y = dnn_horsepower_model.predict(x)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_horsepower(x, y)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Collect the results on the test set for later:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "test_results['dnn_horsepower_model'] = dnn_horsepower_model.evaluate(\n",
+    "    test_features['Horsepower'], test_labels,\n",
+    "    verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Regression using a DNN and multiple inputs"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Repeat the previous process using all the inputs. The model's performance slightly improves on the validation dataset."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dnn_model = build_and_compile_model(normalizer)\n",
+    "dnn_model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "history = dnn_model.fit(\n",
+    "    train_features,\n",
+    "    train_labels,\n",
+    "    validation_split=0.2,\n",
+    "    verbose=0, epochs=100)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plot_loss(history)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Collect the results on the test set:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "test_results['dnn_model'] = dnn_model.evaluate(test_features, test_labels, verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Performance"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Since all models have been trained, you can review their test set performance:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "pd.DataFrame(test_results, index=['Mean absolute error [MPG]']).T"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "These results match the validation error observed during training."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Make predictions\n",
+    "\n",
+    "You can now make predictions with the `dnn_model` on the test set using Keras `Model.predict` and review the loss:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "test_predictions = dnn_model.predict(test_features).flatten()\n",
+    "\n",
+    "a = plt.axes(aspect='equal')\n",
+    "plt.scatter(test_labels, test_predictions)\n",
+    "plt.xlabel('True Values [MPG]')\n",
+    "plt.ylabel('Predictions [MPG]')\n",
+    "lims = [0, 50]\n",
+    "plt.xlim(lims)\n",
+    "plt.ylim(lims)\n",
+    "_ = plt.plot(lims, lims)\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "It appears that the model predicts reasonably well.\n",
+    "\n",
+    "Now, check the error distribution:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "error = test_predictions - test_labels\n",
+    "plt.hist(error, bins=25)\n",
+    "plt.xlabel('Prediction Error [MPG]')\n",
+    "_ = plt.ylabel('Count')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "If you're happy with the model, save it for later use with `Model.save`:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dnn_model.save('dnn_model')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "If you reload the model, it gives identical output:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "reloaded = tf.keras.models.load_model('dnn_model')\n",
+    "\n",
+    "test_results['reloaded'] = reloaded.evaluate(\n",
+    "    test_features, test_labels, verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "pd.DataFrame(test_results, index=['Mean absolute error [MPG]']).T"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Takeaways:\n",
+    "\n",
+    "This part introduced a few techniques to handle a regression problem. Here are a few more tips that may help:\n",
+    "\n",
+    "- Mean squared error (MSE) (`tf.keras.losses.MeanSquaredError`) and mean absolute error (MAE) (`tf.keras.losses.MeanAbsoluteError`) are common loss functions used for regression problems. MAE is less sensitive to outliers. Different loss functions are used for classification problems.\n",
+    "- Similarly, evaluation metrics used for regression differ from classification.\n",
+    "- When numeric input data features have values with different ranges, each feature should be scaled independently to the same range.\n",
+    "- Overfitting is a common problem for DNN models, though it wasn't a problem for this tutorial.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# DO IT YOURSELF 1:\n",
+    "\n",
+    "Please repeat the same steps as above, using [the superconductivity dataset](https://archive.ics.uci.edu/ml/datasets/Superconductivty+Data). Write it as a standalone python script and run it in carbon.physics.metu.edu.tr using singularity."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Overfit and underfit"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "As always, the code in this example will use the `tf.keras` API, which you can learn more about in the TensorFlow [Keras guide](https://www.tensorflow.org/guide/keras).\n",
+    "\n",
+    "In both of the previous examples—[classifying text](text_classification_with_hub.ipynb) and [predicting fuel efficiency](regression.ipynb)—the accuracy of models on the validation data would peak after training for a number of epochs and then stagnate or start decreasing.\n",
+    "\n",
+    "In other words, your model would *overfit* to the training data. Learning how to deal with overfitting is important. Although it's often possible to achieve high accuracy on the *training set*, what you really want is to develop models that generalize well to a *testing set* (or data they haven't seen before).\n",
+    "\n",
+    "The opposite of overfitting is *underfitting*. Underfitting occurs when there is still room for improvement on the train data. This can happen for a number of reasons: If the model is not powerful enough, is over-regularized, or has simply not been trained long enough. This means the network has not learned the relevant patterns in the training data.\n",
+    "\n",
+    "If you train for too long though, the model will start to overfit and learn patterns from the training data that don't generalize to the test data. You need to strike a balance. Understanding how to train for an appropriate number of epochs as you'll explore below is a useful skill.\n",
+    "\n",
+    "To prevent overfitting, the best solution is to use more complete training data. The dataset should cover the full range of inputs that the model is expected to handle. Additional data may only be useful if it covers new and interesting cases.\n",
+    "\n",
+    "A model trained on more complete data will naturally generalize better. When that is no longer possible, the next best solution is to use techniques like regularization. These place constraints on the quantity and type of information your model can store.  If a network can only afford to memorize a small number of patterns, the optimization process will force it to focus on the most prominent patterns, which have a better chance of generalizing well.\n",
+    "\n",
+    "In this notebook, you'll explore several common regularization techniques, and use them to improve on a classification model."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Setup"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Before getting started, import the necessary packages:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import tensorflow as tf\n",
+    "\n",
+    "from tensorflow.keras import layers\n",
+    "from tensorflow.keras import regularizers\n",
+    "\n",
+    "print(tf.__version__)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "!pip install git+https://github.com/tensorflow/docs\n",
+    "\n",
+    "import tensorflow_docs as tfdocs\n",
+    "import tensorflow_docs.modeling\n",
+    "import tensorflow_docs.plots"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "from  IPython import display\n",
+    "from matplotlib import pyplot as plt\n",
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "import pathlib\n",
+    "import shutil\n",
+    "import tempfile\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "logdir = pathlib.Path(tempfile.mkdtemp())/\"tensorboard_logs\"\n",
+    "shutil.rmtree(logdir, ignore_errors=True)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## The Higgs dataset\n",
+    "\n",
+    "The goal of this tutorial is not to do particle physics, so don't dwell on the details of the dataset. It contains 11,000,000 examples, each with 28 features, and a binary class label."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "gz = tf.keras.utils.get_file('HIGGS.csv.gz', 'http://mlphysics.ics.uci.edu/data/higgs/HIGGS.csv.gz')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "FEATURES = 28"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The `tf.data.experimental.CsvDataset` class can be used to read csv records directly from a gzip file with no intermediate decompression step."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "ds = tf.data.experimental.CsvDataset(gz,[float(),]*(FEATURES+1), compression_type=\"GZIP\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "That csv reader class returns a list of scalars for each record. The following function repacks that list of scalars into a (feature_vector, label) pair."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def pack_row(*row):\n",
+    "  label = row[0]\n",
+    "  features = tf.stack(row[1:],1)\n",
+    "  return features, label"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "TensorFlow is most efficient when operating on large batches of data.\n",
+    "\n",
+    "So, instead of repacking each row individually make a new `tf.data.Dataset` that takes batches of 10,000 examples, applies the `pack_row` function to each batch, and then splits the batches back up into individual records:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "packed_ds = ds.batch(10000).map(pack_row).unbatch()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Inspect some of the records from this new `packed_ds`.\n",
+    "\n",
+    "The features are not perfectly normalized, but this is sufficient for this tutorial."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "for features,label in packed_ds.batch(1000).take(1):\n",
+    "  print(features[0])\n",
+    "  plt.hist(features.numpy().flatten(), bins = 101)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "To keep this tutorial relatively short, use just the first 1,000 samples for validation, and the next 10,000 for training:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "N_VALIDATION = int(1e3)\n",
+    "N_TRAIN = int(1e4)\n",
+    "BUFFER_SIZE = int(1e4)\n",
+    "BATCH_SIZE = 500\n",
+    "STEPS_PER_EPOCH = N_TRAIN//BATCH_SIZE"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The `Dataset.skip` and `Dataset.take` methods make this easy.\n",
+    "\n",
+    "At the same time, use the `Dataset.cache` method to ensure that the loader doesn't need to re-read the data from the file on each epoch:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "validate_ds = packed_ds.take(N_VALIDATION).cache()\n",
+    "train_ds = packed_ds.skip(N_VALIDATION).take(N_TRAIN).cache()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "train_ds"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "These datasets return individual examples. Use the `Dataset.batch` method to create batches of an appropriate size for training. Before batching, also remember to use `Dataset.shuffle` and `Dataset.repeat` on the training set."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "validate_ds = validate_ds.batch(BATCH_SIZE)\n",
+    "train_ds = train_ds.shuffle(BUFFER_SIZE).repeat().batch(BATCH_SIZE)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Demonstrate overfitting\n",
+    "\n",
+    "The simplest way to prevent overfitting is to start with a small model: A model with a small number of learnable parameters (which is determined by the number of layers and the number of units per layer). In deep learning, the number of learnable parameters in a model is often referred to as the model's \"capacity\".\n",
+    "\n",
+    "Intuitively, a model with more parameters will have more \"memorization capacity\" and therefore will be able to easily learn a perfect dictionary-like mapping between training samples and their targets, a mapping without any generalization power, but this would be useless when making predictions on previously unseen data.\n",
+    "\n",
+    "Always keep this in mind: deep learning models tend to be good at fitting to the training data, but the real challenge is generalization, not fitting.\n",
+    "\n",
+    "On the other hand, if the network has limited memorization resources, it will not be able to learn the mapping as easily. To minimize its loss, it will have to learn compressed representations that have more predictive power. At the same time, if you make your model too small, it will have difficulty fitting to the training data. There is a balance between \"too much capacity\" and \"not enough capacity\".\n",
+    "\n",
+    "Unfortunately, there is no magical formula to determine the right size or architecture of your model (in terms of the number of layers, or the right size for each layer). You will have to experiment using a series of different architectures.\n",
+    "\n",
+    "To find an appropriate model size, it's best to start with relatively few layers and parameters, then begin increasing the size of the layers or adding new layers until you see diminishing returns on the validation loss.\n",
+    "\n",
+    "Start with a simple model using only densely-connected layers (`tf.keras.layers.Dense`) as a baseline, then create larger models, and compare them."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Training procedure"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Many models train better if you gradually reduce the learning rate during training. Use `tf.keras.optimizers.schedules` to reduce the learning rate over time:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "lr_schedule = tf.keras.optimizers.schedules.InverseTimeDecay(\n",
+    "  0.001,\n",
+    "  decay_steps=STEPS_PER_EPOCH*1000,\n",
+    "  decay_rate=1,\n",
+    "  staircase=False)\n",
+    "\n",
+    "def get_optimizer():\n",
+    "  return tf.keras.optimizers.Adam(lr_schedule)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The code above sets a `tf.keras.optimizers.schedules.InverseTimeDecay` to hyperbolically decrease the learning rate to 1/2 of the base rate at 1,000 epochs, 1/3 at 2,000 epochs, and so on."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "step = np.linspace(0,100000)\n",
+    "lr = lr_schedule(step)\n",
+    "plt.figure(figsize = (8,6))\n",
+    "plt.plot(step/STEPS_PER_EPOCH, lr)\n",
+    "plt.ylim([0,max(plt.ylim())])\n",
+    "plt.xlabel('Epoch')\n",
+    "_ = plt.ylabel('Learning Rate')\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Each model in this tutorial will use the same training configuration. So set these up in a reusable way, starting with the list of callbacks.\n",
+    "\n",
+    "The training for this tutorial runs for many short epochs. To reduce the logging noise use the `tfdocs.EpochDots` which simply prints a `.` for each epoch, and a full set of metrics every 100 epochs.\n",
+    "\n",
+    "Next include `tf.keras.callbacks.EarlyStopping` to avoid long and unnecessary training times. Note that this callback is set to monitor the `val_binary_crossentropy`, not the `val_loss`. This difference will be important later.\n",
+    "\n",
+    "Use `callbacks.TensorBoard` to generate TensorBoard logs for the training.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def get_callbacks(name):\n",
+    "  return [\n",
+    "    tfdocs.modeling.EpochDots(),\n",
+    "    tf.keras.callbacks.EarlyStopping(monitor='val_binary_crossentropy', patience=200),\n",
+    "    tf.keras.callbacks.TensorBoard(logdir/name),\n",
+    "  ]"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Similarly each model will use the same `Model.compile` and `Model.fit` settings:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "def compile_and_fit(model, name, optimizer=None, max_epochs=10000):\n",
+    "  if optimizer is None:\n",
+    "    optimizer = get_optimizer()\n",
+    "  model.compile(optimizer=optimizer,\n",
+    "                loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),\n",
+    "                metrics=[\n",
+    "                  tf.keras.losses.BinaryCrossentropy(\n",
+    "                      from_logits=True, name='binary_crossentropy'),\n",
+    "                  'accuracy'])\n",
+    "\n",
+    "  model.summary()\n",
+    "\n",
+    "  history = model.fit(\n",
+    "    train_ds,\n",
+    "    steps_per_epoch = STEPS_PER_EPOCH,\n",
+    "    epochs=max_epochs,\n",
+    "    validation_data=validate_ds,\n",
+    "    callbacks=get_callbacks(name),\n",
+    "    verbose=0)\n",
+    "  return history"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Tiny model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Start by training a model:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "tiny_model = tf.keras.Sequential([\n",
+    "    layers.Dense(16, activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dense(1)\n",
+    "])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "size_histories = {}"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "size_histories['Tiny'] = compile_and_fit(tiny_model, 'sizes/Tiny')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Now check how the model did:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plotter = tfdocs.plots.HistoryPlotter(metric = 'binary_crossentropy', smoothing_std=10)\n",
+    "plotter.plot(size_histories)\n",
+    "plt.ylim([0.5, 0.7])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Small model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "To check if you can beat the performance of the small model, progressively train some larger models.\n",
+    "\n",
+    "Try two hidden layers with 16 units each:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "small_model = tf.keras.Sequential([\n",
+    "    # `input_shape` is only required here so that `.summary` works.\n",
+    "    layers.Dense(16, activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dense(16, activation='elu'),\n",
+    "    layers.Dense(1)\n",
+    "])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "size_histories['Small'] = compile_and_fit(small_model, 'sizes/Small')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Medium model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Now try three hidden layers with 64 units each:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "medium_model = tf.keras.Sequential([\n",
+    "    layers.Dense(64, activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dense(64, activation='elu'),\n",
+    "    layers.Dense(64, activation='elu'),\n",
+    "    layers.Dense(1)\n",
+    "])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "And train the model using the same data:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "size_histories['Medium']  = compile_and_fit(medium_model, \"sizes/Medium\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Large model\n",
+    "\n",
+    "As an exercise, you can create an even larger model and check how quickly it begins overfitting. Next, add to this benchmark a network that has much more capacity, far more than the problem would warrant:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "large_model = tf.keras.Sequential([\n",
+    "    layers.Dense(512, activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dense(1)\n",
+    "])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "And, again, train the model using the same data:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "size_histories['large'] = compile_and_fit(large_model, \"sizes/large\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Plot the training and validation losses"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The solid lines show the training loss, and the dashed lines show the validation loss (remember: a lower validation loss indicates a better model)."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "While building a larger model gives it more power, if this power is not constrained somehow it can easily overfit to the training set.\n",
+    "\n",
+    "In this example, typically, only the `\"Tiny\"` model manages to avoid overfitting altogether, and each of the larger models overfit the data more quickly. This becomes so severe for the `\"large\"` model that you need to switch the plot to a log-scale to really figure out what's happening.\n",
+    "\n",
+    "This is apparent if you plot and compare the validation metrics to the training metrics.\n",
+    "\n",
+    "* It's normal for there to be a small difference.\n",
+    "* If both metrics are moving in the same direction, everything is fine.\n",
+    "* If the validation metric begins to stagnate while the training metric continues to improve, you are probably close to overfitting.\n",
+    "* If the validation metric is going in the wrong direction, the model is clearly overfitting."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plotter.plot(size_histories)\n",
+    "a = plt.xscale('log')\n",
+    "plt.xlim([5, max(plt.xlim())])\n",
+    "plt.ylim([0.5, 0.7])\n",
+    "plt.xlabel(\"Epochs [Log Scale]\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Note: All the above training runs used the `callbacks.EarlyStopping` to end the training once it was clear the model was not making progress."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### View in TensorBoard\n",
+    "\n",
+    "These models all wrote TensorBoard logs during training.\n",
+    "\n",
+    "Open an embedded  TensorBoard viewer inside a notebook:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "#docs_infra: no_execute\n",
+    "\n",
+    "# Load the TensorBoard notebook extension\n",
+    "%load_ext tensorboard\n",
+    "\n",
+    "# Open an embedded TensorBoard viewer\n",
+    "%tensorboard --logdir {logdir}/sizes"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "You can view the [results of a previous run](https://tensorboard.dev/experiment/vW7jmmF9TmKmy3rbheMQpw/#scalars&_smoothingWeight=0.97) of this notebook on [TensorBoard.dev](https://tensorboard.dev/).\n",
+    "\n",
+    "TensorBoard.dev is a managed experience for hosting, tracking, and sharing ML experiments with everyone.\n",
+    "\n",
+    "It's also included in an `<iframe>` for convenience:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "display.IFrame(\n",
+    "    src=\"https://tensorboard.dev/experiment/vW7jmmF9TmKmy3rbheMQpw/#scalars&_smoothingWeight=0.97\",\n",
+    "    width=\"100%\", height=\"800px\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "If you want to share TensorBoard results you can upload the logs to [TensorBoard.dev](https://tensorboard.dev/) by copying the following into a code-cell.\n",
+    "\n",
+    "Note: This step requires a Google account.\n",
+    "\n",
+    "```\n",
+    "!tensorboard dev upload --logdir  {logdir}/sizes\n",
+    "```\n",
+    "\n",
+    "Caution: This command does not terminate. It's designed to continuously upload the results of long-running experiments. Once your data is uploaded you need to stop it using the \"interrupt execution\" option in your notebook tool."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Strategies to prevent overfitting"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Before getting into the content of this section copy the training logs from the `\"Tiny\"` model above, to use as a baseline for comparison."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "shutil.rmtree(logdir/'regularizers/Tiny', ignore_errors=True)\n",
+    "shutil.copytree(logdir/'sizes/Tiny', logdir/'regularizers/Tiny')"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "regularizer_histories = {}\n",
+    "regularizer_histories['Tiny'] = size_histories['Tiny']"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Add weight regularization\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "You may be familiar with Occam's Razor principle: given two explanations for something, the explanation most likely to be correct is the \"simplest\" one, the one that makes the least amount of assumptions. This also applies to the models learned by neural networks: given some training data and a network architecture, there are multiple sets of weights values (multiple models) that could explain the data, and simpler models are less likely to overfit than complex ones.\n",
+    "\n",
+    "A \"simple model\" in this context is a model where the distribution of parameter values has less entropy (or a model with fewer parameters altogether, as demonstrated in the section above). Thus a common way to mitigate overfitting is to put constraints on the complexity of a network by forcing its weights only to take small values, which makes the distribution of weight values more \"regular\". This is called \"weight regularization\", and it is done by adding to the loss function of the network a cost associated with having large weights. This cost comes in two flavors:\n",
+    "\n",
+    "* [L1 regularization](https://developers.google.com/machine-learning/glossary/#L1_regularization), where the cost added is proportional to the absolute value of the weights coefficients (i.e. to what is called the \"L1 norm\" of the weights).\n",
+    "\n",
+    "* [L2 regularization](https://developers.google.com/machine-learning/glossary/#L2_regularization), where the cost added is proportional to the square of the value of the weights coefficients (i.e. to what is called the squared \"L2 norm\" of the weights). L2 regularization is also called weight decay in the context of neural networks. Don't let the different name confuse you: weight decay is mathematically the exact same as L2 regularization.\n",
+    "\n",
+    "L1 regularization pushes weights towards exactly zero, encouraging a sparse model. L2 regularization will penalize the weights parameters without making them sparse since the penalty goes to zero for small weights—one reason why L2 is more common.\n",
+    "\n",
+    "In `tf.keras`, weight regularization is added by passing weight regularizer instances to layers as keyword arguments. Add L2 weight regularization:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "l2_model = tf.keras.Sequential([\n",
+    "    layers.Dense(512, activation='elu',\n",
+    "                 kernel_regularizer=regularizers.l2(0.001),\n",
+    "                 input_shape=(FEATURES,)),\n",
+    "    layers.Dense(512, activation='elu',\n",
+    "                 kernel_regularizer=regularizers.l2(0.001)),\n",
+    "    layers.Dense(512, activation='elu',\n",
+    "                 kernel_regularizer=regularizers.l2(0.001)),\n",
+    "    layers.Dense(512, activation='elu',\n",
+    "                 kernel_regularizer=regularizers.l2(0.001)),\n",
+    "    layers.Dense(1)\n",
+    "])\n",
+    "\n",
+    "regularizer_histories['l2'] = compile_and_fit(l2_model, \"regularizers/l2\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "`l2(0.001)` means that every coefficient in the weight matrix of the layer will add `0.001 * weight_coefficient_value**2` to the total **loss** of the network.\n",
+    "\n",
+    "That is why we're monitoring the `binary_crossentropy` directly. Because it doesn't have this regularization component mixed in.\n",
+    "\n",
+    "So, that same `\"Large\"` model with an `L2` regularization penalty performs much better:\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plotter.plot(regularizer_histories)\n",
+    "plt.ylim([0.5, 0.7])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "As demonstrated in the diagram above, the `\"L2\"` regularized model is now much more competitive with the `\"Tiny\"` model. This `\"L2\"` model is also much more resistant to overfitting than the `\"Large\"` model it was based on despite having the same number of parameters."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "#### More info\n",
+    "\n",
+    "There are two important things to note about this sort of regularization:\n",
+    "\n",
+    "1. If you are writing your own training loop, then you need to be sure to ask the model for its regularization losses."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "result = l2_model(features)\n",
+    "regularization_loss=tf.add_n(l2_model.losses)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "2. This implementation works by adding the weight penalties to the model's loss, and then applying a standard optimization procedure after that.\n",
+    "\n",
+    "There is a second approach that instead only runs the optimizer on the raw loss, and then while applying the calculated step the optimizer also applies some weight decay. This \"decoupled weight decay\" is used in optimizers like `tf.keras.optimizers.Ftrl` and `tfa.optimizers.AdamW`."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Add dropout\n",
+    "\n",
+    "Dropout is one of the most effective and most commonly used regularization techniques for neural networks, developed by Hinton and his students at the University of Toronto.\n",
+    "\n",
+    "The intuitive explanation for dropout is that because individual nodes in the network cannot rely on the output of the others, each node must output features that are useful on their own.\n",
+    "\n",
+    "Dropout, applied to a layer, consists of randomly \"dropping out\" (i.e. set to zero) a number of output features of the layer during training. For example, a given layer would normally have returned a vector `[0.2, 0.5, 1.3, 0.8, 1.1]` for a given input sample during training; after applying dropout, this vector will have a few zero entries distributed at random, e.g. `[0, 0.5, 1.3, 0, 1.1]`.\n",
+    "\n",
+    "The \"dropout rate\" is the fraction of the features that are being zeroed-out; it is usually set between 0.2 and 0.5. At test time, no units are dropped out, and instead the layer's output values are scaled down by a factor equal to the dropout rate, so as to balance for the fact that more units are active than at training time.\n",
+    "\n",
+    "In Keras, you can introduce dropout in a network via the `tf.keras.layers.Dropout` layer, which gets applied to the output of layer right before.\n",
+    "\n",
+    "Add two dropout layers to your network to check how well they do at reducing overfitting:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "dropout_model = tf.keras.Sequential([\n",
+    "    layers.Dense(512, activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(1)\n",
+    "])\n",
+    "\n",
+    "regularizer_histories['dropout'] = compile_and_fit(dropout_model, \"regularizers/dropout\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plotter.plot(regularizer_histories)\n",
+    "plt.ylim([0.5, 0.7])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "It's clear from this plot that both of these regularization approaches improve the behavior of the `\"Large\"` model. But this still doesn't beat even the `\"Tiny\"` baseline.\n",
+    "\n",
+    "Next try them both, together, and see if that does better."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Combined L2 + dropout"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "combined_model = tf.keras.Sequential([\n",
+    "    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001),\n",
+    "                 activation='elu', input_shape=(FEATURES,)),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001),\n",
+    "                 activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001),\n",
+    "                 activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(512, kernel_regularizer=regularizers.l2(0.0001),\n",
+    "                 activation='elu'),\n",
+    "    layers.Dropout(0.5),\n",
+    "    layers.Dense(1)\n",
+    "])\n",
+    "\n",
+    "regularizer_histories['combined'] = compile_and_fit(combined_model, \"regularizers/combined\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "plotter.plot(regularizer_histories)\n",
+    "plt.ylim([0.5, 0.7])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "This model with the `\"Combined\"` regularization is obviously the best one so far."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### View in TensorBoard\n",
+    "\n",
+    "These models also recorded TensorBoard logs.\n",
+    "\n",
+    "To open an embedded  tensorboard viewer inside a notebook, copy the following into a code-cell:\n",
+    "\n",
+    "```\n",
+    "%tensorboard --logdir {logdir}/regularizers\n",
+    "```"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Takeaway"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "To recap, here are the most common ways to prevent overfitting in neural networks:\n",
+    "\n",
+    "* Get more training data.\n",
+    "* Reduce the capacity of the network.\n",
+    "* Add weight regularization.\n",
+    "* Add dropout.\n",
+    "\n",
+    "Two important approaches not covered in this guide are:\n",
+    "\n",
+    "* Data augmentation\n",
+    "* Batch normalization (`tf.keras.layers.BatchNormalization`)\n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# DO IT YOURSELF 2:\n",
+    "\n",
+    "Modify any example above with a batch normalization layer. Prepare it as a seperate pyton script. Run it in Carbon"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Save and load models"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Model progress can be saved during and after training. This means a model can resume where it left off and avoid long training times. Saving also means you can share your model and others can recreate your work. When publishing research models and techniques, most machine learning practitioners share:\n",
+    "\n",
+    "* code to create the model, and\n",
+    "* the trained weights, or parameters, for the model\n",
+    "\n",
+    "Sharing this data helps others understand how the model works and try it themselves with new data.\n",
+    "\n",
+    "Caution: TensorFlow models are code and it is important to be careful with untrusted code. See [Using TensorFlow Securely](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for details.\n",
+    "\n",
+    "### Options\n",
+    "\n",
+    "There are different ways to save TensorFlow models depending on the API you're using. This guide uses [tf.keras](https://www.tensorflow.org/guide/keras)—a high-level API to build and train models in TensorFlow. For other approaches, refer to the [Using the SavedModel format guide](../../guide/saved_model.ipynb) and the [Save and load Keras models guide](https://www.tensorflow.org/guide/keras/save_and_serialize)."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Setup\n",
+    "\n",
+    "### Installs and imports"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Install and import TensorFlow and dependencies:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "!pip install pyyaml h5py  # Required to save models in HDF5 format"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "\n",
+    "import tensorflow as tf\n",
+    "from tensorflow import keras\n",
+    "\n",
+    "print(tf.version.VERSION)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Get an example dataset\n",
+    "\n",
+    "To demonstrate how to save and load weights, you'll use the [MNIST dataset](http://yann.lecun.com/exdb/mnist/). To speed up these runs, use the first 1000 examples:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "(train_images, train_labels), (test_images, test_labels) = tf.keras.datasets.mnist.load_data()\n",
+    "\n",
+    "train_labels = train_labels[:1000]\n",
+    "test_labels = test_labels[:1000]\n",
+    "\n",
+    "train_images = train_images[:1000].reshape(-1, 28 * 28) / 255.0\n",
+    "test_images = test_images[:1000].reshape(-1, 28 * 28) / 255.0"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Define a model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Start by building a simple sequential model:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Define a simple sequential model\n",
+    "def create_model():\n",
+    "  model = tf.keras.Sequential([\n",
+    "    keras.layers.Dense(512, activation='relu', input_shape=(784,)),\n",
+    "    keras.layers.Dropout(0.2),\n",
+    "    keras.layers.Dense(10)\n",
+    "  ])\n",
+    "\n",
+    "  model.compile(optimizer='adam',\n",
+    "                loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+    "                metrics=[tf.keras.metrics.SparseCategoricalAccuracy()])\n",
+    "\n",
+    "  return model\n",
+    "\n",
+    "# Create a basic model instance\n",
+    "model = create_model()\n",
+    "\n",
+    "# Display the model's architecture\n",
+    "model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Save checkpoints during training"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "You can use a trained model without having to retrain it, or pick-up training where you left off in case the training process was interrupted. The `tf.keras.callbacks.ModelCheckpoint` callback allows you to continually save the model both *during* and at *the end* of training.\n",
+    "\n",
+    "### Checkpoint callback usage\n",
+    "\n",
+    "Create a `tf.keras.callbacks.ModelCheckpoint` callback that saves weights only during training:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "checkpoint_path = \"training_1/cp.ckpt\"\n",
+    "checkpoint_dir = os.path.dirname(checkpoint_path)\n",
+    "\n",
+    "# Create a callback that saves the model's weights\n",
+    "cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,\n",
+    "                                                 save_weights_only=True,\n",
+    "                                                 verbose=1)\n",
+    "\n",
+    "# Train the model with the new callback\n",
+    "model.fit(train_images, \n",
+    "          train_labels,  \n",
+    "          epochs=10,\n",
+    "          validation_data=(test_images, test_labels),\n",
+    "          callbacks=[cp_callback])  # Pass callback to training\n",
+    "\n",
+    "# This may generate warnings related to saving the state of the optimizer.\n",
+    "# These warnings (and similar warnings throughout this notebook)\n",
+    "# are in place to discourage outdated usage, and can be ignored."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "This creates a single collection of TensorFlow checkpoint files that are updated at the end of each epoch:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "os.listdir(checkpoint_dir)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "As long as two models share the same architecture you can share weights between them. So, when restoring a model from weights-only, create a model with the same architecture as the original model and then set its weights. \n",
+    "\n",
+    "Now rebuild a fresh, untrained model and evaluate it on the test set. An untrained model will perform at chance levels (~10% accuracy):"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Create a basic model instance\n",
+    "model = create_model()\n",
+    "\n",
+    "# Evaluate the model\n",
+    "loss, acc = model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print(\"Untrained model, accuracy: {:5.2f}%\".format(100 * acc))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Then load the weights from the checkpoint and re-evaluate:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Loads the weights\n",
+    "model.load_weights(checkpoint_path)\n",
+    "\n",
+    "# Re-evaluate the model\n",
+    "loss, acc = model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print(\"Restored model, accuracy: {:5.2f}%\".format(100 * acc))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Checkpoint callback options\n",
+    "\n",
+    "The callback provides several options to provide unique names for checkpoints and adjust the checkpointing frequency.\n",
+    "\n",
+    "Train a new model, and save uniquely named checkpoints once every five epochs:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Include the epoch in the file name (uses `str.format`)\n",
+    "checkpoint_path = \"training_2/cp-{epoch:04d}.ckpt\"\n",
+    "checkpoint_dir = os.path.dirname(checkpoint_path)\n",
+    "\n",
+    "batch_size = 32\n",
+    "\n",
+    "# Create a callback that saves the model's weights every 5 epochs\n",
+    "cp_callback = tf.keras.callbacks.ModelCheckpoint(\n",
+    "    filepath=checkpoint_path, \n",
+    "    verbose=1, \n",
+    "    save_weights_only=True,\n",
+    "    save_freq=5*batch_size)\n",
+    "\n",
+    "# Create a new model instance\n",
+    "model = create_model()\n",
+    "\n",
+    "# Save the weights using the `checkpoint_path` format\n",
+    "model.save_weights(checkpoint_path.format(epoch=0))\n",
+    "\n",
+    "# Train the model with the new callback\n",
+    "model.fit(train_images, \n",
+    "          train_labels,\n",
+    "          epochs=50, \n",
+    "          batch_size=batch_size, \n",
+    "          callbacks=[cp_callback],\n",
+    "          validation_data=(test_images, test_labels),\n",
+    "          verbose=0)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Now, review the resulting checkpoints and choose the latest one:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "os.listdir(checkpoint_dir)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "latest = tf.train.latest_checkpoint(checkpoint_dir)\n",
+    "latest"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Note: The default TensorFlow format only saves the 5 most recent checkpoints.\n",
+    "\n",
+    "To test, reset the model, and load the latest checkpoint:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Create a new model instance\n",
+    "model = create_model()\n",
+    "\n",
+    "# Load the previously saved weights\n",
+    "model.load_weights(latest)\n",
+    "\n",
+    "# Re-evaluate the model\n",
+    "loss, acc = model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print(\"Restored model, accuracy: {:5.2f}%\".format(100 * acc))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## What are these files?"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The above code stores the weights to a collection of [checkpoint](../../guide/checkpoint.ipynb)-formatted files that contain only the trained weights in a binary format. Checkpoints contain:\n",
+    "* One or more shards that contain your model's weights.\n",
+    "* An index file that indicates which weights are stored in which shard.\n",
+    "\n",
+    "If you are training a model on a single machine, you'll have one shard with the suffix: `.data-00000-of-00001`"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Manually save weights\n",
+    "\n",
+    "To save weights manually, use `tf.keras.Model.save_weights`. By default, `tf.keras`—and the `Model.save_weights` method in particular—uses the TensorFlow [Checkpoint](../../guide/checkpoint.ipynb) format with a `.ckpt` extension. To save in the HDF5 format with a `.h5` extension, refer to the [Save and load models](https://www.tensorflow.org/guide/keras/save_and_serialize) guide."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Save the weights\n",
+    "model.save_weights('./checkpoints/my_checkpoint')\n",
+    "\n",
+    "# Create a new model instance\n",
+    "model = create_model()\n",
+    "\n",
+    "# Restore the weights\n",
+    "model.load_weights('./checkpoints/my_checkpoint')\n",
+    "\n",
+    "# Evaluate the model\n",
+    "loss, acc = model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print(\"Restored model, accuracy: {:5.2f}%\".format(100 * acc))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Save the entire model\n",
+    "\n",
+    "Call `tf.keras.Model.save` to save a model's architecture, weights, and training configuration in a single `file/folder`. This allows you to export a model so it can be used without access to the original Python code*. Since the optimizer-state is recovered, you can resume training from exactly where you left off.\n",
+    "\n",
+    "An entire model can be saved in two different file formats (`SavedModel` and `HDF5`). The TensorFlow `SavedModel` format is the default file format in TF2.x. However, models can be saved in `HDF5` format. More details on saving entire models in the two file formats is described below.\n",
+    "\n",
+    "Saving a fully-functional model is very useful—you can load them in TensorFlow.js ([Saved Model](https://www.tensorflow.org/js/tutorials/conversion/import_saved_model), [HDF5](https://www.tensorflow.org/js/tutorials/conversion/import_keras)) and then train and run them in web browsers, or convert them to run on mobile devices using TensorFlow Lite ([Saved Model](https://www.tensorflow.org/lite/models/convert/#convert_a_savedmodel_recommended_), [HDF5](https://www.tensorflow.org/lite/models/convert/#convert_a_keras_model_))\n",
+    "\n",
+    "\\*Custom objects (for example, subclassed models or layers) require special attention when saving and loading. Refer to the **Saving custom objects** section below."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### SavedModel format"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The SavedModel format is another way to serialize models. Models saved in this format can be restored using `tf.keras.models.load_model` and are compatible with TensorFlow Serving. The [SavedModel guide](../../guide/saved_model.ipynb) goes into detail about how to `serve/inspect` the SavedModel. The section below illustrates the steps to save and restore the model."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Create and train a new model instance.\n",
+    "model = create_model()\n",
+    "model.fit(train_images, train_labels, epochs=5)\n",
+    "\n",
+    "# Save the entire model as a SavedModel.\n",
+    "!mkdir -p saved_model\n",
+    "model.save('saved_model/my_model') "
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The SavedModel format is a directory containing a protobuf binary and a TensorFlow checkpoint. Inspect the saved model directory:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# my_model directory\n",
+    "!ls saved_model\n",
+    "\n",
+    "# Contains an assets folder, saved_model.pb, and variables folder.\n",
+    "!ls saved_model/my_model"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Reload a fresh Keras model from the saved model:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "new_model = tf.keras.models.load_model('saved_model/my_model')\n",
+    "\n",
+    "# Check its architecture\n",
+    "new_model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "The restored model is compiled with the same arguments as the original model. Try running evaluate and predict with the loaded model:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Evaluate the restored model\n",
+    "loss, acc = new_model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print('Restored model, accuracy: {:5.2f}%'.format(100 * acc))\n",
+    "\n",
+    "print(new_model.predict(test_images).shape)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### HDF5 format\n",
+    "\n",
+    "Keras provides a basic save format using the [HDF5](https://en.wikipedia.org/wiki/Hierarchical_Data_Format) standard. "
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Create and train a new model instance.\n",
+    "model = create_model()\n",
+    "model.fit(train_images, train_labels, epochs=5)\n",
+    "\n",
+    "# Save the entire model to a HDF5 file.\n",
+    "# The '.h5' extension indicates that the model should be saved to HDF5.\n",
+    "model.save('my_model.h5') "
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Now, recreate the model from that file:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "# Recreate the exact same model, including its weights and the optimizer\n",
+    "new_model = tf.keras.models.load_model('my_model.h5')\n",
+    "\n",
+    "# Show the model architecture\n",
+    "new_model.summary()"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Check its accuracy:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "loss, acc = new_model.evaluate(test_images, test_labels, verbose=2)\n",
+    "print('Restored model, accuracy: {:5.2f}%'.format(100 * acc))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Keras saves models by inspecting their architectures. This technique saves everything:\n",
+    "\n",
+    "* The weight values\n",
+    "* The model's architecture\n",
+    "* The model's training configuration (what you pass to the `.compile()` method)\n",
+    "* The optimizer and its state, if any (this enables you to restart training where you left off)\n",
+    "\n",
+    "Keras is not able to save the `v1.x` optimizers (from `tf.compat.v1.train`) since they aren't compatible with checkpoints. For v1.x optimizers, you need to re-compile the model after loading—losing the state of the optimizer.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Saving custom objects\n",
+    "\n",
+    "If you are using the SavedModel format, you can skip this section. The key difference between HDF5 and SavedModel is that HDF5 uses object configs to save the model architecture, while SavedModel saves the execution graph. Thus, SavedModels are able to save custom objects like subclassed models and custom layers without requiring the original code.\n",
+    "\n",
+    "To save custom objects to HDF5, you must do the following:\n",
+    "\n",
+    "1. Define a `get_config` method in your object, and optionally a `from_config` classmethod.\n",
+    "  * `get_config(self)` returns a JSON-serializable dictionary of parameters needed to recreate the object.\n",
+    "  * `from_config(cls, config)` uses the returned config from `get_config` to create a new object. By default, this function will use the config as initialization kwargs (`return cls(**config)`).\n",
+    "2. Pass the object to the `custom_objects` argument when loading the model. The argument must be a dictionary mapping the string class name to the Python class. E.g. `tf.keras.models.load_model(path, custom_objects={'CustomLayer': CustomLayer})`\n",
+    "\n",
+    "Refer to the [Writing layers and models from scratch](https://www.tensorflow.org/guide/keras/custom_layers_and_models) tutorial for examples of custom objects and `get_config`.\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "ltPJCG6pAUoc"
+   },
+   "source": [
+    "# TFP Probabilistic Layers: Regression\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "WRVR-tGTR31S"
+   },
+   "source": [
+    "In this example we show how to fit regression models using TFP's \"probabilistic layers.\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "uiR4-VOt9NFX"
+   },
+   "source": [
+    "### Dependencies & Prerequisites\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "colab": {},
+    "colab_type": "code",
+    "id": "kZ0MdF1j8WJf"
+   },
+   "outputs": [],
+   "source": [
+    "from pprint import pprint\n",
+    "import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "import seaborn as sns\n",
+    "\n",
+    "import tensorflow.compat.v2 as tf\n",
+    "tf.enable_v2_behavior()\n",
+    "\n",
+    "import tensorflow_probability as tfp\n",
+    "\n",
+    "sns.reset_defaults()\n",
+    "#sns.set_style('whitegrid')\n",
+    "#sns.set_context('talk')\n",
+    "sns.set_context(context='talk',font_scale=0.7)\n",
+    "\n",
+    "%matplotlib inline\n",
+    "\n",
+    "tfd = tfp.distributions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "7nnwjUdVoWN2"
+   },
+   "source": [
+    "### Make things Fast!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "2CK9RaDcoYPG"
+   },
+   "source": [
+    "Before we dive in, let's make sure we're using a GPU for this demo.  \n",
+    "\n",
+    "To do this, select \"Runtime\" -> \"Change runtime type\" -> \"Hardware accelerator\" -> \"GPU\".\n",
+    "\n",
+    "The following snippet will verify that we have access to a GPU."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "colab": {
+     "height": 35
+    },
+    "colab_type": "code",
+    "id": "qP_4Xr8vpA42",
+    "outputId": "1dfdce37-0963-49fc-a044-f9c11b507309"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "WARNING: GPU device not found.\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2022-10-20 11:24:33.627674: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA\n",
+      "To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.\n",
+      "2022-10-20 11:24:33.710433: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:980] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero\n",
+      "2022-10-20 11:24:33.710645: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710699: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcublas.so.11'; dlerror: libcublas.so.11: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710738: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcublasLt.so.11'; dlerror: libcublasLt.so.11: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710777: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcufft.so.10'; dlerror: libcufft.so.10: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710817: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcurand.so.10'; dlerror: libcurand.so.10: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710856: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcusolver.so.11'; dlerror: libcusolver.so.11: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710894: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcusparse.so.11'; dlerror: libcusparse.so.11: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710933: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudnn.so.8'; dlerror: libcudnn.so.8: cannot open shared object file: No such file or directory\n",
+      "2022-10-20 11:24:33.710941: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1934] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.\n",
+      "Skipping registering GPU devices...\n"
+     ]
+    }
+   ],
+   "source": [
+    "if tf.test.gpu_device_name() != '/device:GPU:0':\n",
+    "  print('WARNING: GPU device not found.')\n",
+    "else:\n",
+    "  print('SUCCESS: Found GPU: {}'.format(tf.test.gpu_device_name()))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "FJRBc_S0ppfE"
+   },
+   "source": [
+    "Note: if for some reason you cannot access a GPU, this colab will still work. (Training will just take longer.)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "xuqxMmryiduM"
+   },
+   "source": [
+    "## Motivation"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "RtBLNF-tin2L"
+   },
+   "source": [
+    "Wouldn't it be great if we could use TFP to specify a probabilistic model then simply minimize the negative log-likelihood, i.e.,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "colab": {},
+    "colab_type": "code",
+    "id": "3PFfNeJzifo7"
+   },
+   "outputs": [],
+   "source": [
+    "negloglik = lambda y, rv_y: -rv_y.log_prob(y)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "cN4IP8n_jIvT"
+   },
+   "source": [
+    "Well not only is it possible, but this colab shows how! (In context of linear regression problems.)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "cellView": "form",
+    "colab": {},
+    "colab_type": "code",
+    "id": "5zCEYpzu7bDX"
+   },
+   "outputs": [],
+   "source": [
+    "#@title Synthesize dataset.\n",
+    "w0 = 0.125\n",
+    "b0 = 5.\n",
+    "x_range = [-20, 60]\n",
+    "\n",
+    "def load_dataset(n=150, n_tst=150):\n",
+    "  np.random.seed(43)\n",
+    "  def s(x):\n",
+    "    g = (x - x_range[0]) / (x_range[1] - x_range[0])\n",
+    "    return 3 * (0.25 + g**2.)\n",
+    "  x = (x_range[1] - x_range[0]) * np.random.rand(n) + x_range[0]\n",
+    "  eps = np.random.randn(n) * s(x)\n",
+    "  y = (w0 * x * (1. + np.sin(x)) + b0) + eps\n",
+    "  x = x[..., np.newaxis]\n",
+    "  x_tst = np.linspace(*x_range, num=n_tst).astype(np.float32)\n",
+    "  x_tst = x_tst[..., np.newaxis]\n",
+    "  return y, x, x_tst\n",
+    "\n",
+    "y, x, x_tst = load_dataset()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "N8Shtn_e99XC"
+   },
+   "source": [
+    "### Case 1: No Uncertainty"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "colab": {
+     "height": 52
+    },
+    "colab_type": "code",
+    "id": "RxKJ_RPI0K4N",
+    "outputId": "24684193-e6b1-4139-e0d7-fe4d502e245c"
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2022-10-20 11:25:08.939794: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:980] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero\n",
+      "2022-10-20 11:25:08.940013: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1934] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.\n",
+      "Skipping registering GPU devices...\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.13709387\n",
+      "5.127737\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Build model.\n",
+    "model = tf.keras.Sequential([\n",
+    "  tf.keras.layers.Dense(1),\n",
+    "  tfp.layers.DistributionLambda(lambda t: tfd.Normal(loc=t, scale=1)),\n",
+    "])\n",
+    "\n",
+    "# Do inference.\n",
+    "model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)\n",
+    "model.fit(x, y, epochs=1000, verbose=False);\n",
+    "\n",
+    "# Profit.\n",
+    "[print(np.squeeze(w.numpy())) for w in model.weights];\n",
+    "yhat = model(x_tst)\n",
+    "assert isinstance(yhat, tfd.Distribution)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "cellView": "form",
+    "colab": {
+     "height": 147
+    },
+    "colab_type": "code",
+    "id": "1AE9ElaKI6Er",
+    "outputId": "5cb67b1e-5431-40ef-c010-19989702cbea"
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": "<Figure size 600x150 with 1 Axes>",
+      "image/png": "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\n"
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "#@title Figure 1: No uncertainty.\n",
+    "w = np.squeeze(model.layers[-2].kernel.numpy())\n",
+    "b = np.squeeze(model.layers[-2].bias.numpy())\n",
+    "\n",
+    "plt.figure(figsize=[6, 1.5])  # inches\n",
+    "#plt.figure(figsize=[8, 5])  # inches\n",
+    "plt.plot(x, y, 'b.', label='observed');\n",
+    "plt.plot(x_tst, yhat.mean(),'r', label='mean', linewidth=4);\n",
+    "plt.ylim(-0.,17);\n",
+    "plt.yticks(np.linspace(0, 15, 4)[1:]);\n",
+    "plt.xticks(np.linspace(*x_range, num=9));\n",
+    "\n",
+    "ax=plt.gca();\n",
+    "ax.xaxis.set_ticks_position('bottom')\n",
+    "ax.yaxis.set_ticks_position('left')\n",
+    "ax.spines['left'].set_position(('data', 0))\n",
+    "ax.spines['top'].set_visible(False)\n",
+    "ax.spines['right'].set_visible(False)\n",
+    "#ax.spines['left'].set_smart_bounds(True)\n",
+    "#ax.spines['bottom'].set_smart_bounds(True)\n",
+    "plt.legend(loc='center left', fancybox=True, framealpha=0., bbox_to_anchor=(1.05, 0.5))\n",
+    "\n",
+    "plt.savefig('/tmp/fig1.png', bbox_inches='tight', dpi=300)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "91kwRqs4O5Yv"
+   },
+   "source": [
+    "### Case 2: Aleatoric Uncertainty"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "colab": {
+     "height": 52
+    },
+    "colab_type": "code",
+    "id": "TLZ97_V4PP-f",
+    "outputId": "7a263b5d-c9de-4865-d374-fc9272738962"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0.176 0.175]\n",
+      "[3.092 1.997]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Build model.\n",
+    "model = tf.keras.Sequential([\n",
+    "  tf.keras.layers.Dense(1 + 1),\n",
+    "  tfp.layers.DistributionLambda(\n",
+    "      lambda t: tfd.Normal(loc=t[..., :1],\n",
+    "                           scale=1e-3 + tf.math.softplus(0.05 * t[...,1:]))),\n",
+    "])\n",
+    "\n",
+    "# Do inference.\n",
+    "model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)\n",
+    "model.fit(x, y, epochs=1000, verbose=False);\n",
+    "\n",
+    "# Profit.\n",
+    "[print(np.squeeze(w.numpy())) for w in model.weights];\n",
+    "yhat = model(x_tst)\n",
+    "assert isinstance(yhat, tfd.Distribution)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "cellView": "form",
+    "colab": {
+     "height": 147
+    },
+    "colab_type": "code",
+    "id": "JSSWw2-FPCiG",
+    "outputId": "db8baddb-ae41-415b-a71e-545a60f4a546"
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": "<Figure size 600x150 with 1 Axes>",
+      "image/png": "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\n"
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "#@title Figure 2: Aleatoric Uncertainty\n",
+    "plt.figure(figsize=[6, 1.5])  # inches\n",
+    "plt.plot(x, y, 'b.', label='observed');\n",
+    "\n",
+    "m = yhat.mean()\n",
+    "s = yhat.stddev()\n",
+    "\n",
+    "plt.plot(x_tst, m, 'r', linewidth=4, label='mean');\n",
+    "plt.plot(x_tst, m + 2 * s, 'g', linewidth=2, label=r'mean + 2 stddev');\n",
+    "plt.plot(x_tst, m - 2 * s, 'g', linewidth=2, label=r'mean - 2 stddev');\n",
+    "\n",
+    "plt.ylim(-0.,17);\n",
+    "plt.yticks(np.linspace(0, 15, 4)[1:]);\n",
+    "plt.xticks(np.linspace(*x_range, num=9));\n",
+    "\n",
+    "ax=plt.gca();\n",
+    "ax.xaxis.set_ticks_position('bottom')\n",
+    "ax.yaxis.set_ticks_position('left')\n",
+    "ax.spines['left'].set_position(('data', 0))\n",
+    "ax.spines['top'].set_visible(False)\n",
+    "ax.spines['right'].set_visible(False)\n",
+    "#ax.spines['left'].set_smart_bounds(True)\n",
+    "#ax.spines['bottom'].set_smart_bounds(True)\n",
+    "plt.legend(loc='center left', fancybox=True, framealpha=0., bbox_to_anchor=(1.05, 0.5))\n",
+    "\n",
+    "plt.savefig('/tmp/fig2.png', bbox_inches='tight', dpi=300)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "xEvTd7ZJYvDx"
+   },
+   "source": [
+    "### Case 3: Epistemic Uncertainty"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "both",
+    "colab": {},
+    "colab_type": "code",
+    "id": "VwzbWw3_CQ2z"
+   },
+   "outputs": [],
+   "source": [
+    "# Specify the surrogate posterior over `keras.layers.Dense` `kernel` and `bias`.\n",
+    "def posterior_mean_field(kernel_size, bias_size=0, dtype=None):\n",
+    "  n = kernel_size + bias_size\n",
+    "  c = np.log(np.expm1(1.))\n",
+    "  return tf.keras.Sequential([\n",
+    "      tfp.layers.VariableLayer(2 * n, dtype=dtype),\n",
+    "      tfp.layers.DistributionLambda(lambda t: tfd.Independent(\n",
+    "          tfd.Normal(loc=t[..., :n],\n",
+    "                     scale=1e-5 + tf.nn.softplus(c + t[..., n:])),\n",
+    "          reinterpreted_batch_ndims=1)),\n",
+    "  ])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "both",
+    "colab": {},
+    "colab_type": "code",
+    "id": "aAQhyK9Y_lm1"
+   },
+   "outputs": [],
+   "source": [
+    "# Specify the prior over `keras.layers.Dense` `kernel` and `bias`.\n",
+    "def prior_trainable(kernel_size, bias_size=0, dtype=None):\n",
+    "  n = kernel_size + bias_size\n",
+    "  return tf.keras.Sequential([\n",
+    "      tfp.layers.VariableLayer(n, dtype=dtype),\n",
+    "      tfp.layers.DistributionLambda(lambda t: tfd.Independent(\n",
+    "          tfd.Normal(loc=t, scale=1),\n",
+    "          reinterpreted_batch_ndims=1)),\n",
+    "  ])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "height": 52
+    },
+    "colab_type": "code",
+    "id": "XI7ZCFzSnrWN",
+    "outputId": "d73eed57-94c1-466f-841b-421056c3ec73"
+   },
+   "outputs": [],
+   "source": [
+    "# Build model.\n",
+    "model = tf.keras.Sequential([\n",
+    "  tfp.layers.DenseVariational(1, posterior_mean_field, prior_trainable, kl_weight=1/x.shape[0]),\n",
+    "  tfp.layers.DistributionLambda(lambda t: tfd.Normal(loc=t, scale=1)),\n",
+    "])\n",
+    "\n",
+    "# Do inference.\n",
+    "model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)\n",
+    "model.fit(x, y, epochs=1000, verbose=False);\n",
+    "\n",
+    "# Profit.\n",
+    "[print(np.squeeze(w.numpy())) for w in model.weights];\n",
+    "yhat = model(x_tst)\n",
+    "assert isinstance(yhat, tfd.Distribution)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "form",
+    "colab": {
+     "height": 147
+    },
+    "colab_type": "code",
+    "id": "Y4Bypix9UvTO",
+    "outputId": "5dbedd20-a914-4a61-beb3-2de1b266e137"
+   },
+   "outputs": [],
+   "source": [
+    "#@title Figure 3: Epistemic Uncertainty\n",
+    "plt.figure(figsize=[6, 1.5])  # inches\n",
+    "plt.clf();\n",
+    "plt.plot(x, y, 'b.', label='observed');\n",
+    "\n",
+    "yhats = [model(x_tst) for _ in range(100)]\n",
+    "avgm = np.zeros_like(x_tst[..., 0])\n",
+    "for i, yhat in enumerate(yhats):\n",
+    "  m = np.squeeze(yhat.mean())\n",
+    "  s = np.squeeze(yhat.stddev())\n",
+    "  if i < 25:\n",
+    "    plt.plot(x_tst, m, 'r', label='ensemble means' if i == 0 else None, linewidth=0.5)\n",
+    "  avgm += m\n",
+    "plt.plot(x_tst, avgm/len(yhats), 'r', label='overall mean', linewidth=4)\n",
+    "\n",
+    "plt.ylim(-0.,17);\n",
+    "plt.yticks(np.linspace(0, 15, 4)[1:]);\n",
+    "plt.xticks(np.linspace(*x_range, num=9));\n",
+    "\n",
+    "ax=plt.gca();\n",
+    "ax.xaxis.set_ticks_position('bottom')\n",
+    "ax.yaxis.set_ticks_position('left')\n",
+    "ax.spines['left'].set_position(('data', 0))\n",
+    "ax.spines['top'].set_visible(False)\n",
+    "ax.spines['right'].set_visible(False)\n",
+    "#ax.spines['left'].set_smart_bounds(True)\n",
+    "#ax.spines['bottom'].set_smart_bounds(True)\n",
+    "plt.legend(loc='center left', fancybox=True, framealpha=0., bbox_to_anchor=(1.05, 0.5))\n",
+    "\n",
+    "plt.savefig('/tmp/fig3.png', bbox_inches='tight', dpi=300)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "H_3At7s2fel0"
+   },
+   "source": [
+    "### Case 4: Aleatoric & Epistemic Uncertainty"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "height": 69
+    },
+    "colab_type": "code",
+    "id": "GcRC3uwcft6l",
+    "outputId": "157a96b8-7ffe-44fa-ba96-1cbd0b5abe52"
+   },
+   "outputs": [],
+   "source": [
+    "# Build model.\n",
+    "model = tf.keras.Sequential([\n",
+    "  tfp.layers.DenseVariational(1 + 1, posterior_mean_field, prior_trainable, kl_weight=1/x.shape[0]),\n",
+    "  tfp.layers.DistributionLambda(\n",
+    "      lambda t: tfd.Normal(loc=t[..., :1],\n",
+    "                           scale=1e-3 + tf.math.softplus(0.01 * t[...,1:]))),\n",
+    "])\n",
+    "\n",
+    "# Do inference.\n",
+    "model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)\n",
+    "model.fit(x, y, epochs=1000, verbose=False);\n",
+    "\n",
+    "# Profit.\n",
+    "[print(np.squeeze(w.numpy())) for w in model.weights];\n",
+    "yhat = model(x_tst)\n",
+    "assert isinstance(yhat, tfd.Distribution)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "form",
+    "colab": {
+     "height": 147
+    },
+    "colab_type": "code",
+    "id": "cWhfYYzcgFak",
+    "outputId": "40b71fb8-7913-4f52-dad6-180af9df3c54"
+   },
+   "outputs": [],
+   "source": [
+    "#@title Figure 4: Both Aleatoric & Epistemic Uncertainty\n",
+    "plt.figure(figsize=[6, 1.5])  # inches\n",
+    "plt.plot(x, y, 'b.', label='observed');\n",
+    "\n",
+    "yhats = [model(x_tst) for _ in range(100)]\n",
+    "avgm = np.zeros_like(x_tst[..., 0])\n",
+    "for i, yhat in enumerate(yhats):\n",
+    "  m = np.squeeze(yhat.mean())\n",
+    "  s = np.squeeze(yhat.stddev())\n",
+    "  if i < 15:\n",
+    "    plt.plot(x_tst, m, 'r', label='ensemble means' if i == 0 else None, linewidth=1.)\n",
+    "    plt.plot(x_tst, m + 2 * s, 'g', linewidth=0.5, label='ensemble means + 2 ensemble stdev' if i == 0 else None);\n",
+    "    plt.plot(x_tst, m - 2 * s, 'g', linewidth=0.5, label='ensemble means - 2 ensemble stdev' if i == 0 else None);\n",
+    "  avgm += m\n",
+    "plt.plot(x_tst, avgm/len(yhats), 'r', label='overall mean', linewidth=4)\n",
+    "\n",
+    "plt.ylim(-0.,17);\n",
+    "plt.yticks(np.linspace(0, 15, 4)[1:]);\n",
+    "plt.xticks(np.linspace(*x_range, num=9));\n",
+    "\n",
+    "ax=plt.gca();\n",
+    "ax.xaxis.set_ticks_position('bottom')\n",
+    "ax.yaxis.set_ticks_position('left')\n",
+    "ax.spines['left'].set_position(('data', 0))\n",
+    "ax.spines['top'].set_visible(False)\n",
+    "ax.spines['right'].set_visible(False)\n",
+    "#ax.spines['left'].set_smart_bounds(True)\n",
+    "#ax.spines['bottom'].set_smart_bounds(True)\n",
+    "plt.legend(loc='center left', fancybox=True, framealpha=0., bbox_to_anchor=(1.05, 0.5))\n",
+    "\n",
+    "plt.savefig('/tmp/fig4.png', bbox_inches='tight', dpi=300)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "colab_type": "text",
+    "id": "qmgmcmMKzOH7"
+   },
+   "source": [
+    "### Case 5: Functional Uncertainty"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "form",
+    "colab": {},
+    "colab_type": "code",
+    "id": "qtXVxLRdzHBn"
+   },
+   "outputs": [],
+   "source": [
+    "#@title Custom PSD Kernel\n",
+    "class RBFKernelFn(tf.keras.layers.Layer):\n",
+    "  def __init__(self, **kwargs):\n",
+    "    super(RBFKernelFn, self).__init__(**kwargs)\n",
+    "    dtype = kwargs.get('dtype', None)\n",
+    "\n",
+    "    self._amplitude = self.add_variable(\n",
+    "            initializer=tf.constant_initializer(0),\n",
+    "            dtype=dtype,\n",
+    "            name='amplitude')\n",
+    "    \n",
+    "    self._length_scale = self.add_variable(\n",
+    "            initializer=tf.constant_initializer(0),\n",
+    "            dtype=dtype,\n",
+    "            name='length_scale')\n",
+    "\n",
+    "  def call(self, x):\n",
+    "    # Never called -- this is just a layer so it can hold variables\n",
+    "    # in a way Keras understands.\n",
+    "    return x\n",
+    "\n",
+    "  @property\n",
+    "  def kernel(self):\n",
+    "    return tfp.math.psd_kernels.ExponentiatedQuadratic(\n",
+    "      amplitude=tf.nn.softplus(0.1 * self._amplitude),\n",
+    "      length_scale=tf.nn.softplus(5. * self._length_scale)\n",
+    "    )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "height": 55
+    },
+    "colab_type": "code",
+    "id": "_gJJtPMzzDyo",
+    "outputId": "056de545-93f2-41c1-be48-37ef2215cc58"
+   },
+   "outputs": [],
+   "source": [
+    "# For numeric stability, set the default floating-point dtype to float64\n",
+    "tf.keras.backend.set_floatx('float64')\n",
+    "\n",
+    "# Build model.\n",
+    "num_inducing_points = 40\n",
+    "model = tf.keras.Sequential([\n",
+    "    tf.keras.layers.InputLayer(input_shape=[1]),\n",
+    "    tf.keras.layers.Dense(1, kernel_initializer='ones', use_bias=False),\n",
+    "    tfp.layers.VariationalGaussianProcess(\n",
+    "        num_inducing_points=num_inducing_points,\n",
+    "        kernel_provider=RBFKernelFn(),\n",
+    "        event_shape=[1],\n",
+    "        inducing_index_points_initializer=tf.constant_initializer(\n",
+    "            np.linspace(*x_range, num=num_inducing_points,\n",
+    "                        dtype=x.dtype)[..., np.newaxis]),\n",
+    "        unconstrained_observation_noise_variance_initializer=(\n",
+    "            tf.constant_initializer(np.array(0.54).astype(x.dtype))),\n",
+    "    ),\n",
+    "])\n",
+    "\n",
+    "# Do inference.\n",
+    "batch_size = 32\n",
+    "loss = lambda y, rv_y: rv_y.variational_loss(\n",
+    "    y, kl_weight=np.array(batch_size, x.dtype) / x.shape[0])\n",
+    "model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=loss)\n",
+    "model.fit(x, y, batch_size=batch_size, epochs=1000, verbose=False)\n",
+    "\n",
+    "# Profit.\n",
+    "yhat = model(x_tst)\n",
+    "assert isinstance(yhat, tfd.Distribution)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "cellView": "form",
+    "colab": {
+     "height": 147
+    },
+    "colab_type": "code",
+    "id": "Fp4qEWSRzc8m",
+    "outputId": "ce1d241c-a2d9-43f8-952b-1c15a2e3ccb8"
+   },
+   "outputs": [],
+   "source": [
+    "#@title Figure 5: Functional Uncertainty\n",
+    "\n",
+    "y, x, _ = load_dataset()\n",
+    "\n",
+    "plt.figure(figsize=[6, 1.5])  # inches\n",
+    "plt.plot(x, y, 'b.', label='observed');\n",
+    "\n",
+    "num_samples = 7\n",
+    "for i in range(num_samples):\n",
+    "  sample_ = yhat.sample().numpy()\n",
+    "  plt.plot(x_tst,\n",
+    "           sample_[..., 0].T,\n",
+    "           'r',\n",
+    "           linewidth=0.9,\n",
+    "           label='ensemble means' if i == 0 else None);\n",
+    "\n",
+    "plt.ylim(-0.,17);\n",
+    "plt.yticks(np.linspace(0, 15, 4)[1:]);\n",
+    "plt.xticks(np.linspace(*x_range, num=9));\n",
+    "\n",
+    "ax=plt.gca();\n",
+    "ax.xaxis.set_ticks_position('bottom')\n",
+    "ax.yaxis.set_ticks_position('left')\n",
+    "ax.spines['left'].set_position(('data', 0))\n",
+    "ax.spines['top'].set_visible(False)\n",
+    "ax.spines['right'].set_visible(False)\n",
+    "#ax.spines['left'].set_smart_bounds(True)\n",
+    "#ax.spines['bottom'].set_smart_bounds(True)\n",
+    "plt.legend(loc='center left', fancybox=True, framealpha=0., bbox_to_anchor=(1.05, 0.5))\n",
+    "\n",
+    "plt.savefig('/tmp/fig5.png', bbox_inches='tight', dpi=300)"
+   ]
+  }
+ ],
+ "metadata": {
+  "accelerator": "GPU",
+  "colab": {
+   "collapsed_sections": [],
+   "name": "regression.ipynb",
+   "toc_visible": true
+  },
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

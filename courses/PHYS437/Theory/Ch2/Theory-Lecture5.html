@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Ch2-Lecture 5 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -68,6 +63,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -104,10 +100,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch2-lecture-5">
-<h1>Ch2-Lecture 5<a class="headerlink" href="#ch2-lecture-5" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="no-cloning-theorem">
-<h2>No cloning theorem<a class="headerlink" href="#no-cloning-theorem" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch2-lecture-5">
+<h1>Ch2-Lecture 5<a class="headerlink" href="#ch2-lecture-5" title="Permalink to this heading">¶</a></h1>
+<section id="no-cloning-theorem">
+<h2>No cloning theorem<a class="headerlink" href="#no-cloning-theorem" title="Permalink to this heading">¶</a></h2>
 <p>One of the most natural operations we perform daily on classical computers is the act of copying or <em>cloning</em> classical bits. For example, you might make a copy of a file containing your -typed homework to keep as a backup. On the negative side, a criminal might copy a classical object like a banknote (though it is not easy) to use as forged money. However, in quantum it turns out that copying quantum bits is impossible — given an arbitrary, unknown quantum state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C} ^2\)</span> , there is no quantum circuit which creates a perfect copy of  <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> ! How can we formalize such a statement?</p>
 <p>We use proof by contradiction. Suppose there exists a unitary <span class="math notranslate nohighlight">\(U\in \mathcal L\left(\mathbb C^2 \otimes \mathbb C^2 \right)\)</span> which, for any <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, maps <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \otimes  \left|0\right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \otimes  \left|\psi\right\rangle \)</span>, i.e. creates a copy of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. To obtain the desired contradiction, we begin by applying <span class="math notranslate nohighlight">\(U\)</span> to two arbitrary states <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle , \left|\psi_2\right\rangle  \in  \mathbb{C} ^2\)</span> , obtaining</p>
 <div class="math notranslate nohighlight">
@@ -130,17 +126,17 @@
  \left( \left\langle \psi_1 \right|  \otimes  \left\langle \psi_1 \right| \right) \left( \left|\psi_2\right\rangle  \otimes  \left|\psi_2\right\rangle \right)= \left\langle \psi_1 \middle| \psi_2 \right\rangle  \left\langle \psi_1 \middle| \psi_2 \right\rangle =  \left( \left\langle \psi_1 \middle| \psi_2 \right\rangle \right)^2
 \]</div>
 <p>Combining these two, we have that <span class="math notranslate nohighlight">\( \left\langle \psi_1 \middle| \psi_2 \right\rangle =  \left( \left\langle \psi_1 \middle| \psi_2 \right\rangle \right)^2 \)</span> for some complex number <span class="math notranslate nohighlight">\( \left\langle \psi_1 \middle| \psi_2 \right\rangle  \in  \mathbb{C} \)</span>. This is equivalent to saying <span class="math notranslate nohighlight">\(c = c^2\)</span> for <span class="math notranslate nohighlight">\(c \in  \mathbb{C} \)</span>, which has only two solutions — either <span class="math notranslate nohighlight">\(c = 1\)</span> or <span class="math notranslate nohighlight">\(c = 0\)</span>. In other words, unless  <span class="math notranslate nohighlight">\(\left|\psi_1\right\rangle\)</span>  i and <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span> are the same vector (in which case <span class="math notranslate nohighlight">\( \left\langle \psi_1 \middle| \psi_2 \right\rangle  = 1\)</span>) or are orthogonal (i.e. <span class="math notranslate nohighlight">\( \left\langle \psi_1 \middle| \psi_2 \right\rangle  = 0\)</span>), we have a contradiction. Thus, there does not exist a <span class="math notranslate nohighlight">\(U\)</span> which can perform the mapping <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \otimes  \left|0\right\rangle  \mapsto  \left|\psi\right\rangle  \otimes  \left|\psi\right\rangle \)</span> for arbitrary <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.</p>
-<div class="section" id="send-it-after-class-1">
-<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
+<section id="send-it-after-class-1">
+<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this heading">¶</a></h3>
 <p>This section showed that cloning arbitrary states <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C} ^2 \)</span> is impossible. However, the proof technique failed when the states <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span> are orthogonal. Indeed, it turns out in this case cloning is possible. Give a quantum circuit which can clone states <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|1\right\rangle\)</span>, i.e. maps <span class="math notranslate nohighlight">\( \left|0\right\rangle  \left|0\right\rangle  \mapsto  \left|0\right\rangle  \left|0\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|1\right\rangle  \left|0\right\rangle  \mapsto  \left|1\right\rangle  \left|1\right\rangle \)</span>. How about a circuit which clones <span class="math notranslate nohighlight">\( \left|+\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|-\right\rangle \)</span>? (Hint: Convert the <span class="math notranslate nohighlight">\(+/−\)</span> basis into the standard basis first, then apply your cloning circuit for the standard basis.)</p>
-</div>
-</div>
-<div class="section" id="quantum-entanglement">
-<h2>Quantum entanglement<a class="headerlink" href="#quantum-entanglement" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="quantum-entanglement">
+<h2>Quantum entanglement<a class="headerlink" href="#quantum-entanglement" title="Permalink to this heading">¶</a></h2>
 <p>We have already seen the concept of quantum entanglement, and in particular used Bell states such as <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left(\left|00\right\rangle+\left|11\right\rangle\right)\)</span> as a <em>resource</em> for performing interesting tasks such as quantum teleportation. But what exactly <em>is</em> entanglement, and how can we recognize whether a given state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled?</p>
 <p><strong>History</strong>. The term “entanglement” was coined in 1935 by physicist Erwin Schrödinger, who used the term “Vershränkung”, which in colloquial “non-physicist” German means “folding of the arms”. As discussed in a previous lecture, the question of whether entanglement truly exists has been a subject of intense debate. The famous Einstein-Podolsky-Rosen paper of 1935, in particular, argued that quantum mechanics could not be a complete physical theory due to its prediction of entangled states such as |Φ+ i. In 1964, however, physicist John Bell proposed what is now known as a “Bell inequality” or “Bell test”; this test could in principle be run in a lab to confirm whether Nature indeed allows the strong type of correlations between qubits which entanglement would allow. Recently, such tests have been studied under the guise of “non-local games”, which is a topic we shall soon visit. Moreover, it is important to note that we nowadays know that any quantum computation (on pure quantum states) cannot achieve an exponential speedup over classical computers unless the amount of quantum entanglement in the system is “large”. Thus, entanglement is generally regarded as an important resource.</p>
-<div class="section" id="bipartite-entanglement">
-<h3>Bipartite entanglement<a class="headerlink" href="#bipartite-entanglement" title="Permalink to this headline">¶</a></h3>
+<section id="bipartite-entanglement">
+<h3>Bipartite entanglement<a class="headerlink" href="#bipartite-entanglement" title="Permalink to this heading">¶</a></h3>
 <p>In this lecture, we study the notion of bipartite entanglement, meaning entanglement between a pair of quantum systems. Let <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C}^{d_1} \otimes \mathbb{C}^{d_2}\)</span> be an arbitrary bipartite state. How can we tell if <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled? Strictly speaking, earlier we defined <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> as <em>entangled</em> if it cannot be written as the tensor product of two states <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle \in  \mathbb{C} ^{d_1} \)</span> and <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \in  \mathbb{C} ^{d_2} \)</span> , i.e.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -157,9 +153,9 @@ by contradiction. Suppose there exist <span class="math notranslate nohighlight"
  \left|\psi_1\right\rangle  \otimes  \left|\psi_2\right\rangle= \left(\alpha_1  \left|0\right\rangle + \beta_1  \left|1\right\rangle\right) \otimes  \left(\alpha_2  \left|0\right\rangle + \beta_2  \left|1\right\rangle\right)= \alpha_1  \alpha_2  \left|00\right\rangle +  \alpha_1  \beta_2  \left|01\right\rangle +  \beta_1  \alpha_2  \left|10\right\rangle+ \beta_1  \beta_2  \left|11\right\rangle
 \]</div>
 <p>Since this supposed to equal <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle = \frac{1}{\sqrt{2}}  \left( \left|00\right\rangle + \left|11\right\rangle \right) \)</span>, we must have <span class="math notranslate nohighlight">\( \alpha_1  \beta_2 =  \beta_1  \alpha_2  =0\)</span> (since the standard basis vectors <span class="math notranslate nohighlight">\( \left|00\right\rangle ,  \left|01\right\rangle , \left|10\right\rangle ,  \left|11\right\rangle \)</span> are orthogonal). Suppose, without loss of generality, that <span class="math notranslate nohighlight">\( \beta_2 =0\)</span>, so that <span class="math notranslate nohighlight">\(= \alpha_1  \beta_2 = 0\)</span>. Then, we must also have <span class="math notranslate nohighlight">\( \beta_1=0\)</span> so that <span class="math notranslate nohighlight">\( \beta_1  \alpha_2 =0\)</span> (the other option is to set <span class="math notranslate nohighlight">\( \alpha_2= 0\)</span>, but this would yield <span class="math notranslate nohighlight">\( \alpha_2 = \beta_2  = 0\)</span>, i.e. <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span> is not a unit vector). But if <span class="math notranslate nohighlight">\( \beta_1 = \beta_2  = 0\)</span>, then <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle= \left|0\right\rangle  \)</span> and <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle = \left|0\right\rangle \)</span>, so that <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle  \otimes  \left|\psi_2\right\rangle = \left|00\right\rangle \neq \left|\Phi^+\right\rangle \)</span>! Thus, we have a contradiction, and so <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> is entangled</p>
-</div>
-<div class="section" id="the-schmidt-decomposition">
-<h3>The Schmidt decomposition.<a class="headerlink" href="#the-schmidt-decomposition" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-schmidt-decomposition">
+<h3>The Schmidt decomposition.<a class="headerlink" href="#the-schmidt-decomposition" title="Permalink to this heading">¶</a></h3>
 <p>Rather than go through such proofs each time we wish to check if <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled, there is a more elegant tool we can use known as the <em>Schmidt decomposition</em>. To keep our discussion simple, we shall restrict our attention to the setting of two qubits; the ideas here extend straightforwardly to arbitrary local dimensions <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span> . The Schmidt decomposition states that any vector <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C}^2 \otimes  \mathbb{C}^2\)</span> can be written in the following special form:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -173,17 +169,17 @@ by contradiction. Suppose there exist <span class="math notranslate nohighlight"
  \left|\psi\right\rangle = \alpha_{00} \left|00\right\rangle  +\alpha_{01} \left|01\right\rangle+\alpha_{10} \left|10\right\rangle  +\alpha_{11} \left|11\right\rangle
 \]</div>
 <p>This decomposition requires four terms (i.e. one per standard basis vector for <span class="math notranslate nohighlight">\( \mathbb{C}^4\)</span> ). Part of the power of the Schmidt decomposition is that it manages to write this same state using just two terms.</p>
-</div>
-<div class="section" id="send-it-after-class-2">
-<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="send-it-after-class-2">
+<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Verify that <span class="math notranslate nohighlight">\( \left|00\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left(  \left|00\right\rangle + \left|11\right\rangle  \right) \)</span> are already written in terms of Schmidt decompositions. What are the Schmidt ranks of these two states?</p></li>
 <li><p>Use the notion of Schmidt rank to answer the following: Is <span class="math notranslate nohighlight">\( \left|+\right\rangle  \left|-\right\rangle \)</span> entangled? How about <span class="math notranslate nohighlight">\(\sqrt{1/1000} \left|+\right\rangle  \left|-\right\rangle +\sqrt{999/1000} \left|-\right\rangle  \left|+\right\rangle \)</span>? Finally, how about <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{2}}  \left(  \left|0\right\rangle \left|+\right\rangle - \left|0\right\rangle   \left|-\right\rangle \right) \)</span>$? (Hint: For this last one, be careful! Is it written in its Schmidt decomposition?)</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="density-matrices">
-<h2>Density Matrices<a class="headerlink" href="#density-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="density-matrices">
+<h2>Density Matrices<a class="headerlink" href="#density-matrices" title="Permalink to this heading">¶</a></h2>
 <p>We have delved further into the structure of entanglement and learned that a bipartite state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled if and only if its Schmidt rank is at least 2. However, let’s take a step back and return to our statement that <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled if it cannot be written as <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle  \otimes  \left|\psi_2\right\rangle \)</span> for some <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle  \in  \mathbb{C}^{d_1}\)</span> and <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle  \in  \mathbb{C}^{d_2}\)</span> . Intuitively, states of the form <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle  \otimes  \left|\psi_2\right\rangle \)</span>, called <em>tensor product states</em>, are nice because one can immediately read off the state of each qubit — qubit one is in state <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle \)</span> , and qubit two in <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span> i. Since entangled states cannot be written in tensor product form, however, this raises the question: How can we describe the state of qubit one in, say, the Bell pair <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left(  \left|00\right\rangle + \left|11\right\rangle  \right) \)</span>? The answer lies in a more general formalism for describing quantum states, known as the <em>density matrix formalism.</em></p>
 <p>Thus far, we have said that an arbitrary <span class="math notranslate nohighlight">\(d\)</span>-dimensional quantum state is described by a unit vector <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> in <span class="math notranslate nohighlight">\( \mathbb{C}^d\)</span> . Such states are called <em>pure</em> because we know exactly which state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> we have. Now, suppose we play a game in which with probability 1/2, I give you state <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle \)</span>, and with probability 1/2, I give you state <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span>, and I don’t tell you which state I’ve given you. How can you describe the quantum state in your possession, given that you don’t know whether you actually have <span class="math notranslate nohighlight">\( \left|\psi_1\right\rangle \)</span> or <span class="math notranslate nohighlight">\( \left|\psi_2\right\rangle \)</span>? This is done via the <em>density operator</em></p>
 <div class="math notranslate nohighlight">
@@ -222,8 +218,8 @@ by contradiction. Suppose there exist <span class="math notranslate nohighlight"
  \rho = \sum_{i=1}   \lambda_i   \left| \lambda_i \right\rangle\!\left\langle \lambda_i \right|
 \]</div>
 <p>Since <span class="math notranslate nohighlight">\( \rho \)</span> is positive semidefinite, we know <span class="math notranslate nohighlight">\(  \lambda_i \geq 0 \)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. Moreover, recalling that <span class="math notranslate nohighlight">\(  \text{Tr}\left( \rho \right) =1 \)</span>, it holds that <span class="math notranslate nohighlight">\( \sum_{i=1}  \lambda_i =1 \)</span>. Thus, <span class="math notranslate nohighlight">\( \left\{  \lambda_i \right\}_i \)</span> forms a probability distribution. This means that we can interpret <span class="math notranslate nohighlight">\( \rho \)</span> as follows: With probability <span class="math notranslate nohighlight">\(  \lambda_i \)</span> , prepare state <span class="math notranslate nohighlight">\( \left|\lambda_i\right\rangle \)</span>. This is precisely the idea we started this section with! We thus have a good picture of how one can describe probabilistic mixtures over pure quantum states.</p>
-<div class="section" id="send-it-after-class-3">
-<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
+<section id="send-it-after-class-3">
+<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>Why is <span class="math notranslate nohighlight">\( \left| \psi \right\rangle\!\left\langle \psi \right| \)</span> positive semi-definite for any <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>? (Hint: Use the spectral decomposition).</p></li>
 <li><p>Why are the Pauli gates <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(Y\)</span> , and <span class="math notranslate nohighlight">\(Z\)</span> not density matrices?</p></li>
@@ -237,9 +233,9 @@ by contradiction. Suppose there exist <span class="math notranslate nohighlight"
  \sum_{i=1}^{d} \left| \psi_i \right\rangle\!\left\langle \psi_i \right| =I
 \]</div>
 <p>In other words, for any orthonormal basis <span class="math notranslate nohighlight">\(  \left\{ \left|\psi_i\right\rangle \right\}_{i=1}^d  \)</span> , <span class="math notranslate nohighlight">\(\rho\)</span> represents the following state: Pick state <span class="math notranslate nohighlight">\( \left|\psi_i\right\rangle \)</span> with probability <span class="math notranslate nohighlight">\(1/d\)</span>, and prepare <span class="math notranslate nohighlight">\( \left|\psi_i\right\rangle \)</span>. Since this holds for any basis, we conclude that <span class="math notranslate nohighlight">\( \rho \)</span> gives us absolutely no information about which state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> we actually have — every state is an eigenvector of <span class="math notranslate nohighlight">\( \rho \)</span>, and the eigenvalues of <span class="math notranslate nohighlight">\( \rho \)</span> form a uniform distribution. Thus, the maximally mixed state represents the case where we know nothing about the state of our system! This will be crucial when we discuss entanglement again below.</p>
-</div>
-<div class="section" id="the-partial-trace-operation">
-<h3>The partial trace operation<a class="headerlink" href="#the-partial-trace-operation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-partial-trace-operation">
+<h3>The partial trace operation<a class="headerlink" href="#the-partial-trace-operation" title="Permalink to this heading">¶</a></h3>
 <p>Our motivation in introducing density matrices stemmed from the fact that we did not know how to describe the state of qubit 1 in the Bell pair <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle =  \frac{1}{\sqrt{2}}  \left(  \left|00\right\rangle + \left|11\right\rangle\right) \)</span>. We claimed that the answer lies in the framework of density matrices, but we have not yet prescribed how one can use density matrices to describe the state of qubit 1 of <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span>. We now do this via the <em>partial trace</em> operation.
 Intuitively, given a bipartite density matrix <span class="math notranslate nohighlight">\( \rho_{AB} \)</span> on systems <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, the partial trace operation <span class="math notranslate nohighlight">\( \text{Tr}_B\left( \rho_{AB}\right) \)</span> returns a density matrix on system <span class="math notranslate nohighlight">\(A\)</span> alone (analogously, <span class="math notranslate nohighlight">\( \text{Tr}_A\left( \rho_{AB}\right) \)</span> returns a density matrix on <span class="math notranslate nohighlight">\(B\)</span> alone). Formally, we have that</p>
 <div class="math notranslate nohighlight">
@@ -314,9 +310,9 @@ Intuitively, given a bipartite density matrix <span class="math notranslate nohi
 \end{split}\]</div>
 <p>where the third equality follows from the linearity of the partial trace, the fifth by <span class="math notranslate nohighlight">\(\text{Tr}_B\left( \rho\right)= \rho_1. \text{Tr}\left( \rho_2\right)\)</span>, and the sixth by the cyclic property of the trace and since <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|1\right\rangle \)</span> are orthogonal. Thus, the reduced state on qubit 1 for the Bell state is maximally mixed ! In other words, it is a completely random state about which we have zero information. In a similar fashion, one can show that <span class="math notranslate nohighlight">\(  \text{Tr}_A\left( \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right) = I/2\)</span>.</p>
 <p>And here we arrive at one of the most confounding aspects of quantum mechanics: As in the case of the Bell state, it is possible for us to know absolutely nothing about the states of qubits 1 and 2 individually (e.g. they have reduced states <span class="math notranslate nohighlight">\(I/2\)</span>), but when we bring both qubits together, we know everything about their joint state (e.g. <span class="math notranslate nohighlight">\( \left|\Phi^+\right\rangle \)</span> is a pure state, i.e. there is no uncertainty). This is yet another striking example of a quantum phenomenon which does not occur in the classical world.</p>
-</div>
-<div class="section" id="using-partial-trace-to-detect-entanglement">
-<h3>Using partial trace to detect entanglement<a class="headerlink" href="#using-partial-trace-to-detect-entanglement" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="using-partial-trace-to-detect-entanglement">
+<h3>Using partial trace to detect entanglement<a class="headerlink" href="#using-partial-trace-to-detect-entanglement" title="Permalink to this heading">¶</a></h3>
 <p>Recall we said that an arbitrary bipartite <em>pure</em> state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C}^d \otimes  \mathbb{C}^d\)</span> can be written in terms of its Schmidt decomposition</p>
 <div class="math notranslate nohighlight">
 \[
@@ -324,22 +320,22 @@ Intuitively, given a bipartite density matrix <span class="math notranslate nohi
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha_i\geq0\)</span> and <span class="math notranslate nohighlight">\( \left\{ \left|a_i\right\rangle \right\} \)</span> and <span class="math notranslate nohighlight">\( \left\{ \left|b_i\right\rangle \right\} \)</span> are orthonormal sets. We also said that <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled if and only if its Schmidt rank (i.e. number of non-zero Schmidt coefficients <span class="math notranslate nohighlight">\( \alpha_i\)</span> ) is at least two. However, we did not discuss how to actually <em>find</em> the Schmidt decomposition of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, i.e. we have not specified a procedure for computing the Schmidt rank of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. The partial trace allows us to solve this problem.</p>
 <p>For determining whether a bipartite pure state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled one needs to compute <span class="math notranslate nohighlight">\( \rho_A= \text{Tr}_B\left( \left| \psi \right\rangle\!\left\langle \psi \right| \right) \)</span>, and check if <span class="math notranslate nohighlight">\( \text{rank} \left( \rho_A\right)  &gt; 1\)</span>. If so, <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is entangled; otherwise, it is a product state. Finally, observe that this trick only works for pure states <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> — indeed, for mixed bipartite <span class="math notranslate nohighlight">\( \rho_{AB} \)</span> , detecting entanglement is NP-hard, so such a simple criterion for entanglement is highly unlikely to exist!</p>
-</div>
-<div class="section" id="how-the-postulates-of-quantum-mechanics-apply-to-density-operators">
-<h3>How the postulates of quantum mechanics apply to density operators<a class="headerlink" href="#how-the-postulates-of-quantum-mechanics-apply-to-density-operators" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="how-the-postulates-of-quantum-mechanics-apply-to-density-operators">
+<h3>How the postulates of quantum mechanics apply to density operators<a class="headerlink" href="#how-the-postulates-of-quantum-mechanics-apply-to-density-operators" title="Permalink to this heading">¶</a></h3>
 <p>In previous lectures, we introduced the postulates of quantum mechanics in the context of pure states <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. All four postulates extend naturally to the setting of mixed quantum states. For example, for Postulate 3 on composite quantum systems, given density operators <span class="math notranslate nohighlight">\( \rho \)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span>, we have that <span class="math notranslate nohighlight">\( \rho  \otimes \sigma\)</span> is also a valid density operator. This follows from the facts that if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are positive semi-definite, then so is <span class="math notranslate nohighlight">\(A \otimes B\)</span>, and that <span class="math notranslate nohighlight">\( \text{Tr}\left(A  \otimes B \right)= \text{Tr}\left(A\right) \text{Tr}\left(B\right)\)</span>. For now, we will avoid revisiting the postulates in the mixed state setting, and rather approach the topic once the need arises in specific applications of future lectures.</p>
-<div class="section" id="send-it-after-class-4">
-<h4>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h4>
+<section id="send-it-after-class-4">
+<h4>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Show that for any <span class="math notranslate nohighlight">\( \rho =  \rho_1 \otimes  \rho_2\)</span>, <span class="math notranslate nohighlight">\( \text{Tr}_A\left( \rho \right)= \text{Tr}\left( \rho_1\right). \rho_2\)</span></p></li>
 <li><p>What is <span class="math notranslate nohighlight">\( \text{Tr}_B\left(\frac{1}{2}  \left| 0 \right\rangle\!\left\langle 0 \right|  \otimes  \left| 0 \right\rangle\!\left\langle 0 \right| + \frac{1}{2}  \left| 1 \right\rangle\!\left\langle 1 \right|  \otimes  \left| 1 \right\rangle\!\left\langle 1 \right|\right) \)</span> ?</p></li>
 <li><p>Show that <span class="math notranslate nohighlight">\( \text{Tr}_A\left( \left| \Phi^+ \right\rangle\!\left\langle \Phi^+ \right| \right)=I/2 \)</span></p></li>
 <li><p>Prove that the Schmidt rank of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in  \mathbb{C}^d \otimes  \mathbb{C}^d\)</span> equals the rank of <span class="math notranslate nohighlight">\( \rho_A= \mathbb{C}  \text{Tr}_B\left( \left| \psi \right\rangle\!\left\langle \psi \right| \right) \)</span>. You should use the fact that in the definition of the partial trace, the standard basis <span class="math notranslate nohighlight">\( \left\{ \left|i\right\rangle \right\} \)</span> on <span class="math notranslate nohighlight">\(B\)</span> can be replaced by an arbitrary orthonormal basis, <span class="math notranslate nohighlight">\( \left\{ \left|\psi_i\right\rangle \right\} \)</span>, on <span class="math notranslate nohighlight">\(B\)</span>. (Hint:Choose <span class="math notranslate nohighlight">\( \left\{ \left|\psi_i\right\rangle \right\} \)</span> as the Schmidt basis for <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> on system <span class="math notranslate nohighlight">\(B\)</span>.)</p></li>
 </ul>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -361,7 +357,7 @@ Intuitively, given a bipartite density matrix <span class="math notranslate nohi
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

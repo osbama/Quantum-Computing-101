@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Ch3-Lecture 9 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -66,6 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -102,16 +98,16 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch3-lecture-9">
-<h1>Ch3-Lecture 9<a class="headerlink" href="#ch3-lecture-9" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="information-encoding">
-<h2>Information Encoding<a class="headerlink" href="#information-encoding" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch3-lecture-9">
+<h1>Ch3-Lecture 9<a class="headerlink" href="#ch3-lecture-9" title="Permalink to this heading">¶</a></h1>
+<section id="information-encoding">
+<h2>Information Encoding<a class="headerlink" href="#information-encoding" title="Permalink to this heading">¶</a></h2>
 <p>The strategy of how to represent information as a quantum state provides the context of how to design the quantum algorithm and what speedups one can hope to harvest. The actual procedure of encoding data into the quantum system is part of the algorithm and may account for a crucial part of the complexity.1 Theoretical frameworks, software and hardware that address the interface between the classical memory and the quantum device are therefore central for technological implementations of quantum machine learning. Issues of efficiency, precision and noise play an important role in performance evaluation. This is even more true since most quantum machine learning algorithms deliver probabilistic results and the entire routine—including state preparation—may have to be repeated many times. These arguments call for a thorough discussion of “data encoding” approaches and routines, which is why we dedicate this entire chapter to questions of data representation with quantum states.</p>
 <dl class="simple myst">
 <dt>Table 1</dt><dd><p>Comparison of the four encoding strategies for a dataset of <span class="math notranslate nohighlight">\(M\)</span> inputs with <span class="math notranslate nohighlight">\(N\)</span> features each. While basis, amplitude and Hamiltonian encoding aim at representing a full data set by the quantum system, qsample encoding works a little different in that it represents a probability distribution over random variables. It therefore does not have a dependency on the number of inputs <span class="math notranslate nohighlight">\(M\)</span> . *Only certain datasets or models can be encoded in this time.</p>
 </dd>
 </dl>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Encoding</p></th>
 <th class="head"><p>Number of qubits</p></th>
@@ -144,8 +140,8 @@
 </table>
 <p>A central figure of merit for state preparation is the asymptotic runtime, and an overview of runtimes for the four encoding methods is provided in the above Table. In quantum computing an efficient algorithm has a polynomial runtime with respect to the number of qubits. Since data can be encoded into qubits or amplitudes, the expression “efficient” can have different meanings, and this easily gets confusing. To facilitate the discussion, we will call an algorithm either <strong>amplitude-efficient</strong> or <strong>qubit-efficient</strong>, depending on what we consider as an input. It is obvious that if the data is encoded into the amplitudes or operators of a quantum system (as in amplitude and Hamiltonian encoding), amplitude-efficient state preparation routines are also efficient in terms of the data set. If we encode data into qubits, qubit-efficient state preparation is efficient in the data set size. We will see that there are some very interesting cases in which we encode data into amplitudes or Hamiltonians, but can guarantee qubit-efficient state preparation routines. In these cases, we prepare data in time which is logarithmic in the data size itself. Of course, this requires either a very specific access to or a very special structure of the data.</p>
 <p>Before we start, a safe assumption when nothing more about the hardware is known is that we have a <span class="math notranslate nohighlight">\(n\)</span>-qubit system in the ground state <span class="math notranslate nohighlight">\( \left|0\dots 0\right\rangle \)</span> and that the data is accessible from a classical memory. In some cases we will also require some specific classical preprocessing. We consider data sets <span class="math notranslate nohighlight">\( \mathcal{D}= \left\{x^1,\dots,x^M\right\}  \)</span> of <span class="math notranslate nohighlight">\(N\)</span>-dimensional real feature vectors. Note that many algorithms require the labels to be encoded in qubits entangled with the inputs, but for the sake of simplicity we will focus on unlabelled data.</p>
-<div class="section" id="basis-encoding">
-<h3>Basis Encoding<a class="headerlink" href="#basis-encoding" title="Permalink to this headline">¶</a></h3>
+<section id="basis-encoding">
+<h3>Basis Encoding<a class="headerlink" href="#basis-encoding" title="Permalink to this heading">¶</a></h3>
 <p>Assume we are given a binary dataset <span class="math notranslate nohighlight">\( \mathcal{D} \)</span> where each pattern <span class="math notranslate nohighlight">\( x^m \in \mathcal{D} \)</span>  is a binary string of the form <span class="math notranslate nohighlight">\(x^m=(b_1^m,\dots,b_N^m)\)</span> with <span class="math notranslate nohighlight">\(b_i^m\in \left\{0,1\right\} \)</span> for <span class="math notranslate nohighlight">\(i = 1, \dots, N \)</span>. We can prepare a superposition of basis states <span class="math notranslate nohighlight">\( \left|x^m\right\rangle \)</span> that qubit-wise correspond to the binary input patterns,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -162,8 +158,8 @@
 \alpha=(0,0,0,0,0, \frac{1}{\sqrt{2}} ,0,0,0,0,0,0,0,0, \frac{1}{\sqrt{2}}, 0)^T
 \]</div>
 <p>Since—except in very low dimensions—the total number of amplitudes <span class="math notranslate nohighlight">\(2^{N_\tau}\)</span> is much larger than the number of nonzero amplitudes <span class="math notranslate nohighlight">\(M\)</span> , basis encoded datasets generally give rise to sparse amplitude vectors.</p>
-<div class="section" id="computing-in-basis-encoding">
-<h4>Computing in Basis Encoding<a class="headerlink" href="#computing-in-basis-encoding" title="Permalink to this headline">¶</a></h4>
+<section id="computing-in-basis-encoding">
+<h4>Computing in Basis Encoding<a class="headerlink" href="#computing-in-basis-encoding" title="Permalink to this heading">¶</a></h4>
 <p>Acting on binary features encoded as qubits gives us the most computational freedom to design quantum algorithms. In principle, each operation on bits that we can execute on a classical computer can be done on a quantum computer as well. The argument is roughly the following: A Toffoli gate implements the logic operation
 Input
 000
@@ -216,9 +212,9 @@ M m=1
 From this superposition one can extract statistical information, for example by mea-
 suring the last qubit. Such a measurement reveals the expectation value of the pre-
 diction of the entire dataset.</p>
-</div>
-<div class="section" id="sampling-from-a-qubit">
-<h4>Sampling from a Qubit<a class="headerlink" href="#sampling-from-a-qubit" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="sampling-from-a-qubit">
+<h4>Sampling from a Qubit<a class="headerlink" href="#sampling-from-a-qubit" title="Permalink to this heading">¶</a></h4>
 <p>As the previous example shows, the result of a quantum machine learning model can
 be basis encoded as well. For binary classification this only requires one qubit. If the
 qubit is in state |f (x) = |1 the prediction is 1 and if the qubit is in state |f (x) = |0
@@ -346,9 +342,9 @@ qubit measurements to guarantee an error of less than 0.1. However, now we can
 test the cases p̄ = 0, 1 for which S = z 2 ( 21 − 1). For  = 0.1 we only need about 27
 measurements for the same confidence level (see Fig. 5.4).</p></li>
 </ul>
-</div>
-<div class="section" id="preparing-superpositions-of-inputs">
-<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#preparing-superpositions-of-inputs" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="preparing-superpositions-of-inputs">
+<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#preparing-superpositions-of-inputs" title="Permalink to this heading">¶</a></h4>
 <p>n elegant way to construct such ‘data superpositions’ in time linear in M and N
 has been introduced by Ventura, Martinez and others [3, 4], and will be summarised
 here as an example of basis encoded state preparation. The circuit for one step in the
@@ -457,9 +453,9 @@ amplitude encoded quantum states. Ideas for architectures which realise this kin
 ‘query access’ in logarithmic time regarding the number of items to be loaded have
 been brought forward [5], but a hardware realising such an operation is still an open
 challenge [6, 7].</p>
-</div>
-<div class="section" id="id1">
-<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="id1">
+<h4>Preparing Superpositions of Inputs<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
 <p>n elegant way to construct such ‘data superpositions’ in time linear in M and N
 has been introduced by Ventura, Martinez and others [3, 4], and will be summarised
 here as an example of basis encoded state preparation. The circuit for one step in the
@@ -568,10 +564,10 @@ amplitude encoded quantum states. Ideas for architectures which realise this kin
 ‘query access’ in logarithmic time regarding the number of items to be loaded have
 been brought forward [5], but a hardware realising such an operation is still an open
 challenge [6, 7].</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -593,7 +589,7 @@ challenge [6, 7].</p>
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

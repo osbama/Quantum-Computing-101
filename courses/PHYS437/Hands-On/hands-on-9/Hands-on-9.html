@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Quantum information with polarized light &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -64,6 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -100,8 +98,8 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="quantum-information-with-polarized-light">
-<h1>Quantum information with polarized light<a class="headerlink" href="#quantum-information-with-polarized-light" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="quantum-information-with-polarized-light">
+<h1>Quantum information with polarized light<a class="headerlink" href="#quantum-information-with-polarized-light" title="Permalink to this heading">¶</a></h1>
 <p><em>Author: Nicolás Quesada</em></p>
 <p>In this tutorial we will explore how to model quantum photonic
 experiments involving “internal” degrees of freedom of light, such as
@@ -123,17 +121,17 @@ and polarizing beamsplitters can be mapped into the usual quantum
 operations from Strawberry Fields. Then we will use this knowledge to simulate the generation
 of a maximally entangled Bell state encoded in polarization degrees of
 freedom.</p>
-<div class="section" id="manipulating-polarization-degrees-of-freedom">
-<h2>Manipulating polarization degrees of freedom<a class="headerlink" href="#manipulating-polarization-degrees-of-freedom" title="Permalink to this headline">¶</a></h2>
+<section id="manipulating-polarization-degrees-of-freedom">
+<h2>Manipulating polarization degrees of freedom<a class="headerlink" href="#manipulating-polarization-degrees-of-freedom" title="Permalink to this heading">¶</a></h2>
 <p>It turns out that the polarization degree of freedom of photons can be used
 to encode information, and this information is typically manipulated
 using so-called half-wave plates and polarizing beamsplitters.</p>
-<div class="section" id="half-wave-plates">
-<h3>Half-wave plates<a class="headerlink" href="#half-wave-plates" title="Permalink to this headline">¶</a></h3>
+<section id="half-wave-plates">
+<h3>Half-wave plates<a class="headerlink" href="#half-wave-plates" title="Permalink to this heading">¶</a></h3>
 <p>A half-wave plate (HWP) allows us to rotate the polarization of a photon. For
 example,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2eec1e90-93d6-41b6-b89f-8c812463af93">
-<span class="eqno">(1)<a class="headerlink" href="#equation-2eec1e90-93d6-41b6-b89f-8c812463af93" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP} |1_H 0_V \rangle &amp;= \frac{1}{\sqrt{2}} \left( |1_H 0_V \rangle + |0_H 1_V \rangle \right), \quad \text{(A)}\\
+<div class="amsmath math notranslate nohighlight" id="equation-7cf2c7ed-552a-4da1-af24-93efb44eff15">
+<span class="eqno">(1)<a class="headerlink" href="#equation-7cf2c7ed-552a-4da1-af24-93efb44eff15" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP} |1_H 0_V \rangle &amp;= \frac{1}{\sqrt{2}} \left( |1_H 0_V \rangle + |0_H 1_V \rangle \right), \quad \text{(A)}\\
     \text{HWP} |0_H 1_V \rangle &amp;= \frac{1}{\sqrt{2}} \left( |1_H 0_V \rangle - |0_H 1_V \rangle \right), \quad \text{(B)}\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\text{HWP}\)</span> is a unitary operator representing
 a half-wave plate, <span class="math notranslate nohighlight">\(|1_H \rangle\)</span> is a single horizontally-polarized photon
@@ -145,20 +143,20 @@ equation can be understood as single photons polarized along the diagonal
 <p>The transformation above is written in the Schrödinger picture for
 single photon inputs. It is often more fruitful to write it in the
 Heisenberg picture as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ba44c985-1335-4551-a9f7-c1e8b1d43155">
-<span class="eqno">(2)<a class="headerlink" href="#equation-ba44c985-1335-4551-a9f7-c1e8b1d43155" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP} ^\dagger a_H^\dagger \text{HWP} &amp;= \frac{1}{\sqrt{2}}\left( a_H^\dagger + a_V^\dagger \right),\\
+<div class="amsmath math notranslate nohighlight" id="equation-10d1e1ab-8bcd-4954-a013-ac390a923514">
+<span class="eqno">(2)<a class="headerlink" href="#equation-10d1e1ab-8bcd-4954-a013-ac390a923514" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP} ^\dagger a_H^\dagger \text{HWP} &amp;= \frac{1}{\sqrt{2}}\left( a_H^\dagger + a_V^\dagger \right),\\
     \text{HWP} ^\dagger a_V^\dagger \text{HWP} &amp;= \frac{1}{\sqrt{2}}\left( a_H^\dagger - a_V^\dagger \right),\end{align}\]</div>
 <p>where we transformed the creation operators <span class="math notranslate nohighlight">\(a_{H/V}^\dagger\)</span> of the modes.</p>
-</div>
-<div class="section" id="polarizing-beamsplitters">
-<h3>Polarizing beamsplitters<a class="headerlink" href="#polarizing-beamsplitters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="polarizing-beamsplitters">
+<h3>Polarizing beamsplitters<a class="headerlink" href="#polarizing-beamsplitters" title="Permalink to this heading">¶</a></h3>
 <p>A polarizing beamsplitter (PBS) will transmit light of a certain
 polarization while reflecting light from the orthogonal polarization.
 This operation acts on two paths each having two polarizations. For two
 spatial modes with two polarizations (a total of <span class="math notranslate nohighlight">\(4 = 2 \times 2\)</span>
 creation operators) we can write its Heisenberg action as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9b7b475e-fa28-48a0-a12c-379000c7ba26">
-<span class="eqno">(3)<a class="headerlink" href="#equation-9b7b475e-fa28-48a0-a12c-379000c7ba26" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{PBS}^\dagger a_{1,H}^\dagger \text{PBS} &amp;= a_{1,H}^\dagger, \quad \text{(a)}\\
+<div class="amsmath math notranslate nohighlight" id="equation-df6d6f27-1683-487b-8f08-6ec0d26b8315">
+<span class="eqno">(3)<a class="headerlink" href="#equation-df6d6f27-1683-487b-8f08-6ec0d26b8315" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{PBS}^\dagger a_{1,H}^\dagger \text{PBS} &amp;= a_{1,H}^\dagger, \quad \text{(a)}\\
    \text{PBS}^\dagger a_{1,V}^\dagger \text{PBS} &amp;= a_{2,V}^\dagger, \quad \text{(b)}\\
    \text{PBS}^\dagger a_{2,H}^\dagger \text{PBS} &amp;= a_{2,H}^\dagger, \quad \text{(c)}\\
    \text{PBS}^\dagger a_{2,V}^\dagger \text{PBS} &amp;= a_{1,V}^\dagger. \quad \text{(d)}\end{align}\]</div>
@@ -169,15 +167,15 @@ for the different path and polarization modes:</p>
 <p><img alt="" src="../../../../_images/PBS.png" /></p>
 <p>We can use a PBS to separate two photons with orthogonal polarizations
 in the same path into two photons in different paths:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dc4f10a6-4bda-4030-9d13-62f8900f0770">
-<span class="eqno">(4)<a class="headerlink" href="#equation-dc4f10a6-4bda-4030-9d13-62f8900f0770" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{PBS}|1_H 1_V, 0_H 0_V \rangle = |1_H 0_V, 0_H 1_V \rangle,\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-77157a5a-6bc2-4c06-bc8b-1751a9b227f3">
+<span class="eqno">(4)<a class="headerlink" href="#equation-77157a5a-6bc2-4c06-bc8b-1751a9b227f3" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{PBS}|1_H 1_V, 0_H 0_V \rangle = |1_H 0_V, 0_H 1_V \rangle,\end{align}\]</div>
 <p>where we used the notation <span class="math notranslate nohighlight">\(|x_H y_V,a_H b_V \rangle\)</span>
 to indicate <span class="math notranslate nohighlight">\(x\)</span> (<span class="math notranslate nohighlight">\(y\)</span>) horizontal (vertical) photons in mode
 1, <span class="math notranslate nohighlight">\(a\)</span> (<span class="math notranslate nohighlight">\(b\)</span>) horizontal (vertical) photons in mode 2.</p>
-</div>
-</div>
-<div class="section" id="mapping-to-strawberry-fields-gates">
-<h2>Mapping to Strawberry Fields gates<a class="headerlink" href="#mapping-to-strawberry-fields-gates" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="mapping-to-strawberry-fields-gates">
+<h2>Mapping to Strawberry Fields gates<a class="headerlink" href="#mapping-to-strawberry-fields-gates" title="Permalink to this heading">¶</a></h2>
 <p>With the notation we developed above we are ready to simulate basic
 polarization optical primitives using Strawberry Fields. We simply need
 to recall that each optical path with two polarizations can be
@@ -185,8 +183,8 @@ represented using 2 qumodes.
 For each path <span class="math notranslate nohighlight">\(i\)</span>, we associate qumodes <span class="math notranslate nohighlight">\(2i\)</span> and <span class="math notranslate nohighlight">\(2i+1\)</span> to its horizontal and vertical polarization respectively.</p>
 <p>We can the associate Strawberry Fields gates with the polarization primitives discussed
 above as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-63d8df40-853d-43fa-81ae-73ea126e25a1">
-<span class="eqno">(5)<a class="headerlink" href="#equation-63d8df40-853d-43fa-81ae-73ea126e25a1" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP}_i &amp;\leftrightarrow \text{BSgate}_{2i,2i+1}\\
+<div class="amsmath math notranslate nohighlight" id="equation-6353bde8-f476-43c5-9243-947ce2e6fb2a">
+<span class="eqno">(5)<a class="headerlink" href="#equation-6353bde8-f476-43c5-9243-947ce2e6fb2a" title="Permalink to this equation">¶</a></span>\[\begin{align}\text{HWP}_i &amp;\leftrightarrow \text{BSgate}_{2i,2i+1}\\
    \text{PBS}_{i,j} &amp;\leftrightarrow \text{Permute}_{2i+1,2j+1} = \text{Interferometer}\left(\left[\begin{smallmatrix} 0&amp;1 \\1&amp;0 \end{smallmatrix} \right]\right)_{2i+1,2j+1}\end{align}\]</div>
 <p>To see why the first association is true recall that a
 HWP maps the creation operators of two polarizations in the same path to
@@ -199,9 +197,9 @@ paths, which correspond precisely to qumodes <span class="math notranslate nohig
 <span class="math notranslate nohighlight">\(2j+1\)</span>. Finally, note that a swap is readily implemented in Strawberry Fields by
 using the <code class="docutils literal notranslate"><span class="pre">Interferometer</span></code> gate with argument
 <span class="math notranslate nohighlight">\(\left[\begin{smallmatrix} 0&amp;1 \\1&amp;0 \end{smallmatrix} \right]\)</span>.</p>
-</div>
-<div class="section" id="simulating-the-generation-of-event-ready-photon-pairs">
-<h2>Simulating the generation of event-ready photon pairs<a class="headerlink" href="#simulating-the-generation-of-event-ready-photon-pairs" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="simulating-the-generation-of-event-ready-photon-pairs">
+<h2>Simulating the generation of event-ready photon pairs<a class="headerlink" href="#simulating-the-generation-of-event-ready-photon-pairs" title="Permalink to this heading">¶</a></h2>
 <p>Zhang et al. [[#zhang]_] propose a method for generating postselected photonic maximally
 entangled Bell states by using single photons input into an
 interferometer. Their method uses a 4 spatial-path interferometer where
@@ -213,8 +211,8 @@ in each of the paths and then proceeds as shown below</p>
 the other two measuring vacuum, Zhang et al. show that the state of
 modes 1 and 4 collapses to a two-photon maximally entangled Bell
 state of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-58208948-f631-4f86-9d13-cb73ab415c11">
-<span class="eqno">(6)<a class="headerlink" href="#equation-58208948-f631-4f86-9d13-cb73ab415c11" title="Permalink to this equation">¶</a></span>\[\begin{align}|\phi^+ \rangle \propto \left( |1_H 0_V, 1_H 0_V \rangle + |0_H 1_V, 0_H 1_V \rangle \right).\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-c06d097f-2fc7-4aeb-856f-1a044f1edf9d">
+<span class="eqno">(6)<a class="headerlink" href="#equation-c06d097f-2fc7-4aeb-856f-1a044f1edf9d" title="Permalink to this equation">¶</a></span>\[\begin{align}|\phi^+ \rangle \propto \left( |1_H 0_V, 1_H 0_V \rangle + |0_H 1_V, 0_H 1_V \rangle \right).\end{align}\]</div>
 <p>With the rules established in the last section we can translate the
 2-polarization 4-path circuit into a circuit with 8 qumodes as shown below</p>
 <p>We are now ready to do the simulations!</p>
@@ -276,9 +274,9 @@ state of the form</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="postselection">
-<h2>Postselection<a class="headerlink" href="#postselection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="postselection">
+<h2>Postselection<a class="headerlink" href="#postselection" title="Permalink to this heading">¶</a></h2>
 <p>Let’s consider the case where one horizontally-polarized photon is detected in both paths
 2 and 3.</p>
 <div class="cell docutils container">
@@ -372,9 +370,9 @@ The success probabilities for each pattern are the same
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
 <p>We have examined how to map the evolution of photonic systems with path
 and polarization degrees of freedom into qumodes evolving under unitary
 operations. The main takeaway is that a system with <span class="math notranslate nohighlight">\(N\)</span> paths and
@@ -383,22 +381,22 @@ operations. The main takeaway is that a system with <span class="math notranslat
 optical elements used to couple path and polarization can be mapped to
 qumode simulations. Finally, we used these identifications to
 simulate the generation of event-ready (i.e. postselected) Bell states.</p>
-</div>
-<div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
 <p>.. [#zhang]</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Q. Zhang, X.-H. Bao, C.-Y. Lu, X.-Q. Zhou, T. Yang, T. Rudolph, and J.-W. Pan
 Physical Review A 77, 062316, 2008. doi:10.1103/PhysRevA.77.062316 .
 </pre></div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="quantum-teleportation">
-<h1>Quantum teleportation<a class="headerlink" href="#quantum-teleportation" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-teleportation">
+<h1>Quantum teleportation<a class="headerlink" href="#quantum-teleportation" title="Permalink to this heading">¶</a></h1>
 <p>To see how to construct and simulate a simple continuous-variable (CV) quantum circuit in Strawberry
 Fields, let’s consider the case of <strong>state teleportation</strong>.</p>
-<div class="section" id="background-theory">
-<h2>Background theory<a class="headerlink" href="#background-theory" title="Permalink to this headline">¶</a></h2>
+<section id="background-theory">
+<h2>Background theory<a class="headerlink" href="#background-theory" title="Permalink to this heading">¶</a></h2>
 <p>Quantum teleportation - sometimes referred to as state teleportation to avoid confusion
 with gate teleportation - is the reliable transfer of an unknown quantum state across
 spatially separated qubits or qumodes, through the use of a classical transmission channel
@@ -420,7 +418,7 @@ flip (for qubits) or displacement (for qumodes) [[4]</em>].</p>
 translated to CV qumodes; the result is shown in the following circuit:</p>
 <p><img alt="" src="../../../../_images/teleport.png" /></p>
 <p>This process can be explained as follows:</p>
-<ol>
+<ol class="arabic">
 <li><p>Here, qumodes <span class="math notranslate nohighlight">\(q_1\)</span> and <span class="math notranslate nohighlight">\(q_2\)</span> are initially prepared as (the unphysical)
 infinitely squeezed vacuum states in momentum and position space respectively,</p>
 <div class="math notranslate nohighlight">
@@ -443,9 +441,9 @@ position displacement (conditional on the <span class="math notranslate nohighli
 displacement (conditional on the <span class="math notranslate nohighlight">\(p\)</span> measurement) to recover exactly the
 transmitted state <span class="math notranslate nohighlight">\(\ket{\psi}\)</span>.</p></li>
 </ol>
-</div>
-<div class="section" id="importing-strawberry-fields">
-<h2>Importing Strawberry Fields<a class="headerlink" href="#importing-strawberry-fields" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="importing-strawberry-fields">
+<h2>Importing Strawberry Fields<a class="headerlink" href="#importing-strawberry-fields" title="Permalink to this heading">¶</a></h2>
 <p>The first thing we need to do is import Strawberry Fields; we do this with the following import
 statements:</p>
 <div class="cell docutils container">
@@ -466,9 +464,9 @@ statements:</p>
 and backends; the second import statement imports all available CV gates into the global
 namespace. Finally, we import <span class="math notranslate nohighlight">\(\pi\)</span> and the square root from <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> so that we can pass angle
 parameters to gates such as beamsplitters, and perform some custom classical processing.</p>
-</div>
-<div class="section" id="program-initialization">
-<h2>Program initialization<a class="headerlink" href="#program-initialization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="program-initialization">
+<h2>Program initialization<a class="headerlink" href="#program-initialization" title="Permalink to this heading">¶</a></h2>
 <p>We can now initialize our quantum program by instantiating a
 <code class="docutils literal notranslate"><span class="pre">~strawberryfields.Program</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">sf.Program(num_subsystems,</span> <span class="pre">name=None)</span></code></p>
@@ -501,9 +499,9 @@ See `conventions` for more details.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="circuit-construction">
-<h2>Circuit construction<a class="headerlink" href="#circuit-construction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="circuit-construction">
+<h2>Circuit construction<a class="headerlink" href="#circuit-construction" title="Permalink to this heading">¶</a></h2>
 <p>To prepare states and apply gates to the quantum register <code class="docutils literal notranslate"><span class="pre">q</span></code>, we must be inside the context of
 the program we initialized using the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. Everything within the program context is
 written using the <code class="docutils literal notranslate"><span class="pre">Blackbird</span> <span class="pre">quantum</span> <span class="pre">programming</span> <span class="pre">language</span> <span class="pre">&lt;blackbird&gt;</span></code>. For example, to
@@ -567,9 +565,9 @@ within the operation argument.</p></li>
 <div class="alert alert-info"><h4>Note</h4><p>By choosing a different phase for the 50-50 beamsplitter, that is, ``BSgate(pi/4,0)``, we can
     avoid having to negate the :class:`~strawberryfields.ops.Zgate` correction at the end of the
     circuit.</p></div>
-</div>
-<div class="section" id="executing-the-program">
-<h2>Executing the program<a class="headerlink" href="#executing-the-program" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="executing-the-program">
+<h2>Executing the program<a class="headerlink" href="#executing-the-program" title="Permalink to this heading">¶</a></h2>
 <p>Once the program is constructed, we then must initialize an <strong>engine</strong>, which is responsible for
 executing the program on a specified <strong>backend</strong> (which can be either a local simulator, or a
 remote simulator/hardware device). Engines are initialized as follows:</p>
@@ -587,8 +585,8 @@ NumPy based (<code class="docutils literal notranslate"><span class="pre">'fock'
 <p>Let’s choose the Fock backend for this particular example. Since we are working in the Fock basis,
 we must also specify the Fock basis <em>cutoff dimension</em>; let’s choose <code class="docutils literal notranslate"><span class="pre">cutoff_dim=15</span></code>, such that
 a state <span class="math notranslate nohighlight">\(\ket{\psi}\)</span> has approximation</p>
-<div class="amsmath math notranslate nohighlight" id="equation-aadc540b-b489-468b-b074-0d412790dc34">
-<span class="eqno">(7)<a class="headerlink" href="#equation-aadc540b-b489-468b-b074-0d412790dc34" title="Permalink to this equation">¶</a></span>\[\begin{align}\ket{\psi} = \sum_{n=0}^\infty c_n\ket{n} \approx \sum_{n=0}^{\texttt{cutoff_dim}-1}
+<div class="amsmath math notranslate nohighlight" id="equation-f86d2112-94a9-46ef-9b26-f35ad976cd2d">
+<span class="eqno">(7)<a class="headerlink" href="#equation-f86d2112-94a9-46ef-9b26-f35ad976cd2d" title="Permalink to this equation">¶</a></span>\[\begin{align}\ket{\psi} = \sum_{n=0}^\infty c_n\ket{n} \approx \sum_{n=0}^{\texttt{cutoff_dim}-1}
     c_n\ket{n}\end{align}\]</div>
 <p>in our truncated Fock basis. We now have all the parameters ready to initialize the engine:</p>
 <div class="cell docutils container">
@@ -645,9 +643,9 @@ result, this shows all applied gate decompositions, which may differ depending o
 <li><p><code class="docutils literal notranslate"><span class="pre">eng.reset()</span> <span class="pre">&lt;strawberryfields.engine.BaseEngine.reset&gt;</span></code>: Resets the backend circuit to
 the vacuum state.</p></li>
 </ul>
-</div>
-<div class="section" id="results-and-visualization">
-<h2>Results and visualization<a class="headerlink" href="#results-and-visualization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="results-and-visualization">
+<h2>Results and visualization<a class="headerlink" href="#results-and-visualization" title="Permalink to this heading">¶</a></h2>
 <p>The returned <code class="docutils literal notranslate"><span class="pre">~strawberryfields.Result</span></code> object provides several useful properties for accessing the results
 of your program execution:</p>
 <ul>
@@ -715,8 +713,8 @@ a state vector.</p>
 </div>
 <p>Here, we use the convention that every pair of consecutive dimensions corresponds to a subsystem;
 i.e.,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb54d51d-e502-4bdf-8346-15c5c3b683c3">
-<span class="eqno">(8)<a class="headerlink" href="#equation-cb54d51d-e502-4bdf-8346-15c5c3b683c3" title="Permalink to this equation">¶</a></span>\[\begin{align}\rho_{\underbrace{ij}_{q[0]}~\underbrace{kl}_{q[1]}~\underbrace{mn}_{q[2]}}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-5e40e2f0-7502-4d7a-a1fa-05f27108c2a0">
+<span class="eqno">(8)<a class="headerlink" href="#equation-5e40e2f0-7502-4d7a-a1fa-05f27108c2a0" title="Permalink to this equation">¶</a></span>\[\begin{align}\rho_{\underbrace{ij}_{q[0]}~\underbrace{kl}_{q[1]}~\underbrace{mn}_{q[2]}}\end{align}\]</div>
 <p>Thus we can calculate the reduced density matrix for mode <code class="docutils literal notranslate"><span class="pre">q[2]</span></code>, <span class="math notranslate nohighlight">\(\rho_2\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -766,7 +764,7 @@ distributions for the first 6 Fock states, for the teleported mode <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_32_0.png" src="../../../../_images/Hands-on-9_32_0.png" />
+<img alt="../../../../_images/e68c619b2231e540efef046c50c5d95c021d5c83b3aaded8fbaa4535ab112e91.png" src="../../../../_images/e68c619b2231e540efef046c50c5d95c021d5c83b3aaded8fbaa4535ab112e91.png" />
 </div>
 </div>
 <p>Note that this information can also be extracted automatically via the Fock state method
@@ -788,9 +786,9 @@ distributions for the first 6 Fock states, for the teleported mode <code class="
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="full-program">
-<h2>Full program<a class="headerlink" href="#full-program" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="full-program">
+<h2>Full program<a class="headerlink" href="#full-program" title="Permalink to this heading">¶</a></h2>
 <p>The full Strawberry Fields program for teleportation is given by:</p>
 <p>.. code-block:: python</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import strawberryfields as sf
@@ -829,9 +827,9 @@ eng = sf.Engine(&#39;fock&#39;, backend_options={&#39;cutoff_dim&#39;: 15})
 result = eng.run(prog, shots=1, modes=None, compile_options={})
 </pre></div>
 </div>
-</div>
-<div class="section" id="footnotes">
-<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading">¶</a></h2>
 <p>.. [#] Fock backends are backends which represent the quantum state and operations via the Fock
 basis. These can represent <em>all</em> possible CV states and operations, but also introduce
 numerical error due to truncation of the Fock space, and consume more memory.</p>
@@ -852,9 +850,9 @@ state information include:</p>
      matrix in the fock basis of mode ``n``
 </pre></div>
 </div>
-</div>
-<div class="section" id="id1">
-<h2>References<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>References<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>.. [1] Dagmar Bruß. Characterizing entanglement. Journal of Mathematical Physics,
 43(9):4237-4251, Sep 2002. URL: https://doi.org/10.1063/1.1494474, doi:10.1063/1.1494474.</p>
 <p>.. [2] Charles H. Bennett, Gilles Brassard, Claude Crépeau, Richard Jozsa, Asher Peres, and
@@ -867,10 +865,10 @@ ISBN 9783527635290. URL: https://books.google.ca/books?id=eKxHZ0UHEU4C.</p>
 <p>.. [4] W.H. Steeb and Y. Hardy. Problems and Solutions in Quantum Computing and
 Quantum Information. World Scientific, 2006. ISBN 9789812567406.
 URL: https://books.google.ca/books?id=HGMy_dSmfbkC.</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="cv-quantum-gate-visualizations">
-<h1>CV quantum gate visualizations<a class="headerlink" href="#cv-quantum-gate-visualizations" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="cv-quantum-gate-visualizations">
+<h1>CV quantum gate visualizations<a class="headerlink" href="#cv-quantum-gate-visualizations" title="Permalink to this heading">¶</a></h1>
 <p><em>Author: Brianna Gopaul</em></p>
 <p>In a conventional quantum circuit, qubits represented by wires are
 operated on by quantum gates which collectively perform computations.
@@ -899,8 +897,8 @@ non-Gaussian gates and apply them to a state using Strawberry Fields.</strong></
 </div>
 </div>
 </div>
-<div class="section" id="vacuum-state">
-<h2>Vacuum State<a class="headerlink" href="#vacuum-state" title="Permalink to this headline">¶</a></h2>
+<section id="vacuum-state">
+<h2>Vacuum State<a class="headerlink" href="#vacuum-state" title="Permalink to this heading">¶</a></h2>
 <p>The vacuum state is the lowest energy Gaussian state. It has no
 displacement or squeezing in phase space.</p>
 <p>Here we learn how to create the vacuum state on a quantum circuit with
@@ -959,7 +957,7 @@ the state.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_51_0.png" src="../../../../_images/Hands-on-9_51_0.png" />
+<img alt="../../../../_images/c40d425b2b2eb500b9bd3d258379a7f7e910de956e5fbb677276cec0d170a526.png" src="../../../../_images/c40d425b2b2eb500b9bd3d258379a7f7e910de956e5fbb677276cec0d170a526.png" />
 </div>
 </div>
 <p>We can make a couple of observations from the Gaussian distribution
@@ -968,9 +966,9 @@ Later on, we’ll have a look at non-Gaussian gates that have regions of
 negative quasi-probability. The vacuum state is also centered at 0 on
 both the position axis <span class="math notranslate nohighlight">\(\hat {x}\)</span> and momentum axis
 <span class="math notranslate nohighlight">\(\hat {p}\)</span>.</p>
-</div>
-<div class="section" id="squeezing-gate">
-<h2>Squeezing Gate<a class="headerlink" href="#squeezing-gate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="squeezing-gate">
+<h2>Squeezing Gate<a class="headerlink" href="#squeezing-gate" title="Permalink to this heading">¶</a></h2>
 <p>The squeezing gate can also be thought of as a transformation on the
 position and momentum axes. The squeezing gate scales <span class="math notranslate nohighlight">\(x\)</span> to
 <span class="math notranslate nohighlight">\(e^{ - r}\hat{x} _\phi\)</span> and scales <span class="math notranslate nohighlight">\(p\)</span> with
@@ -1000,15 +998,15 @@ there are no regions of negative quasi-probabilty.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_55_0.png" src="../../../../_images/Hands-on-9_55_0.png" />
+<img alt="../../../../_images/4b0bd2f871330643e28771fbb46089cb08565712b358b02e123ccb851bbb6fe5.png" src="../../../../_images/4b0bd2f871330643e28771fbb46089cb08565712b358b02e123ccb851bbb6fe5.png" />
 </div>
 </div>
 <p>The below animation shows the squeezing gate acting on the vacuum state
 with increasing strengths of parameters. |squeezing|</p>
 <p>.. |squeezing| image:: /tutorials/images/squeezinggif.gif</p>
-</div>
-<div class="section" id="rotation-gate">
-<h2>Rotation Gate<a class="headerlink" href="#rotation-gate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="rotation-gate">
+<h2>Rotation Gate<a class="headerlink" href="#rotation-gate" title="Permalink to this heading">¶</a></h2>
 <p>The rotation gate shifts the <span class="math notranslate nohighlight">\(\hat{x}\)</span> quadrature to
 <span class="math notranslate nohighlight">\(\hat{x}\)</span> <span class="math notranslate nohighlight">\(\cos \phi\)</span> - <span class="math notranslate nohighlight">\(\hat{p}\sin\)</span> <span class="math notranslate nohighlight">\(\phi\)</span> and
 <span class="math notranslate nohighlight">\(\hat{p}\)</span> to <span class="math notranslate nohighlight">\(\hat{p}\)</span> <span class="math notranslate nohighlight">\(\cos \phi\)</span> +
@@ -1036,7 +1034,7 @@ rotates the phase space.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_59_0.png" src="../../../../_images/Hands-on-9_59_0.png" />
+<img alt="../../../../_images/bdff3b34031f0c6609b3bab043f64b8c722b211130d8d76655fb72570374db1c.png" src="../../../../_images/bdff3b34031f0c6609b3bab043f64b8c722b211130d8d76655fb72570374db1c.png" />
 </div>
 </div>
 <p>Above we apply the rotation gate to a coherent state. When compared to
@@ -1045,9 +1043,9 @@ makes a rotation.</p>
 <p>Similarily, the rotation gate is applied with an increasing parameter in
 the below animation. |rotation|</p>
 <p>.. |rotation| image:: /tutorials/images/rotation.gif</p>
-</div>
-<div class="section" id="displacement-gate">
-<h2>Displacement Gate<a class="headerlink" href="#displacement-gate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="displacement-gate">
+<h2>Displacement Gate<a class="headerlink" href="#displacement-gate" title="Permalink to this heading">¶</a></h2>
 <p>The displacement gate has a specified complex value <span class="math notranslate nohighlight">\(\alpha\)</span>. It
 shifts <span class="math notranslate nohighlight">\(\hat{x}\)</span> by a value porportional to <span class="math notranslate nohighlight">\(Re(\alpha)\)</span> and
 the <span class="math notranslate nohighlight">\(\hat {p}\)</span> by a value <span class="math notranslate nohighlight">\(Im({\alpha})\)</span>.</p>
@@ -1072,15 +1070,15 @@ the <span class="math notranslate nohighlight">\(\hat {p}\)</span> by a value <s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_64_0.png" src="../../../../_images/Hands-on-9_64_0.png" />
+<img alt="../../../../_images/79731ba864baf6d98462f46b8af31d5566bd7f8e957b179a5b09a9eb0c19e083.png" src="../../../../_images/79731ba864baf6d98462f46b8af31d5566bd7f8e957b179a5b09a9eb0c19e083.png" />
 </div>
 </div>
 <p>As <span class="math notranslate nohighlight">\(\alpha\)</span> increases in value, the state is displaced more to the
 right. |disp|</p>
 <p>.. |disp| image:: /tutorials/images/displacementgif.gif</p>
-</div>
-<div class="section" id="cubic-phase-gate">
-<h2>Cubic Phase Gate<a class="headerlink" href="#cubic-phase-gate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cubic-phase-gate">
+<h2>Cubic Phase Gate<a class="headerlink" href="#cubic-phase-gate" title="Permalink to this heading">¶</a></h2>
 <p>The cubic phase gate shifts <span class="math notranslate nohighlight">\(\hat{p}\)</span> by <span class="math notranslate nohighlight">\(\gamma\hat{x}^2\)</span>
 where <span class="math notranslate nohighlight">\(\gamma\)</span> is a definable parameter but does not transform
 <span class="math notranslate nohighlight">\(\hat{x}\)</span> in the phase space. Below, we decide to set
@@ -1113,15 +1111,15 @@ Strawberry Fields where to limit the Fock space.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_69_0.png" src="../../../../_images/Hands-on-9_69_0.png" />
+<img alt="../../../../_images/dabdc302c95e8537f6eb8a2f820d7cd6a712c86d0e87bf4b5b4bdb53cee063f2.png" src="../../../../_images/dabdc302c95e8537f6eb8a2f820d7cd6a712c86d0e87bf4b5b4bdb53cee063f2.png" />
 </div>
 </div>
 <p>Here we can see that the vacuum state has been shifted to a state where
 it reaches negative quasi-probability distributions. |cubic|</p>
 <p>.. |cubic| image:: /tutorials/images/cubicphasegif.gif</p>
-</div>
-<div class="section" id="kerr-gate">
-<h2>Kerr Gate<a class="headerlink" href="#kerr-gate" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="kerr-gate">
+<h2>Kerr Gate<a class="headerlink" href="#kerr-gate" title="Permalink to this heading">¶</a></h2>
 <p>Before we understand how the Kerr gate operates, we should first take
 another look at the rotation gate. In the Fock basis, the rotation gate
 acts with <span class="math notranslate nohighlight">\(e^{ i\phi \hat{n}}\)</span>. In comparison, the Kerr gates
@@ -1152,7 +1150,7 @@ state significantly.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-9_73_0.png" src="../../../../_images/Hands-on-9_73_0.png" />
+<img alt="../../../../_images/510138fb7f66b6912bc515b0f90d65244b580ccb31982bc2ad4584a6a8634847.png" src="../../../../_images/510138fb7f66b6912bc515b0f90d65244b580ccb31982bc2ad4584a6a8634847.png" />
 </div>
 </div>
 <p>In the below Wigner function, the state is initially in a coherent
@@ -1173,10 +1171,10 @@ in the Strawberry Fields documentation.</p>
 </div>
 <p>.. role:: html(raw)
 :format: html</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="gate-teleportation">
-<h1>Gate teleportation<a class="headerlink" href="#gate-teleportation" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gate-teleportation">
+<h1>Gate teleportation<a class="headerlink" href="#gate-teleportation" title="Permalink to this heading">¶</a></h1>
 <p>In the quantum state teleportation algorithm, the quantum state is transferred from the sender
 to the receiver exactly. However, quantum teleportation can be used in a much more powerful
 manner, by simultaneously processing and manipulating the teleported state; this is known as
@@ -1189,8 +1187,8 @@ directly, for example by reducing resources, and in the application of experimen
 hard-to-implement gates [[1]<em>]. In fact, gate teleportation forms a universal
 quantum computing primitive, and is a precursor to cluster state models of quantum computation
 [[2]</em>][[3]_].</p>
-<div class="section" id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h2>
 <p>First described by Gottesman and Chuang [[2]<em>] in the case of qubits, gate
 teleportation was generalized for the CV case by Bartlett and Munro in 2003 [[4]</em>].
 In an analogous process to the discrete-variable case, you begin with the algorithm for
@@ -1232,9 +1230,9 @@ can be derived [[3]_].</p>
 <strong>feedforward</strong> is required; additional qumodes and projective measurements are introduced,
 with successive measurements dependent on the previous result [[5]_].</p>
 </div></blockquote>
-</div>
-<div class="section" id="code">
-<h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="code">
+<h2>Code<a class="headerlink" href="#code" title="Permalink to this heading">¶</a></h2>
 <p>Consider the following gate teleportation circuit,</p>
 <p><img alt="" src="../../../../_images/gate_teleport_ex.png" /></p>
 <p>Here, the state <span class="math notranslate nohighlight">\(\ket{\psi}\)</span>, a squeezed state with <span class="math notranslate nohighlight">\(r=0.1\)</span>, is teleported to the
@@ -1331,8 +1329,8 @@ and 3:</p>
 </div>
 <p>To easily check that the output of the circuit is as expected, we can make sure that it agrees
 with the (uncorrected) state</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7fb62d30-e89c-4515-b7e0-7d690de90a40">
-<span class="eqno">(9)<a class="headerlink" href="#equation-7fb62d30-e89c-4515-b7e0-7d690de90a40" title="Permalink to this equation">¶</a></span>\[\begin{align}X({q_1})FP(0.5)X(q_0)F \ket{z}.\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-14dc1287-0537-4438-bc42-a7b3634f01fd">
+<span class="eqno">(9)<a class="headerlink" href="#equation-14dc1287-0537-4438-bc42-a7b3634f01fd" title="Permalink to this equation">¶</a></span>\[\begin{align}X({q_1})FP(0.5)X(q_0)F \ket{z}.\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">check</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">Program</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1377,9 +1375,9 @@ with the (uncorrected) state</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>References<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>References<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
 <p>.. [1] A. Furusawa and P. van Loock. Quantum Teleportation and Entanglement:
 A Hybrid Approach to Optical Quantum Information Processing. Wiley, 2011.
 ISBN 9783527635290. URL: https://books.google.ca/books?id=eKxHZ0UHEU4C.</p>
@@ -1394,10 +1392,10 @@ optical quantum gates. Physical Review Letters, 90:117901, Mar 2003.
 doi:10.1103/PhysRevLett.90.117901.</p>
 <p>.. [5] Peter van Loock. Examples of gaussian cluster computation. Journal of the
 Optical Society of America B, 24(2):340–346, Feb 2007. doi:10.1364/JOSAB.24.000340.</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="gaussian-cloning">
-<h1>Gaussian cloning<a class="headerlink" href="#gaussian-cloning" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gaussian-cloning">
+<h1>Gaussian cloning<a class="headerlink" href="#gaussian-cloning" title="Permalink to this heading">¶</a></h1>
 <p>A fundamental concept in quantum mechanics, the <code class="docutils literal notranslate"><span class="pre">no-cloning</span> <span class="pre">theorem</span> <span class="pre">&lt;https://en.wikipedia.org/wiki/No-cloning_theorem&gt;</span></code>_ states that an unknown quantum
 state cannot be copied exactly [[2]<em>] - in effect, ruling out any algorithm
 that attempts to produce or relies upon the production of perfect copies of an arbitrary
@@ -1405,20 +1403,20 @@ quantum state [[3]</em>]. Nevertheless, the no-cloning theorem does not rule out
 the production of <em>approximate</em> quantum state clones. This has led to the development
 of so called ‘quantum cloning algorithms’, unitary cloning transformations which provide
 identical copies of an arbitrary input state, at the cost of a non-unity fidelity.</p>
-<div class="section" id="id3">
-<h2>Implementation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<section id="id3">
+<h2>Implementation<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>The first approximate cloning algorithm was introduced in the context of discrete-variable
 quantum computing by Buzek and Hillery [[4]<em>], and quickly followed up with a CV
 implementation by Cerf et al. [[5]</em>]. Here, a class of cloning machines
 satisfying <em>displacement covariance</em> are introduced; that is, for two input states
 <span class="math notranslate nohighlight">\(\ket{\psi}\)</span> and <span class="math notranslate nohighlight">\(\ket{\phi}\)</span>, with approximate cloned states <span class="math notranslate nohighlight">\(\ket{\psi'}\)</span>
 and <span class="math notranslate nohighlight">\(\ket{\phi'}\)</span> respectively,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0bef707a-21a5-4bb9-a00d-ca82767ab57e">
-<span class="eqno">(10)<a class="headerlink" href="#equation-0bef707a-21a5-4bb9-a00d-ca82767ab57e" title="Permalink to this equation">¶</a></span>\[\begin{align}D(\alpha)\ket{\psi}=\ket{\phi}~~~\Rightarrow~~~D(\alpha)\ket{\psi'}=\ket{\phi'}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1a200ac5-e4a4-406d-9c41-83c4085a9ade">
+<span class="eqno">(10)<a class="headerlink" href="#equation-1a200ac5-e4a4-406d-9c41-83c4085a9ade" title="Permalink to this equation">¶</a></span>\[\begin{align}D(\alpha)\ket{\psi}=\ket{\phi}~~~\Rightarrow~~~D(\alpha)\ket{\psi'}=\ket{\phi'}\end{align}\]</div>
 <p>In other words, cloning fidelity is <strong>invariant</strong> under displacements in the phase space,
 and the position and momentum uncertainties of the two clones satisfies the uncertainty inequality</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5b76ae00-1ece-4129-8d25-10fc81d76bd3">
-<span class="eqno">(11)<a class="headerlink" href="#equation-5b76ae00-1ece-4129-8d25-10fc81d76bd3" title="Permalink to this equation">¶</a></span>\[\begin{align}\Delta x_1\Delta p_2 \geq \frac{1}{2}\hbar\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-9c034f46-b2a9-4d8c-92aa-fd7f0b95fb1f">
+<span class="eqno">(11)<a class="headerlink" href="#equation-9c034f46-b2a9-4d8c-92aa-fd7f0b95fb1f" title="Permalink to this equation">¶</a></span>\[\begin{align}\Delta x_1\Delta p_2 \geq \frac{1}{2}\hbar\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\Delta x_1\)</span> is the <span class="math notranslate nohighlight">\(x\)</span> quadrature variance of state <span class="math notranslate nohighlight">\(\ket{\psi}\)</span>
 and <span class="math notranslate nohighlight">\(\Delta p_2\)</span> is the <span class="math notranslate nohighlight">\(p\)</span> quadrature variance of state <span class="math notranslate nohighlight">\(\ket{\phi}\)</span>.</p>
 <p><strong>Gaussian cloning algorithms</strong>, those with the ability to produce two approximate and
@@ -1429,8 +1427,8 @@ phase space, and the resulting cloned states have identical <span class="math no
 quadrature variances, <span class="math notranslate nohighlight">\(\Delta x_1=\Delta p_1=\Delta x_2=\Delta p_2\)</span>. It is this
 subclass which is shown to be the CV equivalent to the universal qubit cloner of Buzek
 and Hillery [[5]_].</p>
-<div class="section" id="circuit-analysis">
-<h3>Circuit analysis<a class="headerlink" href="#circuit-analysis" title="Permalink to this headline">¶</a></h3>
+<section id="circuit-analysis">
+<h3>Circuit analysis<a class="headerlink" href="#circuit-analysis" title="Permalink to this heading">¶</a></h3>
 <p>Working within this framework, Andersen et al. [[6]_] presented a symmetric
 Gaussian cloning algorithm (in addition to experimental results) for optimum theoretical
 cloning of coherent states:</p>
@@ -1439,7 +1437,7 @@ cloning of coherent states:</p>
 and <span class="math notranslate nohighlight">\(\ket{\alpha'}_3\)</span> represent the two identical but approximate clones, and the
 beamsplitters are 50-50 beamsplitters (hence the ‘symmetric’ in symmetric cloning algorithm).
 Let’s walk through the various stages of the circuit above, and examine what is occuring.</p>
-<ol>
+<ol class="arabic">
 <li><p>The action of a 50-50 beamsplitter on a coherent state <span class="math notranslate nohighlight">\(\ket{\alpha}\)</span> and a vacuum
 state <span class="math notranslate nohighlight">\(\ket{0}\)</span> is
 <span class="math notranslate nohighlight">\(BS(\ket{\alpha}\otimes\ket{0}) = \ket{\frac{1}{\sqrt{2}}\alpha}\otimes \ket{\frac{1}{\sqrt{2}}\alpha}\)</span>.
@@ -1480,23 +1478,23 @@ vacuum state, to get our two cloned outputs:</p>
 <p>where <span class="math notranslate nohighlight">\(\alpha' \sim N(\mu, \text{cov}), ~~\mu=(\text{Re}(\alpha_0), \text{Im}(\alpha_0)), ~~\text{cov}=\I/4\)</span>.</p>
 </li>
 </ol>
-</div>
-<div class="section" id="coherent-average-fidelity">
-<h3>Coherent average fidelity<a class="headerlink" href="#coherent-average-fidelity" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="coherent-average-fidelity">
+<h3>Coherent average fidelity<a class="headerlink" href="#coherent-average-fidelity" title="Permalink to this heading">¶</a></h3>
 <p>If we were to perform the Guassian cloning circuit over an ensemble of identical input
 states <span class="math notranslate nohighlight">\(\ket{\alpha_0}\)</span>, the cloned output can be described by the following mixed state,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bb6b0bbf-947c-413f-af85-a8858a70628d">
-<span class="eqno">(12)<a class="headerlink" href="#equation-bb6b0bbf-947c-413f-af85-a8858a70628d" title="Permalink to this equation">¶</a></span>\[\begin{align}\rho = \iint d^2 \alpha' \frac{2}{\pi}e^{-2|\alpha'-\alpha_0|^2}\ket{\alpha'}\bra{\alpha'},\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-21591d43-c0c4-464e-9865-ea81abc08a44">
+<span class="eqno">(12)<a class="headerlink" href="#equation-21591d43-c0c4-464e-9865-ea81abc08a44" title="Permalink to this equation">¶</a></span>\[\begin{align}\rho = \iint d^2 \alpha' \frac{2}{\pi}e^{-2|\alpha'-\alpha_0|^2}\ket{\alpha'}\bra{\alpha'},\end{align}\]</div>
 <p>where the exponential term is the PDF of the random variable <span class="math notranslate nohighlight">\(\alpha'\)</span> from (4) above.
 To calculate the average fidelity over the ensemble of the cloned states, it is sufficient
 to calculate the inner product</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b032de4b-e7dc-426a-a953-7d1cdd0ef43b">
-<span class="eqno">(13)<a class="headerlink" href="#equation-b032de4b-e7dc-426a-a953-7d1cdd0ef43b" title="Permalink to this equation">¶</a></span>\[\begin{align}F = \braketT{\alpha_0}{\rho}{\alpha_0}.\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-c076607a-a330-4eba-8551-faa956ed6ae1">
+<span class="eqno">(13)<a class="headerlink" href="#equation-c076607a-a330-4eba-8551-faa956ed6ae1" title="Permalink to this equation">¶</a></span>\[\begin{align}F = \braketT{\alpha_0}{\rho}{\alpha_0}.\end{align}\]</div>
 <p>From the Fock basis decomposition of the coherent state (see <code class="docutils literal notranslate"><span class="pre">coherent_state</span></code>), it can
 be easily seen that <span class="math notranslate nohighlight">\(|\braketD{\alpha_0}{\alpha'}|^2 = e^{-|\alpha_0-\alpha'|^2}\)</span>.
 Therefore,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04a9d02e-8631-4e5c-9991-0e4136cbef0b">
-<span class="eqno">(14)<a class="headerlink" href="#equation-04a9d02e-8631-4e5c-9991-0e4136cbef0b" title="Permalink to this equation">¶</a></span>\[\begin{align}F = \frac{2}{\pi}\iint d^2 \alpha' e^{-2|\alpha'-\alpha_0|^2}
+<div class="amsmath math notranslate nohighlight" id="equation-a3131327-5c5e-41e6-beed-8009b40309cb">
+<span class="eqno">(14)<a class="headerlink" href="#equation-a3131327-5c5e-41e6-beed-8009b40309cb" title="Permalink to this equation">¶</a></span>\[\begin{align}F = \frac{2}{\pi}\iint d^2 \alpha' e^{-2|\alpha'-\alpha_0|^2}
     |\braketD{\alpha_0}{\alpha'}|^2 = \frac{2}{\pi}\iint d^2 \alpha ~e^{-3|\alpha|^2} = \frac{2}{3},\end{align}\]</div>
 <p>where we have made the substitution <span class="math notranslate nohighlight">\(\alpha=\alpha'-\alpha_0\)</span>. Note that the
 average fidelity is independent of the initial state <span class="math notranslate nohighlight">\(\alpha_0\)</span>.</p>
@@ -1515,29 +1513,29 @@ In the case of the Gaussian backend, $\sigma_H=2\times 10^{-4}$
 &lt;strawberryfields.backends.GaussianBackend.measure_homodyne&gt;`).
 </pre></div>
 </div>
-</div>
-<div class="section" id="displaced-squeezed-states">
-<h3>Displaced squeezed states<a class="headerlink" href="#displaced-squeezed-states" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="displaced-squeezed-states">
+<h3>Displaced squeezed states<a class="headerlink" href="#displaced-squeezed-states" title="Permalink to this heading">¶</a></h3>
 <p>In addition to coherent states, this cloning scheme was further analysed by
 Olivares et al. [[7]_] in the cases of other Gaussian input states,
 such as squeezed states and thermal states. In particular, when the input Gaussian
 state is a <strong>displaced squeezed state</strong>,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-65cf119a-338d-4fc3-8b12-c6c8ddc67f3b">
-<span class="eqno">(15)<a class="headerlink" href="#equation-65cf119a-338d-4fc3-8b12-c6c8ddc67f3b" title="Permalink to this equation">¶</a></span>\[\begin{align}\ket{\psi} = \ket{\alpha,z} = D(\alpha)S(z)\ket{0},\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-28bc3ccd-e3e3-49f8-9a1a-1737b3359656">
+<span class="eqno">(15)<a class="headerlink" href="#equation-28bc3ccd-e3e3-49f8-9a1a-1737b3359656" title="Permalink to this equation">¶</a></span>\[\begin{align}\ket{\psi} = \ket{\alpha,z} = D(\alpha)S(z)\ket{0},\end{align}\]</div>
 <p>this scheme provides an optimum fidelity of <span class="math notranslate nohighlight">\(2/3\)</span> <em>only</em> if the squeezing parameter
 is known beforehand, as this allows the application of the unitary operation <span class="math notranslate nohighlight">\(S(z)^{-1}\)</span>
 to recover a coherent state prior to cloning. Of course, this is not possible if we wish
 to clone an arbitrary unknown displaced squeezed state; in this case, the scheme described
 above leads to the following fidelity:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e8bc49d4-fafd-4230-b856-29e097e8b0fe">
-<span class="eqno">(16)<a class="headerlink" href="#equation-e8bc49d4-fafd-4230-b856-29e097e8b0fe" title="Permalink to this equation">¶</a></span>\[\begin{align}F(r,\sigma_H) = \frac{4}{\sqrt{(6+2\sigma_H)^2+32(1+\sigma_H)\sinh^2(r)}}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-112abdfb-749f-4e70-a17f-cb5fc17fba84">
+<span class="eqno">(16)<a class="headerlink" href="#equation-112abdfb-749f-4e70-a17f-cb5fc17fba84" title="Permalink to this equation">¶</a></span>\[\begin{align}F(r,\sigma_H) = \frac{4}{\sqrt{(6+2\sigma_H)^2+32(1+\sigma_H)\sinh^2(r)}}\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(z=re^{i\phi}\)</span> and <span class="math notranslate nohighlight">\(\sigma_H\)</span> is the uncertainty in the homodyne
 measurement. Note that <span class="math notranslate nohighlight">\(F\rightarrow0\)</span> as <span class="math notranslate nohighlight">\(r\rightarrow\infty\)</span>; i.e.,
 the more highly squeezed the state, the lower the cloning fidelity.</p>
-</div>
-</div>
-<div class="section" id="id4">
-<h2>Code<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id4">
+<h2>Code<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>The symmetric Gaussian cloning circuit displayed above can be implemented using
 Strawberry Fields:</p>
 <div class="cell docutils container">
@@ -1689,9 +1687,9 @@ and covariance <span class="math notranslate nohighlight">\(\sim I/4\)</span>:</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id5">
-<h2>References<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>References<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
 <p>.. [1] P. van Loock and Samuel L. Braunstein. Telecloning of continuous quantum variables.
 Physical Review Letters, Nov 2001. doi:10.1103/physrevlett.87.247901.</p>
 <p>.. [2] W. K. Wootters and W. H. Zurek. A single quantum cannot be cloned.
@@ -1707,10 +1705,10 @@ of coherent states with linear optics. Physical Review Letters, Jun 2005.
 doi:10.1103/physrevlett.94.240503.</p>
 <p>.. [7] Stefano Olivares, Matteo G. A. Paris, and Ulrik L. Andersen. Cloning of gaussian
 states by linear optics. Physical Review A, Jun 2006. doi:10.1103/physreva.73.062330.</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hamiltonian-simulation">
-<h1>Hamiltonian simulation<a class="headerlink" href="#hamiltonian-simulation" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hamiltonian-simulation">
+<h1>Hamiltonian simulation<a class="headerlink" href="#hamiltonian-simulation" title="Permalink to this heading">¶</a></h1>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&quot;The problem of simulating the dynamics of quantum systems was the original motivation for quantum
 computers and remains one of their major potential applications.&quot; - Berry et al. [[1]_]
 </pre></div>
@@ -1727,8 +1725,8 @@ Efficient implementations of Hamiltonian simulation also exist in the CV formula
 [[6]<em>], with specific application to <code class="docutils literal notranslate"><span class="pre">Bose-Hubbard</span> <span class="pre">Hamiltonians</span> <span class="pre">&lt;https://en.wikipedia.org/wiki/Bose%E2%80%93Hubbard_model&gt;</span></code></em> (describing a system of interacting
 bosonic particles on a lattice of orthogonal position states [[7]_]). As
 such, this method is ideally suited to photonic quantum computation.</p>
-<div class="section" id="id6">
-<h2>Implementation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<section id="id6">
+<h2>Implementation<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
 <p>For a quick example, consider a lattice composed of two adjacent nodes:</p>
 <p><img alt="" src="../../../../_images/graph.png" /></p>
 <p>This graph is represented by the <span class="math notranslate nohighlight">\(2\times 2\)</span> adjacency matrix
@@ -1736,16 +1734,16 @@ such, this method is ideally suited to photonic quantum computation.</p>
 we can model the dynamics of Bosons on this structure via a 2-qumode CV circuit.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Bose-Hubbard</span> <span class="pre">Hamiltonian</span> <span class="pre">&lt;https://en.wikipedia.org/wiki/Bose%E2%80%93Hubbard_model&gt;</span></code>_ with
 on-site interactions is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5da0041e-a515-47d2-98c1-326d9fa8cf1d">
-<span class="eqno">(17)<a class="headerlink" href="#equation-5da0041e-a515-47d2-98c1-326d9fa8cf1d" title="Permalink to this equation">¶</a></span>\[\begin{align}H = J\sum_{i}\sum_j A_{ij} \ad_i\a_j + \frac{1}{2}U\sum_i \hat{n}_i(\hat{n}_i-1)= J(\ad_1 \a_2 +
+<div class="amsmath math notranslate nohighlight" id="equation-d632b770-53ce-4ba0-a08e-a2988e409eb2">
+<span class="eqno">(17)<a class="headerlink" href="#equation-d632b770-53ce-4ba0-a08e-a2988e409eb2" title="Permalink to this equation">¶</a></span>\[\begin{align}H = J\sum_{i}\sum_j A_{ij} \ad_i\a_j + \frac{1}{2}U\sum_i \hat{n}_i(\hat{n}_i-1)= J(\ad_1 \a_2 +
     \ad_2\a_1) + \frac{1}{2}U (  \hat{n}_1^2 - \hat{n}_1 + \hat{n}_2^2 - \hat{n}_2)\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(J\)</span> represents the transfer integral or hopping term of the boson between nodes, and
 <span class="math notranslate nohighlight">\(U\)</span> is the on-site interaction potential. Here, <span class="math notranslate nohighlight">\(\ad_1 \a_2\)</span> represents a boson
 transitioning from node 1 to node 2, while <span class="math notranslate nohighlight">\(\ad_2\a_1\)</span> represents a boson transitioning from
 node 2 to node 1, and <span class="math notranslate nohighlight">\(\hat{n}_i=\ad_i\a_i\)</span> is the number operator applied to mode <span class="math notranslate nohighlight">\(i\)</span>.
 Applying the Lie-product formula, we find that</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6274cd99-22e1-49d7-ae10-3ed361dcab20">
-<span class="eqno">(18)<a class="headerlink" href="#equation-6274cd99-22e1-49d7-ae10-3ed361dcab20" title="Permalink to this equation">¶</a></span>\[\begin{align}e^{-iHt} = \left[\exp\left({-i\frac{ J t}{k}(\ad_1 \a_2 +
+<div class="amsmath math notranslate nohighlight" id="equation-8bc87535-2b5d-43f0-bf09-b01a38ae8d65">
+<span class="eqno">(18)<a class="headerlink" href="#equation-8bc87535-2b5d-43f0-bf09-b01a38ae8d65" title="Permalink to this equation">¶</a></span>\[\begin{align}e^{-iHt} = \left[\exp\left({-i\frac{ J t}{k}(\ad_1 \a_2 +
     \ad_2\a_1)}\right)\exp\left(-i\frac{Ut}{2k}\hat{n}_1^2\right)\exp\left(-i\frac{Ut}{2k}\hat{n}_2^2\right)
     \exp\left(i\frac{Ut}{2k}\hat{n}_1\right)\exp\left(i\frac{Ut}{2k}\hat{n}_2\right)\right]^k+\mathcal{O}\left(t^2/k\right),\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{O}\left(t^2/k\right)\)</span> is the order of the error term, derived from the Lie
@@ -1763,9 +1761,9 @@ product formula. Comparing this to the form of various CV gates, we can write th
 <p><img alt="" src="../../../../_images/hamsim.png" /></p>
 <p>For more complex CV decompositions, including those with interactions, see Kalajdzievski et al.
 [[6]_] for more details.</p>
-</div>
-<div class="section" id="id7">
-<h2>Code<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id7">
+<h2>Code<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>The Hamiltonian simulation circuit displayed above for the 2-node lattice, can be implemented using
 Strawberry Fields:</p>
 <div class="cell docutils container">
@@ -1848,17 +1846,17 @@ measuring some output Fock state:</p>
 <p>We can compare this result to the analytic matrix exponential <span class="math notranslate nohighlight">\(e^{-iHt}\)</span>, where the matrix
 elements of <span class="math notranslate nohighlight">\(H\)</span> can be computed in the Fock basis. Considering the diagonal interaction
 terms,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-735766a1-5299-4f75-a0c3-4f8f3bd56500">
-<span class="eqno">(19)<a class="headerlink" href="#equation-735766a1-5299-4f75-a0c3-4f8f3bd56500" title="Permalink to this equation">¶</a></span>\[\begin{align}&amp; \braketT{0,2}{H}{0,2} = \frac{1}{2}U\braketT{0}{(\hat{n}^2-\hat{n})}{0} +
+<div class="amsmath math notranslate nohighlight" id="equation-bf4d1ab9-a7f0-480a-8bbf-fe03dbaf1f30">
+<span class="eqno">(19)<a class="headerlink" href="#equation-bf4d1ab9-a7f0-480a-8bbf-fe03dbaf1f30" title="Permalink to this equation">¶</a></span>\[\begin{align}&amp; \braketT{0,2}{H}{0,2} = \frac{1}{2}U\braketT{0}{(\hat{n}^2-\hat{n})}{0} +
     \frac{1}{2}U\braketT{2}{(\hat{n}^2-\hat{n})}{2} = \frac{1}{2}U(2^2-2) = U\\[7pt] &amp;
     \braketT{1,1}{H}{1,1} = 0\\[7pt] &amp; \braketT{2,0}{H}{2,0} = U\end{align}\]</div>
 <p>as well as the off-diagonal hopping terms,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0fafaf2e-6008-48ab-a673-eb775cc3f8a5">
-<span class="eqno">(20)<a class="headerlink" href="#equation-0fafaf2e-6008-48ab-a673-eb775cc3f8a5" title="Permalink to this equation">¶</a></span>\[\begin{align}&amp; \braketT{1,1}{H}{0,2} = J\braketT{1,1}{\left(\ad_1\a_2 + \a_1\ad_2\right)}{0,2} =
+<div class="amsmath math notranslate nohighlight" id="equation-fa163a93-6dd1-4816-b753-68f252816caa">
+<span class="eqno">(20)<a class="headerlink" href="#equation-fa163a93-6dd1-4816-b753-68f252816caa" title="Permalink to this equation">¶</a></span>\[\begin{align}&amp; \braketT{1,1}{H}{0,2} = J\braketT{1,1}{\left(\ad_1\a_2 + \a_1\ad_2\right)}{0,2} =
     J(\sqrt{1}\sqrt{2} + \sqrt{0}\sqrt{3}) = J\sqrt{2}\\[7pt] &amp; \braketT{1,1}{H}{2,0} = J\sqrt{2}\end{align}\]</div>
 <p>and taking into account the Hermiticity of the system, we arrive at</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1416bb94-dfb5-4a4d-ab59-fd6ff5d577fd">
-<span class="eqno">(21)<a class="headerlink" href="#equation-1416bb94-dfb5-4a4d-ab59-fd6ff5d577fd" title="Permalink to this equation">¶</a></span>\[\begin{align}H = \begin{bmatrix}U&amp;J\sqrt{2}&amp;0\\ J\sqrt{2} &amp; 0 &amp; J\sqrt{2}\\ 0 &amp; J\sqrt{2} &amp; U\end{bmatrix}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-6075ba7a-46a3-4be5-9701-3aae894a7d91">
+<span class="eqno">(21)<a class="headerlink" href="#equation-6075ba7a-46a3-4be5-9701-3aae894a7d91" title="Permalink to this equation">¶</a></span>\[\begin{align}H = \begin{bmatrix}U&amp;J\sqrt{2}&amp;0\\ J\sqrt{2} &amp; 0 &amp; J\sqrt{2}\\ 0 &amp; J\sqrt{2} &amp; U\end{bmatrix}\end{align}\]</div>
 <p>which acts on the Fock basis <span class="math notranslate nohighlight">\(\{\ket{0,2},\ket{1,1},\ket{2,0}\}\)</span>. Using the SciPy matrix
 exponential function <code class="docutils literal notranslate"><span class="pre">scipy.linalg.expm</span></code>:</p>
 <div class="cell docutils container">
@@ -1882,9 +1880,9 @@ exponential function <code class="docutils literal notranslate"><span class="pre
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id8">
-<h2>References<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>References<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
 <p>.. [1] Dominic W. Berry, Andrew M. Childs, and Robin Kothari. Hamiltonian simulation with nearly optimal
 dependence on all parameters. In 2015 IEEE 56th Annual Symposium on Foundations of Computer Science.
 IEEE, Oct 2015. doi:10.1109/focs.2015.54.</p>
@@ -1903,10 +1901,10 @@ decomposition for the Bose-Hubbard model. 2018. arXiv:1801.06565.</p>
 <p>.. [7] Tomasz Sowiński, Omjyoti Dutta, Philipp Hauke, Luca Tagliacozzo, and Maciej Lewenstein. Dipolar
 molecules in optical lattices. Physical Review Letters, 108:115301, 2012.
 doi:10.1103/PhysRevLett.108.115301.</p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="time-domain-photonic-circuits">
-<h1>Time-domain photonic circuits<a class="headerlink" href="#time-domain-photonic-circuits" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="time-domain-photonic-circuits">
+<h1>Time-domain photonic circuits<a class="headerlink" href="#time-domain-photonic-circuits" title="Permalink to this heading">¶</a></h1>
 <p><em>Authors: Fabian Laudenbach, Josh Izaac, Theodor Isacsson, and Nicolas
 Quesada</em></p>
 <p>In this tutorial, we will introduce the basic concepts of time-domain photonic circuits
@@ -1927,12 +1925,12 @@ modes! We will use this machinery to investigate bipartite EPR states and then
 multipartite GHZ states. An important take away of this tutorial is that one can sample
 efficiently Gaussian circuits containing millions of modes with the equivalent
 computation effort of sampling Gaussian circuits with just a handful of modes.</p>
-<div class="section" id="an-instruction-set-for-the-time-domain-architecture">
-<h2>An instruction set for the time-domain architecture<a class="headerlink" href="#an-instruction-set-for-the-time-domain-architecture" title="Permalink to this headline">¶</a></h2>
+<section id="an-instruction-set-for-the-time-domain-architecture">
+<h2>An instruction set for the time-domain architecture<a class="headerlink" href="#an-instruction-set-for-the-time-domain-architecture" title="Permalink to this heading">¶</a></h2>
 <p>To introduce the time domain architecture we will simulate the setup in
 the figure. We can summarize the setup as the following set of
 intructions:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">i+1</span></code> mode is squeezed by a certain amount <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">i+1</span></code> mode undergoes a beamsplitter transformation with its
 preceding mode, labeled by <code class="docutils literal notranslate"><span class="pre">i</span></code>, by a certain angle <code class="docutils literal notranslate"><span class="pre">alpha[i]</span></code>.
@@ -2018,8 +2016,8 @@ a circuit diagram as</p>
 However, at most only two modes are interacting at the same time. The
 rest of the modes either have not been squeezed (and thus are in the
 vacuum state) or have been measured (and thus reset to vacuum).</p>
-<div class="section" id="reducing-simulation-resources-shifting-modes">
-<h3>Reducing simulation resources: shifting modes<a class="headerlink" href="#reducing-simulation-resources-shifting-modes" title="Permalink to this headline">¶</a></h3>
+<section id="reducing-simulation-resources-shifting-modes">
+<h3>Reducing simulation resources: shifting modes<a class="headerlink" href="#reducing-simulation-resources-shifting-modes" title="Permalink to this heading">¶</a></h3>
 <p>Instead of keeping track of the modes using labels telling us their time
 bin, we can label them in terms of the position that they occupy in the
 circuit above. A convenient choice of labels is to look at the two modes
@@ -2113,9 +2111,9 @@ we would need to keep in memory millions of real numbers, instead by using
 a time-domain strategy where we only worry about concurrent modes we only ever
 need to consider covariances matrices of size four by four, which results
 in massive speed and memory gains!</p>
-</div>
-<div class="section" id="the-tdmprogram">
-<h3>The TDMProgram<a class="headerlink" href="#the-tdmprogram" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-tdmprogram">
+<h3>The TDMProgram<a class="headerlink" href="#the-tdmprogram" title="Permalink to this heading">¶</a></h3>
 <p>Rather than performing the mode shifting and sample reshaping manually,
 Strawberry Fields provides the <code class="docutils literal notranslate"><span class="pre">~strawberryfields.TDMProgram</span></code> program class
 for automating this procedure, making it easy to construct and simulate time-domain
@@ -2149,10 +2147,10 @@ the lists <code class="docutils literal notranslate"><span class="pre">alpha</sp
 list <code class="docutils literal notranslate"><span class="pre">p</span></code> will cycle through the corresponding values of these lists.
 For example, <code class="docutils literal notranslate"><span class="pre">p[0]</span></code> will go through the values of <code class="docutils literal notranslate"><span class="pre">alpha</span></code> as the
 simulation progresses.</p>
-</div>
-</div>
-<div class="section" id="a-single-loop-architecture">
-<h2>A single-loop architecture<a class="headerlink" href="#a-single-loop-architecture" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="a-single-loop-architecture">
+<h2>A single-loop architecture<a class="headerlink" href="#a-single-loop-architecture" title="Permalink to this heading">¶</a></h2>
 <p>We will now write a simple function that
 encapsulates the single loop architecture using a <code class="docutils literal notranslate"><span class="pre">TDMprogram</span></code>. Then we
 will use it to generate samples of interesting quantum states and
@@ -2196,8 +2194,8 @@ time the results of our very simple experiment:</p>
 </div>
 </div>
 </div>
-<div class="section" id="generation-of-epr-states">
-<h3>Generation of EPR states<a class="headerlink" href="#generation-of-epr-states" title="Permalink to this headline">¶</a></h3>
+<section id="generation-of-epr-states">
+<h3>Generation of EPR states<a class="headerlink" href="#generation-of-epr-states" title="Permalink to this heading">¶</a></h3>
 <p>With the single loop architecture we can easily generate
 Einstein-Podolsky-Rosen (EPR) states [[#einstein1935]_]. In this section we will create
 this bipartite state and probe it using homodyne measurements.</p>
@@ -2293,9 +2291,9 @@ except for the effect of finite size statistics, they are almost identical</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="generating-ghz-states">
-<h3>Generating GHZ states<a class="headerlink" href="#generating-ghz-states" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="generating-ghz-states">
+<h3>Generating GHZ states<a class="headerlink" href="#generating-ghz-states" title="Permalink to this heading">¶</a></h3>
 <p>The GHZ states (named after Greenberger, Horne and Zeilinger) [[#greenberger2007]<em>] can be
 thought as an <span class="math notranslate nohighlight">\(n\)</span>-partite generalization of the EPR states [[#vanloock1999]</em>]. We
 will prepare these states using the single loop architecture
@@ -2379,10 +2377,10 @@ of the nullifier decay exponentially with the amount of squeezing</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="conclusion-and-final-remarks">
-<h2>Conclusion and final remarks<a class="headerlink" href="#conclusion-and-final-remarks" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="conclusion-and-final-remarks">
+<h2>Conclusion and final remarks<a class="headerlink" href="#conclusion-and-final-remarks" title="Permalink to this heading">¶</a></h2>
 <p>We have introduced the basic ideas of time-domain circuits by gradually
 transforming a simple one-loop <code class="docutils literal notranslate"><span class="pre">n</span></code>-mode optical setup from a brute
 force simulator to a time-domain simulator using the :class:<code class="docutils literal notranslate"><span class="pre">~strawberryfields.TDMProgram</span></code>.
@@ -2392,9 +2390,9 @@ a time-domain approach requires only constant (and very modest) resources.
 We have used this highly efficient implementation to study the correlations
 of EPR and GHZ states, the canonical bipartite and multipartite entangled
 states in the continuous-variable domain.</p>
-</div>
-<div class="section" id="id9">
-<h2>References<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id9">
+<h2>References<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h2>
 <p>.. [#advantage2022]</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>`Quantum computational advantage with a programmable photonic processor &lt;https://xanadu.ai/qca-paper&gt;`__.
 </pre></div>
@@ -2437,8 +2435,8 @@ arXiv:0712.0921, 2007.
 Physical Review Letters, 2000. doi:10.1103/PhysRevLett.84.3482 .
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -2460,7 +2458,7 @@ Physical Review Letters, 2000. doi:10.1103/PhysRevLett.84.3482 .
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

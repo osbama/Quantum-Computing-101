@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Learning Outcomes &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
     <script src="../../../../../_static/jquery.js"></script>
     <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -64,6 +61,7 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Courses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives.html">Archives</a></li>
 </ul>
 </li>
@@ -100,8 +98,8 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="learning-outcomes">
-<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="learning-outcomes">
+<h1>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p>Deutsch-Jozsa Algorithm</p></li>
 <li><p>Berstein-Vazirani Algorithm</p></li>
@@ -109,49 +107,49 @@
 </ul>
 <p>This week we will be covering Chapter 3.2 Deutsch-Jozsa Algorithm and Chapter 3.3 Berstein-Vazirani Algorithm from the Qiskit Textbook.</p>
 <p>In this section, we first introduce the Deutsch-Jozsa problem, and classical and quantum algorithms to solve it. We then implement the quantum algorithm using Qiskit, and run it on a simulator and device.</p>
-<div class="section" id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p><a class="reference external" href="#introduction">Introduction</a><br />
-1.1 <a class="reference external" href="#djproblem">Deutsch-Jozsa Problem</a><br />
-1.2 <a class="reference external" href="#classical-solution">Deutsch-Jozsa Algorithm</a><br />
-1.3 <a class="reference external" href="#quantum-solution">The Quantum Solution</a><br />
-1.4 <a class="reference external" href="#why-does-this-work">Why Does This Work?</a></p></li>
-<li><p><a class="reference external" href="#example">Worked Example</a></p></li>
-<li><p><a class="reference external" href="#creating-quantum-oracles">Creating Quantum Oracles</a></p></li>
-<li><p><a class="reference external" href="#implementation">Qiskit Implementation</a><br />
-4.1 <a class="reference external" href="#const_oracle">Constant Oracle</a><br />
-4.2 <a class="reference external" href="#balanced_oracle">Balanced Oracle</a><br />
-4.3 <a class="reference external" href="#full_alg">The Full Algorithm</a><br />
-4.4 <a class="reference external" href="#general_circs">Generalised Circuit</a></p></li>
-<li><p><a class="reference external" href="#device">Running on Real Devices</a></p></li>
-<li><p><a class="reference external" href="#problems">Problems</a></p></li>
-<li><p><a class="reference external" href="#references">References</a></p></li>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">Introduction</span><br />
+1.1 <span class="xref myst">Deutsch-Jozsa Problem</span><br />
+1.2 <span class="xref myst">Deutsch-Jozsa Algorithm</span><br />
+1.3 <span class="xref myst">The Quantum Solution</span><br />
+1.4 <span class="xref myst">Why Does This Work?</span></p></li>
+<li><p><span class="xref myst">Worked Example</span></p></li>
+<li><p><span class="xref myst">Creating Quantum Oracles</span></p></li>
+<li><p><span class="xref myst">Qiskit Implementation</span><br />
+4.1 <span class="xref myst">Constant Oracle</span><br />
+4.2 <span class="xref myst">Balanced Oracle</span><br />
+4.3 <span class="xref myst">The Full Algorithm</span><br />
+4.4 <span class="xref myst">Generalised Circuit</span></p></li>
+<li><p><span class="xref myst">Running on Real Devices</span></p></li>
+<li><p><span class="xref myst">Problems</span></p></li>
+<li><p><span class="xref myst">References</span></p></li>
 </ol>
-</div>
-<div class="section" id="introduction-a-id-introduction-a">
-<h2>1. Introduction <a id='introduction'></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introduction-a-id-introduction-a">
+<h2>1. Introduction <a id='introduction'></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this heading">¶</a></h2>
 <p>The Deutsch-Jozsa algorithm, first introduced in Reference [1], was the first example of a quantum algorithm that performs better than the best classical algorithm. It showed that there can be advantages to using a quantum computer as a computational tool for a specific problem.</p>
-<div class="section" id="deutsch-jozsa-problem-a-id-djproblem-a">
-<h3>1.1 Deutsch-Jozsa Problem <a id='djproblem'> </a><a class="headerlink" href="#deutsch-jozsa-problem-a-id-djproblem-a" title="Permalink to this headline">¶</a></h3>
+<section id="deutsch-jozsa-problem-a-id-djproblem-a">
+<h3>1.1 Deutsch-Jozsa Problem <a id='djproblem'> </a><a class="headerlink" href="#deutsch-jozsa-problem-a-id-djproblem-a" title="Permalink to this heading">¶</a></h3>
 <p>We are given a hidden Boolean function <span class="math notranslate nohighlight">\(f\)</span>, which takes as input a string of bits, and returns either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, that is:</p>
 <div class="math notranslate nohighlight">
 \[
 f(\{x_0,x_1,x_2,...\}) \rightarrow 0 \textrm{ or } 1 \textrm{ , where } x_n \textrm{ is } 0 \textrm{ or } 1\]</div>
 <p>The property of the given Boolean function is that it is guaranteed to either be balanced or constant. A constant function returns all <span class="math notranslate nohighlight">\(0\)</span>’s or all <span class="math notranslate nohighlight">\(1\)</span>’s for any input, while a balanced function returns <span class="math notranslate nohighlight">\(0\)</span>’s for exactly half of all inputs and <span class="math notranslate nohighlight">\(1\)</span>’s for the other half. Our task is to determine whether the given function is balanced or constant.</p>
 <p>Note that the Deutsch-Jozsa problem is an <span class="math notranslate nohighlight">\(n\)</span>-bit extension of the single bit Deutsch problem.</p>
-</div>
-<div class="section" id="the-classical-solution-a-id-classical-solution-a">
-<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#the-classical-solution-a-id-classical-solution-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-classical-solution-a-id-classical-solution-a">
+<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#the-classical-solution-a-id-classical-solution-a" title="Permalink to this heading">¶</a></h3>
 <p>Classically, in the best case, two queries to the oracle can determine if the hidden Boolean function, <span class="math notranslate nohighlight">\(f(x)\)</span>, is balanced:
 e.g. if we get both <span class="math notranslate nohighlight">\(f(0,0,0,...)\rightarrow 0\)</span> and <span class="math notranslate nohighlight">\(f(1,0,0,...) \rightarrow 1\)</span>, then we know the function is balanced as we have obtained the two different outputs.</p>
 <p>In the worst case, if we continue to see the same output for each input we try, we will have to check exactly half of all possible inputs plus one in order to be certain that <span class="math notranslate nohighlight">\(f(x)\)</span> is constant. Since the total number of possible inputs is <span class="math notranslate nohighlight">\(2^n\)</span>, this implies that we need <span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> trial inputs to be certain that <span class="math notranslate nohighlight">\(f(x)\)</span> is constant in the worst case. For example, for a <span class="math notranslate nohighlight">\(4\)</span>-bit string, if we checked <span class="math notranslate nohighlight">\(8\)</span> out of the <span class="math notranslate nohighlight">\(16\)</span> possible combinations, getting all <span class="math notranslate nohighlight">\(0\)</span>’s, it is still possible that the <span class="math notranslate nohighlight">\(9^\textrm{th}\)</span> input returns a <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(f(x)\)</span> is balanced. Probabilistically, this is a very unlikely event. In fact, if we get the same result continually in succession, we can express the probability that the function is constant as a function of <span class="math notranslate nohighlight">\(k\)</span> inputs as:</p>
 <div class="math notranslate nohighlight">
 \[ P_\textrm{constant}(k) = 1 - \frac{1}{2^{k-1}} \qquad \textrm{for } 1 &lt; k \leq 2^{n-1}\]</div>
 <p>Realistically, we could opt to truncate our classical algorithm early, say if we were over x% confident. But if we want to be 100% confident, we would need to check <span class="math notranslate nohighlight">\(2^{n-1}+1\)</span> inputs.</p>
-</div>
-<div class="section" id="quantum-solution-a-id-quantum-solution-a">
-<h3>1.3 Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#quantum-solution-a-id-quantum-solution-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="quantum-solution-a-id-quantum-solution-a">
+<h3>1.3 Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#quantum-solution-a-id-quantum-solution-a" title="Permalink to this heading">¶</a></h3>
 <p>Using a quantum computer, we can solve this problem with 100% confidence after only one call to the function <span class="math notranslate nohighlight">\(f(x)\)</span>, provided we have the function <span class="math notranslate nohighlight">\(f\)</span> implemented as a quantum oracle, which maps the state <span class="math notranslate nohighlight">\(\vert x\rangle \vert y\rangle \)</span> to <span class="math notranslate nohighlight">\( \vert x\rangle \vert y \oplus f(x)\rangle\)</span>, where <span class="math notranslate nohighlight">\(\oplus\)</span> is addition modulo <span class="math notranslate nohighlight">\(2\)</span>. Below is the generic circuit for the Deutsh-Jozsa algorithm.</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
 <p>Now, let’s go through the steps of the algorithm:</p>
@@ -232,9 +230,9 @@ H^{\otimes 2}|a\rangle = \frac{1}{2}\sum_{x\in \{0,1\}^2} (-1)^{a\cdot x}|x\rang
 \]</div>
 <p>You will hopefully now see how we arrive at the equation above.</p>
 </details>
-</div>
-<div class="section" id="exercise-1">
-<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this heading">¶</a></h3>
 <p>What are the results of the following binary dot products?</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\( 01 \cdot 10 = ?\)</span></p></li>
@@ -243,13 +241,13 @@ H^{\otimes 2}|a\rangle = \frac{1}{2}\sum_{x\in \{0,1\}^2} (-1)^{a\cdot x}|x\rang
 <li><p><span class="math notranslate nohighlight">\( 111 \cdot 011 = ?\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\( 10101 \cdot 01110 = ? \)</span></p></li>
 </ul>
-</div>
-<div class="section" id="answer">
-<h3>Answer<a class="headerlink" href="#answer" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="answer">
+<h3>Answer<a class="headerlink" href="#answer" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-<div class="section" id="exercise-2">
-<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-2">
+<h3>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this heading">¶</a></h3>
 <p>Using the formula above, explicitly write down the result of applying <span class="math notranslate nohighlight">\(H^{\otimes n}\)</span> to the following states:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(| a \rangle = H| 0 \rangle \)</span></p></li>
@@ -257,13 +255,13 @@ H^{\otimes 2}|a\rangle = \frac{1}{2}\sum_{x\in \{0,1\}^2} (-1)^{a\cdot x}|x\rang
 <li><p><span class="math notranslate nohighlight">\(| c \rangle = H^{\otimes 3}|101 \rangle \)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(| d \rangle = H^{\otimes 3}|111 \rangle \)</span></p></li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h3>Answer<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id1">
+<h3>Answer<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-<div class="section" id="why-does-this-work-a-id-why-does-this-work-a">
-<h3>1.4 Why Does This Work? <a id='why-does-this-work'> </a><a class="headerlink" href="#why-does-this-work-a-id-why-does-this-work-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="why-does-this-work-a-id-why-does-this-work-a">
+<h3>1.4 Why Does This Work? <a id='why-does-this-work'> </a><a class="headerlink" href="#why-does-this-work-a-id-why-does-this-work-a" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Constant Oracle</strong></p></li>
 </ul>
@@ -289,10 +287,10 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} -1 \\ 1 \\ -1 \\ \vdots \\ 1 \end{bmatrix}
 \end{split}\]</div>
 <p>The quantum state after querying the oracle is orthogonal to the quantum state before querying the oracle. Thus, in Step 4, when applying the H-gates, we must end up with a quantum state that is orthogonal to <span class="math notranslate nohighlight">\(|00\dots 0\rangle\)</span>. This means we should never measure the all-zero state.</p>
-</div>
-</div>
-<div class="section" id="worked-example-a-id-example-a">
-<h2>2. Worked Example  <a id='example'></a><a class="headerlink" href="#worked-example-a-id-example-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="worked-example-a-id-example-a">
+<h2>2. Worked Example  <a id='example'></a><a class="headerlink" href="#worked-example-a-id-example-a" title="Permalink to this heading">¶</a></h2>
 <p>Let’s go through a specific example for a two bit balanced function:</p>
 <ol>
     <li> The first register of two qubits is initialized to $|00\rangle$ and the second register qubit to $|1\rangle$ 
@@ -350,9 +348,9 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="creating-quantum-oracles-a-id-creating-quantum-oracles-a">
-<h2>3. Creating Quantum Oracles <a id='creating-quantum-oracles'> </a><a class="headerlink" href="#creating-quantum-oracles-a-id-creating-quantum-oracles-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-quantum-oracles-a-id-creating-quantum-oracles-a">
+<h2>3. Creating Quantum Oracles <a id='creating-quantum-oracles'> </a><a class="headerlink" href="#creating-quantum-oracles-a-id-creating-quantum-oracles-a" title="Permalink to this heading">¶</a></h2>
 <p>Let’s see some different ways we can create a quantum oracle.</p>
 <p>For a constant function, it is simple:</p>
 <p><span class="math notranslate nohighlight">\(\qquad\)</span> 1. if f(x) = 0, then apply the <span class="math notranslate nohighlight">\(I\)</span> gate to the qubit in register 2.<br />
@@ -360,71 +358,71 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 <p>For a balanced function, there are many different circuits we can create. One of the ways we can guarantee our circuit is balanced is by performing a CNOT for each qubit in register 1, with the qubit in register 2 as the target. For example:</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
 <p>In the image above, the top three qubits form the input register, and the bottom qubit is the output register. We can see which input states give which output in the table below:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
-<th class="text-align:center head"><p>Input States that output 1</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Input states that output 0</p></th>
+<th class="head text-center"><p>Input States that output 1</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>000</p></td>
-<td class="text-align:center"><p>001</p></td>
+<tr class="row-even"><td class="text-center"><p>000</p></td>
+<td class="text-center"><p>001</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>011</p></td>
-<td class="text-align:center"><p>100</p></td>
+<tr class="row-odd"><td class="text-center"><p>011</p></td>
+<td class="text-center"><p>100</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>101</p></td>
-<td class="text-align:center"><p>010</p></td>
+<tr class="row-even"><td class="text-center"><p>101</p></td>
+<td class="text-center"><p>010</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>110</p></td>
-<td class="text-align:center"><p>111</p></td>
+<tr class="row-odd"><td class="text-center"><p>110</p></td>
+<td class="text-center"><p>111</p></td>
 </tr>
 </tbody>
 </table>
 <p>We can change the results while keeping them balanced by wrapping selected controls in X-gates. For example, see the circuit and its results table below:</p>
 <p><img alt="image-2.png" src="courses/archives/PHYS343/hands-ons/hands-on-6/attachment:image-2.png" /></p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
-<th class="text-align:center head"><p>Input states that output 1</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Input states that output 0</p></th>
+<th class="head text-center"><p>Input states that output 1</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>001</p></td>
-<td class="text-align:center"><p>000</p></td>
+<tr class="row-even"><td class="text-center"><p>001</p></td>
+<td class="text-center"><p>000</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>010</p></td>
-<td class="text-align:center"><p>011</p></td>
+<tr class="row-odd"><td class="text-center"><p>010</p></td>
+<td class="text-center"><p>011</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>100</p></td>
-<td class="text-align:center"><p>101</p></td>
+<tr class="row-even"><td class="text-center"><p>100</p></td>
+<td class="text-center"><p>101</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>111</p></td>
-<td class="text-align:center"><p>110</p></td>
+<tr class="row-odd"><td class="text-center"><p>111</p></td>
+<td class="text-center"><p>110</p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="exercise-3">
-<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this headline">¶</a></h3>
+<section id="exercise-3">
+<h3>Exercise 3<a class="headerlink" href="#exercise-3" title="Permalink to this heading">¶</a></h3>
 <p>Let’s say our oracle function is described as follows:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Input states that output 0</p></th>
-<th class="text-align:center head"><p>Input states that output 1</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Input states that output 0</p></th>
+<th class="head text-center"><p>Input states that output 1</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>000</p></td>
-<td class="text-align:center"><p>001</p></td>
+<tr class="row-even"><td class="text-center"><p>000</p></td>
+<td class="text-center"><p>001</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>011</p></td>
-<td class="text-align:center"><p>010</p></td>
+<tr class="row-odd"><td class="text-center"><p>011</p></td>
+<td class="text-center"><p>010</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>101</p></td>
-<td class="text-align:center"><p>100</p></td>
+<tr class="row-even"><td class="text-center"><p>101</p></td>
+<td class="text-center"><p>100</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>110</p></td>
-<td class="text-align:center"><p>111</p></td>
+<tr class="row-odd"><td class="text-center"><p>110</p></td>
+<td class="text-center"><p>111</p></td>
 </tr>
 </tbody>
 </table>
@@ -433,14 +431,14 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 <li><p>Print the unitary transformation</p></li>
 </ul>
 <p>Don’t forget about the little-endian representation!</p>
-</div>
-<div class="section" id="id2">
-<h3>Answer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id2">
+<h3>Answer<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-</div>
-<div class="section" id="qiskit-implementation-a-id-implementation-a">
-<h2>4. Qiskit Implementation <a id='implementation'></a><a class="headerlink" href="#qiskit-implementation-a-id-implementation-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="qiskit-implementation-a-id-implementation-a">
+<h2>4. Qiskit Implementation <a id='implementation'></a><a class="headerlink" href="#qiskit-implementation-a-id-implementation-a" title="Permalink to this heading">¶</a></h2>
 <p>We now implement the Deutsch-Jozsa algorithm for the example of a three-bit function, with both constant and balanced oracles. First let’s do our imports:</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -467,8 +465,8 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 </div>
-<div class="section" id="constant-oracle-a-id-const-oracle-a">
-<h3>4.1 Constant Oracle <a id='const_oracle'></a><a class="headerlink" href="#constant-oracle-a-id-const-oracle-a" title="Permalink to this headline">¶</a></h3>
+<section id="constant-oracle-a-id-const-oracle-a">
+<h3>4.1 Constant Oracle <a id='const_oracle'></a><a class="headerlink" href="#constant-oracle-a-id-const-oracle-a" title="Permalink to this heading">¶</a></h3>
 <p>Let’s start by creating a constant oracle, in this case the input has no effect on the ouput so we just randomly set the output qubit to be 0 or 1:</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -486,25 +484,25 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_26_0.png" src="../../../../../_images/lab6-book_26_0.png" />
+<img alt="../../../../../_images/8be6eef3c5ddd919b6073cf4fb4e0b359b03cf589d9c7f22b7a193c9ec232fd6.png" src="../../../../../_images/8be6eef3c5ddd919b6073cf4fb4e0b359b03cf589d9c7f22b7a193c9ec232fd6.png" />
 </div>
 </div>
-</div>
-<div class="section" id="exercise-4">
-<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-4">
+<h3>Exercise 4<a class="headerlink" href="#exercise-4" title="Permalink to this heading">¶</a></h3>
 <p>Which of the following gates can we use to implement a constant function? Explain your reasoning qualitatively.</p>
 <ul class="simple">
 <li><p>H</p></li>
 <li><p>Z</p></li>
 <li><p>Y</p></li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h3>Answer<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id3">
+<h3>Answer<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
-</div>
-<div class="section" id="balanced-oracle-a-id-balanced-oracle-a">
-<h3>4.2 Balanced Oracle <a id='balanced_oracle'></a><a class="headerlink" href="#balanced-oracle-a-id-balanced-oracle-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="balanced-oracle-a-id-balanced-oracle-a">
+<h3>4.2 Balanced Oracle <a id='balanced_oracle'></a><a class="headerlink" href="#balanced-oracle-a-id-balanced-oracle-a" title="Permalink to this heading">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">balanced_oracle</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
@@ -535,7 +533,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_34_0.png" src="../../../../../_images/lab6-book_34_0.png" />
+<img alt="../../../../../_images/f2f6e9d816dc5d50a090e9284dbe56fa00ed312f88294e61209b9c7b6c85c695.png" src="../../../../../_images/f2f6e9d816dc5d50a090e9284dbe56fa00ed312f88294e61209b9c7b6c85c695.png" />
 </div>
 </div>
 <p>Next, we do our controlled-NOT gates, using each input qubit as a control, and the output qubit as a target:</p>
@@ -562,7 +560,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_36_0.png" src="../../../../../_images/lab6-book_36_0.png" />
+<img alt="../../../../../_images/12be81da2793373748d90d3b00f4c75179c0a91faefafd6ae7dc03179c423acc.png" src="../../../../../_images/12be81da2793373748d90d3b00f4c75179c0a91faefafd6ae7dc03179c423acc.png" />
 </div>
 </div>
 <p>Finally, we repeat the code from two cells up to finish wrapping the controls in X-gates:</p>
@@ -596,13 +594,13 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_38_0.png" src="../../../../../_images/lab6-book_38_0.png" />
+<img alt="../../../../../_images/d0440dc087b3d0a7489f3c378d3a5cf5c5cbe77724bd8fbb12384f66eefbeabf.png" src="../../../../../_images/d0440dc087b3d0a7489f3c378d3a5cf5c5cbe77724bd8fbb12384f66eefbeabf.png" />
 </div>
 </div>
 <p>We have just created a balanced oracle! All that’s left to do is see if the Deutsch-Joza algorithm can solve it.</p>
-</div>
-<div class="section" id="the-full-algorithm-a-id-full-alg-a">
-<h3>4.3 The Full Algorithm <a id='full_alg'></a><a class="headerlink" href="#the-full-algorithm-a-id-full-alg-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-full-algorithm-a-id-full-alg-a">
+<h3>4.3 The Full Algorithm <a id='full_alg'></a><a class="headerlink" href="#the-full-algorithm-a-id-full-alg-a" title="Permalink to this heading">¶</a></h3>
 <p>Let’s now put everything together. This first step in the algorithm is to initialise the input qubits in the state <span class="math notranslate nohighlight">\(|{+}\rangle\)</span> and the output qubit in the state <span class="math notranslate nohighlight">\(|{-}\rangle\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -620,7 +618,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_40_0.png" src="../../../../../_images/lab6-book_40_0.png" />
+<img alt="../../../../../_images/76cb7dd61439715875776a4e4ecf247b8a6400c6e788df9a9ca6126084c75b7e.png" src="../../../../../_images/76cb7dd61439715875776a4e4ecf247b8a6400c6e788df9a9ca6126084c75b7e.png" />
 </div>
 </div>
 <p>Next, let’s apply the oracle. Here we apply the <code class="docutils literal notranslate"><span class="pre">balanced_oracle</span></code> we created above:</p>
@@ -649,7 +647,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
   return self.extend(rhs)
 </pre></div>
 </div>
-<img alt="../../../../../_images/lab6-book_42_1.png" src="../../../../../_images/lab6-book_42_1.png" />
+<img alt="../../../../../_images/b34af4fdb1c511159aa5beb6a0ac871fac1e05657fbc8a4b81b55db491fd2fdb.png" src="../../../../../_images/b34af4fdb1c511159aa5beb6a0ac871fac1e05657fbc8a4b81b55db491fd2fdb.png" />
 </div>
 </div>
 <p>Finally, we perform H-gates on the <span class="math notranslate nohighlight">\(n\)</span>-input qubits, and measure our input register:</p>
@@ -683,7 +681,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_44_0.png" src="../../../../../_images/lab6-book_44_0.png" />
+<img alt="../../../../../_images/698f6a6e58a3b23444f49593f29b4041b8ba70afccc05fe69095d3fd53ccd6e2.png" src="../../../../../_images/698f6a6e58a3b23444f49593f29b4041b8ba70afccc05fe69095d3fd53ccd6e2.png" />
 </div>
 </div>
 <p>Let’s see the output:</p>
@@ -701,26 +699,26 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_46_0.png" src="../../../../../_images/lab6-book_46_0.png" />
+<img alt="../../../../../_images/9def54ca91abbc91ef36734584e10adcf07d99b59b0fd0ed62b243b2006c8485.png" src="../../../../../_images/9def54ca91abbc91ef36734584e10adcf07d99b59b0fd0ed62b243b2006c8485.png" />
 </div>
 </div>
-</div>
-<div class="section" id="exercise-5">
-<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="exercise-5">
+<h3>Exercise 5<a class="headerlink" href="#exercise-5" title="Permalink to this heading">¶</a></h3>
 <p>Above, we didn’t measure the 3rd qubit. Design the same circuit as above, but measure the 3rd qubit too and plot the counts you have obtained, just like above. Afterwards, answer the following questions?</p>
 <ul class="simple">
 <li><p>Did you get 1111 or 0111 or both ? ( Hint: you should get both )</p></li>
 <li><p>If you got both of them, why do you think this happened?</p></li>
 <li><p>If you got both of them, what can you add to the above circuit so that you always get the same result?</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
-<h3>Answer<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3>Answer<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>?</p>
 <p>We can see from the results above that we have a 0% chance of measuring <code class="docutils literal notranslate"><span class="pre">000</span></code>. This correctly predicts the function is balanced.</p>
-</div>
-<div class="section" id="generalised-circuits-a-id-general-circs-a">
-<h3>4.4 Generalised Circuits <a id='general_circs'></a><a class="headerlink" href="#generalised-circuits-a-id-general-circs-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="generalised-circuits-a-id-general-circs-a">
+<h3>4.4 Generalised Circuits <a id='general_circs'></a><a class="headerlink" href="#generalised-circuits-a-id-general-circs-a" title="Permalink to this heading">¶</a></h3>
 <p>Below, we provide a generalised function that creates Deutsch-Joza oracles and turns them into quantum gates. It takes the <code class="docutils literal notranslate"><span class="pre">case</span></code>, (either <code class="docutils literal notranslate"><span class="pre">'balanced'</span></code> or ‘<code class="docutils literal notranslate"><span class="pre">constant</span></code>’, and <code class="docutils literal notranslate"><span class="pre">n</span></code>, the size of the input register:</p>
 <div class="cell tag_thebelab-init docutils container">
 <div class="cell_input docutils container">
@@ -803,7 +801,7 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_54_0.png" src="../../../../../_images/lab6-book_54_0.png" />
+<img alt="../../../../../_images/90e2d07035f21cecbe7d6b182c47501e36c5cbc9dd22d192cf41d974153d3181.png" src="../../../../../_images/90e2d07035f21cecbe7d6b182c47501e36c5cbc9dd22d192cf41d974153d3181.png" />
 </div>
 </div>
 <p>And see the results of running this circuit:</p>
@@ -818,13 +816,13 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_56_0.png" src="../../../../../_images/lab6-book_56_0.png" />
+<img alt="../../../../../_images/cbf286b1c82a48da8175eed5fa09e04e9fb1ea6b7e7ef587b8427570e51c50c5.png" src="../../../../../_images/cbf286b1c82a48da8175eed5fa09e04e9fb1ea6b7e7ef587b8427570e51c50c5.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="experiment-with-real-devices-a-id-device-a">
-<h2>5. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#experiment-with-real-devices-a-id-device-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="experiment-with-real-devices-a-id-device-a">
+<h2>5. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#experiment-with-real-devices-a-id-device-a" title="Permalink to this heading">¶</a></h2>
 <p>We can run the circuit on the real device as shown below. We first look for the least-busy device that can handle our circuit.</p>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -880,14 +878,14 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_60_0.png" src="../../../../../_images/lab6-book_60_0.png" />
+<img alt="../../../../../_images/da1faf3d8ba4afd1a375c24cb8012b0ba5da6e5c71ce9aeec772cb25ff1bbfd7.png" src="../../../../../_images/da1faf3d8ba4afd1a375c24cb8012b0ba5da6e5c71ce9aeec772cb25ff1bbfd7.png" />
 </div>
 </div>
 <p>As we can see, the most likely result is <code class="docutils literal notranslate"><span class="pre">1111</span></code>. The other results are due to errors in the quantum computation.</p>
-</div>
-<div class="section" id="references-a-id-references-a">
-<h2>7. References <a id='references'></a><a class="headerlink" href="#references-a-id-references-a" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
+</section>
+<section id="references-a-id-references-a">
+<h2>7. References <a id='references'></a><a class="headerlink" href="#references-a-id-references-a" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
 <li><p>David Deutsch and Richard Jozsa (1992). “Rapid solutions of problems by quantum computation”. Proceedings of the Royal Society of London A. 439: 553–558.  <a class="reference external" href="https://doi.org/10.1098%2Frspa.1992.0167">doi:10.1098/rspa.1992.0167</a>.</p></li>
 <li><p>R. Cleve; A. Ekert; C. Macchiavello; M. Mosca (1998). “Quantum algorithms revisited”. Proceedings of the Royal Society of London A. 454: 339–354. <a class="reference external" href="https://doi.org/10.1098%2Frspa.1998.0164">doi:10.1098/rspa.1998.0164</a>.</p></li>
 </ol>
@@ -910,59 +908,59 @@ U_f \tfrac{1}{\sqrt{2^n}}\begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix
 </div>
 </div>
 <p>In this section, we first introduce the Bernstein-Vazirani problem, its classical solution, and the quantum algorithm to solve it. We then implement the quantum algorithm using Qiskit and run it on both a simulator and a device.</p>
-</div>
-<div class="section" id="id5">
-<h2>Contents<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p><a class="reference external" href="#algorithm">The Bernstein-Vazirani Algorithm</a><br />
-1.1 <a class="reference external" href="#bvproblem">Bernstein-Vazirani Problem</a><br />
-1.2 <a class="reference external" href="#bclassical-solution">The Classical Solution</a><br />
-1.3 <a class="reference external" href="#quantum-solution">The Quantum Solution</a></p></li>
-<li><p><a class="reference external" href="#example">Example</a></p></li>
-<li><p><a class="reference external" href="#implementation">Qiskit Implementation</a><br />
-3.1 <a class="reference external" href="#simulation">Simulation</a><br />
-3.2 <a class="reference external" href="#device">Device</a></p></li>
-<li><p><a class="reference external" href="#problems">Problems</a></p></li>
-<li><p><a class="reference external" href="#references">References</a></p></li>
+</section>
+<section id="id5">
+<h2>Contents<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><span class="xref myst">The Bernstein-Vazirani Algorithm</span><br />
+1.1 <span class="xref myst">Bernstein-Vazirani Problem</span><br />
+1.2 <span class="xref myst">The Classical Solution</span><br />
+1.3 <span class="xref myst">The Quantum Solution</span></p></li>
+<li><p><span class="xref myst">Example</span></p></li>
+<li><p><span class="xref myst">Qiskit Implementation</span><br />
+3.1 <span class="xref myst">Simulation</span><br />
+3.2 <span class="xref myst">Device</span></p></li>
+<li><p><span class="xref myst">Problems</span></p></li>
+<li><p><span class="xref myst">References</span></p></li>
 </ol>
-</div>
-<div class="section" id="the-bernstein-vazirani-algorithm-a-id-algorithm-a">
-<h2>1. The Bernstein-Vazirani Algorithm<a id='algorithm'></a><a class="headerlink" href="#the-bernstein-vazirani-algorithm-a-id-algorithm-a" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-bernstein-vazirani-algorithm-a-id-algorithm-a">
+<h2>1. The Bernstein-Vazirani Algorithm<a id='algorithm'></a><a class="headerlink" href="#the-bernstein-vazirani-algorithm-a-id-algorithm-a" title="Permalink to this heading">¶</a></h2>
 <p>The Bernstein-Vazirani algorithm, first introduced in Reference [1], can be seen as an extension of the Deutsch-Josza algorithm we covered in the last section. It showed that there can be advantages in using a quantum computer as a computational tool for more complex problems than the Deutsch-Josza problem.</p>
-<div class="section" id="the-bernstein-vazirani-problem-a-id-bvproblem-a">
-<h3>1.1 The Bernstein-Vazirani Problem <a id='bvproblem'> </a><a class="headerlink" href="#the-bernstein-vazirani-problem-a-id-bvproblem-a" title="Permalink to this headline">¶</a></h3>
+<section id="the-bernstein-vazirani-problem-a-id-bvproblem-a">
+<h3>1.1 The Bernstein-Vazirani Problem <a id='bvproblem'> </a><a class="headerlink" href="#the-bernstein-vazirani-problem-a-id-bvproblem-a" title="Permalink to this heading">¶</a></h3>
 <p>We are again given a black-box function <span class="math notranslate nohighlight">\(f\)</span>, which takes as input a string of bits (<span class="math notranslate nohighlight">\(x\)</span>), and returns either <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span>, that is:
 $<span class="math notranslate nohighlight">\(f(\{x_0,x_1,x_2,...\}) \rightarrow 0 \textrm{ or } 1 \textrm{ where } x_n \textrm{ is }0 \textrm{ or } 1  \)</span>$</p>
 <p>Instead of the function being balanced or constant as in the Deutsch-Josza problem, now the function is guaranteed to return the bitwise product of the input with some string, <span class="math notranslate nohighlight">\(s\)</span>. In other words, given an input <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(f(x) = s \cdot x \, \text{(mod 2)}\)</span>. We are expected to find <span class="math notranslate nohighlight">\(s\)</span>. As a classical reversible circuit, the Bernstein-Vazirani oracle looks like this:</p>
 <p><img alt="image.png" src="courses/archives/PHYS343/hands-ons/hands-on-6/attachment:image.png" /></p>
-</div>
-<div class="section" id="id6">
-<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3>1.2 The Classical Solution <a id='classical-solution'> </a><a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>Classically, the oracle returns:
 $<span class="math notranslate nohighlight">\(f_s(x) = s \cdot x \mod 2\)</span><span class="math notranslate nohighlight">\( 
 given an input \)</span>x<span class="math notranslate nohighlight">\(. Thus, the hidden bit string \)</span>s$ can be revealed by querying the oracle with the sequence of inputs:</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Input(x)</p></th>
+<tr class="row-odd"><th class="head text-center"><p>Input(x)</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>100…0</p></td>
+<tr class="row-even"><td class="text-center"><p>100…0</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>010…0</p></td>
+<tr class="row-odd"><td class="text-center"><p>010…0</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>001…0</p></td>
+<tr class="row-even"><td class="text-center"><p>001…0</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>000…1</p></td>
+<tr class="row-odd"><td class="text-center"><p>000…1</p></td>
 </tr>
 </tbody>
 </table>
 <p>Where each query reveals a different bit of <span class="math notranslate nohighlight">\(s\)</span> (the bit <span class="math notranslate nohighlight">\(s_i\)</span>). For example, with <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">1000...0</span></code> one can obtain the least significant bit of <span class="math notranslate nohighlight">\(s\)</span>, with <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">0100...0</span></code> we can find the next least significant, and so on. This means we would need to call the function <span class="math notranslate nohighlight">\(f_s(x)\)</span>, <span class="math notranslate nohighlight">\(n\)</span> times.</p>
-</div>
-<div class="section" id="the-quantum-solution-a-id-quantum-solution-a">
-<h3>1.3 The Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#the-quantum-solution-a-id-quantum-solution-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-quantum-solution-a-id-quantum-solution-a">
+<h3>1.3 The Quantum Solution <a id='quantum-solution'> </a><a class="headerlink" href="#the-quantum-solution-a-id-quantum-solution-a" title="Permalink to this heading">¶</a></h3>
 <p>Using a quantum computer, we can solve this problem with 100% confidence after only one call to the function <span class="math notranslate nohighlight">\(f(x)\)</span>. The quantum Bernstein-Vazirani algorithm to find the hidden bit string is very simple:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Initialise the inputs qubits to the <span class="math notranslate nohighlight">\(|0\rangle^{\otimes n}\)</span> state, and output qubit to <span class="math notranslate nohighlight">\(|{-}\rangle\)</span>.</p></li>
 <li><p>Apply Hadamard gates to the input register</p></li>
 <li><p>Query the oracle</p></li>
@@ -996,10 +994,10 @@ given an input \)</span>x<span class="math notranslate nohighlight">\(. Thus, th
 \[
 \frac{1}{\sqrt{2^n}} \sum_{x\in \{0,1\}^n} (-1)^{a\cdot x}|x\rangle \xrightarrow{H^{\otimes n}} |a\rangle
 \]</div>
-</div>
-</div>
-<div class="section" id="example-a-id-example-a">
-<h2>2. Example  <a id='example'></a><a class="headerlink" href="#example-a-id-example-a" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="example-a-id-example-a">
+<h2>2. Example  <a id='example'></a><a class="headerlink" href="#example-a-id-example-a" title="Permalink to this heading">¶</a></h2>
 <p>Let’s go through a specific example for <span class="math notranslate nohighlight">\(n=2\)</span> qubits and a secret string <span class="math notranslate nohighlight">\(s=11\)</span>. Note that we are following the formulation in Reference [2] that generates a circuit for the Bernstein-Vazirani quantum oracle using only one register.</p>
 <ol>
     <li> The register of two qubits is initialized to zero:
@@ -1035,17 +1033,11 @@ $$
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "9fd7104582f04ceb93f1a0137d1c5511", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "2611176ac64244a198f4d6791fcaeae4", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "6d9df333faa24381a7d2e2dc5e67af7a", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9fd7104582f04ceb93f1a0137d1c5511", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "2611176ac64244a198f4d6791fcaeae4", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "6d9df333faa24381a7d2e2dc5e67af7a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h2>3. Qiskit Implementation  <a id='implementation'></a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id7">
+<h2>3. Qiskit Implementation  <a id='implementation'></a><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
 <p>We’ll now walk through the Bernstein-Vazirani algorithm implementation in Qiskit for a three bit function with <span class="math notranslate nohighlight">\(s=011\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1115,11 +1107,11 @@ $$
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_75_0.png" src="../../../../../_images/lab6-book_75_0.png" />
+<img alt="../../../../../_images/72d52a7a18087744f22130827d78f932e9ff462e898553d238ea8b30c25e5d8b.png" src="../../../../../_images/72d52a7a18087744f22130827d78f932e9ff462e898553d238ea8b30c25e5d8b.png" />
 </div>
 </div>
-<div class="section" id="a-experiment-with-simulators-a-id-simulation-a">
-<h3>3a. Experiment with Simulators  <a id='simulation'></a><a class="headerlink" href="#a-experiment-with-simulators-a-id-simulation-a" title="Permalink to this headline">¶</a></h3>
+<section id="a-experiment-with-simulators-a-id-simulation-a">
+<h3>3a. Experiment with Simulators  <a id='simulation'></a><a class="headerlink" href="#a-experiment-with-simulators-a-id-simulation-a" title="Permalink to this heading">¶</a></h3>
 <p>We can run the above circuit on the simulator.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1135,13 +1127,13 @@ $$
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../../_images/lab6-book_77_0.png" src="../../../../../_images/lab6-book_77_0.png" />
+<img alt="../../../../../_images/d0546bb623f8b7dd8b4d08bc46330aac6b8021a2a48c5743153bfb6289a44a93.png" src="../../../../../_images/d0546bb623f8b7dd8b4d08bc46330aac6b8021a2a48c5743153bfb6289a44a93.png" />
 </div>
 </div>
 <p>We can see that the result of the measurement is the hidden string <code class="docutils literal notranslate"><span class="pre">011</span></code>.</p>
-</div>
-<div class="section" id="b-experiment-with-real-devices-a-id-device-a">
-<h3>3b. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#b-experiment-with-real-devices-a-id-device-a" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="b-experiment-with-real-devices-a-id-device-a">
+<h3>3b. Experiment with Real Devices <a id='device'></a><a class="headerlink" href="#b-experiment-with-real-devices-a-id-device-a" title="Permalink to this heading">¶</a></h3>
 <p>We can run the circuit on the real device as below.</p>
 <div class="cell tag_uses-hardware docutils container">
 <div class="cell_input docutils container">
@@ -1201,11 +1193,11 @@ $$
 </div>
 </div>
 <p>As we can see, most of the results are <code class="docutils literal notranslate"><span class="pre">011</span></code>. The other results are due to errors in the quantum computation.</p>
-</div>
-</div>
-<div class="section" id="id8">
-<h2>5. References <a id='references'></a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
+</section>
+</section>
+<section id="id8">
+<h2>5. References <a id='references'></a><a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
 <li><p>Ethan Bernstein and Umesh Vazirani (1997) “Quantum Complexity Theory” SIAM Journal on Computing, Vol. 26, No. 5: 1411-1473, <a class="reference external" href="https://doi.org/10.1137/S0097539796300921">doi:10.1137/S0097539796300921</a>.</p></li>
 <li><p>Jiangfeng Du, Mingjun Shi, Jihui Wu, Xianyi Zhou, Yangmei Fan, BangJiao Ye, Rongdian Han (2001) “Implementation of a quantum algorithm to solve the Bernstein-Vazirani parity problem without entanglement on an ensemble quantum computer”, Phys. Rev. A 64, 042306, <a class="reference external" href="https://doi.org/10.1103/PhysRevA.64.042306">10.1103/PhysRevA.64.042306</a>, <a class="reference external" href="https://arxiv.org/abs/quant-ph/0012114">arXiv:quant-ph/0012114</a>.</p></li>
 </ol>
@@ -1227,8 +1219,8 @@ $$
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -1250,7 +1242,7 @@ $$
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

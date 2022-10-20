@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Ch3-Lecture 8 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -68,6 +63,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -104,16 +100,16 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch3-lecture-8">
-<h1>Ch3-Lecture 8<a class="headerlink" href="#ch3-lecture-8" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="functions-as-oracles">
-<h2>Functions as oracles<a class="headerlink" href="#functions-as-oracles" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch3-lecture-8">
+<h1>Ch3-Lecture 8<a class="headerlink" href="#ch3-lecture-8" title="Permalink to this heading">¶</a></h1>
+<section id="functions-as-oracles">
+<h2>Functions as oracles<a class="headerlink" href="#functions-as-oracles" title="Permalink to this heading">¶</a></h2>
 <p>The first thing we’ll need to do is understand how to model functions in the quantum circuit model. What makes the task slightly non-trivial is that, recall by Postulate 2 of quantum mechanics, all quantum operations must be unitary and hence reversible. In general, however, given the output <span class="math notranslate nohighlight">\(f(x)\)</span> of a function, it is not always possible to <em>invert</em> <span class="math notranslate nohighlight">\(f\)</span> to obtain the input <span class="math notranslate nohighlight">\(x\)</span>. In other words, we have to compute <span class="math notranslate nohighlight">\(f(x)\)</span> in such a way as to guarantee that the computation can be undone. In the case of binary functions, this is achieved via the following setup:</p>
 <p><img alt="Oracle" src="../../../../_images/oracle_fig-k.png" /></p>
 <p>Here, <span class="math notranslate nohighlight">\(U_f  \in  \mathcal{U} \left( \left( \mathbb{C}^2\right)^{ \otimes 2} \right)\)</span>  is a unitary operator mapping <span class="math notranslate nohighlight">\( \left|x\right\rangle \left|y\right\rangle \mapsto  \left|x\right\rangle  \left|x \oplus y\right\rangle  \)</span> for any <span class="math notranslate nohighlight">\(x, y  \in  \{0, 1\}\)</span> (i.e. <span class="math notranslate nohighlight">\( \left|x\right\rangle \)</span>, <span class="math notranslate nohighlight">\( \left|y\right\rangle \)</span> denote standard basis states), and where <span class="math notranslate nohighlight">\( \oplus \)</span> denotes XOR or addition modulo 2. Note that by linearity, once we define the action of <span class="math notranslate nohighlight">\(U_f\)</span> on standard basis states, we immediately know how it acts on any input state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle   \in  \left( \mathbb{C}^2 \right)^{ \otimes 2} \)</span>. Observe now that <span class="math notranslate nohighlight">\(U_f\)</span> is reversible — this is because running <span class="math notranslate nohighlight">\(U_f\)</span> again on its output, <span class="math notranslate nohighlight">\(\left|x\right\rangle  \left|y \oplus f(x)\right\rangle\)</span>, yields state <span class="math notranslate nohighlight">\(\left|x\right\rangle  \left|y \oplus f(x)\oplus f(x)\right\rangle= \left|x\right\rangle  \left|y\right\rangle \)</span>, since <span class="math notranslate nohighlight">\(f(x) \oplus f(x)=0\)</span> (adding the same bit twice and dividing by 2 leaves remainder zero). Second, note that we have not specified the inner workings of <span class="math notranslate nohighlight">\(U_f\)</span> (i.e. we have not given a circuit implementing the functionality stated above); in this course, we shall treat <span class="math notranslate nohighlight">\(U_f\)</span> as a “black box” or “oracle” which we presume we can run, but cannot “look inside” to see its implementation details.</p>
-</div>
-<div class="section" id="the-phase-kickback-trick">
-<h2>The phase kickback trick<a class="headerlink" href="#the-phase-kickback-trick" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-phase-kickback-trick">
+<h2>The phase kickback trick<a class="headerlink" href="#the-phase-kickback-trick" title="Permalink to this heading">¶</a></h2>
 <p>To explain the trick, consider for any <span class="math notranslate nohighlight">\(x  \in  \{0, 1\}\)</span> what happens if we run <span class="math notranslate nohighlight">\(U_f\)</span> on input <span class="math notranslate nohighlight">\( \left|x\right\rangle  \left|-\right\rangle \)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -134,12 +130,12 @@
 \[
 U_f \left|x\right\rangle  \left|-\right\rangle = \left(-1\right)^{f(x)} \left|x\right\rangle  \left|-\right\rangle
 \]</div>
-</div>
-<div class="section" id="grover-search">
-<h2>Grover search<a class="headerlink" href="#grover-search" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="grover-search">
+<h2>Grover search<a class="headerlink" href="#grover-search" title="Permalink to this heading">¶</a></h2>
 <p>Discovered by Lov Grover in 1996, Grover search is more specifically a quantum algorithm for solving the following general problem: Given query access to an oracle containing <span class="math notranslate nohighlight">\(N\)</span> items, one of which is “marked”, find the marked item. For example, the “oracle” could be implemented by a 3-SAT formula <span class="math notranslate nohighlight">\(\phi\)</span>, indexed by <span class="math notranslate nohighlight">\(n\)</span>-bit assignments <span class="math notranslate nohighlight">\(x\)</span>, and the aim is to find a satisfying assignment <span class="math notranslate nohighlight">\(x\)</span> (which would be considered “marked”). Grover’s algorithm solves this problem with high probability using <span class="math notranslate nohighlight">\(O(\sqrt{N})\)</span> queries to the database (which turns out to be optimal for a quantum algorithm), whereas a classical algorithm would require <span class="math notranslate nohighlight">\(\Omega(N)\)</span> queries in the worst case. Thus, Grover search solves 3-SAT in <span class="math notranslate nohighlight">\(O \left(\sqrt{2^n}\right) \)</span> time.</p>
-<div class="section" id="the-unstructured-search-problem">
-<h3>The unstructured search problem<a class="headerlink" href="#the-unstructured-search-problem" title="Permalink to this headline">¶</a></h3>
+<section id="the-unstructured-search-problem">
+<h3>The unstructured search problem<a class="headerlink" href="#the-unstructured-search-problem" title="Permalink to this heading">¶</a></h3>
 <p>We begin by formalizing the unstructured search problem.</p>
 <p><strong>Unstructured search (SEARCH)</strong></p>
 <ul class="simple">
@@ -151,9 +147,9 @@ for any <span class="math notranslate nohighlight">\(x, y  \in  \{0, 1\}^n\)</sp
 <li><p>Output: An index <span class="math notranslate nohighlight">\(x  \in  \{0, 1\}^n\)</span> such that <span class="math notranslate nohighlight">\(f (x) = 1\)</span>, if one exists.</p></li>
 </ul>
 <p>Note that no assumptions about <span class="math notranslate nohighlight">\(U_f\)</span> are made, other than the requirement that we have superposition query access to the input/output behavior of <span class="math notranslate nohighlight">\(f\)</span>.</p>
-</div>
-<div class="section" id="grover-s-algorithm">
-<h3>Grover’s algorithm<a class="headerlink" href="#grover-s-algorithm" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="grover-s-algorithm">
+<h3>Grover’s algorithm<a class="headerlink" href="#grover-s-algorithm" title="Permalink to this heading">¶</a></h3>
 <p>Define <span class="math notranslate nohighlight">\(N := 2^n\)</span> . We now show how to solve SEARCH in <span class="math notranslate nohighlight">\(O( \sqrt{N})\)</span> time on a quantum computer. For clarity, recall that typically when one discusses problems with black-box access to an oracle (as in SEARCH), the relevant cost model is query complexity (i.e. each query has unit cost, and this is the only cost we care about). This is also the cost model we adopt here. We begin by revisiting our old friend, the phase kickback trick. Viewing this trick geometrically, in particular, will kickstart the development of the remainder of Grover’s algorithm.  For brevity, we shall use the following notation for the phase kickback
 $<span class="math notranslate nohighlight">\(
  \left|x\right\rangle  \mapsto (-1)^{f(x)} \left|x\right\rangle
@@ -175,42 +171,42 @@ $<span class="math notranslate nohighlight">\(
 \left|B\right\rangle:= \frac{1}{\sqrt{\left|B\right|}} \sum_{x \in B} \left|x\right\rangle
 \]</div>
 <p>Thus, <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>, (<span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>) is an equal superposition over all marked (unmarked) items.</p>
-</div>
-<div class="section" id="send-it-after-class-1">
-<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="send-it-after-class-1">
+<h3>Send it after class 1<a class="headerlink" href="#send-it-after-class-1" title="Permalink to this heading">¶</a></h3>
 <p>Show that <span class="math notranslate nohighlight">\(U_f  \left|A\right\rangle  = - \left|A\right\rangle \)</span> and <span class="math notranslate nohighlight">\(U_f  \left|B\right\rangle  =  \left|B\right\rangle \)</span></p>
 <p>In words, restricted to the 2D space defined by <span class="math notranslate nohighlight">\(\text{Span}\left( \left|A\right\rangle,\left|B\right\rangle \right)\)</span>, <span class="math notranslate nohighlight">\(U_f\)</span> acts as a reflection about <span class="math notranslate nohighlight">\(\left|B\right\rangle\)</span>, as depicted in the figure above. And this is no coincidence — digging more deeply into this view will lead us directly to Grover’s algorithm (though, for clarity, this geometric view was only discovered after Grover’s original work). To see this, let us remind ourselves of the second tool we have at our disposal — preparing some initial start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. Ideally, this state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> should also lie in the span of <span class="math notranslate nohighlight">\(\left|A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|B\right\rangle\)</span>, so that it “fits” into the 2D picture.</p>
-</div>
-<div class="section" id="send-it-after-class-2">
-<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="send-it-after-class-2">
+<h3>Send it after class 2<a class="headerlink" href="#send-it-after-class-2" title="Permalink to this heading">¶</a></h3>
 <p>Take a moment to guess what might be a “reasonable” choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, given our current state of knowledge. What do we know about the location of the marked items? What choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> might lie in the span of <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>?</p>
-</div>
-<div class="section" id="the-start-state-left-psi-right-rangle">
-<h3>The start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span><a class="headerlink" href="#the-start-state-left-psi-right-rangle" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-start-state-left-psi-right-rangle">
+<h3>The start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span><a class="headerlink" href="#the-start-state-left-psi-right-rangle" title="Permalink to this heading">¶</a></h3>
 <p>Since <em>a priori</em> we have no reason to believe any particular item <span class="math notranslate nohighlight">\(x\)</span> is marked, a naive choice of start state is</p>
 <div class="math notranslate nohighlight">
 \[
  \left|\psi\right\rangle =  \frac{1}{\sqrt{N}} \sum_{x \in \{0,1\}^n} \left|x\right\rangle =  \sqrt{ \frac{\left|A\right|}{N}  } \left|A\right\rangle+ \sqrt{1-\frac{\left|A\right|}{N} } \left|B\right\rangle
 \]</div>
 <p>In other words, <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in \text{Span}\left( \left|A\right\rangle,\left|B\right\rangle \right)\)</span>, as desired, and we may depict it as in the middle situation in the above Figure.</p>
-</div>
-<div class="section" id="send-it-after-class-3">
-<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+</section>
+<section id="send-it-after-class-3">
+<h3>Send it after class 3<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
 <li><p>Prove the second equality above.</p></li>
 <li><p>Show that <span class="math notranslate nohighlight">\(\cos\theta=\sqrt{1-\frac{\left|A\right|}{N} }\)</span></p></li>
 </ol>
-</div>
-<div class="section" id="the-goal">
-<h3>The goal.<a class="headerlink" href="#the-goal" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-goal">
+<h3>The goal.<a class="headerlink" href="#the-goal" title="Permalink to this heading">¶</a></h3>
 <p>To guide the rest of the algorithm, we now pause and step back to restate our goal in the 2D picture given in the figure. Given the ability to prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, we wish to rotate <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> counter-clockwise up to to <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>, and subsequently measure in the standard basis, thus obtaining some marked item <span class="math notranslate nohighlight">\(x \in A\)</span>. Since this is just a rotation map, it is certainly possible, in that there exists a <span class="math notranslate nohighlight">\(2^n\times2^n\)</span> unitary matrix performing this rotation. The question is: <em>Can this mapping be computed using <span class="math notranslate nohighlight">\(\text{poly}(n)\)</span> queries to <span class="math notranslate nohighlight">\(U_f\)</span> (and ideally, <span class="math notranslate nohighlight">\(\text{poly}(n)\)</span> auxiliary gates)?</em></p>
-</div>
-<div class="section" id="two-reflections-make-a-rotation">
-<h3>Two reflections make a rotation.<a class="headerlink" href="#two-reflections-make-a-rotation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="two-reflections-make-a-rotation">
+<h3>Two reflections make a rotation.<a class="headerlink" href="#two-reflections-make-a-rotation" title="Permalink to this heading">¶</a></h3>
 <p>As the saying goes, beggars can’t be choosers, and indeed to attain our goal, we must make do with what few tools the generality of SEARCH affords us: We can reflect about <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>, and we can prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. The key observation is that since we can efficiently prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, i.e. <span class="math notranslate nohighlight">\( \left|\psi\right\rangle = H^{ \otimes n} \left|0^n\right\rangle \)</span>, we can also reflect about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.</p>
-</div>
-<div class="section" id="send-it-after-class-4">
-<h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="send-it-after-class-4">
+<h3>Send it after class 4<a class="headerlink" href="#send-it-after-class-4" title="Permalink to this heading">¶</a></h3>
 <p>A reflection about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is achieved by unitary <span class="math notranslate nohighlight">\(U_\psi  = 2 \left| \psi \right\rangle\!\left\langle \psi \right| −I\)</span>. Show how to implement <span class="math notranslate nohighlight">\(U_\psi \)</span> for our choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. (Hint: Begin by showing how to reflect about <span class="math notranslate nohighlight">\( \left|0^n\right\rangle \)</span>, i.e. by implementing <span class="math notranslate nohighlight">\(U_{0^n}  = 2 \left| 0^n \right\rangle\!\left\langle 0^n \right| −I\)</span>)</p>
 <p>Geometrically, this means we can map <span class="math notranslate nohighlight">\( \left|\psi^\prime \right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\psi^{\prime\prime} \right\rangle \)</span> as shown in the figure. In other words, by first reflecting about <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>, and then about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, we can effect a counter-clockwise rotation of <span class="math notranslate nohighlight">\(2\theta\)</span>. Magic! Formally, we shall repeatedly apply the pair of reflections (often dubbed the “Grover iterate”)</p>
 <div class="math notranslate nohighlight">
@@ -218,20 +214,20 @@ $<span class="math notranslate nohighlight">\(
  \left(2 \left| \psi \right\rangle\!\left\langle \psi \right| -I\right) \left(2 \left| B \right\rangle\!\left\langle B \right| -I \right) :=R_\psi R_B
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(R_B\)</span> is effected by querying the oracle <span class="math notranslate nohighlight">\(U_f\)</span> , and <span class="math notranslate nohighlight">\(R_\psi\)</span> by undoing the preparation procedure for <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, reflecting about <span class="math notranslate nohighlight">\( \left|0^n\right\rangle \)</span>, and then re-doing the preparation for <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.</p>
-</div>
-<div class="section" id="the-number-of-iterations-required">
-<h3>The number of iterations required.<a class="headerlink" href="#the-number-of-iterations-required" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-number-of-iterations-required">
+<h3>The number of iterations required.<a class="headerlink" href="#the-number-of-iterations-required" title="Permalink to this heading">¶</a></h3>
 <p>We can now state Grover’s algorithm as follows:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  = H^{ \otimes n}  \left|0^n\right\rangle \)</span>.</p></li>
 <li><p>Apply the Grover iterate, <span class="math notranslate nohighlight">\(R_\psi R_B\)</span> , <span class="math notranslate nohighlight">\(K\)</span> times.</p></li>
 <li><p>Measure in the standard basis to obtain string <span class="math notranslate nohighlight">\(x \in \{0, 1\}^n\)</span> .</p></li>
 </ol>
 <p>If there are no solutions, i.e. <span class="math notranslate nohighlight">\(M = 0\)</span>, this procedure always outputs <span class="math notranslate nohighlight">\(x\)</span> satisfying <span class="math notranslate nohighlight">\(f (x) = 0\)</span>, as expected. If <span class="math notranslate nohighlight">\(M &gt; 0\)</span>, on the other hand, the question is what to set <span class="math notranslate nohighlight">\(K\)</span>, the number of loop iterations, to? Note that it suffices for the algorithm to succeed with any fixed constant success probability <span class="math notranslate nohighlight">\(p\)</span>, as then independently repeating the algorithm drives down the overall error probability exponentially. To simplify the analysis, set <span class="math notranslate nohighlight">\(p = 1/2\)</span>. Without loss of generality, we may assume <span class="math notranslate nohighlight">\(\left|A\right| /N \leq 1/2\)</span> (as otherwise classically choosing uniformly random inputs to <span class="math notranslate nohighlight">\(U_f\)</span> yields success probability at least 1/2). We hence have <span class="math notranslate nohighlight">\(\theta\leq\pi/4\)</span>. Thus, we start with <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> at <span class="math notranslate nohighlight">\(\theta = \arccos( \sqrt{1-\frac{\left|A\right|}{N} } ) \leq \pi/4 \)</span>, and we wish to end up at <span class="math notranslate nohighlight">\( \left|\psi^k\right\rangle \)</span> with <span class="math notranslate nohighlight">\(\eta \in [−\pi/4, \pi/4].\)</span></p>
-</div>
-<div class="section" id="send-it-after-class-5">
-<h3>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+</section>
+<section id="send-it-after-class-5">
+<h3>Send it after class 5<a class="headerlink" href="#send-it-after-class-5" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
 <li><p>Show that for Step 3 of Grover’s algorithm to output <span class="math notranslate nohighlight">\(x \in \{0, 1\}^n\)</span> satisfying <span class="math notranslate nohighlight">\(f (x) = 1\)</span> with probability at least <span class="math notranslate nohighlight">\(1/2\)</span>, it suffices in the right of the figure that <span class="math notranslate nohighlight">\( \left|\psi^K\right\rangle \)</span> makes angle at most <span class="math notranslate nohighlight">\(\eta \leq \pi/4\)</span> with <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>.</p></li>
 <li><p>Given that <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> starts at angle <span class="math notranslate nohighlight">\(\theta \leq \pi/4\)</span>, do we ever need to wrap around the circle (when applying the Grover iterate) in order to land in range <span class="math notranslate nohighlight">\(\eta \in [−\pi/4, \pi/4]\)</span>?</p></li>
 <li><p>Using your answer from the previous exercise, show that setting
@@ -243,28 +239,28 @@ queries to <span class="math notranslate nohighlight">\(U_f\)</span> suffice to 
 <li><p>How many auxiliary gates (i.e. gates other than queries to <span class="math notranslate nohighlight">\(U_f\)</span>) does Grover’s algorithm use?</p></li>
 </ol>
 <p>In closing, given query access to an oracle <span class="math notranslate nohighlight">\(U_f\)</span> for which <span class="math notranslate nohighlight">\(|A|\)</span> out of <span class="math notranslate nohighlight">\(N = |A| + |B|\)</span> items are marked, a marked item can be found quantumly using <span class="math notranslate nohighlight">\(O\left(\sqrt{ \frac{N}{\left|A\right|}  }\right)\)</span> queries. There is a slight catch, however — the exact number of queries required requires knowledge of <span class="math notranslate nohighlight">\(|A|\)</span>. Luckily, it turns out that not only do quantum algorithms allow us to check if <span class="math notranslate nohighlight">\(|A| &gt; 0\)</span>, but additionally to estimate <span class="math notranslate nohighlight">\(|A|\)</span> itself to within multiplicative error. This is known as quantum approximate counting, covered next.</p>
-</div>
-</div>
-<div class="section" id="approximate-counting">
-<h2>Approximate counting<a class="headerlink" href="#approximate-counting" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="approximate-counting">
+<h2>Approximate counting<a class="headerlink" href="#approximate-counting" title="Permalink to this heading">¶</a></h2>
 <p>We defined the input to SEARCH as an oracle <span class="math notranslate nohighlight">\(U_f\)</span>, and the output was to find a marked item <span class="math notranslate nohighlight">\(x\)</span>, i.e. satisfying <span class="math notranslate nohighlight">\(f (x) = 1\)</span>. This can be generalized to the much more difficult question: Can we count the number of marked items? Returning to the setting where <span class="math notranslate nohighlight">\(U_f\)</span> is a black-box about which we make no assumptions, there are nowadays multiple approaches for quantumly approximately counting <span class="math notranslate nohighlight">\(M := |{x \in \{0, 1\} | f (x) = 1}|\)</span> A classic approach is to run quantum phase estimation on the Grover iterate (a theme which reappears in more general quantum walk frameworks, which we will cover later), as it turns out the eigenvalues of the iterate encode <span class="math notranslate nohighlight">\(M\)</span> . However, here we shall review a conceptually simpler, more recent approach due to Aaronson and Rall, which does away with the QPE machinery and whittles the solution down to requiring just a single tool — Grover search itself.</p>
-<div class="section" id="intuition">
-<h3>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">¶</a></h3>
+<section id="intuition">
+<h3>Intuition<a class="headerlink" href="#intuition" title="Permalink to this heading">¶</a></h3>
 <p>The basic idea. Let <span class="math notranslate nohighlight">\(p = M/N\)</span> , i.e. the fraction of satisfying assignments. Naively, there is a simple classical algorithm for estimating <span class="math notranslate nohighlight">\(p\)</span> — simply pick <span class="math notranslate nohighlight">\(x\)</span> uniformly at random, and evaluate <span class="math notranslate nohighlight">\(f (x)\)</span>. By definition, this succeeds with probability <span class="math notranslate nohighlight">\(p\)</span>, and so <span class="math notranslate nohighlight">\(1/p\)</span> trials are expected before a satisfying assignment is found. Of course, in the worst case, <span class="math notranslate nohighlight">\(1/p \in O(N )\)</span>, and by now we are spoiled with getting faster <span class="math notranslate nohighlight">\(O(  \sqrt{N} )\)</span> runtimes via Grover search. Thus, roughly, the quantum algorithm we discuss will carefully mimic (a refinement of) the idea above in conjunction with Grover search. In the remainder of this section, we state the algorithm, and sketch its proof of correctness.</p>
-</div>
-<div class="section" id="quantizing-the-basic-idea">
-<h3>Quantizing the basic idea.<a class="headerlink" href="#quantizing-the-basic-idea" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="quantizing-the-basic-idea">
+<h3>Quantizing the basic idea.<a class="headerlink" href="#quantizing-the-basic-idea" title="Permalink to this heading">¶</a></h3>
 <p>Recall that in Grover search, the angle made by start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> with <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span> is <span class="math notranslate nohighlight">\(\theta = \arcsin \left( \sqrt{ \frac{|A|}{N}} \right) \)</span>, or in the terminology of this section, <span class="math notranslate nohighlight">\(\theta = \arcsin(  \sqrt{M/N }  )\)</span>. One can generalize the previous analysis to show that by making <span class="math notranslate nohighlight">\(O(r)\)</span> queries to <span class="math notranslate nohighlight">\(U_f\)</span> , Grover search finds a marked item with probability <span class="math notranslate nohighlight">\(p = \sin^2(r\theta)\)</span>. The smaller <span class="math notranslate nohighlight">\(M\)</span> is, the smaller <span class="math notranslate nohighlight">\(\theta\)</span> is, and hence the larger <span class="math notranslate nohighlight">\(r\)</span> needs to be to make <span class="math notranslate nohighlight">\(p\)</span> large, as expected.</p>
 <p>The beauty of this approach is now that we can forget about the word “quantum”, and simply think of <span class="math notranslate nohighlight">\(p\)</span> as a probability arising from some abstract sampling experiment <span class="math notranslate nohighlight">\(E\)</span> with parameter <span class="math notranslate nohighlight">\(r\)</span> (we henceforth write <span class="math notranslate nohighlight">\(E(r)\)</span> where appropriate). The question is: Given the ability to choose <span class="math notranslate nohighlight">\(r\)</span> in this experiment <span class="math notranslate nohighlight">\(E(r)\)</span>, how many runs of <span class="math notranslate nohighlight">\(E\)</span> do we need to estimate <span class="math notranslate nohighlight">\(p\)</span> (thus allowing us to extract <span class="math notranslate nohighlight">\(\theta\)</span>, which encodes the number of solutions <span class="math notranslate nohighlight">\(M\)</span> )?</p>
 <p>The high-level outline for achieving this with a quadratic speedup consists of two steps:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>(Rough estimate) Repeat <span class="math notranslate nohighlight">\(E(r)\)</span> using exponentially increasing values of <span class="math notranslate nohighlight">\(r\)</span> until “sufficiently many” marked items are found. This gives a rough estimate of <span class="math notranslate nohighlight">\(K_− \leq \theta \leq K_+\)</span></p></li>
 <li><p>(Finetuning the estimate) Iteratively cut down the interval <span class="math notranslate nohighlight">\([K_− , K_+ ]\)</span> to zoom in on <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
 </ol>
 <p>This algorith  will be detailed further in the Hands-on session</p>
-</div>
-<div class="section" id="id1">
-<h3>Grover’s algorithm<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id1">
+<h3>Grover’s algorithm<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>Define <span class="math notranslate nohighlight">\(N := 2^n\)</span> . We now show how to solve SEARCH in <span class="math notranslate nohighlight">\(O( \sqrt{N})\)</span> time on a quantum computer. For clarity, recall that typically when one discusses problems with black-box access to an oracle (as in SEARCH), the relevant cost model is query complexity (i.e. each query has unit cost, and this is the only cost we care about). This is also the cost model we adopt here. We begin by revisiting our old friend, the phase kickback trick. Viewing this trick geometrically, in particular, will kickstart the development of the remainder of Grover’s algorithm.  For brevity, we shall use the following notation for the phase kickback
 $<span class="math notranslate nohighlight">\(
  \left|x\right\rangle  \mapsto (-1)^{f(x)} \left|x\right\rangle
@@ -286,42 +282,42 @@ $<span class="math notranslate nohighlight">\(
 \left|B\right\rangle:= \frac{1}{\sqrt{\left|B\right|}} \sum_{x \in B} \left|x\right\rangle
 \]</div>
 <p>Thus, <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>, (<span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>) is an equal superposition over all marked (unmarked) items.</p>
-</div>
-<div class="section" id="id2">
-<h3>Send it after class 1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id2">
+<h3>Send it after class 1<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>Show that <span class="math notranslate nohighlight">\(U_f  \left|A\right\rangle  = - \left|A\right\rangle \)</span> and <span class="math notranslate nohighlight">\(U_f  \left|B\right\rangle  =  \left|B\right\rangle \)</span></p>
 <p>In words, restricted to the 2D space defined by <span class="math notranslate nohighlight">\(\text{Span}\left( \left|A\right\rangle,\left|B\right\rangle \right)\)</span>, <span class="math notranslate nohighlight">\(U_f\)</span> acts as a reflection about <span class="math notranslate nohighlight">\(\left|B\right\rangle\)</span>, as depicted in the figure above. And this is no coincidence — digging more deeply into this view will lead us directly to Grover’s algorithm (though, for clarity, this geometric view was only discovered after Grover’s original work). To see this, let us remind ourselves of the second tool we have at our disposal — preparing some initial start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. Ideally, this state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> should also lie in the span of <span class="math notranslate nohighlight">\(\left|A\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|B\right\rangle\)</span>, so that it “fits” into the 2D picture.</p>
-</div>
-<div class="section" id="id3">
-<h3>Send it after class 2<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id3">
+<h3>Send it after class 2<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>Take a moment to guess what might be a “reasonable” choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, given our current state of knowledge. What do we know about the location of the marked items? What choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> might lie in the span of <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span> and <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>?</p>
-</div>
-<div class="section" id="id4">
-<h3>The start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3>The start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>Since <em>a priori</em> we have no reason to believe any particular item <span class="math notranslate nohighlight">\(x\)</span> is marked, a naive choice of start state is</p>
 <div class="math notranslate nohighlight">
 \[
  \left|\psi\right\rangle =  \frac{1}{\sqrt{N}} \sum_{x \in \{0,1\}^n} \left|x\right\rangle =  \sqrt{ \frac{\left|A\right|}{N}  } \left|A\right\rangle+ \sqrt{1-\frac{\left|A\right|}{N} } \left|B\right\rangle
 \]</div>
 <p>In other words, <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  \in \text{Span}\left( \left|A\right\rangle,\left|B\right\rangle \right)\)</span>, as desired, and we may depict it as in the middle situation in the above Figure.</p>
-</div>
-<div class="section" id="id5">
-<h3>Send it after class 3<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+</section>
+<section id="id5">
+<h3>Send it after class 3<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
 <li><p>Prove the second equality above.</p></li>
 <li><p>Show that <span class="math notranslate nohighlight">\(\cos\theta=\sqrt{1-\frac{\left|A\right|}{N} }\)</span></p></li>
 </ol>
-</div>
-<div class="section" id="id6">
-<h3>The goal.<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3>The goal.<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>To guide the rest of the algorithm, we now pause and step back to restate our goal in the 2D picture given in the figure. Given the ability to prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, we wish to rotate <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> counter-clockwise up to to <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>, and subsequently measure in the standard basis, thus obtaining some marked item <span class="math notranslate nohighlight">\(x \in A\)</span>. Since this is just a rotation map, it is certainly possible, in that there exists a <span class="math notranslate nohighlight">\(2^n\times2^n\)</span> unitary matrix performing this rotation. The question is: <em>Can this mapping be computed using <span class="math notranslate nohighlight">\(\text{poly}(n)\)</span> queries to <span class="math notranslate nohighlight">\(U_f\)</span> (and ideally, <span class="math notranslate nohighlight">\(\text{poly}(n)\)</span> auxiliary gates)?</em></p>
-</div>
-<div class="section" id="id7">
-<h3>Two reflections make a rotation.<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id7">
+<h3>Two reflections make a rotation.<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>As the saying goes, beggars can’t be choosers, and indeed to attain our goal, we must make do with what few tools the generality of SEARCH affords us: We can reflect about <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>, and we can prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. The key observation is that since we can efficiently prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, i.e. <span class="math notranslate nohighlight">\( \left|\psi\right\rangle = H^{ \otimes n} \left|0^n\right\rangle \)</span>, we can also reflect about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.</p>
-</div>
-<div class="section" id="id8">
-<h3>Send it after class 4<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3>Send it after class 4<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
 <p>A reflection about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> is achieved by unitary <span class="math notranslate nohighlight">\(U_\psi  = 2 \left| \psi \right\rangle\!\left\langle \psi \right| −I\)</span>. Show how to implement <span class="math notranslate nohighlight">\(U_\psi \)</span> for our choice of <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. (Hint: Begin by showing how to reflect about <span class="math notranslate nohighlight">\( \left|0^n\right\rangle \)</span>, i.e. by implementing <span class="math notranslate nohighlight">\(U_{0^n}  = 2 \left| 0^n \right\rangle\!\left\langle 0^n \right| −I\)</span>)</p>
 <p>Geometrically, this means we can map <span class="math notranslate nohighlight">\( \left|\psi^\prime \right\rangle \)</span> to <span class="math notranslate nohighlight">\( \left|\psi^{\prime\prime} \right\rangle \)</span> as shown in the figure. In other words, by first reflecting about <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span>, and then about <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, we can effect a counter-clockwise rotation of <span class="math notranslate nohighlight">\(2\theta\)</span>. Magic! Formally, we shall repeatedly apply the pair of reflections (often dubbed the “Grover iterate”)</p>
 <div class="math notranslate nohighlight">
@@ -329,20 +325,20 @@ $<span class="math notranslate nohighlight">\(
  \left(2 \left| \psi \right\rangle\!\left\langle \psi \right| -I\right) \left(2 \left| B \right\rangle\!\left\langle B \right| -I \right) :=R_\psi R_B
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(R_B\)</span> is effected by querying the oracle <span class="math notranslate nohighlight">\(U_f\)</span> , and <span class="math notranslate nohighlight">\(R_\psi\)</span> by undoing the preparation procedure for <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, reflecting about <span class="math notranslate nohighlight">\( \left|0^n\right\rangle \)</span>, and then re-doing the preparation for <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>.</p>
-</div>
-<div class="section" id="id9">
-<h3>The number of iterations required.<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id9">
+<h3>The number of iterations required.<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h3>
 <p>We can now state Grover’s algorithm as follows:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Prepare <span class="math notranslate nohighlight">\( \left|\psi\right\rangle  = H^{ \otimes n}  \left|0^n\right\rangle \)</span>.</p></li>
 <li><p>Apply the Grover iterate, <span class="math notranslate nohighlight">\(R_\psi R_B\)</span> , <span class="math notranslate nohighlight">\(K\)</span> times.</p></li>
 <li><p>Measure in the standard basis to obtain string <span class="math notranslate nohighlight">\(x \in \{0, 1\}^n\)</span> .</p></li>
 </ol>
 <p>If there are no solutions, i.e. <span class="math notranslate nohighlight">\(M = 0\)</span>, this procedure always outputs <span class="math notranslate nohighlight">\(x\)</span> satisfying <span class="math notranslate nohighlight">\(f (x) = 0\)</span>, as expected. If <span class="math notranslate nohighlight">\(M &gt; 0\)</span>, on the other hand, the question is what to set <span class="math notranslate nohighlight">\(K\)</span>, the number of loop iterations, to? Note that it suffices for the algorithm to succeed with any fixed constant success probability <span class="math notranslate nohighlight">\(p\)</span>, as then independently repeating the algorithm drives down the overall error probability exponentially. To simplify the analysis, set <span class="math notranslate nohighlight">\(p = 1/2\)</span>. Without loss of generality, we may assume <span class="math notranslate nohighlight">\(\left|A\right| /N \leq 1/2\)</span> (as otherwise classically choosing uniformly random inputs to <span class="math notranslate nohighlight">\(U_f\)</span> yields success probability at least 1/2). We hence have <span class="math notranslate nohighlight">\(\theta\leq\pi/4\)</span>. Thus, we start with <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> at <span class="math notranslate nohighlight">\(\theta = \arccos( \sqrt{1-\frac{\left|A\right|}{N} } ) \leq \pi/4 \)</span>, and we wish to end up at <span class="math notranslate nohighlight">\( \left|\psi^k\right\rangle \)</span> with <span class="math notranslate nohighlight">\(\eta \in [−\pi/4, \pi/4].\)</span></p>
-</div>
-<div class="section" id="id10">
-<h3>Send it after class 5<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+</section>
+<section id="id10">
+<h3>Send it after class 5<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
 <li><p>Show that for Step 3 of Grover’s algorithm to output <span class="math notranslate nohighlight">\(x \in \{0, 1\}^n\)</span> satisfying <span class="math notranslate nohighlight">\(f (x) = 1\)</span> with probability at least <span class="math notranslate nohighlight">\(1/2\)</span>, it suffices in the right of the figure that <span class="math notranslate nohighlight">\( \left|\psi^K\right\rangle \)</span> makes angle at most <span class="math notranslate nohighlight">\(\eta \leq \pi/4\)</span> with <span class="math notranslate nohighlight">\( \left|A\right\rangle \)</span>.</p></li>
 <li><p>Given that <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> starts at angle <span class="math notranslate nohighlight">\(\theta \leq \pi/4\)</span>, do we ever need to wrap around the circle (when applying the Grover iterate) in order to land in range <span class="math notranslate nohighlight">\(\eta \in [−\pi/4, \pi/4]\)</span>?</p></li>
 <li><p>Using your answer from the previous exercise, show that setting
@@ -354,28 +350,28 @@ queries to <span class="math notranslate nohighlight">\(U_f\)</span> suffice to 
 <li><p>How many auxiliary gates (i.e. gates other than queries to <span class="math notranslate nohighlight">\(U_f\)</span>) does Grover’s algorithm use?</p></li>
 </ol>
 <p>In closing, given query access to an oracle <span class="math notranslate nohighlight">\(U_f\)</span> for which <span class="math notranslate nohighlight">\(|A|\)</span> out of <span class="math notranslate nohighlight">\(N = |A| + |B|\)</span> items are marked, a marked item can be found quantumly using <span class="math notranslate nohighlight">\(O\left(\sqrt{ \frac{N}{\left|A\right|}  }\right)\)</span> queries. There is a slight catch, however — the exact number of queries required requires knowledge of <span class="math notranslate nohighlight">\(|A|\)</span>. Luckily, it turns out that not only do quantum algorithms allow us to check if <span class="math notranslate nohighlight">\(|A| &gt; 0\)</span>, but additionally to estimate <span class="math notranslate nohighlight">\(|A|\)</span> itself to within multiplicative error. This is known as quantum approximate counting, covered next.</p>
-</div>
-</div>
-<div class="section" id="id11">
-<h2>Approximate counting<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id11">
+<h2>Approximate counting<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
 <p>We defined the input to SEARCH as an oracle <span class="math notranslate nohighlight">\(U_f\)</span>, and the output was to find a marked item <span class="math notranslate nohighlight">\(x\)</span>, i.e. satisfying <span class="math notranslate nohighlight">\(f (x) = 1\)</span>. This can be generalized to the much more difficult question: Can we count the number of marked items? Returning to the setting where <span class="math notranslate nohighlight">\(U_f\)</span> is a black-box about which we make no assumptions, there are nowadays multiple approaches for quantumly approximately counting <span class="math notranslate nohighlight">\(M := |{x \in \{0, 1\} | f (x) = 1}|\)</span> A classic approach is to run quantum phase estimation on the Grover iterate (a theme which reappears in more general quantum walk frameworks, which we will cover later), as it turns out the eigenvalues of the iterate encode <span class="math notranslate nohighlight">\(M\)</span> . However, here we shall review a conceptually simpler, more recent approach due to Aaronson and Rall, which does away with the QPE machinery and whittles the solution down to requiring just a single tool — Grover search itself.</p>
-<div class="section" id="id12">
-<h3>Intuition<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<section id="id12">
+<h3>Intuition<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h3>
 <p>The basic idea. Let <span class="math notranslate nohighlight">\(p = M/N\)</span> , i.e. the fraction of satisfying assignments. Naively, there is a simple classical algorithm for estimating <span class="math notranslate nohighlight">\(p\)</span> — simply pick <span class="math notranslate nohighlight">\(x\)</span> uniformly at random, and evaluate <span class="math notranslate nohighlight">\(f (x)\)</span>. By definition, this succeeds with probability <span class="math notranslate nohighlight">\(p\)</span>, and so <span class="math notranslate nohighlight">\(1/p\)</span> trials are expected before a satisfying assignment is found. Of course, in the worst case, <span class="math notranslate nohighlight">\(1/p \in O(N )\)</span>, and by now we are spoiled with getting faster <span class="math notranslate nohighlight">\(O(  \sqrt{N} )\)</span> runtimes via Grover search. Thus, roughly, the quantum algorithm we discuss will carefully mimic (a refinement of) the idea above in conjunction with Grover search. In the remainder of this section, we state the algorithm, and sketch its proof of correctness.</p>
-</div>
-<div class="section" id="id13">
-<h3>Quantizing the basic idea.<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id13">
+<h3>Quantizing the basic idea.<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h3>
 <p>Recall that in Grover search, the angle made by start state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> with <span class="math notranslate nohighlight">\( \left|B\right\rangle \)</span> is <span class="math notranslate nohighlight">\(\theta = \arcsin \left( \sqrt{ \frac{|A|}{N}} \right) \)</span>, or in the terminology of this section, <span class="math notranslate nohighlight">\(\theta = \arcsin(  \sqrt{M/N }  )\)</span>. One can generalize the previous analysis to show that by making <span class="math notranslate nohighlight">\(O(r)\)</span> queries to <span class="math notranslate nohighlight">\(U_f\)</span> , Grover search finds a marked item with probability <span class="math notranslate nohighlight">\(p = \sin^2(r\theta)\)</span>. The smaller <span class="math notranslate nohighlight">\(M\)</span> is, the smaller <span class="math notranslate nohighlight">\(\theta\)</span> is, and hence the larger <span class="math notranslate nohighlight">\(r\)</span> needs to be to make <span class="math notranslate nohighlight">\(p\)</span> large, as expected.</p>
 <p>The beauty of this approach is now that we can forget about the word “quantum”, and simply think of <span class="math notranslate nohighlight">\(p\)</span> as a probability arising from some abstract sampling experiment <span class="math notranslate nohighlight">\(E\)</span> with parameter <span class="math notranslate nohighlight">\(r\)</span> (we henceforth write <span class="math notranslate nohighlight">\(E(r)\)</span> where appropriate). The question is: Given the ability to choose <span class="math notranslate nohighlight">\(r\)</span> in this experiment <span class="math notranslate nohighlight">\(E(r)\)</span>, how many runs of <span class="math notranslate nohighlight">\(E\)</span> do we need to estimate <span class="math notranslate nohighlight">\(p\)</span> (thus allowing us to extract <span class="math notranslate nohighlight">\(\theta\)</span>, which encodes the number of solutions <span class="math notranslate nohighlight">\(M\)</span> )?</p>
 <p>The high-level outline for achieving this with a quadratic speedup consists of two steps:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>(Rough estimate) Repeat <span class="math notranslate nohighlight">\(E(r)\)</span> using exponentially increasing values of <span class="math notranslate nohighlight">\(r\)</span> until “sufficiently many” marked items are found. This gives a rough estimate of <span class="math notranslate nohighlight">\(K_− \leq \theta \leq K_+\)</span></p></li>
 <li><p>(Finetuning the estimate) Iteratively cut down the interval <span class="math notranslate nohighlight">\([K_− , K_+ ]\)</span> to zoom in on <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
 </ol>
 <p>This algorith  will be detailed further in the Hands-on session</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -397,7 +393,7 @@ queries to <span class="math notranslate nohighlight">\(U_f\)</span> suffice to 
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

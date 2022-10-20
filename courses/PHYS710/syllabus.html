@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Syllabus &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../PHYS437/index.html">437</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <style> .red {color:#aa0060; font-weight:bold; font-size:16px} </style><section id="syllabus">
+<h1>Syllabus<a class="headerlink" href="#syllabus" title="Permalink to this heading">¶</a></h1>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Course syllabus</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Course Title</p></th>
+<td><p>PHYS437 PRACTICAL QUANTUM COMPUTING FOR SCIENTISTS</p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Lecturers</p></th>
+<td><p>Barış Malcıoğlu</p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>Grading</p></th>
+<td><p>Midterm %20, Term project %40, Hands-on sessions &amp; homeworks %40</p></td>
+</tr>
+</tbody>
+</table>
+<section id="tentative-course-contents">
+<h2>Tentative Course Contents<a class="headerlink" href="#tentative-course-contents" title="Permalink to this heading">¶</a></h2>
+<section id="chapter-1-review-mathematical-foundation">
+<h3>Chapter 1: Review &amp; Mathematical Foundation<a class="headerlink" href="#chapter-1-review-mathematical-foundation" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Linear Algebra</p></li>
+<li><dl class="simple">
+<dt>Review of the four postulates of quantum mechanics</dt><dd><ul>
+<li><p>Postulate 1: Individual quantum systems</p></li>
+<li><p>Postulate 2: Quantum operations</p></li>
+<li><p>Postulate 3: Composite quantum systems</p></li>
+<li><p>Postulate 4: Measurement</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>No cloning theorem</p></li>
+<li><p>Quantum entanglement</p></li>
+<li><dl class="simple">
+<dt>Density matrices</dt><dd><ul>
+<li><p>The partial trace operation</p></li>
+<li><p>Using partial trace to detect entanglement</p></li>
+<li><p>How the postulates of quantum mechanics apply to density operators</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-2-quantum-circuit-diagrams">
+<h3>Chapter 2: Quantum Circuit Diagrams<a class="headerlink" href="#chapter-2-quantum-circuit-diagrams" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Quantum Circuit Diagrams</p></li>
+<li><dl class="simple">
+<dt>Quantum operators</dt><dd><ul>
+<li><p>Unary</p></li>
+<li><p>Binary</p></li>
+<li><p>Ternary</p></li>
+<li><p>Comparison with classical gates</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The universality of Quantum operators</p></li>
+<li><p>The Bloch Sphere</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-3-complexity-theory-entropy-and-entanglement-distillation">
+<h3>Chapter 3: Complexity Theory; Entropy and Entanglement Distillation<a class="headerlink" href="#chapter-3-complexity-theory-entropy-and-entanglement-distillation" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Complexity Theory</dt><dd><ul>
+<li><p>Time Complexity</p></li>
+<li><p>Complexity Classes</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Entropy</dt><dd><ul>
+<li><p>Shannon entropy</p></li>
+<li><p>Von Neumann Entropy</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Quantifying entanglement in composite quantum systems</p></li>
+<li><p>Entanglement distillation</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-4-the-deutsch-josza-and-berstein-vazirani-algorithms">
+<h3>Chapter 4: The Deutsch-Josza and Berstein-Vazirani algorithms<a class="headerlink" href="#chapter-4-the-deutsch-josza-and-berstein-vazirani-algorithms" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Functions as oracles</p></li>
+<li><p>The problem: Is f constant or balanced?</p></li>
+<li><dl class="simple">
+<dt>The algorithm</dt><dd><ul>
+<li><p>A naive idea</p></li>
+<li><p>Deutsch’s algorithm</p></li>
+<li><p>The phase kickback trick</p></li>
+<li><p>The Deutsch-Josza algorithm</p></li>
+<li><p>The Berstein-Vazirani algorithm</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-5-strategies-of-input-encoding">
+<h3>Chapter 5: Strategies of Input Encoding<a class="headerlink" href="#chapter-5-strategies-of-input-encoding" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Basis Encoding</p></li>
+<li><p>Amplitude Encoding</p></li>
+<li><p>Time-Evolution Encoding</p></li>
+<li><p>Hamiltonian Encoding</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-6-simons-algorithm-and-applications-to-cryptography">
+<h3>Chapter 6: Simon’s algorithm and applications to cryptography<a class="headerlink" href="#chapter-6-simons-algorithm-and-applications-to-cryptography" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Simon’s algorithm</dt><dd><ul>
+<li><p>Birthdays and a naive classical algorithm</p></li>
+<li><p>Simon’s algorithm</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Application to cryptography</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-7-the-quantum-fourier-transform">
+<h3>Chapter 7: The Quantum Fourier Transform<a class="headerlink" href="#chapter-7-the-quantum-fourier-transform" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>From Vandermonde matrices to the Discrete Fourier Transform</p></li>
+<li><p>The Quantum Fourier Transform (QFT)</p></li>
+<li><p>Quantum Phase Estimation (QPE)</p></li>
+<li><p>Applications of QPE</p></li>
+<li><p>Quantum algorithms for QPE</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-8-shors-quantum-factoring-algorithm">
+<h3>Chapter 8: Shor’s quantum factoring algorithm<a class="headerlink" href="#chapter-8-shors-quantum-factoring-algorithm" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>The integer factorization problem</p></li>
+<li><dl class="simple">
+<dt>The factoring algorithm</dt><dd><ul>
+<li><p>Reducing FACTOR to order-finding</p></li>
+<li><p>Sampling via QPE</p></li>
+<li><p>Postprocessing via continued fractions</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Application: Breaking RSA</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="chapter-9-variational-circuits-as-machine-learning-models-time-permitting">
+<h3>Chapter 9: Variational Circuits as Machine Learning Models (time permitting)<a class="headerlink" href="#chapter-9-variational-circuits-as-machine-learning-models-time-permitting" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>How to Interpret a Quantum Circuit as a Model</dt><dd><ul>
+<li><p>Deterministic Quantum Models</p></li>
+<li><p>Probabilistic Quantum Models</p></li>
+<li><p>An Example: Variational Quantum Classifier</p></li>
+<li><p>An Example: Variational Generator</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Which Functions Do Variational Quantum Models Express?</dt><dd><ul>
+<li><p>Quantum Models as Linear Combinations of Periodic Functions</p></li>
+<li><p>An Example: The Pauli-Rotation Encoding</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Training Variational Quantum Models</dt><dd><ul>
+<li><p>Gradients of Quantum Computations</p></li>
+<li><p>Parameter-Shift Rules</p></li>
+<li><p>Barren Plateaus</p></li>
+<li><p>Generative Training</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Quantum Circuits and Neural Networks</dt><dd><ul>
+<li><p>Emulating Nonlinear Activations</p></li>
+<li><p>Variational Circuits as Deep Linear Neural Networks</p></li>
+<li><p>Time-Evolution Encoding as an Exponential Activation</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+</section>
+<section id="hands-on-sessions">
+<h2>Hands-On sessions<a class="headerlink" href="#hands-on-sessions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>There will be homework for lab sessions.</p></li>
+<li><p><span class="red">Attendance to all of the hands-on sessions, and submitting the assigned hands-on work is mandatory. Any missed hands-on session, or assigned hands-on work will result in N/A grade. Only officially documented cases (such as medical reports) will be considered for exemption.</span></p></li>
+</ul>
+</section>
+<section id="midterm">
+<h2>Midterm<a class="headerlink" href="#midterm" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The midterm exam will involve a theory part and a programming part.</p></li>
+<li><p>The theory part should be answered using a Latex/Word processor, converted to pdf.</p></li>
+<li><p>The programming part must be an ASCII text file containing python code (*.py).</p></li>
+<li><dl class="field-list simple">
+<dt class="field-odd">red<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The files should be uploaded to supplied Turnitin interface. Any incompatible input will be disregarded.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="term-projects">
+<h2>Term projects<a class="headerlink" href="#term-projects" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Participants are expected to present a project involving Quantum Computation, Quantum Communication, or Quantum hardware.</p></li>
+<li><p><strong>The term project is the final exam.</strong></p></li>
+<li><p>There are two parts: Presentation (~20 minutes), Q&amp;A session after the talk (~10 minutes)</p></li>
+<li><p>The presenter will be graded according to the scientific quality of the presentation</p></li>
+<li><p>The audience will be graded according to their participation in the Q&amp;A session.</p></li>
+<li><p>The term projects will be presented in the last 3-4 weeks</p></li>
+<li><p><strong>Attendance to the term project presentations is mandatory.</strong> The first missed week will result in a reduction of your final grade to %65. The second missed week will result in a reduction of your final grade to %35. If you miss three weeks, you will receive N/A grade.</p></li>
+<li><p>Only one missed week might be allowed with a valid official excuse.</p></li>
+</ul>
+</section>
+<section id="textbooks">
+<h2>Textbooks<a class="headerlink" href="#textbooks" title="Permalink to this heading">¶</a></h2>
+<section id="theory-content">
+<h3>Theory Content:<a class="headerlink" href="#theory-content" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Quantum Computing for the Quantum Curious” Ciaran Hughes, Joshua Isaacson, Anastasia Perry, Ranbel F. Sun, Jessica Turner <a class="reference external" href="https://doi.org/10.1007/978-3-030-61601-4">https://doi.org/10.1007/978-3-030-61601-4</a> (open Access)</p></li>
+<li><p>“Quantum Computing: Lecture Notes” Ronald de Wolf <a class="reference external" href="https://arxiv.org/abs/1907.09415">arXiv:1907.09415</a></p></li>
+<li><p>“Introduction to Quantum Computation” Sevag Gharibian (Can be obtained from his course page <a class="reference external" href="http://groups.uni-paderborn.de/fg-qi/courses/UPB_INTRO_QUANTUM/S2020/notes/IQC_Masterfile.pdf">here</a>)</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="lab-content">
+<h3>Lab Content:<a class="headerlink" href="#lab-content" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://qiskit.org/textbook/content/ch-ex/">Qiskit textbook</a></p></li>
+<li><p><a class="reference external" href="https://codebook.xanadu.ai/">Xanadu Quantum Codebook</a></p></li>
+<li><p>“Quantum Computing: An Applied Approach”  Jack D. Hidary <a class="reference external" href="https://doi.org/10.1007/978-3-030-23922-0">https://doi.org/10.1007/978-3-030-23922-0</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="optional-content-time-permitting">
+<h3>Optional content (time permitting):<a class="headerlink" href="#optional-content-time-permitting" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>“Lectures on Quantum Tensor Networks” Jacob Biamonte (for a systematic connection between circuit diagrams and CV systems)</p></li>
+<li><p>“Machine Learning  with Quantum Computers” Maria Schuld, Francesco Petruccione <a class="reference external" href="https://doi.org/10.1007/978-3-030-83098-4">https://doi.org/10.1007/978-3-030-83098-4</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/courses/PHYS710/syllabus.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

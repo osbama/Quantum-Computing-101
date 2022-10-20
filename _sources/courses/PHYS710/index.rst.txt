@@ -1,0 +1,21 @@
+------------------------------------------------
+Phys 710
+------------------------------------------------
+
+General information
+*******************************
+
+
+Lecture Notes / Recordings
+*******************************
+
+Homeworks
+*******************************
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Hands on sessions
+
+   Hands on 1 <hands-on/hands-on-1/hands-on-1>
+
+

@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Hands-on 7 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -68,6 +63,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -104,10 +100,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="hands-on-7">
-<h1>Hands-on 7<a class="headerlink" href="#hands-on-7" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="grover-s-algorithm-and-amplitude-amplification">
-<h2>Grover’s Algorithm and Amplitude Amplification<a class="headerlink" href="#grover-s-algorithm-and-amplitude-amplification" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-7">
+<h1>Hands-on 7<a class="headerlink" href="#hands-on-7" title="Permalink to this heading">¶</a></h1>
+<section id="grover-s-algorithm-and-amplitude-amplification">
+<h2>Grover’s Algorithm and Amplitude Amplification<a class="headerlink" href="#grover-s-algorithm-and-amplitude-amplification" title="Permalink to this heading">¶</a></h2>
 <p>Grover’s algorithm is one of the most famous quantum algorithms introduced by Lov Grover in 1996 [1]. It has initially been proposed for unstructured search problems, i.e. for finding a marked element in a unstructured database. However, Grover’s algorithm is now a subroutine to several other algorithms, such as Grover Adaptive Search [2].</p>
 <p>Qiskit implements Grover’s algorithm in the <code class="docutils literal notranslate"><span class="pre">Grover</span></code> class. This class also includes the generalized version, Amplitude Amplification [3], and allows setting individual iterations and other meta-settings to Grover’s algorithm.</p>
 <p><strong>References:</strong></p>
@@ -116,8 +112,8 @@ the Theory of Computing (STOC) 1996, pp. 212-219. https://arxiv.org/abs/quant-ph
 <p>[2]: A. Gilliam, S. Woerner, C. Gonciulea, Grover Adaptive Search for Constrained Polynomial Binary Optimization.
 https://arxiv.org/abs/1912.04088</p>
 <p>[3]: Brassard, G., Hoyer, P., Mosca, M., &amp; Tapp, A. (2000). Quantum Amplitude Amplification and Estimation. http://arxiv.org/abs/quant-ph/0005055</p>
-<div class="section" id="grover-s-algorithm">
-<h3>Grover’s algorithm<a class="headerlink" href="#grover-s-algorithm" title="Permalink to this headline">¶</a></h3>
+<section id="grover-s-algorithm">
+<h3>Grover’s algorithm<a class="headerlink" href="#grover-s-algorithm" title="Permalink to this heading">¶</a></h3>
 <p>Grover’s algorithm uses the Grover operator <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> to amplify the amplitudes of the good states:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -137,8 +133,8 @@ $<span class="math notranslate nohighlight">\(
 　 where \)</span>f(x)<span class="math notranslate nohighlight">\( is 1 if \)</span>x$ is a good state and otherwise 0.</p></li>
 </ul>
 <p>In a nutshell, Grover’s algorithm applies different powers of <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> and after each execution checks whether a good solution has been found.</p>
-<div class="section" id="running-grover-s-algorithm">
-<h4>Running Grover’s algorithm<a class="headerlink" href="#running-grover-s-algorithm" title="Permalink to this headline">¶</a></h4>
+<section id="running-grover-s-algorithm">
+<h4>Running Grover’s algorithm<a class="headerlink" href="#running-grover-s-algorithm" title="Permalink to this heading">¶</a></h4>
 <p>To run Grover’s algorithm with the <code class="docutils literal notranslate"><span class="pre">Grover</span></code> class, firstly, we need to specify an oracle for the circuit of Grover’s algorithm. In the following example, we use <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> as the oracle of Grover’s algorithm. However, there are several other class that we can use as the oracle of Grover’s algorithm. We talk about them later in this tutorial.</p>
 <p>Note that the oracle for <code class="docutils literal notranslate"><span class="pre">Grover</span></code> must be a <em>phase-flip</em> oracle. That is, it multiplies the amplitudes of the of “good states” by a factor of <span class="math notranslate nohighlight">\(-1\)</span>. We explain later how to convert a <em>bit-flip</em> oracle to a phase-flip oracle.</p>
 <div class="cell docutils container">
@@ -164,7 +160,122 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_2_0.png" src="../../../../_images/Hands-on-7-book_2_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">MissingOptionalLibraryError</span><span class="g g-Whitespace">               </span>Traceback (most recent call last)
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 17&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># now we can have a look at the Grover operator that is used in running the algorithm</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># (Algorithm circuits are wrapped in a gate to be appear in composition as a block</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="c1"># so we have to decompose() the op to see it expanded into its component gates.)</span>
+<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/circuit/quantumcircuit.py:1957,</span> in <span class="ni">QuantumCircuit.draw</span><span class="nt">(self, output, scale, filename, style, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="c1"># pylint: disable=cyclic-import</span>
+<span class="g g-Whitespace">   </span><span class="mi">1955</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">circuit_drawer</span>
+<span class="ne">-&gt; </span><span class="mi">1957</span> <span class="k">return</span> <span class="n">circuit_drawer</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1958</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1959</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1960</span>     <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1961</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1962</span>     <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1963</span>     <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1964</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1965</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1966</span>     <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1967</span>     <span class="n">vertical_compression</span><span class="o">=</span><span class="n">vertical_compression</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1968</span>     <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1969</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1970</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1971</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1972</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1973</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1974</span>     <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1975</span> <span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:263,</span> in <span class="ni">circuit_drawer</span><span class="nt">(circuit, scale, filename, style, output, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">return</span> <span class="n">_generate_latex_source</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;mpl&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">image</span> <span class="o">=</span> <span class="n">_matplotlib_circuit_drawer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span>         <span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>         <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>         <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">271</span>         <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span>         <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span>         <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span>         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="k">raise</span> <span class="n">VisualizationError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span>         <span class="s2">&quot;Invalid output type </span><span class="si">%s</span><span class="s2"> selected. The only valid choices &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="s2">&quot;are text, latex, latex_source, and mpl&quot;</span> <span class="o">%</span> <span class="n">output</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span>     <span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:643,</span> in <span class="ni">_matplotlib_circuit_drawer</span><span class="nt">(circuit, scale, filename, style, plot_barriers, reverse_bits, justify, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span>     <span class="n">fold</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="ne">--&gt; </span><span class="mi">643</span> <span class="n">qcd</span> <span class="o">=</span> <span class="n">_matplotlib</span><span class="o">.</span><span class="n">MatplotlibDrawer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span>     <span class="n">qubits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">645</span>     <span class="n">clbits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">646</span>     <span class="n">nodes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">647</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">648</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">649</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">650</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">652</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">654</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">655</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span> <span class="k">if</span> <span class="n">cregbundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span>     <span class="n">global_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">calibrations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">cregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">660</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>     <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">return</span> <span class="n">qcd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:117,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">117</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:116,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:39,</span> in <span class="ni">_RequireNow.__call__</span><span class="nt">(self, *_args, **_kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_tester</span><span class="o">.</span><span class="n">require_now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:223,</span> in <span class="ni">LazyDependencyManager.require_now</span><span class="nt">(self, feature)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="k">return</span>
+<span class="ne">--&gt; </span><span class="mi">223</span> <span class="k">raise</span> <span class="n">MissingOptionalLibraryError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">224</span>     <span class="n">libname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">pip_install</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_install</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_msg</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="p">)</span>
+
+<span class="ne">MissingOptionalLibraryError</span>: &quot;The &#39;pylatexenc&#39; library is required to use &#39;MatplotlibDrawer&#39;. You can install it with &#39;pip install pylatexenc&#39;.&quot;
+</pre></div>
+</div>
 </div>
 </div>
 <p>Then, we specify a backend and call the <code class="docutils literal notranslate"><span class="pre">run</span></code> method of <code class="docutils literal notranslate"><span class="pre">Grover</span></code> with a backend to execute the circuits. The returned result type is a <code class="docutils literal notranslate"><span class="pre">GroverResult</span></code>.</p>
@@ -195,10 +306,10 @@ Top measurement: 11
 </div>
 </div>
 <p>In the example, the result of <code class="docutils literal notranslate"><span class="pre">top_measurement</span></code> is <code class="docutils literal notranslate"><span class="pre">11</span></code> which is one of “good state”. Thus, we succeeded to find the answer by using <code class="docutils literal notranslate"><span class="pre">Grover</span></code>.</p>
-</div>
-</div>
-<div class="section" id="using-the-different-types-of-classes-as-the-oracle-of-grover">
-<h3>Using the different types of classes as the oracle of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#using-the-different-types-of-classes-as-the-oracle-of-grover" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="using-the-different-types-of-classes-as-the-oracle-of-grover">
+<h3>Using the different types of classes as the oracle of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#using-the-different-types-of-classes-as-the-oracle-of-grover" title="Permalink to this heading">¶</a></h3>
 <p>In the above example, we used <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> as the oracle of <code class="docutils literal notranslate"><span class="pre">Grover</span></code>.
 However, we can also use <code class="docutils literal notranslate"><span class="pre">qiskit.quantum_info.Statevector</span></code> as oracle.
 All the following examples are when <span class="math notranslate nohighlight">\(|11\rangle\)</span> is “good state”</p>
@@ -234,7 +345,7 @@ Top measurement: 11
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_9_0.png" src="../../../../_images/Hands-on-7-book_9_0.png" />
+<img alt="../../../../_images/f3215353faaea51882f109ae4f746a9fbf7711514326950aa9a6ed389f9dd3f9.png" src="../../../../_images/f3215353faaea51882f109ae4f746a9fbf7711514326950aa9a6ed389f9dd3f9.png" />
 </div>
 </div>
 <p>Qiskit allows for an easy construction of more complex oracles:</p>
@@ -259,20 +370,20 @@ Top measurement: 11
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_11_0.png" src="../../../../_images/Hands-on-7-book_11_0.png" />
+<img alt="../../../../_images/82dfd3f147e831b63c9b27cd3538a1456bcb7429361efe87c71259895197a928.png" src="../../../../_images/82dfd3f147e831b63c9b27cd3538a1456bcb7429361efe87c71259895197a928.png" />
 </div>
 </div>
 <p>You can observe, that this oracle is actually implemented with three qubits instead of two!</p>
 <p>That is because the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> is not a phase-flip oracle (which flips the phase of the good state) but a bit-flip oracle. This means it flips the state of an auxiliary qubit if the other qubits satisfy the condition.
 For Grover’s algorithm, however, we require a phase-flip oracle. To convert the bit-flip oracle to a phase-flip oracle we sandwich the controlled-NOT by <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(H\)</span> gates, as you can see in the circuit above.</p>
 <p><strong>Note:</strong> This transformation from a bit-flip to a phase-flip oracle holds generally and you can use this to convert your oracle to the right representation.</p>
-</div>
-<div class="section" id="amplitude-amplification">
-<h3>Amplitude amplification<a class="headerlink" href="#amplitude-amplification" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="amplitude-amplification">
+<h3>Amplitude amplification<a class="headerlink" href="#amplitude-amplification" title="Permalink to this heading">¶</a></h3>
 <p>Grover’s algorithm uses Hadamard gates to create the uniform superposition of all the states at the beginning of the Grover operator <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span>. If some information on the good states is available, it might be useful to not start in a uniform superposition but only initialize specific states. This, generalized, version of Grover’s algorithm is referred to <em>Amplitude Amplification</em>.</p>
 <p>In Qiskit, the initial superposition state can easily be adjusted by setting the <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> argument.</p>
-<div class="section" id="state-preparation">
-<h4>State preparation<a class="headerlink" href="#state-preparation" title="Permalink to this headline">¶</a></h4>
+<section id="state-preparation">
+<h4>State preparation<a class="headerlink" href="#state-preparation" title="Permalink to this heading">¶</a></h4>
 <p>A <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> argument is used to specify a quantum circuit that prepares a quantum state for the start point of the amplitude amplification.
 By default, a circuit with <span class="math notranslate nohighlight">\(H^{\otimes n}\)</span> is used to prepare uniform superposition (so it will be Grover’s search). The diffusion circuit of the amplitude amplification reflects <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code> automatically.</p>
 <div class="cell docutils container">
@@ -306,7 +417,7 @@ By default, a circuit with <span class="math notranslate nohighlight">\(H^{\otim
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state preparation circuit:
 </pre></div>
 </div>
-<img alt="../../../../_images/Hands-on-7-book_14_1.png" src="../../../../_images/Hands-on-7-book_14_1.png" />
+<img alt="../../../../_images/7d1e4602a3bce23f0a444780e44ef7827ae4567e61c580406d2b8e945024df69.png" src="../../../../_images/7d1e4602a3bce23f0a444780e44ef7827ae4567e61c580406d2b8e945024df69.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -325,9 +436,9 @@ Top measurement: 111
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="full-flexibility">
-<h4>Full flexibility<a class="headerlink" href="#full-flexibility" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="full-flexibility">
+<h4>Full flexibility<a class="headerlink" href="#full-flexibility" title="Permalink to this heading">¶</a></h4>
 <p>For more advanced use, it is also possible to specify the entire Grover operator by setting the <code class="docutils literal notranslate"><span class="pre">grover_operator</span></code> argument. This might be useful if you know more efficient implementation for <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> than the default construction via zero reflection, oracle and state preparation.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">qiskit.circuit.library.GroverOperator</span></code> can be a good starting point and offers more options for an automated construction of the Grover operator. You can for instance</p>
 <ul class="simple">
@@ -347,7 +458,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_18_0.png" src="../../../../_images/Hands-on-7-book_18_0.png" />
+<img alt="../../../../_images/40f11c1ea9b5b58e0a884a25ceb97e4779e1e210c001ad24958f7b16474ead19.png" src="../../../../_images/40f11c1ea9b5b58e0a884a25ceb97e4779e1e210c001ad24958f7b16474ead19.png" />
 </div>
 </div>
 <p>Then, per default, the Grover operator implements the zero reflection on all five qubits.</p>
@@ -359,7 +470,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_20_0.png" src="../../../../_images/Hands-on-7-book_20_0.png" />
+<img alt="../../../../_images/fe4afaa1dd8419ec0bb7cd1cce1d38ce464417296ba01fb19d8f0d445ab5af89.png" src="../../../../_images/fe4afaa1dd8419ec0bb7cd1cce1d38ce464417296ba01fb19d8f0d445ab5af89.png" />
 </div>
 </div>
 <p>But we know that we only need to consider the first three:</p>
@@ -371,16 +482,16 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_22_0.png" src="../../../../_images/Hands-on-7-book_22_0.png" />
+<img alt="../../../../_images/ab4b16e3bca58a999ef99edabdc9f2d964d2a88c0c67dc4e8d89925dccebbcd9.png" src="../../../../_images/ab4b16e3bca58a999ef99edabdc9f2d964d2a88c0c67dc4e8d89925dccebbcd9.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="dive-into-other-arguments-of-grover">
-<h3>Dive into other arguments of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#dive-into-other-arguments-of-grover" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="dive-into-other-arguments-of-grover">
+<h3>Dive into other arguments of <code class="docutils literal notranslate"><span class="pre">Grover</span></code><a class="headerlink" href="#dive-into-other-arguments-of-grover" title="Permalink to this heading">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Grover</span></code> has arguments other than <code class="docutils literal notranslate"><span class="pre">oracle</span></code> and <code class="docutils literal notranslate"><span class="pre">state_preparation</span></code>. We will explain them in this section.</p>
-<div class="section" id="specifying-good-state">
-<h4>Specifying <code class="docutils literal notranslate"><span class="pre">good_state</span></code><a class="headerlink" href="#specifying-good-state" title="Permalink to this headline">¶</a></h4>
+<section id="specifying-good-state">
+<h4>Specifying <code class="docutils literal notranslate"><span class="pre">good_state</span></code><a class="headerlink" href="#specifying-good-state" title="Permalink to this heading">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">good_state</span></code> is used to check whether the measurement result is correct or not internally. It can be a list of binary strings, a list of integer, <code class="docutils literal notranslate"><span class="pre">Statevector</span></code>, and Callable. If the input is a list of bitstrings, each bitstrings in the list represents a good state. If the input is a list of integer, each integer represent the index of the good state to be <span class="math notranslate nohighlight">\(|1\rangle\)</span>. If it is a <code class="docutils literal notranslate"><span class="pre">Statevector</span></code>, it represents a superposition of all good states.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -456,9 +567,9 @@ Top measurement: 111
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="the-number-of-iterations">
-<h4>The number of <code class="docutils literal notranslate"><span class="pre">iterations</span></code><a class="headerlink" href="#the-number-of-iterations" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="the-number-of-iterations">
+<h4>The number of <code class="docutils literal notranslate"><span class="pre">iterations</span></code><a class="headerlink" href="#the-number-of-iterations" title="Permalink to this heading">¶</a></h4>
 <p>The number of repetition of applying the Grover operator is important to obtain the correct result with Grover’s algorithm. The number of iteration can be set by the <code class="docutils literal notranslate"><span class="pre">iteration</span></code> argument of <code class="docutils literal notranslate"><span class="pre">Grover</span></code>. The following inputs are supported:</p>
 <ul class="simple">
 <li><p>an integer to specify a single power of the Grover operator that’s applied</p></li>
@@ -515,9 +626,9 @@ Top measurement: 111
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="applying-post-processing">
-<h4>Applying <code class="docutils literal notranslate"><span class="pre">post_processing</span></code><a class="headerlink" href="#applying-post-processing" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="applying-post-processing">
+<h4>Applying <code class="docutils literal notranslate"><span class="pre">post_processing</span></code><a class="headerlink" href="#applying-post-processing" title="Permalink to this heading">¶</a></h4>
 <p>We can apply an optional post processing to the top measurement for ease of readability. It can be used e.g. to convert from the bit-representation of the measurement <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">0,</span> <span class="pre">1]</span></code> to a DIMACS CNF format <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">-2,</span> <span class="pre">3]</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -537,11 +648,11 @@ Top measurement: 111
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="grover-s-algorithm-examples">
-<h2>Grover’s algorithm examples<a class="headerlink" href="#grover-s-algorithm-examples" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="grover-s-algorithm-examples">
+<h2>Grover’s algorithm examples<a class="headerlink" href="#grover-s-algorithm-examples" title="Permalink to this heading">¶</a></h2>
 <p>This notebook has examples demonstrating how to use the Qiskit <a class="reference external" href="https://qiskit.org/documentation/stubs/qiskit.algorithms.Grover.html">Grover</a> search algorithm, with different oracles.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -556,8 +667,8 @@ Top measurement: 111
 </div>
 </div>
 </div>
-<div class="section" id="finding-solutions-to-3-sat-problems">
-<h3>Finding solutions to 3-SAT problems<a class="headerlink" href="#finding-solutions-to-3-sat-problems" title="Permalink to this headline">¶</a></h3>
+<section id="finding-solutions-to-3-sat-problems">
+<h3>Finding solutions to 3-SAT problems<a class="headerlink" href="#finding-solutions-to-3-sat-problems" title="Permalink to this heading">¶</a></h3>
 <p>Let’s look at an example 3-Satisfiability (3-SAT) problem and walk-through how we can use Quantum Search to find its satisfying solutions. 3-SAT problems are usually expressed in <a class="reference external" href="https://en.wikipedia.org/wiki/Conjunctive_normal_form">Conjunctive Normal Forms (CNF)</a> and written in the <a class="reference external" href="http://www.satcompetition.org/2009/format-benchmarks2009.html">DIMACS-CNF</a> format. For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -641,13 +752,13 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_47_0.png" src="../../../../_images/Hands-on-7-book_47_0.png" />
+<img alt="../../../../_images/f57900cdfc739548c5206c8e2a83b77eccd94ef5cc1c216a550f40839351c7d4.png" src="../../../../_images/f57900cdfc739548c5206c8e2a83b77eccd94ef5cc1c216a550f40839351c7d4.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="boolean-logical-expressions">
-<h2>Boolean Logical Expressions<a class="headerlink" href="#boolean-logical-expressions" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="boolean-logical-expressions">
+<h2>Boolean Logical Expressions<a class="headerlink" href="#boolean-logical-expressions" title="Permalink to this heading">¶</a></h2>
 <p>Qiskit’s <code class="docutils literal notranslate"><span class="pre">Grover</span></code> can also be used to perform Quantum Search on an <code class="docutils literal notranslate"><span class="pre">Oracle</span></code> constructed from other means, in addition to DIMACS. For example, the <code class="docutils literal notranslate"><span class="pre">PhaseOracle</span></code> can actually be configured using arbitrary Boolean logical expressions, as demonstrated below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -664,13 +775,13 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_49_0.png" src="../../../../_images/Hands-on-7-book_49_0.png" />
+<img alt="../../../../_images/257e26d2fa72a390bb1694aa2cd56f2a4478c80aa978378a88a5ef9f41e72aed.png" src="../../../../_images/257e26d2fa72a390bb1694aa2cd56f2a4478c80aa978378a88a5ef9f41e72aed.png" />
 </div>
 </div>
 <p>In the example above, the input Boolean logical expression <code class="docutils literal notranslate"><span class="pre">'(w</span> <span class="pre">^</span> <span class="pre">x)</span> <span class="pre">&amp;</span> <span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z)'</span></code> should be quite self-explanatory, where <code class="docutils literal notranslate"><span class="pre">^</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> represent the Boolean logical XOR, NOT, and AND operators, respectively. It should be quite easy to figure out the satisfying solution by examining its parts: <code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">^</span> <span class="pre">x</span></code> calls for <code class="docutils literal notranslate"><span class="pre">w</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> taking different values; <code class="docutils literal notranslate"><span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span></code> requires <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> be the same; <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z</span></code> dictates all three to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. Putting these together, we get the satisfying solution <code class="docutils literal notranslate"><span class="pre">(w,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z)</span> <span class="pre">=</span> <span class="pre">(False,</span> <span class="pre">True,</span> <span class="pre">True,</span> <span class="pre">True)</span></code>, which our <code class="docutils literal notranslate"><span class="pre">Grover</span></code>’s result agrees with.</p>
-</div>
-<div class="section" id="quantum-amplitude-estimation">
-<h2>Quantum Amplitude Estimation<a class="headerlink" href="#quantum-amplitude-estimation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="quantum-amplitude-estimation">
+<h2>Quantum Amplitude Estimation<a class="headerlink" href="#quantum-amplitude-estimation" title="Permalink to this heading">¶</a></h2>
 <p>Given an operator <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> that acts as</p>
 <div class="math notranslate nohighlight">
 \[
@@ -754,8 +865,8 @@ Top measurement: 111
 </div>
 </div>
 </div>
-<div class="section" id="qiskit-s-amplitude-estimation-workflow">
-<h3>Qiskit’s Amplitude Estimation workflow<a class="headerlink" href="#qiskit-s-amplitude-estimation-workflow" title="Permalink to this headline">¶</a></h3>
+<section id="qiskit-s-amplitude-estimation-workflow">
+<h3>Qiskit’s Amplitude Estimation workflow<a class="headerlink" href="#qiskit-s-amplitude-estimation-workflow" title="Permalink to this heading">¶</a></h3>
 <p>Qiskit implements several QAE algorithms that all derive from the <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimator</span></code> interface. In the initializer we specify algorithm specific settings and the <code class="docutils literal notranslate"><span class="pre">estimate</span></code> method, which does all the work, takes an <code class="docutils literal notranslate"><span class="pre">EstimationProblem</span></code> as input and returns an <code class="docutils literal notranslate"><span class="pre">AmplitudeEstimationResult</span></code> object. Since all QAE variants follow the same interface, we can use them all to solve the same problem instance.</p>
 <p>Next, we’ll run all different QAE algorithms. To do so, we first define the estimation problem which will contain the <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> operators as well as how to identify the <span class="math notranslate nohighlight">\(|\Psi_1\rangle\)</span> state, which in this simple example is just <span class="math notranslate nohighlight">\(|1\rangle\)</span>.</p>
 <div class="cell docutils container">
@@ -783,9 +894,9 @@ Top measurement: 111
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="canonical-ae">
-<h3>Canonical AE<a class="headerlink" href="#canonical-ae" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="canonical-ae">
+<h3>Canonical AE<a class="headerlink" href="#canonical-ae" title="Permalink to this heading">¶</a></h3>
 <p>Now let’s solve this with the original QAE implementation by Brassard et al. [1].</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -814,11 +925,6 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1464466
-</pre></div>
-</div>
-</div>
 </div>
 <p>We see that this is not a very good estimate for our target of <span class="math notranslate nohighlight">\(p=0.2\)</span>! That’s due to the fact the canonical AE is restricted to a discrete grid, specified by the number of evaluation qubits:</p>
 <div class="cell docutils container">
@@ -842,19 +948,11 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_69_0.png" src="../../../../_images/Hands-on-7-book_69_0.png" />
-</div>
 </div>
 <p>To improve the estimate we can interpolate the measurement probabilities and compute the maximum likelihood estimator that produces this probability distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolated MLE estimator:&quot;</span><span class="p">,</span> <span class="n">ae_result</span><span class="o">.</span><span class="n">mle</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Interpolated MLE estimator: 0.19999999390907777
 </pre></div>
 </div>
 </div>
@@ -869,9 +967,6 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_73_0.png" src="../../../../_images/Hands-on-7-book_73_0.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -883,13 +978,10 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_74_0.png" src="../../../../_images/Hands-on-7-book_74_0.png" />
 </div>
-</div>
-</div>
-<div class="section" id="iterative-amplitude-estimation">
-<h3>Iterative Amplitude Estimation<a class="headerlink" href="#iterative-amplitude-estimation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="iterative-amplitude-estimation">
+<h3>Iterative Amplitude Estimation<a class="headerlink" href="#iterative-amplitude-estimation" title="Permalink to this heading">¶</a></h3>
 <p>See [2].</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -906,11 +998,6 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.19999999999999998
-</pre></div>
-</div>
-</div>
 </div>
 <p>The circuits here only consist of Grover powers and are much cheaper!</p>
 <div class="cell docutils container">
@@ -920,13 +1007,10 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-7-book_78_0.png" src="../../../../_images/Hands-on-7-book_78_0.png" />
 </div>
-</div>
-</div>
-<div class="section" id="maximum-likelihood-amplitude-estimation">
-<h3>Maximum Likelihood Amplitude Estimation<a class="headerlink" href="#maximum-likelihood-amplitude-estimation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="maximum-likelihood-amplitude-estimation">
+<h3>Maximum Likelihood Amplitude Estimation<a class="headerlink" href="#maximum-likelihood-amplitude-estimation" title="Permalink to this heading">¶</a></h3>
 <p>See [3].</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -941,15 +1025,10 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20002237175368104
-</pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="faster-amplitude-estimation">
-<h3>Faster Amplitude Estimation<a class="headerlink" href="#faster-amplitude-estimation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="faster-amplitude-estimation">
+<h3>Faster Amplitude Estimation<a class="headerlink" href="#faster-amplitude-estimation" title="Permalink to this heading">¶</a></h3>
 <p>See [4].</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -966,35 +1045,26 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20000000000000018
-</pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/algorithms/amplitude_estimators/estimation_problem.py:194: UserWarning: Rescaling discards the Grover operator.
-  warnings.warn(&quot;Rescaling discards the Grover operator.&quot;)
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h3>
 <p>[1] Quantum Amplitude Amplification and Estimation. Brassard et al (2000). https://arxiv.org/abs/quant-ph/0005055</p>
 <p>[2] Iterative Quantum Amplitude Estimation. Grinko, D., Gacon, J., Zoufal, C., &amp; Woerner, S. (2019). https://arxiv.org/abs/1912.05559</p>
 <p>[3] Amplitude Estimation without Phase Estimation. Suzuki, Y., Uno, S., Raymond, R., Tanaka, T., Onodera, T., &amp; Yamamoto, N. (2019). https://arxiv.org/abs/1904.10246</p>
 <p>[4] Faster Amplitude Estimation. K. Nakaji (2020). https://arxiv.org/pdf/2003.02417.pdf</p>
-</div>
-</div>
-<div class="section" id="send-it-after-class">
-<h2>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="send-it-after-class">
+<h2>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h2>
 <p>Suppose we have a random variable <span class="math notranslate nohighlight">\(X\)</span> described by a certain probability distribution over <span class="math notranslate nohighlight">\(N\)</span> different outcomes, and a function <span class="math notranslate nohighlight">\(f:\{0,\dots,N\} \mapsto [0,1]\)</span> defined over this distribution. How can we use quantum computers to evaluate</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Expectation value of <span class="math notranslate nohighlight">\(X\)</span></p></li>
 <li><p>Variance of <span class="math notranslate nohighlight">\(X\)</span>
 Tip: The probability distribution is represented in our quantum computer by a quantum state over <span class="math notranslate nohighlight">\(n=⌈\log N⌉\)</span> qubits as <span class="math notranslate nohighlight">\( \left|\psi\right\rangle = \sum_{i=0}^{N-1} \sqrt{p_i} \left|i\right\rangle   \)</span>.  You can quantize the function <span class="math notranslate nohighlight">\(f\)</span> using an ancilla qubit as <span class="math notranslate nohighlight">\(F: \left|i\right\rangle  \left|0\right\rangle  \mapsto  \left|i\right\rangle  \left( \sqrt{1-f(i) } \left|0\right\rangle +\sqrt{f(i) } \left|1\right\rangle \right)\)</span></p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -1016,7 +1086,7 @@ Tip: The probability distribution is represented in our quantum computer by a qu
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

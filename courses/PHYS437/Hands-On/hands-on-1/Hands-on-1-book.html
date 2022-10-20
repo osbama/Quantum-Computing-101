@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Hands-on 1 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -68,6 +63,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -104,10 +100,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="tex2jax_ignore mathjax_ignore section" id="hands-on-1">
-<h1>Hands-on 1<a class="headerlink" href="#hands-on-1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="preliminary">
-<h2>Preliminary<a class="headerlink" href="#preliminary" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="hands-on-1">
+<h1>Hands-on 1<a class="headerlink" href="#hands-on-1" title="Permalink to this heading">¶</a></h1>
+<section id="preliminary">
+<h2>Preliminary<a class="headerlink" href="#preliminary" title="Permalink to this heading">¶</a></h2>
 <p>First of all, let’s see if your qiskit installation is working. If not, please follow the instructions for installing qiskit in your own pc using <em>conda</em>, or run this book in the <em>IBM cloud</em> directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -117,21 +113,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  setattr(self, word, getattr(machar, word).flat[0])
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  return self._float_to_str(self.smallest_subnormal)
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
-  setattr(self, word, getattr(machar, word).flat[0])
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
-  return self._float_to_str(self.smallest_subnormal)
-</pre></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.648441314697266</td></tr><tr><td colspan='2'>Thu Oct 20 12:40:16 2022 +03</td></tr></table></div></div>
 </div>
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773880004883</td></tr><tr><td colspan='2'>Tue Apr 12 23:03:34 2022 +03</td></tr></table></div></div>
-</div>
-</div>
-<div class="section" id="exploring-qubits-with-qiskit">
-<h2>Exploring Qubits with Qiskit<a class="headerlink" href="#exploring-qubits-with-qiskit" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="exploring-qubits-with-qiskit">
+<h2>Exploring Qubits with Qiskit<a class="headerlink" href="#exploring-qubits-with-qiskit" title="Permalink to this heading">¶</a></h2>
 <p>Classical bits always have a completely well-defined state: they are either 0 or 1 at every point during a computation. There is no more detail we can add to the state of a bit than this. So to write down the state of a of classical bit <code class="docutils literal notranslate"><span class="pre">(c)</span></code>, we can just use these two binary values. For example:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -185,7 +171,120 @@ c = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_8_0.png" src="../../../../_images/Hands-on-1-book_8_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">MissingOptionalLibraryError</span><span class="g g-Whitespace">               </span>Traceback (most recent call last)
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 4&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># Define initial_state as |1&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Apply initialisation operation to the 0th qubit</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">qc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/circuit/quantumcircuit.py:1957,</span> in <span class="ni">QuantumCircuit.draw</span><span class="nt">(self, output, scale, filename, style, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="c1"># pylint: disable=cyclic-import</span>
+<span class="g g-Whitespace">   </span><span class="mi">1955</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">circuit_drawer</span>
+<span class="ne">-&gt; </span><span class="mi">1957</span> <span class="k">return</span> <span class="n">circuit_drawer</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1958</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1959</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1960</span>     <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1961</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1962</span>     <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1963</span>     <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1964</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1965</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1966</span>     <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1967</span>     <span class="n">vertical_compression</span><span class="o">=</span><span class="n">vertical_compression</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1968</span>     <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1969</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1970</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1971</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1972</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1973</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1974</span>     <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1975</span> <span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:263,</span> in <span class="ni">circuit_drawer</span><span class="nt">(circuit, scale, filename, style, output, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">return</span> <span class="n">_generate_latex_source</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;mpl&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">image</span> <span class="o">=</span> <span class="n">_matplotlib_circuit_drawer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span>         <span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>         <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>         <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">271</span>         <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span>         <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span>         <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span>         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="k">raise</span> <span class="n">VisualizationError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">281</span>         <span class="s2">&quot;Invalid output type </span><span class="si">%s</span><span class="s2"> selected. The only valid choices &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="s2">&quot;are text, latex, latex_source, and mpl&quot;</span> <span class="o">%</span> <span class="n">output</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span>     <span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:643,</span> in <span class="ni">_matplotlib_circuit_drawer</span><span class="nt">(circuit, scale, filename, style, plot_barriers, reverse_bits, justify, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">641</span>     <span class="n">fold</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="ne">--&gt; </span><span class="mi">643</span> <span class="n">qcd</span> <span class="o">=</span> <span class="n">_matplotlib</span><span class="o">.</span><span class="n">MatplotlibDrawer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span>     <span class="n">qubits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">645</span>     <span class="n">clbits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">646</span>     <span class="n">nodes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">647</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">648</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">649</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">650</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">652</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">654</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">655</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span> <span class="k">if</span> <span class="n">cregbundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span>     <span class="n">global_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">calibrations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">cregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">660</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>     <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">return</span> <span class="n">qcd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:117,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">117</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:116,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:39,</span> in <span class="ni">_RequireNow.__call__</span><span class="nt">(self, *_args, **_kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_tester</span><span class="o">.</span><span class="n">require_now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:223,</span> in <span class="ni">LazyDependencyManager.require_now</span><span class="nt">(self, feature)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="k">return</span>
+<span class="ne">--&gt; </span><span class="mi">223</span> <span class="k">raise</span> <span class="n">MissingOptionalLibraryError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">224</span>     <span class="n">libname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">pip_install</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_install</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_msg</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="p">)</span>
+
+<span class="ne">MissingOptionalLibraryError</span>: &quot;The &#39;pylatexenc&#39; library is required to use &#39;MatplotlibDrawer&#39;. You can install it with &#39;pip install pylatexenc&#39;.&quot;
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can then use one of Qiskit’s simulators to view the resulting state of our qubit.</p>
@@ -234,7 +333,7 @@ c = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_16_0.png" src="../../../../_images/Hands-on-1-book_16_0.png" />
+<img alt="../../../../_images/2da26abd238e805acf487d3c261edb2351f4af45d8ec9405a8d124f94b35788c.png" src="../../../../_images/2da26abd238e805acf487d3c261edb2351f4af45d8ec9405a8d124f94b35788c.png" />
 </div>
 </div>
 <p>This time, instead of the statevector we will get the counts for the <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span> results using <code class="docutils literal notranslate"><span class="pre">.get_counts()</span></code>:</p>
@@ -248,7 +347,7 @@ c = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_18_0.png" src="../../../../_images/Hands-on-1-book_18_0.png" />
+<img alt="../../../../_images/f0cc2e4bcc410d6ca37f850e7cafe9e809b037430cba8e21a7169c3f49e8ebfc.png" src="../../../../_images/f0cc2e4bcc410d6ca37f850e7cafe9e809b037430cba8e21a7169c3f49e8ebfc.png" />
 </div>
 </div>
 <p>We can see that we (unsurprisingly) have a 100% chance of measuring <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. This time, let’s instead put our qubit into a superposition and see what happens. We will use the state <span class="math notranslate nohighlight">\(\left|q_0\right\rangle\)</span> from earlier :</p>
@@ -292,13 +391,13 @@ c = 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_23_0.png" src="../../../../_images/Hands-on-1-book_23_0.png" />
+<img alt="../../../../_images/dc72e9e827a1f008fc0394ade04f48cf7b73ca8b683a113fc0d6e66d19b874f3.png" src="../../../../_images/dc72e9e827a1f008fc0394ade04f48cf7b73ca8b683a113fc0d6e66d19b874f3.png" />
 </div>
 </div>
 <p>We can see we have equal probability of measuring either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. To explain this, we need to talk about measurement.</p>
-</div>
-<div class="section" id="the-rules-of-measurement">
-<h2>The Rules of Measurement<a class="headerlink" href="#the-rules-of-measurement" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-rules-of-measurement">
+<h2>The Rules of Measurement<a class="headerlink" href="#the-rules-of-measurement" title="Permalink to this heading">¶</a></h2>
 <p>Remember: To find the probability of measuring a state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> in the state <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> we do:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -316,8 +415,8 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 \end{aligned}
 \end{split}\]</div>
 <p>This rule governs how we get information out of quantum states. It is therefore very important for everything we do in quantum computation. It also immediately implies several important facts</p>
-<div class="section" id="normalisation">
-<h3>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this headline">¶</a></h3>
+<section id="normalisation">
+<h3>Normalisation<a class="headerlink" href="#normalisation" title="Permalink to this heading">¶</a></h3>
 <p>The rule shows us that amplitudes are related to probabilities. If we want the probabilities to add up to 1 (which they should!), we need to ensure that the statevector is properly normalized. Specifically, we need the magnitude of the state vector to be 1.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -344,49 +443,31 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">QiskitError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [14],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">vector</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">qc</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:188,</span> in <span class="ni">initialize</span><span class="nt">(self, params, qubits)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>     <span class="n">qubits</span> <span class="o">=</span> <span class="p">[</span><span class="n">qubits</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span> <span class="n">num_qubits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">qubits</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
-<span class="ne">--&gt; </span><span class="mi">188</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Initialize</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">),</span> <span class="n">qubits</span><span class="p">)</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:459,</span> in <span class="ni">initialize</span><span class="nt">(self, params, qubits)</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="n">qubits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bit_argument_conversion</span><span class="p">(</span><span class="n">qubits</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qubits</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">458</span> <span class="n">num_qubits</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">qubits</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">459</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Initialize</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">),</span> <span class="n">qubits</span><span class="p">)</span>
 
-<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:56,</span> in <span class="ni">Initialize.__init__</span><span class="nt">(self, params, num_qubits)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">num_qubits</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create new initialize composite.</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span><span class="sd">     Args:</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span><span class="sd">             and the remaining 3 qubits to be initialized to :math:`|0\rangle`.</span>
-<span class="g g-Whitespace">     </span><span class="mi">55</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">---&gt; </span><span class="mi">56</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_stateprep</span> <span class="o">=</span> <span class="n">StatePreparation</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">58</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;initialize&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateprep</span><span class="o">.</span><span class="n">num_qubits</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateprep</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/circuit/library/data_preparation/state_preparation.py:99,</span> in <span class="ni">StatePreparation.__init__</span><span class="nt">(self, params, num_qubits, inverse, label)</span>
-<span class="g g-Whitespace">     </span><span class="mi">96</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_label</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_int</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">99</span> <span class="n">num_qubits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_num_qubits</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">params</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">params</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_label</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/circuit/library/data_preparation/state_preparation.py:202,</span> in <span class="ni">StatePreparation._get_num_qubits</span><span class="nt">(self, num_qubits, params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">200</span>     <span class="c1"># Check if probabilities (amplitudes squared) sum to 1</span>
-<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">_EPS</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">202</span>         <span class="k">raise</span> <span class="n">QiskitError</span><span class="p">(</span><span class="s2">&quot;Sum of amplitudes-squared does not equal one.&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span>     <span class="n">num_qubits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span> <span class="k">return</span> <span class="n">num_qubits</span>
+<span class="nn">File ~/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/qiskit/extensions/quantum_initializer/initializer.py:94,</span> in <span class="ni">Initialize.__init__</span><span class="nt">(self, params, num_qubits)</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>     <span class="c1"># Check if probabilities (amplitudes squared) sum to 1</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">_EPS</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">94</span>         <span class="k">raise</span> <span class="n">QiskitError</span><span class="p">(</span><span class="s2">&quot;Sum of amplitudes-squared does not equal one.&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="n">num_qubits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;initialize&quot;</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
 
 <span class="ne">QiskitError</span>: &#39;Sum of amplitudes-squared does not equal one.&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="in-class-exercise">
-<h3>In class exercise<a class="headerlink" href="#in-class-exercise" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+</section>
+<section id="in-class-exercise">
+<h3>In class exercise<a class="headerlink" href="#in-class-exercise" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
 <li><p>Create a state vector that will give a 1/3 probability of measuring <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span>.</p></li>
 <li><p>Create a different state vector that will give the same measurement probabilities.</p></li>
 <li><p>Verify that the probability of measuring \left|1\right\rangle for these two states is 2/3.</p></li>
@@ -398,15 +479,15 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="alternative-measurement">
-<h3>Alternative measurement<a class="headerlink" href="#alternative-measurement" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="alternative-measurement">
+<h3>Alternative measurement<a class="headerlink" href="#alternative-measurement" title="Permalink to this heading">¶</a></h3>
 <p>The measurement rule gives us the probability <span class="math notranslate nohighlight">\(p\left(\left|x\right\rangle\right)\)</span> that a state <span class="math notranslate nohighlight">\(\left|\psi\right\rangle\)</span> is measured as <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span>. Nowhere does it tell us that <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> can only be either <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>.</p>
 <p>The measurements we have considered so far are in fact only one of an infinite number of possible ways to measure a qubit. For any orthogonal pair of states, we can define a measurement that would cause a qubit to choose between the two.</p>
 <p>This possibility will be explored more in the next section. For now, just bear in mind that <span class="math notranslate nohighlight">\(\left|x\right\rangle\)</span> is not limited to being simply <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> or <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>.</p>
-</div>
-<div class="section" id="global-phase">
-<h3>Global Phase<a class="headerlink" href="#global-phase" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="global-phase">
+<h3>Global Phase<a class="headerlink" href="#global-phase" title="Permalink to this heading">¶</a></h3>
 <p>We know that measuring the state <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>  will give us the output <span class="math notranslate nohighlight">\(1\)</span> with certainty. But we are also able to write down states such as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -424,8 +505,8 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 \left|\left\langle x \right| \left(\gamma \left|\alpha\right\rangle\right)\right|^2=\left|\gamma\left\langle x\middle|\alpha\right\rangle\right|^2=\left|\left\langle x\middle|\alpha\right\rangle\right|^2
 \]</div>
 <p>Note that this is distinct from the phase difference between terms in a superposition, which is known as the ‘relative phase’. This becomes relevant once we consider different types of measurement and multiple qubits.</p>
-<div class="section" id="the-observer-effect">
-<h4>The Observer Effect<a class="headerlink" href="#the-observer-effect" title="Permalink to this headline">¶</a></h4>
+<section id="the-observer-effect">
+<h4>The Observer Effect<a class="headerlink" href="#the-observer-effect" title="Permalink to this heading">¶</a></h4>
 <p>We know that the amplitudes contain information about the probability of us finding the qubit in a specific state, but once we have measured the qubit, we know with certainty what the state of the qubit is. For example, if we measure a qubit in the state:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -448,7 +529,7 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_33_0.png" src="../../../../_images/Hands-on-1-book_33_0.png" />
+<img alt="../../../../_images/0629b881f75a76f825d5b2133634b02f5c4c2ad732356abf1b8b3e8e8c1c528f.png" src="../../../../_images/0629b881f75a76f825d5b2133634b02f5c4c2ad732356abf1b8b3e8e8c1c528f.png" />
 </div>
 </div>
 <p>This should initialize our qubit in the state:</p>
@@ -487,7 +568,7 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_37_0.png" src="../../../../_images/Hands-on-1-book_37_0.png" />
+<img alt="../../../../_images/af2bd65e0bc1c032dc56e4c6a50d106f344715d90eea84fee0549db8391d4fcb.png" src="../../../../_images/af2bd65e0bc1c032dc56e4c6a50d106f344715d90eea84fee0549db8391d4fcb.png" />
 </div>
 </div>
 <p>When we simulate this entire circuit, we can see that one of the amplitudes is always <span class="math notranslate nohighlight">\(0\)</span>:</p>
@@ -507,20 +588,20 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 <p>You can re-run this cell a few times to reinitialize the qubit and measure it again. You will notice that either outcome is equally probable, but that the state of the qubit is never a superposition of <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> and <span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span>. Somewhat interestingly, the global phase on the state <span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span> survives, but since this is global phase, we can never measure it on a real quantum computer.</p>
-</div>
-</div>
-<div class="section" id="a-note-about-quantum-simulators">
-<h3>A Note about Quantum Simulators<a class="headerlink" href="#a-note-about-quantum-simulators" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="a-note-about-quantum-simulators">
+<h3>A Note about Quantum Simulators<a class="headerlink" href="#a-note-about-quantum-simulators" title="Permalink to this heading">¶</a></h3>
 <p>We can see that writing down a qubit’s state requires keeping track of two complex numbers, but when using a real quantum computer we will only ever receive a yes-or-no (0 or 1) answer for each qubit. The output of a 10-qubit quantum computer will look like this:</p>
 <div class="math notranslate nohighlight">
 \[
 0110111110
 \]</div>
 <p>Just 10 bits, no superposition or complex amplitudes. When using a real quantum computer, we cannot see the states of our qubits mid-computation, as this would destroy them! This behaviour is not ideal for learning, so Qiskit provides different quantum simulators: By default, the <code class="docutils literal notranslate"><span class="pre">aer_simulator</span></code> mimics the execution of a real quantum computer, but will also allow you to peek at quantum states before measurement if we include certain instructions in our circuit. For example, here we have included the instruction <code class="docutils literal notranslate"><span class="pre">.save_statevector()</span></code>, which means we can use <code class="docutils literal notranslate"><span class="pre">.get_statevector()</span></code> on the result of the simulation.</p>
-</div>
-</div>
-<div class="section" id="the-bloch-sphere">
-<h2>The Bloch Sphere<a class="headerlink" href="#the-bloch-sphere" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="the-bloch-sphere">
+<h2>The Bloch Sphere<a class="headerlink" href="#the-bloch-sphere" title="Permalink to this heading">¶</a></h2>
 <p>We saw earlier in this chapter that the general state of a qubit <span class="math notranslate nohighlight">\(\left|q\right\rangle\)</span> is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -564,14 +645,14 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-1-book_43_0.png" src="../../../../_images/Hands-on-1-book_43_0.png" />
+<img alt="../../../../_images/8195fae23a2f69b19ec63995c71c4bb2cdfc2a14e6b3682895d599a74a811edd.png" src="../../../../_images/8195fae23a2f69b19ec63995c71c4bb2cdfc2a14e6b3682895d599a74a811edd.png" />
 </div>
 </div>
-</div>
-<div class="section" id="id1">
-<h2>In Class Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>In Class Exercise<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">plot_bloch_vector()</span></code> to plot a qubit in the states:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(\left|0\right\rangle\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\left|1\right\rangle\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\frac{1}{\sqrt 2}\left(\left|0\right\rangle+\left|1\right\rangle\right)\)</span></p></li>
@@ -585,9 +666,9 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="your-first-multi-qubit-quantum-circuit">
-<h2>Your first multi-qubit quantum circuit<a class="headerlink" href="#your-first-multi-qubit-quantum-circuit" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="your-first-multi-qubit-quantum-circuit">
+<h2>Your first multi-qubit quantum circuit<a class="headerlink" href="#your-first-multi-qubit-quantum-circuit" title="Permalink to this heading">¶</a></h2>
 <p>In a circuit, we typically need to do three jobs: First, encode the input, then do some actual computation, and finally extract an output. For your first quantum circuit, we’ll focus on the last of these jobs. We start by creating a quantum circuit with 3 qubits and 3 outputs. Finally the method qc.draw() creates a drawing of the circuit for us. Jupyter Notebooks evaluate the last line of a code cell and display it below the cell. Since <code class="docutils literal notranslate"><span class="pre">qc.draw()</span></code> returns a drawing, that’s what we’re seeing under the code. There are no gates in our circuit yet, so we just see some horizontal lines.  (<em>Return</em> is another word for ‘output’. In Python, we can use returned data as input to another function or process.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -600,8 +681,8 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-<div class="section" id="what-s-a-method">
-<h3>What’s a method?<a class="headerlink" href="#what-s-a-method" title="Permalink to this headline">¶</a></h3>
+<section id="what-s-a-method">
+<h3>What’s a method?<a class="headerlink" href="#what-s-a-method" title="Permalink to this heading">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code> class is a set of instructions for representing quantum circuits as bits, but when we want to change one of these circuits, we also need to know how to change the bits accordingly. In Python, objects come with ‘methods’, which are sets of instructions for doing something with that object. In the cell above, the <code class="docutils literal notranslate"><span class="pre">.draw()</span></code> method looks at the circuit we’ve created and produces a human-readable drawing of that circuit.</p>
 <p>Next, we need a way to tell our quantum computer to measure our qubits and record the results. To do this, we add a “measure” operation to our quantum circuit. We can do this with the <code class="docutils literal notranslate"><span class="pre">QuantumCircuit</span></code>’s <code class="docutils literal notranslate"><span class="pre">.measure()</span></code> method.</p>
 <div class="cell docutils container">
@@ -644,9 +725,9 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="basics-of-encoding-an-input">
-<h3>Basics of encoding an input<a class="headerlink" href="#basics-of-encoding-an-input" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="basics-of-encoding-an-input">
+<h3>Basics of encoding an input<a class="headerlink" href="#basics-of-encoding-an-input" title="Permalink to this heading">¶</a></h3>
 <p>Now let’s look at how to encode a different binary string as an input. For this, we need what is known as a NOT gate. This is the most basic operation that you can do in a computer. It simply flips the bit value: 0 becomes 1 and 1 becomes 0. For qubits, we use a gate known as the <em>X-gate</em> for this.</p>
 <p>Below, we’ll create a new circuit dedicated to the job of encoding:</p>
 <div class="cell docutils container">
@@ -678,9 +759,9 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
     </div>
@@ -702,7 +783,7 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

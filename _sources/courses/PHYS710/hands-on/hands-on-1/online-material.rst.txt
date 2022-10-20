@@ -1,0 +1,12 @@
+
+=====================
+Hands-on session 1
+=====================
+
+Session Recording
+=====================
+
+Lab book
+=====================
+
+:download:`Jupyter notebook <hands-on-1.ipynb>`

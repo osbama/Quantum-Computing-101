@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
     <title>Hands-on 8 &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -68,6 +63,7 @@
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS710/index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -113,32 +109,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  setattr(self, word, getattr(machar, word).flat[0])
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  return self._float_to_str(self.smallest_subnormal)
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:499: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
-  setattr(self, word, getattr(machar, word).flat[0])
-/home/obm/Prog/miniconda3/envs/qiskit/lib/python3.8/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
-  return self._float_to_str(self.smallest_subnormal)
-</pre></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.648441314697266</td></tr><tr><td colspan='2'>Thu Oct 20 12:40:40 2022 +03</td></tr></table></div></div>
 </div>
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-finance</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78763580322266</td></tr><tr><td colspan='2'>Thu May 26 07:44:44 2022 +03</td></tr></table></div></div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="hands-on-8">
-<h1>Hands-on 8<a class="headerlink" href="#hands-on-8" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="portfolio-diversification">
-<h2>Portfolio Diversification<a class="headerlink" href="#portfolio-diversification" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="introduction">
-<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<section class="tex2jax_ignore mathjax_ignore" id="hands-on-8">
+<h1>Hands-on 8<a class="headerlink" href="#hands-on-8" title="Permalink to this heading">¶</a></h1>
+<section id="portfolio-diversification">
+<h2>Portfolio Diversification<a class="headerlink" href="#portfolio-diversification" title="Permalink to this heading">¶</a></h2>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h3>
 <p>In asset management, there are broadly two approaches: active and passive investment management. Within passive investment management, there are index-tracking funds and there are approaches based on portfolio diversification, which aim at representing a portfolio with a large number of assets by a smaller number of representative stocks.
 This notebook illustrates a portfolio diversification problem, which has recently become popular for two reasons:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>it makes it possible to mimic the performance of an index (or a similarly large set of assets) with a limited budget, at limited transaction costs. That is: traditional index-tracking may purchase all assets in the index, ideally with the same weights as in the index. This may be impractical for a number of reasons: the total of even a single round lot per asset may amount to more than the assets under management, the large scale of the index-tracking problem with integrality constraints may render the optimization problem difficult, and the transaction costs of the frequent rebalancing to adjust the positions to the weights in the index may render the approach expensive. Thus, a popular approach is to select a portfolio of <span class="math notranslate nohighlight">\(q\)</span> assets that represent the market with <span class="math notranslate nohighlight">\(n\)</span> assets, where <span class="math notranslate nohighlight">\(q\)</span> is significantly smaller than <span class="math notranslate nohighlight">\(n\)</span>, but where the portfolio replicates the behavior of the underlying market. To determine how to group assets into <span class="math notranslate nohighlight">\(q\)</span> clusters and how to determine which <span class="math notranslate nohighlight">\(q\)</span> assets should represent the <span class="math notranslate nohighlight">\(q\)</span> clusters amounts to solving a large-scale optimization problem. In the following we describe the mathematical model for the portfolio diversification problem as introduced in [Cornuejols &amp; Tutuncu, 2006]</p></li>
 <li><p>it allows for similarity measures between time-series beyond the covariance matrix. Notice that traditionally, modern portfolio theory considers the covariance matrix as a measure of similarity between the assets. As such, however, the covariance matrix is imperfect. Consider, for instance, a company listed both in London and New York. Although both listings should be very similar, only parts of the time series of the prices of the two listings will overlap, because of the partial overlap of the times the markets open. Instead of covariance, one can consider, for example, dynamic time warping of [Berndt and Clifford, 1994] as a measure of similarity between two time series, which allows for the fact that for some time periods, the data are captured by only one of the time series, while for others, both time series exhibit the similarity due to the parallel evolution of the stock price.</p></li>
 </ol>
 <p>The overall workflow we demonstrate comprises:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>pick the ground set of assets. In our case, this is a small number of US stocks.</p></li>
 <li><p>load the time series capturing the evolution of the prices of assets. In our case, this is a simplistic load of adjusted daily closing price data from Wikipedia or Nasdaq or LSE or EuroNext, whereas in a real asset management, a much higher frequency may be considered.</p></li>
 <li><p>compute the pair-wise similarity among the time series. In our case, we run a linear-time approximation of the dynamic time warping, still on the classical computer.</p></li>
@@ -146,9 +132,9 @@ This notebook illustrates a portfolio diversification problem, which has recentl
 <li><p>visualization of the results. In our case, this is again a simplistic plot.</p></li>
 </ol>
 <p>In the following, we first explain the model used in (4) above, before we proceed with the installation of the pre-requisites and the data loading.</p>
-</div>
-<div class="section" id="the-model">
-<h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-model">
+<h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this heading">¶</a></h3>
 <p>As discussed in [Cornuejols &amp; Tutuncu, 2006], we describe a mathematical model that clusters assets into groups of similar ones and selects one representative asset from each group to be included in the index fund portfolio. The model is based on the following data, which we will discuss in more detail later:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -185,12 +171,12 @@ This notebook illustrates a portfolio diversification problem, which has recentl
 {\bf z} = [x_{11},x_{12},\ldots,x_{1n}, x_{22},\ldots,x_{nn}, y_{1},\ldots,y_{n}],
 \]</div>
 <p>whose dimension is <span class="math notranslate nohighlight">\({\bf z} \in \{0,1\}^N\)</span>, with <span class="math notranslate nohighlight">\(N = n (n+1)\)</span> and denote the optimal solution with <span class="math notranslate nohighlight">\({\bf z}^*\)</span>, and the optimal cost <span class="math notranslate nohighlight">\(f^*\)</span>.</p>
-</div>
-<div class="section" id="a-hybrid-approach">
-<h3>A Hybrid Approach<a class="headerlink" href="#a-hybrid-approach" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="a-hybrid-approach">
+<h3>A Hybrid Approach<a class="headerlink" href="#a-hybrid-approach" title="Permalink to this heading">¶</a></h3>
 <p>Here, we demonstrate an approach that combines classical and quantum computing steps, following the quantum approximate optimization approach of Farhi, Goldstone, and Gutmann (2014).</p>
-<div class="section" id="construct-a-binary-polynomial-optimization">
-<h4>Construct a binary polynomial optimization<a class="headerlink" href="#construct-a-binary-polynomial-optimization" title="Permalink to this headline">¶</a></h4>
+<section id="construct-a-binary-polynomial-optimization">
+<h4>Construct a binary polynomial optimization<a class="headerlink" href="#construct-a-binary-polynomial-optimization" title="Permalink to this heading">¶</a></h4>
 <p>From <span class="math notranslate nohighlight">\((M)\)</span> one can construct a binary polynomial optimization with equality constraints only, by substituting the <span class="math notranslate nohighlight">\(x_{ij} \leq y_j\)</span> inequality constraints with the equivalent equality constraints <span class="math notranslate nohighlight">\(x_{ij} (1- y_j) = 0\)</span>. Then the problem becomes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -203,17 +189,17 @@ This notebook illustrates a portfolio diversification problem, which has recentl
 \[\quad x_{ij} (1- y_j) = 0,\,\textrm{ for }\,  i = 1,\ldots, n; \, j = 1,\ldots, n,\]</div>
 <div class="math notranslate nohighlight">
 \[\quad x_{jj} = y_j,\,\textrm{ for }\,  j = 1,\ldots, n.\]</div>
-</div>
-<div class="section" id="construct-the-ising-hamiltonian">
-<h4>Construct the Ising Hamiltonian<a class="headerlink" href="#construct-the-ising-hamiltonian" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="construct-the-ising-hamiltonian">
+<h4>Construct the Ising Hamiltonian<a class="headerlink" href="#construct-the-ising-hamiltonian" title="Permalink to this heading">¶</a></h4>
 <p>We can now construct the Ising Hamiltonian (QUBO) by penalty methods (introducing a penalty coefficient <span class="math notranslate nohighlight">\(A\)</span> for each equality constraint) as</p>
 <div class="math notranslate nohighlight">
 \[
 (IH) \quad H = \sum_{i=1}^n \sum_{j=1}^n \rho_{ij} x_{ij} + A\Big( \sum_{j=1}^n y_j - q\Big)^2 + \sum_{i=1}^n A\Big( \sum_{j=1}^n x_{ij} - 1\Big)^2 + \sum_{j=1}^n A (x_{jj}-y_j)^2 +\sum_{i=1}^n \sum_{j=1}^n A \left(x_{ij} (1- y_j)\right).
 \]</div>
-</div>
-<div class="section" id="from-hamiltonian-to-quadratic-programming-qp-formulation">
-<h4>From Hamiltonian to Quadratic Programming (QP) formulation<a class="headerlink" href="#from-hamiltonian-to-quadratic-programming-qp-formulation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="from-hamiltonian-to-quadratic-programming-qp-formulation">
+<h4>From Hamiltonian to Quadratic Programming (QP) formulation<a class="headerlink" href="#from-hamiltonian-to-quadratic-programming-qp-formulation" title="Permalink to this heading">¶</a></h4>
 <p>In the vector <span class="math notranslate nohighlight">\({\bf z}\)</span>, the Ising Hamiltonian elements can be rewritten as follows,</p>
 <p>First term:</p>
 <div class="math notranslate nohighlight">
@@ -250,18 +236,18 @@ A \sum_{j=1}^n  (x_{jj}-y_j)^2 = A {\bf z}^T  \left(\sum_{j=0}^{n-1} \left[\begi
 \[
 (IH-QP)\quad \max_{{\bf z}\in\{0,1\}^{n(n+1)}} \, {\bf z}^T ({\bf Q}_0+{\bf Q}_1+ {\bf Q}_2 + {\bf Q}_3 ){\bf z} + ({\bf c}_0+{\bf c}_1+{\bf c}_2+{\bf c}_3)^T {\bf z} +r_0+r_1+r_2\]</div>
 <p>which can be passed to the variational quantum eigensolver.</p>
-</div>
-</div>
-<div class="section" id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h3>
 <p>[1] G. Cornuejols, M. L. Fisher, and G. L. Nemhauser, <em>Location of bank accounts to optimize float: an analytical study of exact and approximate algorithms</em>, Management Science, vol. 23(8), 1997</p>
 <p>[2] E. Farhi, J. Goldstone, S. Gutmann e-print <a class="reference external" href="https://arxiv.org/abs/1411.4028">arXiv 1411.4028, 2014</a></p>
 <p>[3] G. Cornuejols and R. Tutuncu, <a class="reference external" href="http://web.math.ku.dk/~rolf/CT_FinOpt.pdf">Optimization methods in finance</a>, 2006</p>
 <p>[4] DJ. Berndt and J. Clifford, <em>Using dynamic time warping to find patterns in time series</em>. In KDD workshop 1994  (Vol. 10, No. 16, pp. 359-370).</p>
 <p>[5] <a class="reference external" href="https://github.com/Qiskit/qiskit-optimization/blob/main/docs/tutorials/06_examples_max_cut_and_tsp.ipynb">Max-Cut and Traveling Salesman Problem</a></p>
-</div>
-<div class="section" id="the-implementation">
-<h3>The Implementation<a class="headerlink" href="#the-implementation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-implementation">
+<h3>The Implementation<a class="headerlink" href="#the-implementation" title="Permalink to this heading">¶</a></h3>
 <p>First, we import the requisite modules.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -289,6 +275,20 @@ A \sum_{j=1}^n  (x_{jj}-y_j)^2 = A {\bf z}^T  \left(\sum_{j=0}^{n-1} \left[\begi
 <span class="c1"># The data providers of stock-market data</span>
 <span class="kn">from</span> <span class="nn">qiskit_finance.data_providers</span> <span class="kn">import</span> <span class="n">RandomDataProvider</span>
 <span class="kn">from</span> <span class="nn">qiskit_finance.applications.optimization</span> <span class="kn">import</span> <span class="n">PortfolioDiversification</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 20&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">qiskit.circuit.library</span> <span class="kn">import</span> <span class="n">TwoLocal</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="kn">from</span> <span class="nn">qiskit.utils</span> <span class="kn">import</span> <span class="n">QuantumInstance</span>
+<span class="ne">---&gt; </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">qiskit_optimization.algorithms</span> <span class="kn">import</span> <span class="n">MinimumEigenOptimizer</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="c1"># The data providers of stock-market data</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="kn">from</span> <span class="nn">qiskit_finance.data_providers</span> <span class="kn">import</span> <span class="n">RandomDataProvider</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit_optimization&#39;
 </pre></div>
 </div>
 </div>
@@ -322,10 +322,10 @@ A \sum_{j=1}^n  (x_{jj}-y_j)^2 = A {\bf z}^T  \left(\sum_{j=0}^{n-1} \left[\begi
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="classical-solution-using-ibm-ilog-cplex">
-<h2>Classical solution using IBM ILOG CPLEX<a class="headerlink" href="#classical-solution-using-ibm-ilog-cplex" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="classical-solution-using-ibm-ilog-cplex">
+<h2>Classical solution using IBM ILOG CPLEX<a class="headerlink" href="#classical-solution-using-ibm-ilog-cplex" title="Permalink to this heading">¶</a></h2>
 <p>For a classical solution, we use IBM CPLEX. CPLEX is able to find the exact solution of this problem. We first define a ClassicalOptimizer class that encodes the problem in a way that CPLEX can solve, and then instantiate the class and solve it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -420,7 +420,7 @@ A \sum_{j=1}^n  (x_{jj}-y_j)^2 = A {\bf z}^T  \left(\sum_{j=0}^{n-1} \left[\begi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]</span>
     <span class="n">c00lass</span> <span class="n">ClassicalOptimizer</span><span class="p">:</span>
             <span class="o">^</span>
 <span class="ne">SyntaxError</span>: invalid syntax
@@ -478,9 +478,9 @@ Total number of combinations= 64
 </div>
 </div>
 <p>Solution shows the selected stocks via the stars and in green the links (via similarities) with other stocks that are represented in the fund by the linked stock.</p>
-</div>
-<div class="section" id="quantum-computing-with-ibm-q">
-<h2>Quantum Computing with IBM Q<a class="headerlink" href="#quantum-computing-with-ibm-q" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="quantum-computing-with-ibm-q">
+<h2>Quantum Computing with IBM Q<a class="headerlink" href="#quantum-computing-with-ibm-q" title="Permalink to this heading">¶</a></h2>
 <p>For the quantum solution, we use Qiskit. We first define a class QuantumOptimizer that encodes the quantum approach to solve the problem and then we instantiate it and solve it. We define the following methods inside the class:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">exact_solution</span></code> : to make sure that the Ising Hamiltonian is correctly encoded in the <span class="math notranslate nohighlight">\(Z\)</span> basis, we can compute its eigendecomposition classically, i.e., considering a symmetric matrix of dimension <span class="math notranslate nohighlight">\(2^N \times 2^N\)</span>. For the problem at hand <span class="math notranslate nohighlight">\(n=3\)</span>, that is <span class="math notranslate nohighlight">\(N = 12\)</span>, seems to be the limit for many laptops;</p></li>
@@ -543,8 +543,8 @@ Total number of combinations= 64
 </div>
 </div>
 </div>
-<div class="section" id="step-1">
-<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
+<section id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this heading">¶</a></h3>
 <p>Instantiate the quantum optimizer class with parameters:</p>
 <ul class="simple">
 <li><p>the similarity matrix <code class="docutils literal notranslate"><span class="pre">rho</span></code>;</p></li>
@@ -558,9 +558,9 @@ Total number of combinations= 64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="step-2">
-<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this heading">¶</a></h3>
 <p>Encode the problem as a binary formulation (IH-QP).</p>
 <p>Sanity check: make sure that the binary formulation in the quantum optimizer is correct (i.e., yields the same cost given the same solution).</p>
 <div class="cell docutils container">
@@ -589,9 +589,9 @@ Total number of combinations= 64
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="step-3">
-<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this heading">¶</a></h3>
 <p>Encode the problem as an Ising Hamiltonian in the Z basis.</p>
 <p>Sanity check: make sure that the formulation is correct (i.e., yields the same cost given the same solution)</p>
 <div class="cell docutils container">
@@ -616,9 +616,9 @@ name &#39;classical_cost&#39; is not defined
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="step-4">
-<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this heading">¶</a></h3>
 <p>Solve the problem via VQE. Notice that depending on the number of qubits, this can take a while: for 6 qubits it takes 15 minutes on a 2015 Macbook Pro, for 12 qubits it takes more than 12 hours. For longer runs, logging may be useful to observe the workings; otherwise, you just have to wait until the solution is printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -644,9 +644,9 @@ VQE produces the same solution as the exact eigensolver.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="step-5">
-<h3>Step 5<a class="headerlink" href="#step-5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="step-5">
+<h3>Step 5<a class="headerlink" href="#step-5" title="Permalink to this heading">¶</a></h3>
 <p>Visualize the solution</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -662,7 +662,7 @@ VQE produces the same solution as the exact eigensolver.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-8-book_25_0.png" src="../../../../_images/Hands-on-8-book_25_0.png" />
+<img alt="../../../../_images/bac51424054adebac85f8c334ee6eb0eed5c63db85c6503d6240448ce59313c8.png" src="../../../../_images/bac51424054adebac85f8c334ee6eb0eed5c63db85c6503d6240448ce59313c8.png" />
 </div>
 </div>
 <div class="cell tag_nbsphinx-thumbnail docutils container">
@@ -672,14 +672,14 @@ VQE produces the same solution as the exact eigensolver.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/Hands-on-8-book_26_0.png" src="../../../../_images/Hands-on-8-book_26_0.png" />
+<img alt="../../../../_images/03e606ba3b1fe4c1385514768852e67a96c8879833c01fc4c4ef9090bd277ece.png" src="../../../../_images/03e606ba3b1fe4c1385514768852e67a96c8879833c01fc4c4ef9090bd277ece.png" />
 </div>
 </div>
 <p>Solution shows the selected stocks via the stars and in green the links (via similarities) with other stocks that are represented in the fund by the linked stock. Keep in mind that VQE is a heuristic working on the QP formulation of the Ising Hamiltonian, though. For suitable choices of A, local optima of the QP formulation will be feasible solutions to the ILP. While for some small instances, as above, we can find optimal solutions of the QP formulation which coincide with optima of the ILP, finding optimal solutions of the ILP is harder than finding local optima of the QP formulation, in general. Even within the VQE, one may provide stronger guarantees, for specific variational forms (trial wave functions).</p>
-</div>
-</div>
-<div class="section" id="one-qubit-qarbm">
-<h2>One qubit QARBM<a class="headerlink" href="#one-qubit-qarbm" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="one-qubit-qarbm">
+<h2>One qubit QARBM<a class="headerlink" href="#one-qubit-qarbm" title="Permalink to this heading">¶</a></h2>
 <p>Below is an example of a quantum restricted Boltzmann machine using a single qubit</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -750,15 +750,15 @@ VQE produces the same solution as the exact eigensolver.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total count for 0 and 1 are: {&#39;01&#39;: 61, &#39;00&#39;: 939}
 </pre></div>
 </div>
-<img alt="../../../../_images/Hands-on-8-book_32_1.png" src="../../../../_images/Hands-on-8-book_32_1.png" />
+<img alt="../../../../_images/e238b3a3cbddced053f4b1358cf83f8a74240b68da41062699002040b706af1b.png" src="../../../../_images/e238b3a3cbddced053f4b1358cf83f8a74240b68da41062699002040b706af1b.png" />
 </div>
 </div>
-</div>
-<div class="section" id="do-it-yourself">
-<h2>Do it yourself<a class="headerlink" href="#do-it-yourself" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="do-it-yourself">
+<h2>Do it yourself<a class="headerlink" href="#do-it-yourself" title="Permalink to this heading">¶</a></h2>
 <p>Adapt the finance circuit above for predicting the FM or AFM phase of a 2D crystal.</p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -780,7 +780,7 @@ VQE produces the same solution as the exact eigensolver.
     </p>
     <p>
         &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>
