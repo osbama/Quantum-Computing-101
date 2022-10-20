@@ -13,9 +13,9 @@ Homeworks
 *******************************
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Homework notebooks
+   :maxdepth: 1
+   :caption: Hands on sessions
 
-   Homework 1 <homework/homework1/homework1.ipynb>
+   Hands on 1 <hands-on/hands-on-1/hands-on-1>
 
 
