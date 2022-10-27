@@ -112,7 +112,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.648441314697266</td></tr><tr><td colspan='2'>Thu Oct 20 12:40:30 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.64844512939453</td></tr><tr><td colspan='2'>Thu Oct 27 12:48:13 2022 +03</td></tr></table></div></div>
 </div>
 </section>
 <section id="part-i-introduction-to-entanglement-purification-and-the-bbpssw-protocol">
@@ -415,118 +415,7 @@ F \equiv F(\theta) = \langle \Psi^- | \rho_\textrm{S} | \Psi^- \rangle  = \frac{
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">MissingOptionalLibraryError</span><span class="g g-Whitespace">               </span>Traceback (most recent call last)
-<span class="nn">Input In [12],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">source_circ</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/circuit/quantumcircuit.py:1957,</span> in <span class="ni">QuantumCircuit.draw</span><span class="nt">(self, output, scale, filename, style, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="c1"># pylint: disable=cyclic-import</span>
-<span class="g g-Whitespace">   </span><span class="mi">1955</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">circuit_drawer</span>
-<span class="ne">-&gt; </span><span class="mi">1957</span> <span class="k">return</span> <span class="n">circuit_drawer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1959</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span>     <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1962</span>     <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1963</span>     <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1964</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1965</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1966</span>     <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1967</span>     <span class="n">vertical_compression</span><span class="o">=</span><span class="n">vertical_compression</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1968</span>     <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1969</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1970</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1971</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1972</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1973</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1974</span>     <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1975</span> <span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:263,</span> in <span class="ni">circuit_drawer</span><span class="nt">(circuit, scale, filename, style, output, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">return</span> <span class="n">_generate_latex_source</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;mpl&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">image</span> <span class="o">=</span> <span class="n">_matplotlib_circuit_drawer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">264</span>         <span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">267</span>         <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span>         <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">271</span>         <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">272</span>         <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">273</span>         <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">274</span>         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="k">raise</span> <span class="n">VisualizationError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span>         <span class="s2">&quot;Invalid output type </span><span class="si">%s</span><span class="s2"> selected. The only valid choices &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="s2">&quot;are text, latex, latex_source, and mpl&quot;</span> <span class="o">%</span> <span class="n">output</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span>     <span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:643,</span> in <span class="ni">_matplotlib_circuit_drawer</span><span class="nt">(circuit, scale, filename, style, plot_barriers, reverse_bits, justify, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">    </span><span class="mi">640</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">641</span>     <span class="n">fold</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="ne">--&gt; </span><span class="mi">643</span> <span class="n">qcd</span> <span class="o">=</span> <span class="n">_matplotlib</span><span class="o">.</span><span class="n">MatplotlibDrawer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">644</span>     <span class="n">qubits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">645</span>     <span class="n">clbits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">646</span>     <span class="n">nodes</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">647</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">648</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">649</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">650</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">652</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">653</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">654</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">655</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span> <span class="k">if</span> <span class="n">cregbundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">656</span>     <span class="n">global_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">calibrations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">cregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">660</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">661</span>     <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">662</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">return</span> <span class="n">qcd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:117,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">117</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:116,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:39,</span> in <span class="ni">_RequireNow.__call__</span><span class="nt">(self, *_args, **_kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_tester</span><span class="o">.</span><span class="n">require_now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:223,</span> in <span class="ni">LazyDependencyManager.require_now</span><span class="nt">(self, feature)</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="k">return</span>
-<span class="ne">--&gt; </span><span class="mi">223</span> <span class="k">raise</span> <span class="n">MissingOptionalLibraryError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">224</span>     <span class="n">libname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">pip_install</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_install</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_msg</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="p">)</span>
-
-<span class="ne">MissingOptionalLibraryError</span>: &quot;The &#39;pylatexenc&#39; library is required to use &#39;MatplotlibDrawer&#39;. You can install it with &#39;pip install pylatexenc&#39;.&quot;
-</pre></div>
-</div>
+<img alt="../../../../_images/f3573e13e9ea6f7d154c82b5a4e6cd828b38214bed5cabbf6e9873c8ff464106.png" src="../../../../_images/f3573e13e9ea6f7d154c82b5a4e6cd828b38214bed5cabbf6e9873c8ff464106.png" />
 </div>
 </div>
 <p>We can see how the quantum register <code class="docutils literal notranslate"><span class="pre">qr</span></code> is constructed from the four qubits <span class="math notranslate nohighlight">\(q0_0\)</span> to <span class="math notranslate nohighlight">\(q0_3\)</span>. (q0 is actually the name of the register itself.) Note that the qubit label starts with index 0 according to the indexing in Python.</p>
@@ -588,7 +477,7 @@ X =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/bd0e10c3ffd2d175cf92a4762c208c083496d008aa693b6daaff1e016b869eb3.png" src="../../../../_images/bd0e10c3ffd2d175cf92a4762c208c083496d008aa693b6daaff1e016b869eb3.png" />
+<img alt="../../../../_images/747c88173d7e5eeaf1dd37d33e2d024e8538a7cb107df58a2092d799d037981c.png" src="../../../../_images/747c88173d7e5eeaf1dd37d33e2d024e8538a7cb107df58a2092d799d037981c.png" />
 </div>
 </div>
 <p>After applying the <span class="math notranslate nohighlight">\(X\)</span> gate, the control pair is in the state</p>
@@ -637,7 +526,7 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/3ca7012fda8934336cf6bca693b6dd65f21eb7c6183bd1bf544dc04e2efddf2b.png" src="../../../../_images/3ca7012fda8934336cf6bca693b6dd65f21eb7c6183bd1bf544dc04e2efddf2b.png" />
+<img alt="../../../../_images/db3adb7a0af4d881002522c0f66cf24725950623390a542ae431c3a4ca61c675.png" src="../../../../_images/db3adb7a0af4d881002522c0f66cf24725950623390a542ae431c3a4ca61c675.png" />
 </div>
 </div>
 <p>Now we have to use a CNOT gate between qubit 0 and qubit 1, where qubit 1 is flipped if qubit 0 is in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span> to create the desired source state <span class="math notranslate nohighlight">\(|\psi_\textrm{S}\rangle\)</span>,</p>
@@ -665,7 +554,7 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/307bf13d9bcefe3966b73ea084ebc11cc10e3ecfb32ab9b6787efcd7b97153e6.png" src="../../../../_images/307bf13d9bcefe3966b73ea084ebc11cc10e3ecfb32ab9b6787efcd7b97153e6.png" />
+<img alt="../../../../_images/54676617a8aaf5a7db7d549e01ff5a02a7745f0e0edd546d3839d02628864799.png" src="../../../../_images/54676617a8aaf5a7db7d549e01ff5a02a7745f0e0edd546d3839d02628864799.png" />
 </div>
 </div>
 <p>Since we need two copies of the state <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span> to perform entanglement purification, we also need to set qubits 2 and 3 to the source state <span class="math notranslate nohighlight">\(|\psi_\textrm{S}\rangle\)</span>,</p>
@@ -704,6 +593,9 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source_circ</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/09943378afe9510dd7c133d6761880dbdc2e6df6d4942637577b64c0842a1a7c.png" src="../../../../_images/09943378afe9510dd7c133d6761880dbdc2e6df6d4942637577b64c0842a1a7c.png" />
 </div>
 </div>
 <p>A single-qubit rotation <span class="math notranslate nohighlight">\(U(\textrm{theta}, \pi, 0)\)</span> should now also be applied to qubit <span class="math notranslate nohighlight">\(q0_2\)</span>, an <span class="math notranslate nohighlight">\(X\)</span> gate should also be applied to qubit <span class="math notranslate nohighlight">\(q0_3\)</span> and a CNOT should be applied between the two qubits.</p>
@@ -836,6 +728,9 @@ u(\theta, \phi = \pi , \lambda = 0) = \begin{pmatrix}
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/95cdc2b98d204688242bf32b88616f0556d357f45df8831ec9aea266393609d9.png" src="../../../../_images/95cdc2b98d204688242bf32b88616f0556d357f45df8831ec9aea266393609d9.png" />
+</div>
 </div>
 <p>If this operation is applied to a large number of qubit pairs in the state <span class="math notranslate nohighlight">\(|\psi_\textrm{S}\rangle\)</span>, the average output state is a Werner state <span class="math notranslate nohighlight">\(W_F\)</span> (see step 1, <strong>Sec. 1.2</strong>),</p>
 <div class="math notranslate nohighlight">
@@ -882,6 +777,9 @@ i &amp; 0 \\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/ef8e238eb83e8d3f441c1f6736c5888da9d0b7738259c82ea2875041389629dc.png" src="../../../../_images/ef8e238eb83e8d3f441c1f6736c5888da9d0b7738259c82ea2875041389629dc.png" />
+</div>
 </div>
 <p>If the quantum circuit <code class="docutils literal notranslate"><span class="pre">purification_circ</span></code> is applied to two qubit pairs in the Werner state <span class="math notranslate nohighlight">\(W_F\)</span>, this results in two qubit pairs in the state <span class="math notranslate nohighlight">\(\rho_F\)</span>.</p>
 </section>
@@ -912,6 +810,9 @@ i &amp; 0 \\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/3a5038dae84825be99063c21c2427d436de98d929a4f154b0dd6f2e3215d0bc8.png" src="../../../../_images/3a5038dae84825be99063c21c2427d436de98d929a4f154b0dd6f2e3215d0bc8.png" />
+</div>
 </div>
 <p>In the subsequent step of the BBPSSW protocol (step 4, <strong>Sec 1.2</strong>) the target qubits (qubits 2 and 3) should be measured in the computational basis. The measurement results must then be compared a successful round of entanglement purification.</p>
 <p>We will implement this step during the process of quantum state tomography, but this is described and explained below (<strong>Sec 2.4</strong>). Briefly summarized: It will work in such a way that we will only perform state tomography of the control qubits if the results of the measurements of the target qubits are the same.</p>
@@ -928,6 +829,12 @@ i &amp; 0 \\
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_80337/2766435879.py:1: DeprecationWarning: The QuantumCircuit.__add__() method is being deprecated.Use the compose() method which is more flexible w.r.t circuit register compatibility.
+  experiment_circ = source_circ + twirl_circ + purification_circ
+</pre></div>
+</div>
+</div>
 </div>
 <p>Overall, the complete circuit for the BBPSSW protocol has the following structure:</p>
 <div class="cell docutils container">
@@ -935,6 +842,9 @@ i &amp; 0 \\
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_circ</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/18b20cde2b9bb30010fb8ed18a79d07e8bda4ee412530b58b492fbb0f6454168.png" src="../../../../_images/18b20cde2b9bb30010fb8ed18a79d07e8bda4ee412530b58b492fbb0f6454168.png" />
 </div>
 </div>
 <p>We can now compare this with the quantum circuits from the introductory part (<strong>Part I</strong>). The gates up to the first CNOTs are not part of Alice’s and Bob’s circuits presented in the introduction. This is because these gates are needed to first simulate the source that creates the source states <span class="math notranslate nohighlight">\(\rho_\textrm{S}\)</span>. Then we recognize the single-qubit parts <span class="math notranslate nohighlight">\(U_{i,A(B)}\)</span> of the bilateral rotation <span class="math notranslate nohighlight">\(U_i\)</span>, which of course depend here on the random index <code class="docutils literal notranslate"><span class="pre">random_idx</span></code> chosen above. (Only in the case of <code class="docutils literal notranslate"><span class="pre">random_idx</span> <span class="pre">=</span> <span class="pre">0</span></code> do you actually see no parts of the bilateral rotation, as this corresponds to the identity operation.) Then the unilateral rotations Alice performs are implemented on the qubits <span class="math notranslate nohighlight">\(q0_0\)</span> and <span class="math notranslate nohighlight">\(q0_2\)</span>, followed by the bilateral CNOT.</p>
@@ -952,6 +862,16 @@ F' = \langle \Phi^+ | \rho'_{F'} | \Phi^+ \rangle.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">qiskit.ignis.verification.tomography</span> <span class="kn">import</span> <span class="n">state_tomography_circuits</span><span class="p">,</span> <span class="n">StateTomographyFitter</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [32],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">qiskit.ignis.verification.tomography</span> <span class="kn">import</span> <span class="n">state_tomography_circuits</span><span class="p">,</span> <span class="n">StateTomographyFitter</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;qiskit.ignis&#39;
 </pre></div>
 </div>
 </div>

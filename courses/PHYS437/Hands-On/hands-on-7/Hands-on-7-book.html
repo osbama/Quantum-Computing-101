@@ -160,122 +160,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">MissingOptionalLibraryError</span><span class="g g-Whitespace">               </span>Traceback (most recent call last)
-<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 17&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">problem</span> <span class="o">=</span> <span class="n">AmplificationProblem</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="n">is_good_state</span><span class="o">=</span><span class="n">good_state</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># now we can have a look at the Grover operator that is used in running the algorithm</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># (Algorithm circuits are wrapped in a gate to be appear in composition as a block</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="c1"># so we have to decompose() the op to see it expanded into its component gates.)</span>
-<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">problem</span><span class="o">.</span><span class="n">grover_operator</span><span class="o">.</span><span class="n">decompose</span><span class="p">()</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/circuit/quantumcircuit.py:1957,</span> in <span class="ni">QuantumCircuit.draw</span><span class="nt">(self, output, scale, filename, style, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="c1"># pylint: disable=cyclic-import</span>
-<span class="g g-Whitespace">   </span><span class="mi">1955</span> <span class="kn">from</span> <span class="nn">qiskit.visualization</span> <span class="kn">import</span> <span class="n">circuit_drawer</span>
-<span class="ne">-&gt; </span><span class="mi">1957</span> <span class="k">return</span> <span class="n">circuit_drawer</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1958</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1959</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1960</span>     <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1961</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1962</span>     <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1963</span>     <span class="n">interactive</span><span class="o">=</span><span class="n">interactive</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1964</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1965</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1966</span>     <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1967</span>     <span class="n">vertical_compression</span><span class="o">=</span><span class="n">vertical_compression</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1968</span>     <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1969</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1970</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1971</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1972</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1973</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1974</span>     <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1975</span> <span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:263,</span> in <span class="ni">circuit_drawer</span><span class="nt">(circuit, scale, filename, style, output, interactive, plot_barriers, reverse_bits, justify, vertical_compression, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="k">return</span> <span class="n">_generate_latex_source</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">249</span>         <span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">250</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;mpl&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">image</span> <span class="o">=</span> <span class="n">_matplotlib_circuit_drawer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">264</span>         <span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">267</span>         <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">268</span>         <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span>         <span class="n">justify</span><span class="o">=</span><span class="n">justify</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">271</span>         <span class="n">idle_wires</span><span class="o">=</span><span class="n">idle_wires</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">272</span>         <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">273</span>         <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">274</span>         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">wire_order</span><span class="o">=</span><span class="n">wire_order</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="k">raise</span> <span class="n">VisualizationError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span>         <span class="s2">&quot;Invalid output type </span><span class="si">%s</span><span class="s2"> selected. The only valid choices &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="s2">&quot;are text, latex, latex_source, and mpl&quot;</span> <span class="o">%</span> <span class="n">output</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span>     <span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/circuit_visualization.py:643,</span> in <span class="ni">_matplotlib_circuit_drawer</span><span class="nt">(circuit, scale, filename, style, plot_barriers, reverse_bits, justify, idle_wires, with_layout, fold, ax, initial_state, cregbundle, wire_order)</span>
-<span class="g g-Whitespace">    </span><span class="mi">640</span> <span class="k">if</span> <span class="n">fold</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">641</span>     <span class="n">fold</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="ne">--&gt; </span><span class="mi">643</span> <span class="n">qcd</span> <span class="o">=</span> <span class="n">_matplotlib</span><span class="o">.</span><span class="n">MatplotlibDrawer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">644</span>     <span class="n">qubits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">645</span>     <span class="n">clbits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">646</span>     <span class="n">nodes</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">647</span>     <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">648</span>     <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">649</span>     <span class="n">reverse_bits</span><span class="o">=</span><span class="n">reverse_bits</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">650</span>     <span class="n">plot_barriers</span><span class="o">=</span><span class="n">plot_barriers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">651</span>     <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">652</span>     <span class="n">fold</span><span class="o">=</span><span class="n">fold</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">653</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">654</span>     <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">655</span>     <span class="n">cregbundle</span><span class="o">=</span><span class="n">cregbundle</span> <span class="k">if</span> <span class="n">cregbundle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">656</span>     <span class="n">global_phase</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">657</span>     <span class="n">calibrations</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span>     <span class="n">qregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">cregs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">660</span>     <span class="n">with_layout</span><span class="o">=</span><span class="n">with_layout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">661</span>     <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">662</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">663</span> <span class="k">return</span> <span class="n">qcd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:117,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">117</span> <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/classtools.py:116,</span> in <span class="ni">_WrappedMethod.__get__.&lt;locals&gt;.out</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">def</span> <span class="nf">out</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_before</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>         <span class="n">callback</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="n">retval</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="k">for</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_after</span><span class="p">:</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:39,</span> in <span class="ni">_RequireNow.__call__</span><span class="nt">(self, *_args, **_kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_args</span><span class="p">,</span> <span class="o">**</span><span class="n">_kwargs</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_tester</span><span class="o">.</span><span class="n">require_now</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feature</span><span class="p">)</span>
-
-<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/utils/lazy_tester.py:223,</span> in <span class="ni">LazyDependencyManager.require_now</span><span class="nt">(self, feature)</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="k">return</span>
-<span class="ne">--&gt; </span><span class="mi">223</span> <span class="k">raise</span> <span class="n">MissingOptionalLibraryError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">224</span>     <span class="n">libname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">pip_install</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_install</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_msg</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="p">)</span>
-
-<span class="ne">MissingOptionalLibraryError</span>: &quot;The &#39;pylatexenc&#39; library is required to use &#39;MatplotlibDrawer&#39;. You can install it with &#39;pip install pylatexenc&#39;.&quot;
-</pre></div>
-</div>
+<img alt="../../../../_images/90f1bb6ada506cb5974a7daea1a6bb1f0da8cf380ba9d00348c08330a6e8d2da.png" src="../../../../_images/90f1bb6ada506cb5974a7daea1a6bb1f0da8cf380ba9d00348c08330a6e8d2da.png" />
 </div>
 </div>
 <p>Then, we specify a backend and call the <code class="docutils literal notranslate"><span class="pre">run</span></code> method of <code class="docutils literal notranslate"><span class="pre">Grover</span></code> with a backend to execute the circuits. The returned result type is a <code class="docutils literal notranslate"><span class="pre">GroverResult</span></code>.</p>
@@ -345,7 +230,7 @@ Top measurement: 11
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/f3215353faaea51882f109ae4f746a9fbf7711514326950aa9a6ed389f9dd3f9.png" src="../../../../_images/f3215353faaea51882f109ae4f746a9fbf7711514326950aa9a6ed389f9dd3f9.png" />
+<img alt="../../../../_images/578806a97485788142ad94017fc347ac20a52b3d12ed8522d76daa76cdf2a2b1.png" src="../../../../_images/578806a97485788142ad94017fc347ac20a52b3d12ed8522d76daa76cdf2a2b1.png" />
 </div>
 </div>
 <p>Qiskit allows for an easy construction of more complex oracles:</p>
@@ -370,7 +255,7 @@ Top measurement: 11
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/82dfd3f147e831b63c9b27cd3538a1456bcb7429361efe87c71259895197a928.png" src="../../../../_images/82dfd3f147e831b63c9b27cd3538a1456bcb7429361efe87c71259895197a928.png" />
+<img alt="../../../../_images/6540abe094237d51e9d39934adc5a615d0917ebc6f84640d17ea914bfcbc48df.png" src="../../../../_images/6540abe094237d51e9d39934adc5a615d0917ebc6f84640d17ea914bfcbc48df.png" />
 </div>
 </div>
 <p>You can observe, that this oracle is actually implemented with three qubits instead of two!</p>
@@ -417,7 +302,7 @@ By default, a circuit with <span class="math notranslate nohighlight">\(H^{\otim
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state preparation circuit:
 </pre></div>
 </div>
-<img alt="../../../../_images/7d1e4602a3bce23f0a444780e44ef7827ae4567e61c580406d2b8e945024df69.png" src="../../../../_images/7d1e4602a3bce23f0a444780e44ef7827ae4567e61c580406d2b8e945024df69.png" />
+<img alt="../../../../_images/063c07bb8ae9e40573256f32a80fd81190445d02a1d8671ff9a895ff85bd9c3d.png" src="../../../../_images/063c07bb8ae9e40573256f32a80fd81190445d02a1d8671ff9a895ff85bd9c3d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -458,7 +343,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/40f11c1ea9b5b58e0a884a25ceb97e4779e1e210c001ad24958f7b16474ead19.png" src="../../../../_images/40f11c1ea9b5b58e0a884a25ceb97e4779e1e210c001ad24958f7b16474ead19.png" />
+<img alt="../../../../_images/390fe0559d9c248aeaf76d0ab6a850dc08805842742f609649a59260b470b14f.png" src="../../../../_images/390fe0559d9c248aeaf76d0ab6a850dc08805842742f609649a59260b470b14f.png" />
 </div>
 </div>
 <p>Then, per default, the Grover operator implements the zero reflection on all five qubits.</p>
@@ -470,7 +355,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/fe4afaa1dd8419ec0bb7cd1cce1d38ce464417296ba01fb19d8f0d445ab5af89.png" src="../../../../_images/fe4afaa1dd8419ec0bb7cd1cce1d38ce464417296ba01fb19d8f0d445ab5af89.png" />
+<img alt="../../../../_images/703c4fd7f7b60b3833555c976642f855983879842f733f9df27fec9b8aa0c800.png" src="../../../../_images/703c4fd7f7b60b3833555c976642f855983879842f733f9df27fec9b8aa0c800.png" />
 </div>
 </div>
 <p>But we know that we only need to consider the first three:</p>
@@ -482,7 +367,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/ab4b16e3bca58a999ef99edabdc9f2d964d2a88c0c67dc4e8d89925dccebbcd9.png" src="../../../../_images/ab4b16e3bca58a999ef99edabdc9f2d964d2a88c0c67dc4e8d89925dccebbcd9.png" />
+<img alt="../../../../_images/34e278adbf8e155904baa20562fd5d26d65ed50f73f43c8be2a89b4d176c8689.png" src="../../../../_images/34e278adbf8e155904baa20562fd5d26d65ed50f73f43c8be2a89b4d176c8689.png" />
 </div>
 </div>
 </section>
@@ -737,7 +622,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>011
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>101
 </pre></div>
 </div>
 </div>
@@ -752,7 +637,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/f57900cdfc739548c5206c8e2a83b77eccd94ef5cc1c216a550f40839351c7d4.png" src="../../../../_images/f57900cdfc739548c5206c8e2a83b77eccd94ef5cc1c216a550f40839351c7d4.png" />
+<img alt="../../../../_images/4da1aaf2daf48aabf75d460eb48f05626f0dd8f6b8cd889c08eb0c9b378b6621.png" src="../../../../_images/4da1aaf2daf48aabf75d460eb48f05626f0dd8f6b8cd889c08eb0c9b378b6621.png" />
 </div>
 </div>
 </section>
@@ -775,7 +660,7 @@ Top measurement: 111
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../../_images/257e26d2fa72a390bb1694aa2cd56f2a4478c80aa978378a88a5ef9f41e72aed.png" src="../../../../_images/257e26d2fa72a390bb1694aa2cd56f2a4478c80aa978378a88a5ef9f41e72aed.png" />
+<img alt="../../../../_images/9353d511e890bba06370ed4f117f7e665560e012c8e9bb292f4abd77568193dc.png" src="../../../../_images/9353d511e890bba06370ed4f117f7e665560e012c8e9bb292f4abd77568193dc.png" />
 </div>
 </div>
 <p>In the example above, the input Boolean logical expression <code class="docutils literal notranslate"><span class="pre">'(w</span> <span class="pre">^</span> <span class="pre">x)</span> <span class="pre">&amp;</span> <span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span> <span class="pre">&amp;</span> <span class="pre">(x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z)'</span></code> should be quite self-explanatory, where <code class="docutils literal notranslate"><span class="pre">^</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, and <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> represent the Boolean logical XOR, NOT, and AND operators, respectively. It should be quite easy to figure out the satisfying solution by examining its parts: <code class="docutils literal notranslate"><span class="pre">w</span> <span class="pre">^</span> <span class="pre">x</span></code> calls for <code class="docutils literal notranslate"><span class="pre">w</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> taking different values; <code class="docutils literal notranslate"><span class="pre">~(y</span> <span class="pre">^</span> <span class="pre">z)</span></code> requires <code class="docutils literal notranslate"><span class="pre">y</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> be the same; <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&amp;</span> <span class="pre">y</span> <span class="pre">&amp;</span> <span class="pre">z</span></code> dictates all three to be <code class="docutils literal notranslate"><span class="pre">True</span></code>. Putting these together, we get the satisfying solution <code class="docutils literal notranslate"><span class="pre">(w,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z)</span> <span class="pre">=</span> <span class="pre">(False,</span> <span class="pre">True,</span> <span class="pre">True,</span> <span class="pre">True)</span></code>, which our <code class="docutils literal notranslate"><span class="pre">Grover</span></code>’s result agrees with.</p>
@@ -925,6 +810,11 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1464466
+</pre></div>
+</div>
+</div>
 </div>
 <p>We see that this is not a very good estimate for our target of <span class="math notranslate nohighlight">\(p=0.2\)</span>! That’s due to the fact the canonical AE is restricted to a discrete grid, specified by the number of evaluation qubits:</p>
 <div class="cell docutils container">
@@ -948,11 +838,19 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/f2666d9d1991bb8f9088cfd4d0ae1b625fa08a3df335f4b28b8cff86ef9f87d8.png" src="../../../../_images/f2666d9d1991bb8f9088cfd4d0ae1b625fa08a3df335f4b28b8cff86ef9f87d8.png" />
+</div>
 </div>
 <p>To improve the estimate we can interpolate the measurement probabilities and compute the maximum likelihood estimator that produces this probability distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolated MLE estimator:&quot;</span><span class="p">,</span> <span class="n">ae_result</span><span class="o">.</span><span class="n">mle</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Interpolated MLE estimator: 0.19999999390907777
 </pre></div>
 </div>
 </div>
@@ -967,6 +865,13 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/matplotlib.py:163: UserWarning: Style JSON file &#39;iqx.json&#39; not found in any of these locations: /home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/styles/iqx.json, iqx.json. Will use default style.
+  self._style, def_font_ratio = load_style(style)
+</pre></div>
+</div>
+<img alt="../../../../_images/1fc894791a16c37c4f475675c3beae972d6423bc797b539f04336e49077c0bea.png" src="../../../../_images/1fc894791a16c37c4f475675c3beae972d6423bc797b539f04336e49077c0bea.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -977,6 +882,13 @@ Top measurement: 111
 <span class="n">transpile</span><span class="p">(</span><span class="n">ae_circuit</span><span class="p">,</span> <span class="n">basis_gates</span><span class="o">=</span><span class="n">basis_gates</span><span class="p">,</span> <span class="n">optimization_level</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/matplotlib.py:163: UserWarning: Style JSON file &#39;iqx.json&#39; not found in any of these locations: /home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/styles/iqx.json, iqx.json. Will use default style.
+  self._style, def_font_ratio = load_style(style)
+</pre></div>
+</div>
+<img alt="../../../../_images/1a34834672925776030ec45253d1230e9f494533507d0ae7ec6b7684e7d46dd0.png" src="../../../../_images/1a34834672925776030ec45253d1230e9f494533507d0ae7ec6b7684e7d46dd0.png" />
 </div>
 </div>
 </section>
@@ -998,6 +910,11 @@ Top measurement: 111
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.19999999999999998
+</pre></div>
+</div>
+</div>
 </div>
 <p>The circuits here only consist of Grover powers and are much cheaper!</p>
 <div class="cell docutils container">
@@ -1006,6 +923,13 @@ Top measurement: 111
 <span class="n">iae_circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;mpl&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;iqx&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/matplotlib.py:163: UserWarning: Style JSON file &#39;iqx.json&#39; not found in any of these locations: /home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/visualization/circuit/styles/iqx.json, iqx.json. Will use default style.
+  self._style, def_font_ratio = load_style(style)
+</pre></div>
+</div>
+<img alt="../../../../_images/fe9f17083647112e1969ee55689717768f9d545f47eeb41ee0518d087faf933b.png" src="../../../../_images/fe9f17083647112e1969ee55689717768f9d545f47eeb41ee0518d087faf933b.png" />
 </div>
 </div>
 </section>
@@ -1022,6 +946,11 @@ Top measurement: 111
 <span class="n">mlae_result</span> <span class="o">=</span> <span class="n">mlae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">mlae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20002237175368104
 </pre></div>
 </div>
 </div>
@@ -1042,6 +971,15 @@ Top measurement: 111
 <span class="n">fae_result</span> <span class="o">=</span> <span class="n">fae</span><span class="o">.</span><span class="n">estimate</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estimate:&quot;</span><span class="p">,</span> <span class="n">fae_result</span><span class="o">.</span><span class="n">estimation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimate: 0.20000000000000018
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/qiskit/algorithms/amplitude_estimators/estimation_problem.py:195: UserWarning: Rescaling discards the Grover operator.
+  warnings.warn(&quot;Rescaling discards the Grover operator.&quot;)
 </pre></div>
 </div>
 </div>

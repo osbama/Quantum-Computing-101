@@ -279,5 +279,5 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
 
-jupyter_execute_notebooks = "cache"
+jupyter_execute_notebooks = "auto"
 execution_timeout=-1
