@@ -22,6 +22,8 @@
     <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Hands-on session 2" href="hands-on-2.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -61,10 +63,10 @@
      href="../../../../index.html">Contents <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
 </ul>
 </li>
@@ -468,7 +470,7 @@ ZX\left(\alpha\left|1\right\rangle - \beta\left|0\right\rangle\right)=\alpha\lef
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.64844512939453</td></tr><tr><td colspan='2'>Thu Oct 27 12:27:28 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.64844512939453</td></tr><tr><td colspan='2'>Thu Oct 27 12:41:21 2022 +03</td></tr></table></div></div>
 </div>
 </section>
 <section id="exploring-qubits-with-qiskit">
@@ -1114,16 +1116,6 @@ p\left(\left|x\right\rangle\right)=\left|\left\langle x\middle|\psi\right\rangle
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
-<span class="n">qiskit_version_table</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773498535156</td></tr><tr><td colspan='2'>Wed Mar 23 23:16:23 2022 +03</td></tr></table></div></div>
-</div>
 <p>Single qubits are interesting, but individually they offer no computational advantage. We will now look at how we represent multiple qubits, and how these qubits can interact with each other. We have seen how we can represent the state of a qubit using a 2D-vector, now we will see how we can represent the state of multiple qubits.</p>
 </section>
 <section id="representing-multi-qubit-states">
@@ -1354,12 +1346,12 @@ X\otimes H =
 <p>We can see Qiskit has performed the kronecker product:
 $$
 X \otimes I =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8978dc8c-d968-42a0-b29a-2c43fda0b0a5">
-<span class="eqno">(1)<a class="headerlink" href="#equation-8978dc8c-d968-42a0-b29a-2c43fda0b0a5" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; I \\
+<div class="amsmath math notranslate nohighlight" id="equation-048387dc-5137-46a5-a326-04ff2c68c687">
+<span class="eqno">(1)<a class="headerlink" href="#equation-048387dc-5137-46a5-a326-04ff2c68c687" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; I \\
                I &amp; 0\\
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-7df3e037-e1db-4190-851e-f956b093a5c0">
-<span class="eqno">(2)<a class="headerlink" href="#equation-7df3e037-e1db-4190-851e-f956b093a5c0" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 \\
+<div class="amsmath math notranslate nohighlight" id="equation-ee7ef744-5170-4a87-92c2-c559b6020dea">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ee7ef744-5170-4a87-92c2-c559b6020dea" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 \\
                 0 &amp; 0 &amp; 0 &amp; 1 \\
                 1 &amp; 0 &amp; 0 &amp; 0 \\
                 0 &amp; 1 &amp; 0 &amp; 0 \\
@@ -1993,8 +1985,8 @@ T|1\rangle = e^{i\pi/4}|1\rangle
 <p>we can see the leftmost qubit has been rotated by <span class="math notranslate nohighlight">\(\pi/4\)</span> around the Z-axis of the Bloch sphere as expected. After exploring this behaviour, it may become clear why Qiskit draws the controlled-Z rotation gates in this symmetrical fashion (two controls instead of a control and a target). There is no clear control or target qubit for all cases.</p>
 <p><img alt="" src="../../../../_images/pkb_z_equiv1.png" /></p>
 </section>
-<section id="send-it-after-class-3">
-<h3>Send it after class 3:<a class="headerlink" href="#send-it-after-class-3" title="Permalink to this heading">¶</a></h3>
+<section id="send-it-after-class">
+<h3>Send it after class :<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h3>
 <p>-What would be the resulting state of the control qubit (q0) if the target qubit (q1) was in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>? (as shown in the circuit below)? Use Qiskit to check your answer.</p>
 <p><img alt="" src="../../../../_images/pkb_ex11.png" /></p>
 <p>-What would happen to the control qubit (q0) if the target qubit (q1) was in the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>, and the circuit used a controlled-Sdg gate instead of the controlled-T (as shown in the circuit below)?</p>
@@ -2119,8 +2111,8 @@ T|1\rangle = e^{i\pi/4}|1\rangle
 \[ |\circlearrowleft\rangle, \quad |\circlearrowright\rangle\]</div>
 <p>We leave it as an exercise to calculate these. There are in fact an infinite number of bases; to form one, we simply need two orthogonal vectors. The eigenvectors of both Hermitian and unitary matrices form a basis for the vector space. Due to this property, we can be sure that the eigenstates of the X-gate and the Y-gate indeed form a basis for 1-qubit states (read more about this in the <a class="reference external" href="https://qiskit.org/textbook/ch-appendix/linear_algebra.html#Matrices-and-Matrix-Operations">linear algebra page</a> in the appendix)</p>
 </section>
-<section id="send-it-after-class">
-<h3>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h3>
+<section id="id2">
+<h3>Send it after class<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Verify that <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> are in fact eigenstates of the X-gate.</p></li>
 <li><p>What eigenvalues do they have?</p></li>
@@ -2140,22 +2132,6 @@ T|1\rangle = e^{i\pi/4}|1\rangle
 <div class="math notranslate nohighlight">
 \[ H|1\rangle = |-\rangle \]</div>
 <p>This can be thought of as a rotation around the Bloch vector <code class="docutils literal notranslate"><span class="pre">[1,0,1]</span></code> (the line between the x &amp; z-axis), or as transforming the state of the qubit between the X and Z bases.</p>
-<section id="id2">
-<h3>Send it after class 2<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>Write the H-gate as the outer products of vectors <span class="math notranslate nohighlight">\(|0\rangle\)</span>, <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span>.</p></li>
-<li><p>Show that applying the sequence of gates: HZH, to any qubit state is equivalent to applying an X-gate.</p></li>
-<li><p>Find a combination of X, Z and H-gates that is equivalent to a Y-gate (ignoring global phase).</p></li>
-</ol>
-</section>
-</section>
-<section id="digression-measuring-in-different-bases">
-<h2>4. Digression: Measuring in Different Bases<a class="headerlink" href="#digression-measuring-in-different-bases" title="Permalink to this heading">¶</a></h2>
-<p>We have seen that the Z-axis is not intrinsically special, and that there are infinitely many other bases. Similarly with measurement, we don’t always have to measure in the computational basis (the Z-basis), we can measure our qubits in any basis.</p>
-<p>As an example, let’s try measuring in the X-basis. We can calculate the probability of measuring either <span class="math notranslate nohighlight">\(|+\rangle\)</span> or <span class="math notranslate nohighlight">\(|-\rangle\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ p(|+\rangle) = |\langle+|q\rangle|^2, \quad p(|-\rangle) = |\langle-|q\rangle|^2 \]</div>
-<p>And after measurement, the superposition is destroyed. Since Qiskit only allows measuring in the Z-basis, we must create our own using Hadamard gates:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the X-measurement function:</span>
@@ -2208,18 +2184,10 @@ HZH =
 </div>
 </div>
 <p>We initialized our qubit in the state <span class="math notranslate nohighlight">\(|-\rangle\)</span>, but we can see that, after the measurement, we have collapsed our qubit to the state <span class="math notranslate nohighlight">\(|1\rangle\)</span>. If you run the cell again, you will see the same result, since along the X-basis, the state <span class="math notranslate nohighlight">\(|-\rangle\)</span> is a basis state and measuring it along X will always yield the same result.</p>
-<section id="id3">
-<h3>Send it after class<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
-<ol class="arabic simple">
-<li><p>If we initialize our qubit in the state <span class="math notranslate nohighlight">\(|+\rangle\)</span>, what is the probability of measuring it in state <span class="math notranslate nohighlight">\(|-\rangle\)</span>?</p></li>
-<li><p>Use Qiskit to display the probability of measuring a <span class="math notranslate nohighlight">\(|0\rangle\)</span> qubit in the states <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|-\rangle\)</span> (<strong>Hint:</strong> you might want to use <code class="docutils literal notranslate"><span class="pre">.get_counts()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_histogram()</span></code>).</p></li>
-<li><p>Try to create a function that measures in the Y-basis.</p></li>
-</ol>
 <p>Measuring in different bases allows us to see Heisenberg’s famous uncertainty principle in action. Having certainty of measuring a state in the Z-basis removes all certainty of measuring a specific state in the  X-basis, and vice versa. A common misconception is that the uncertainty is due to the limits in our equipment, but here we can see the uncertainty is actually part of the nature of the qubit.</p>
 <p>For example, if we put our qubit in the state <span class="math notranslate nohighlight">\(|0\rangle\)</span>, our measurement in the Z-basis is certain to be <span class="math notranslate nohighlight">\(|0\rangle\)</span>, but our measurement in the X-basis is completely random! Similarly, if we put our qubit in the state <span class="math notranslate nohighlight">\(|-\rangle\)</span>, our measurement in the X-basis is certain to be <span class="math notranslate nohighlight">\(|-\rangle\)</span>, but now any measurement in the Z-basis will be completely random.</p>
 <p>More generally: <em>Whatever state our quantum system is in, there is always a measurement that has a deterministic outcome.</em></p>
 <p>The introduction of the H-gate has allowed us to explore some interesting phenomena, but we are still very limited in our quantum operations. Let us now introduce a new type of gate:</p>
-</section>
 </section>
 <section id="the-p-gate">
 <h2>5. The P-gate<a class="headerlink" href="#the-p-gate" title="Permalink to this heading">¶</a></h2>
@@ -2565,8 +2533,8 @@ In this case, <span class="math notranslate nohighlight">\(E = \langle H\rangle 
 <h4>Step A. Construct the circuits to prepare four different bell states.<a class="headerlink" href="#step-a-construct-the-circuits-to-prepare-four-different-bell-states" title="Permalink to this heading">¶</a></h4>
 <p>Let’s label each bell state as
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7923e532-3e85-490c-bd15-3142db363c6f">
-<span class="eqno">(3)<a class="headerlink" href="#equation-7923e532-3e85-490c-bd15-3142db363c6f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-430e5f36-ef44-4141-9f91-845b3eb99c8e">
+<span class="eqno">(3)<a class="headerlink" href="#equation-430e5f36-ef44-4141-9f91-845b3eb99c8e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Tri1 &amp;= \frac{1}{\sqrt2} (|00\rangle + |11\rangle)\\
 Tri2 &amp;= \frac{1}{\sqrt2} (|00\rangle - |11\rangle)\\
 Tri3 &amp;= \frac{1}{\sqrt2} (|01\rangle + |10\rangle)\\
@@ -2943,17 +2911,6 @@ Sing &amp;= \frac{1}{\sqrt2} (|10\rangle - |01\rangle)
 </div>
 </div>
 <p>&#128211; Compare the size of the errors before and after the measurment error mitigation and discuss about the effect of the readout error regarding the error map information of the backend that you selected.<p>  <p><strong>Your answer:</strong></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">qiskit.tools.jupyter</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">qiskit_version_table</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773498535156</td></tr><tr><td colspan='2'>Thu Apr 07 07:39:17 2022 +03</td></tr></table></div></div>
-</div>
 </section>
 </section>
 </section>
@@ -4004,10 +3961,6 @@ We use <code class="docutils literal notranslate"> <span class="pre">qiskit.circ
 </div>
 </div>
 </div>
-<section id="how-to-create-an-operator">
-<h3>How to create an operator?<a class="headerlink" href="#how-to-create-an-operator" title="Permalink to this heading">¶</a></h3>
-<p>https://qiskit.org/documentation/tutorials/circuits_advanced/02_operators_overview.html</p>
-</section>
 </section>
 </section>
 <section id="run-on-real-hardware-compiling-circuits">
@@ -4808,8 +4761,8 @@ H|+\rangle = |0\rangle
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h2>
 <p>This simple and yet fun little game shows the basic quantum states <span class="math notranslate nohighlight">\(|0\rangle\)</span>, <span class="math notranslate nohighlight">\(|1\rangle\)</span>, <span class="math notranslate nohighlight">\(|+\rangle\)</span> and <span class="math notranslate nohighlight">\(|−\rangle\)</span>, plus the common ways of moving between them with the <span class="math notranslate nohighlight">\(X\)</span>, <span class="math notranslate nohighlight">\(H\)</span>, <span class="math notranslate nohighlight">\(I\)</span>, <span class="math notranslate nohighlight">\(Z\)</span> gates.</p>
 </section>
-<section id="id4">
-<h2>Send it after class:<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h2>Send it after class:<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
 <p>Think of other variations of the game, and tweak the game as follows</p>
 <ol class="arabic simple">
 <li><p>What if, instead of quantum computer taking first turn, the classical human take the first turn ?</p></li>
@@ -5054,8 +5007,8 @@ H|+\rangle = |0\rangle
 <p>The above inequality is called CHSH after Clauser, Horne, Shimony, and Holt, and it is the most popular way of presenting the original inequality from Bell.</p>
 <p>The fact that we violated the CHSH inequality in our real device is of significance. Just a decade ago such an experiment would have been of great impact. Nowadays, quantum devices have become significantly better and these results can be replicated easily in state-of-the-art hardware. However, there are a number of loopholes that have to be closed when violating the inequality in order to claim that either locality or realism have been disproven. These are the detection loophole (where our detector is faulty and fails to provide meaningful statistics) and the locality/causality loophole (where the two parts of the entangled system are separated by a distance smaller than the distance covered by the light in the time it takes to perform a measurement). Given we can generate entangled pairs with high fidelity and every measurement yields a result (this is, no measured particle is “lost”), we have closed the detection loophole in our experiments above. However, given the distance between our qubits (a few mm) and the time it takes to perform a measurement (order of <span class="math notranslate nohighlight">\(\mu\)</span>s), we cannot claim we closed the causality loophole.</p>
 </section>
-<section id="id5">
-<h2>Send it after class<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h2>Send it after class<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
 <p>Consider a game where Alice and Bob are put in separate rooms and each is given a bit <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, respectively. These bits are chosen at random and independently of each other. On receiving the bit each of them replies with a bit of their own, <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. Now, Alice and Bob win the game if <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are different whenever <span class="math notranslate nohighlight">\(x=y=1\)</span> and equal otherwise. It is easy to see that the best possible strategy for Alice and Bob is to always give <span class="math notranslate nohighlight">\(a=b=0\)</span> (or <span class="math notranslate nohighlight">\(1\)</span>). With this strategy, Alice and Bob can win the game at most 75% of the time.</p>
 <p>Imagine Alice and Bob are allowed to share an entangled two-qubit state. Is there a strategy they can use that would give them a better chance of winning than 75%? (Remember that they can agree upon any strategy beforehand, but once they are given the random bits they cannot communicate anymore. They can take their respective parts of the entangled pair with them at all times, of course.)</p>
 </section>

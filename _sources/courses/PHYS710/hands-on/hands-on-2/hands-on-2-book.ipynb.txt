@@ -1473,31 +1473,6 @@
    ]
   },
   {
-   "cell_type": "code",
-   "execution_count": 1,
-   "metadata": {
-    "collapsed": false
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "<h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.19.2</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773498535156</td></tr><tr><td colspan='2'>Wed Mar 23 23:16:23 2022 +03</td></tr></table>"
-      ],
-      "text/plain": [
-       "<IPython.core.display.HTML object>"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
-   "source": [
-    "import qiskit.tools.jupyter\n",
-    "qiskit_version_table"
-   ]
-  },
-  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
@@ -3017,7 +2992,7 @@
     "\n",
     "![](images/pkb_z_equiv.png)\n",
     "\n",
-    "#### Send it after class 3:\n",
+    "#### Send it after class :\n",
     "\n",
     "-What would be the resulting state of the control qubit (q0) if the target qubit (q1) was in the state $|0\\rangle$? (as shown in the circuit below)? Use Qiskit to check your answer.\n",
     "\n",
@@ -3272,25 +3247,6 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "#### Send it after class 2\n",
-    "1. Write the H-gate as the outer products of vectors $|0\\rangle$, $|1\\rangle$, $|+\\rangle$ and $|-\\rangle$.\n",
-    "2. Show that applying the sequence of gates: HZH, to any qubit state is equivalent to applying an X-gate.\n",
-    "3. Find a combination of X, Z and H-gates that is equivalent to a Y-gate (ignoring global phase).\n",
-    "\n",
-    "### 4. Digression: Measuring in Different Bases\n",
-    "We have seen that the Z-axis is not intrinsically special, and that there are infinitely many other bases. Similarly with measurement, we don’t always have to measure in the computational basis (the Z-basis), we can measure our qubits in any basis.\n",
-    "\n",
-    "As an example, let’s try measuring in the X-basis. We can calculate the probability of measuring either $|+\\rangle$ or $|-\\rangle$:\n",
-    "\n",
-    "$$ p(|+\\rangle) = |\\langle+|q\\rangle|^2, \\quad p(|-\\rangle) = |\\langle-|q\\rangle|^2 $$\n",
-    "\n",
-    "And after measurement, the superposition is destroyed. Since Qiskit only allows measuring in the Z-basis, we must create our own using Hadamard gates:"
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 6,
    "metadata": {},
@@ -3380,10 +3336,7 @@
     "We initialized our qubit in the state $|-\\rangle$, but we can see that, after the measurement, we have collapsed our qubit to the state $|1\\rangle$. If you run the cell again, you will see the same result, since along the X-basis, the state $|-\\rangle$ is a basis state and measuring it along X will always yield the same result.\n",
     "\n",
     "\n",
-    "#### Send it after class\n",
-    "1.\tIf we initialize our qubit in the state $|+\\rangle$, what is the probability of measuring it in state $|-\\rangle$?\n",
-    "2.\tUse Qiskit to display the probability of measuring a $|0\\rangle$ qubit in the states $|+\\rangle$ and $|-\\rangle$ (**Hint:** you might want to use `.get_counts()` and `plot_histogram()`).\n",
-    "3.\tTry to create a function that measures in the Y-basis.\n",
+    "\n",
     "\n",
     "Measuring in different bases allows us to see Heisenberg’s famous uncertainty principle in action. Having certainty of measuring a state in the Z-basis removes all certainty of measuring a specific state in the  X-basis, and vice versa. A common misconception is that the uncertainty is due to the limits in our equipment, but here we can see the uncertainty is actually part of the nature of the qubit. \n",
     "\n",
@@ -4481,32 +4434,6 @@
    "metadata": {},
    "source": [
     "**Your answer:**"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 12,
-   "metadata": {
-    "collapsed": false
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "<h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.20.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.10.3</td></tr><tr><td><code>qiskit-ignis</code></td><td>0.7.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.18.3</td></tr><tr><td><code>qiskit</code></td><td>0.34.2</td></tr><tr><td><code>qiskit-nature</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-optimization</code></td><td>0.3.1</td></tr><tr><td><code>qiskit-machine-learning</code></td><td>0.3.1</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.12</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Oct 12 2021 13:49:34</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>12</td></tr><tr><td>Memory (Gb)</td><td>125.78773498535156</td></tr><tr><td colspan='2'>Thu Apr 07 07:39:17 2022 +03</td></tr></table>"
-      ],
-      "text/plain": [
-       "<IPython.core.display.HTML object>"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    }
-   ],
-   "source": [
-    "import qiskit.tools.jupyter\n",
-    "%matplotlib inline\n",
-    "%qiskit_version_table"
    ]
   },
   {
@@ -6111,20 +6038,6 @@
     "circuit.append(oracle, [0, 1])\n",
     "circuit.draw('mpl')\n",
     "# circuit.decompose().draw() #synthesis"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "##### How to create an operator?"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "https://qiskit.org/documentation/tutorials/circuits_advanced/02_operators_overview.html"
    ]
   },
   {
