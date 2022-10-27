@@ -17,5 +17,6 @@ Homeworks
    :caption: Hands on sessions
 
    Hands on 1 <hands-on/hands-on-1/hands-on-1>
+   Hands on 2 <hands-on/hands-on-2/hands-on-2>
 
 
