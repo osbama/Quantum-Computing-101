@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Preliminaries &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Hands-on session 3" href="hands-on-3.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="preliminaries">
+<h1>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this heading">¶</a></h1>
+<p>We shall be using pennylane from now on, unless otherwise noted. Installation of pennylane is very similar to qiskit. See <a class="reference external" href="https://pennylane.ai/install.html">here</a>. You might want to check cuQuantum acceleration <a class="reference external" href="https://github.com/PennyLaneAI/pennylane-lightning-gpu">lightning.gpu</a></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="how-to-embed-data-into-a-quantum-state">
+<h1>How to embed data into a quantum state<a class="headerlink" href="#how-to-embed-data-into-a-quantum-state" title="Permalink to this heading">¶</a></h1>
+<p>In classical computing problems, data is classical. Does it make sense for quantum computers to deal with classical data? The short answer is yes! In this how-to, the first few steps of how to encode classical data into a quantum state is presented.</p>
+<section id="different-embedding-types">
+<h2>Different embedding types<a class="headerlink" href="#different-embedding-types" title="Permalink to this heading">¶</a></h2>
+<p>To encode your classical data into a quantum state, you first have to find out what type of classical data you have. We will distinguish between three different types of data in <span class="math notranslate nohighlight">\(N-\)</span>dimensions</p>
+<ol class="arabic simple">
+<li><p>Discrete data, represented as binary <span class="math notranslate nohighlight">\(\mathbf{b}\in{0,1}^N\)</span> or integer values <span class="math notranslate nohighlight">\(\mathbf{k}\in\mathbb{Z}^N\)</span></p></li>
+<li><p>Real continuous data, represented as floating-point values <span class="math notranslate nohighlight">\(\mathbf{k}\in\mathbb{R}^N\)</span></p></li>
+<li><p>Complex continuous data, represented as complex values <span class="math notranslate nohighlight">\(\mathbf{\alpha}\in\mathbb{C}^2^N\)</span></p></li>
+</ol>
+<p>Keeping the subset relations <span class="math notranslate nohighlight">\(\{0, 1\}\subset\mathbb{Z}\subset\mathbb{R}\subset\mathbb{C}\)</span>  in mind, one could always choose to interpret the data in the domain <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> to be in the superset <span class="math notranslate nohighlight">\(\mathcal{D}^{\prime}\supset \mathcal{D}\)</span></p>
+</section>
+<section id="discrete-data-represented-as-binary-or-integer-values">
+<h2>1. Discrete data, represented as binary or integer values<a class="headerlink" href="#discrete-data-represented-as-binary-or-integer-values" title="Permalink to this heading">¶</a></h2>
+<p>A suitable encoding for binary data is the so-called <code class="docutils literal notranslate"><span class="pre">BasisEmbedding</span></code>. The BasisEmbedding class interprets a binary string as a qubit basis state with the following mapping:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{b}=(b_{0}, \ldots, b_{N-1}) \mapsto |b_{0}, \ldots, b_{N-1}\rangle.
+\]</div>
+<p>See below for a simple example of the <code class="docutils literal notranslate"><span class="pre">BasisEmbedding</span></code> used to initialize three qubits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">BasisEmbedding</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+
+<span class="n">circuit</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 0.+0.j, 1.+0.j], requires_grad=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As expected, the result corresponds to the state |111⟩=|1⟩⊗|1⟩⊗|1⟩. Representing the |1⟩</p>
+<p>state as the second standard basis vector and the tensor product as the Kronecker product, we can confirm the result with a quick calculation.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left| 1 \right \rangle \otimes \left| 1 \right  \rangle \otimes \left| 1 \right \rangle = \begin{bmatrix}0 \\
+1\end{bmatrix}
+\otimes
+\begin{bmatrix}
+0 \\
+1\end{bmatrix}
+\otimes
+\begin{bmatrix}
+0 \\
+1\end{bmatrix}
+=
+\begin{bmatrix}0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1\end{bmatrix}^{\top}
+\end{split}\]</div>
+<p>You can also just pass an integer value to the basis embedding function and it will automatically convert it into its binary representation. We can perform a quick sanity check of this functionality by running</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span> <span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 1.+0.j]
+</pre></div>
+</div>
+</div>
+</div>
+<p>which is the same state vector we saw before. Unsurprisingly, the binary label corresponding to this state vector is also consistent with the binary representation of the integer seven.</p>
+</section>
+<section id="send-it-after-class">
+<h2>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h2>
+<p>Embed integer value <span class="math notranslate nohighlight">\(32\)</span> using <code class="docutils literal notranslate"><span class="pre">basisembedding</span></code></p>
+</section>
+<section id="continuous-data-represented-as-floating-point-values">
+<h2>2. Continuous data, represented as floating-point values<a class="headerlink" href="#continuous-data-represented-as-floating-point-values" title="Permalink to this heading">¶</a></h2>
+<p>The simplest type of encoding for floating-point data is called <code class="docutils literal notranslate"><span class="pre">AngleEmbedding</span></code>. This type of embedding encodes a single floating-point value <span class="math notranslate nohighlight">\( x\in \mathbb{R} \)</span> into a quantum state with the mapping
+$<span class="math notranslate nohighlight">\(
+x \mapsto R_{k}(x)|0\rangle = e^{-i x\sigma_{k}/2}|0\rangle,
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>k\in{x, y, z}<span class="math notranslate nohighlight">\( is the axis of rotation in the Bloch sphere. The default axis of rotation is set to \)</span>k=x<span class="math notranslate nohighlight">\( in the `AngleEmbedding` class. You may also choose to set it to \)</span>k=y<span class="math notranslate nohighlight">\(, but make sure to avoid \)</span>k=z<span class="math notranslate nohighlight">\(. The latter case is not useful because every \)</span>x<span class="math notranslate nohighlight">\( will be mapped to the \)</span>|0\rangle$ state; the encoded value will be lost. Note that you can also input a tensor-like object and encode each component as a qubit. Examine the code snippet below to see how to encode a classical floating-point value as a quantum state!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">val_list</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">AngleEmbedding</span><span class="p">(</span><span class="n">val_list</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">]</span>
+<span class="n">circuit</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([ 1.00000000e+00,  2.22044605e-16, -1.00000000e+00], requires_grad=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Keep in mind that Pauli rotations are <span class="math notranslate nohighlight">\(2\pi\)</span>-periodic up to a global phase, meaning that you should normalize your data to be in <span class="math notranslate nohighlight">\(\Omega:=[0, \pi)\subset \mathbb{R}\)</span> if possible. This can be helpful in order to avoid encoding two different values as the same quantum state. While the <code class="docutils literal notranslate"><span class="pre">AngleEmbedding</span></code> allows you to encode a lot of information in a single qubit, this comes at the cost of a difficult construction process.</p>
+</section>
+<section id="continuous-data-represented-as-complex-values">
+<h2>3. Continuous data, represented as complex values<a class="headerlink" href="#continuous-data-represented-as-complex-values" title="Permalink to this heading">¶</a></h2>
+<p>Next is the <code class="docutils literal notranslate"><span class="pre">AmplitudeEmbedding</span></code>. As the name suggests, an array of values can be used as the amplitudes of the state with the mapping
+$<span class="math notranslate nohighlight">\(
+\boldsymbol{\alpha}=(\alpha_0, \ldots, \alpha_{2^N-1})\mapsto \sum_{k=0}^{2^N-1}\alpha_{k}|k\rangle
+\)</span>$
+and can be implemented with the following code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">wires</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">features</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">AmplitudeEmbedding</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">wires</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+<span class="n">circuit</span><span class="p">([</span><span class="mf">0.625</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.625</span><span class="n">j</span><span class="p">,</span> <span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0.625+0.j   , 0.   +0.j   , 0.   +0.j   , 0.   +0.j   ,
+        0.   +0.625j, 0.375+0.j   , 0.25 +0.j   , 0.125+0.j   ], requires_grad=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, the values were chosen to be normalized, i.e. <span class="math notranslate nohighlight">\(\lVert\boldsymbol{\alpha}\rVert=1\)</span>. Note that one can use unnormalized data by setting the normalize parameter of the <code class="docutils literal notranslate"><span class="pre">AmplitudeEmbedding</span></code> class to True.</p>
+</section>
+<section id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this heading">¶</a></h2>
+<p>PennyLane provides a growing library of pre-coded templates of common variational circuit architectures that can be used to easily build, evaluate, and train more complex models. In the literature, such architectures are commonly known as an ansatz. Templates can be used to embed data into quantum states, to define trainable layers of quantum gates, to prepare quantum states as the first operation in a circuit, or simply as general subroutines that a circuit is built from.</p>
+<section id="embedding-templates">
+<h3>Embedding templates<a class="headerlink" href="#embedding-templates" title="Permalink to this heading">¶</a></h3>
+<p>Embeddings encode input features into the quantum state of the circuit. Hence, they usually take a data sample such as a feature vector as an argument. Embeddings can also depend on trainable parameters, and they may be constructed from repeated layers.</p>
+<p>You can reach Embedding templates <a class="reference external" href="https://docs.pennylane.ai/en/stable/introduction/templates.html">here</a></p>
+</section>
+</section>
+<section id="using-the-ising-model-for-embedding">
+<h2>Using the Ising model for embedding<a class="headerlink" href="#using-the-ising-model-for-embedding" title="Permalink to this heading">¶</a></h2>
+<p>One of the most adapted models in physics is the Ising model, invented by Wilhelm Lenz as a PhD problem to his student Ernst Ising. The one-dimensional version of it was solved in Ising’s thesis in 1924; later, in 1944, Lars Onsager solved the two-dimensional case in the absense of external magnetic field and in a square lattice.</p>
+<p>Although primarily a physical model, it is quite fair to say that the model became part of the mathematics literature, since its descriptions and formulations involve many interesting tools from graph theory, combinatorics, measure theory, convex analysis and so on.</p>
+<p>Physically, the Ising model can be thought as a system of many little magnets in which case the spins <span class="math notranslate nohighlight">\(\pm 1\)</span> represent a magnetic moment. It can also represent a lattice gas, where the spins now represent whether a site is occupied by a particle or not.</p>
+<p>The Ising model defines a universality class, meaning lots of systems simplify to something that looks basically like a magnet. Renormalisation tells us that lots of systems share universal asymptotic dynamics, which is a more formal way of saying they simplify to the same thing. So, anything lying in the Ising model’s universality class answers your question. This includes lots of systems that lie on a <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0012365X10000890">network</a> or have some dynamical description emphasising interactions, as well as lots of systems that have a <a class="reference external" href="https://www.researchgate.net/post/What_is_the_second_order_phase_transition#view=5a9cc275c68d6bea42010337">second-order phase transition</a> or exhibit some anomalous breaking of a symmetry group under certain conditions. Between these two examples, that’s quite a lot of applied mathematics. An interesting meta-commentary on any mathematical model of correlated variables itself being an Ising model can be found in <a class="reference external" href="https://www.nature.com/articles/srep34175">this paper</a>. It also describes non-magnetic physical systems, like string theories and conformal field theories. The point of the model is that, for something so simple, it is incredibly rich – this is probably why it’s stuck about for so long – and naturally, that makes it difficult to enumerate all the ways in which it has been useful.</p>
+<p>Please have a look at <a class="reference external" href="https://darsakthi.github.io/posts/2021/02/act-func/">Dalton A R Sakthivadivel’s page</a> for more details.</p>
+<p>An interesting embedding approach is then using the Quantum Approximate Optimization Algorithm (QAOA) and Ising model for feature embedding. You start with angle embedding the data, but if the features you are trying to embed have some underlying structure captured by Ising model universality class, then the qubit requirements will be reduced. The template is <a class="reference external" href="https://docs.pennylane.ai/en/stable/code/api/pennylane.QAOAEmbedding.html">here</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">QAOAEmbedding</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">QAOAEmbedding</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">n_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">features</span><span class="p">))</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="k">lambda</span> <span class="n">w</span> <span class="p">:</span> <span class="n">circuit</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">features</span><span class="p">),</span> <span class="n">weights</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot; weights = &quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.859459207139468
+Step  0  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  1  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  2  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  3  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  4  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  5  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  6  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  7  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  8  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+Step  9  weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/pennylane/_grad.py:107: UserWarning: Attempted to differentiate a function with no trainable parameters. If this is unintended, please add trainable parameters via the &#39;requires_grad&#39; attribute or &#39;argnum&#39; keyword.
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<section id="training-the-features">
+<h3>Training the features<a class="headerlink" href="#training-the-features" title="Permalink to this heading">¶</a></h3>
+<p>In principle, also the features are trainable, which means that gradients with respect to feature values can be computed. To train both weights and features, they need to be passed to the qnode as positional arguments. If the built-in optimizer is used, they have to be merged to one input:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit2</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">QAOAEmbedding</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">weights</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">circuit2</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> weights = &quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> features = &quot;</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Step  0 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  1 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  2 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  3 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  4 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  5 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  6 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  7 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  8 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+
+Step  9 
+ weights =  [[0.24645036 0.31188654 0.9346985 ]
+ [0.65247654 0.15251304 0.10385546]] 
+ features =  [1.0, 2.0] 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Send it after class<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="n">dev</span> <span class="o">=</span> <span class="c1">##Fill me</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit3</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1">###Fill me</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mf">1.</span><span class="p">]</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">QAOAEmbedding</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">n_layers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_wires</span><span class="o">=</span> <span class="n">FILL</span> <span class="n">HERE</span> <span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">GradientDescentOptimizer</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">weights</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">circuit3</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> weights = &quot;</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> features = &quot;</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">dev</span> <span class="o">=</span> <span class="c1">##Fill me</span>
+          <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS710/hands-on/hands-on-3/hands-on-3-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

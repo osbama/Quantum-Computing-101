@@ -1,0 +1,47 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pennylane as qml
+import numpy as np
+
+
+dev = ##Fill me
+
+@qml.qnode(dev)
+def circuit3(weights, f=None):
+    ###Fill me
+
+features = [1., -1.,1.,-1.]
+shape = qml.QAOAEmbedding.shape(n_layers=2, n_wires= FILL HERE )
+weights = np.random.random(shape)
+
+opt = qml.GradientDescentOptimizer()
+for i in range(100):
+    weights, features = opt.step(circuit3, weights, features)
+    print("Step ", i, "\n weights = ", weights, "\n features = ", features,"\n")
+
+------------------
+
+[0;36m  Input [0;32mIn [7][0;36m[0m
+[0;31m    dev = ##Fill me[0m
+[0m          ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+SyntaxError: invalid syntax (348322348.py, line 5)
+

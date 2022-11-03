@@ -1,0 +1,396 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# Preliminaries\n",
+    "\n",
+    "We shall be using pennylane from now on, unless otherwise noted. Installation of pennylane is very similar to qiskit. See [here](https://pennylane.ai/install.html). You might want to check cuQuantum acceleration [lightning.gpu](https://github.com/PennyLaneAI/pennylane-lightning-gpu)"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "# How to embed data into a quantum state\n",
+    "\n",
+    "\n",
+    " In classical computing problems, data is classical. Does it make sense for quantum computers to deal with classical data? The short answer is yes! In this how-to, the first few steps of how to encode classical data into a quantum state is presented."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Different embedding types\n",
+    "\n",
+    "To encode your classical data into a quantum state, you first have to find out what type of classical data you have. We will distinguish between three different types of data in $N-$dimensions\n",
+    "1. Discrete data, represented as binary $\\mathbf{b}\\in{0,1}^N$ or integer values $\\mathbf{k}\\in\\mathbb{Z}^N$\n",
+    "2. Real continuous data, represented as floating-point values $\\mathbf{k}\\in\\mathbb{R}^N$\n",
+    "3. Complex continuous data, represented as complex values $\\mathbf{\\alpha}\\in\\mathbb{C}^2^N$\n",
+    "\n",
+    "Keeping the subset relations $\\{0, 1\\}\\subset\\mathbb{Z}\\subset\\mathbb{R}\\subset\\mathbb{C}$  in mind, one could always choose to interpret the data in the domain $\\mathcal{D}$ to be in the superset $\\mathcal{D}^{\\prime}\\supset \\mathcal{D}$"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## 1. Discrete data, represented as binary or integer values\n",
+    "\n",
+    "A suitable encoding for binary data is the so-called `BasisEmbedding`. The BasisEmbedding class interprets a binary string as a qubit basis state with the following mapping:\n",
+    "\n",
+    "$$\n",
+    "\\mathbf{b}=(b_{0}, \\ldots, b_{N-1}) \\mapsto |b_{0}, \\ldots, b_{N-1}\\rangle.\n",
+    "$$\n",
+    "\n",
+    "See below for a simple example of the `BasisEmbedding` used to initialize three qubits."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import pennylane as qml\n",
+    "\n",
+    "N = 3\n",
+    "wires = range(N)\n",
+    "dev = qml.device(\"default.qubit\", wires)\n",
+    "\n",
+    "@qml.qnode(dev)\n",
+    "def circuit(b):\n",
+    "    qml.BasisEmbedding(b, wires)\n",
+    "    return qml.state()\n",
+    "\n",
+    "circuit([1, 1, 1])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "As expected, the result corresponds to the state |111⟩=|1⟩⊗|1⟩⊗|1⟩. Representing the |1⟩\n",
+    "\n",
+    "state as the second standard basis vector and the tensor product as the Kronecker product, we can confirm the result with a quick calculation.\n",
+    "\n",
+    "$$\n",
+    "\\left| 1 \\right \\rangle \\otimes \\left| 1 \\right  \\rangle \\otimes \\left| 1 \\right \\rangle = \\begin{bmatrix}0 \\\\\n",
+    "1\\end{bmatrix}\n",
+    "\\otimes\n",
+    "\\begin{bmatrix}\n",
+    "0 \\\\\n",
+    "1\\end{bmatrix}\n",
+    "\\otimes\n",
+    "\\begin{bmatrix}\n",
+    "0 \\\\\n",
+    "1\\end{bmatrix}\n",
+    "=\n",
+    "\\begin{bmatrix}0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\end{bmatrix}^{\\top}\n",
+    "$$\n",
+    "\n",
+    "You can also just pass an integer value to the basis embedding function and it will automatically convert it into its binary representation. We can perform a quick sanity check of this functionality by running"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    " print(circuit(7))"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "which is the same state vector we saw before. Unsurprisingly, the binary label corresponding to this state vector is also consistent with the binary representation of the integer seven."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Send it after class\n",
+    "Embed integer value $32$ using `basisembedding`"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## 2. Continuous data, represented as floating-point values\n",
+    "\n",
+    "The simplest type of encoding for floating-point data is called `AngleEmbedding`. This type of embedding encodes a single floating-point value $ x\\in \\mathbb{R} $ into a quantum state with the mapping\n",
+    "$$\n",
+    "x \\mapsto R_{k}(x)|0\\rangle = e^{-i x\\sigma_{k}/2}|0\\rangle,\n",
+    "$$\n",
+    "where $k\\in\\{x, y, z\\}$ is the axis of rotation in the Bloch sphere. The default axis of rotation is set to $k=x$ in the `AngleEmbedding` class. You may also choose to set it to $k=y$, but make sure to avoid $k=z$. The latter case is not useful because every $x$ will be mapped to the $|0\\rangle$ state; the encoded value will be lost. Note that you can also input a tensor-like object and encode each component as a qubit. Examine the code snippet below to see how to encode a classical floating-point value as a quantum state!"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import pennylane as qml\n",
+    "from pennylane import numpy as np\n",
+    "\n",
+    "N = 3\n",
+    "wires = range(3)\n",
+    "dev = qml.device(\"default.qubit\", wires)\n",
+    "\n",
+    "@qml.qnode(dev)\n",
+    "def circuit(val_list):\n",
+    "    qml.AngleEmbedding(val_list, wires)\n",
+    "    return [qml.expval(qml.PauliZ(w)) for w in wires]\n",
+    "circuit([0.0, np.pi / 2, np.pi])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Keep in mind that Pauli rotations are $2\\pi$-periodic up to a global phase, meaning that you should normalize your data to be in $\\Omega:=[0, \\pi)\\subset \\mathbb{R}$ if possible. This can be helpful in order to avoid encoding two different values as the same quantum state. While the `AngleEmbedding` allows you to encode a lot of information in a single qubit, this comes at the cost of a difficult construction process."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## 3. Continuous data, represented as complex values\n",
+    "\n",
+    "Next is the `AmplitudeEmbedding`. As the name suggests, an array of values can be used as the amplitudes of the state with the mapping\n",
+    "$$\n",
+    "\\boldsymbol{\\alpha}=(\\alpha_0, \\ldots, \\alpha_{2^N-1})\\mapsto \\sum_{k=0}^{2^N-1}\\alpha_{k}|k\\rangle\n",
+    "$$\n",
+    "and can be implemented with the following code."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import pennylane as qml\n",
+    "\n",
+    "N = 3\n",
+    "wires = range(N)\n",
+    "dev = qml.device(\"default.qubit\", wires)\n",
+    "\n",
+    "@qml.qnode(dev)\n",
+    "def circuit(features):\n",
+    "    qml.AmplitudeEmbedding(features, wires)\n",
+    "    return qml.state()\n",
+    "circuit([0.625, 0.0, 0.0, 0.0, 0.625j, 0.375, 0.25, 0.125])"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "Here, the values were chosen to be normalized, i.e. $\\lVert\\boldsymbol{\\alpha}\\rVert=1$. Note that one can use unnormalized data by setting the normalize parameter of the `AmplitudeEmbedding` class to True."
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Templates\n",
+    "\n",
+    "PennyLane provides a growing library of pre-coded templates of common variational circuit architectures that can be used to easily build, evaluate, and train more complex models. In the literature, such architectures are commonly known as an ansatz. Templates can be used to embed data into quantum states, to define trainable layers of quantum gates, to prepare quantum states as the first operation in a circuit, or simply as general subroutines that a circuit is built from.\n",
+    "\n",
+    "### Embedding templates\n",
+    "\n",
+    "Embeddings encode input features into the quantum state of the circuit. Hence, they usually take a data sample such as a feature vector as an argument. Embeddings can also depend on trainable parameters, and they may be constructed from repeated layers.\n",
+    "\n",
+    "You can reach Embedding templates [here](https://docs.pennylane.ai/en/stable/introduction/templates.html)\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Using the Ising model for embedding\n",
+    "\n",
+    "One of the most adapted models in physics is the Ising model, invented by Wilhelm Lenz as a PhD problem to his student Ernst Ising. The one-dimensional version of it was solved in Ising's thesis in 1924; later, in 1944, Lars Onsager solved the two-dimensional case in the absense of external magnetic field and in a square lattice.\n",
+    "\n",
+    "Although primarily a physical model, it is quite fair to say that the model became part of the mathematics literature, since its descriptions and formulations involve many interesting tools from graph theory, combinatorics, measure theory, convex analysis and so on.\n",
+    "\n",
+    "Physically, the Ising model can be thought as a system of many little magnets in which case the spins $\\pm 1$ represent a magnetic moment. It can also represent a lattice gas, where the spins now represent whether a site is occupied by a particle or not.\n",
+    "\n",
+    "The Ising model defines a universality class, meaning lots of systems simplify to something that looks basically like a magnet. Renormalisation tells us that lots of systems share universal asymptotic dynamics, which is a more formal way of saying they simplify to the same thing. So, anything lying in the Ising model's universality class answers your question. This includes lots of systems that lie on a [network](https://www.sciencedirect.com/science/article/pii/S0012365X10000890) or have some dynamical description emphasising interactions, as well as lots of systems that have a [second-order phase transition](https://www.researchgate.net/post/What_is_the_second_order_phase_transition#view=5a9cc275c68d6bea42010337) or exhibit some anomalous breaking of a symmetry group under certain conditions. Between these two examples, that's quite a lot of applied mathematics. An interesting meta-commentary on any mathematical model of correlated variables itself being an Ising model can be found in [this paper](https://www.nature.com/articles/srep34175). It also describes non-magnetic physical systems, like string theories and conformal field theories. The point of the model is that, for something so simple, it is incredibly rich -- this is probably why it's stuck about for so long -- and naturally, that makes it difficult to enumerate all the ways in which it has been useful.\n",
+    "\n",
+    "Please have a look at [Dalton A R Sakthivadivel's page](https://darsakthi.github.io/posts/2021/02/act-func/) for more details.\n",
+    "\n",
+    "An interesting embedding approach is then using the Quantum Approximate Optimization Algorithm (QAOA) and Ising model for feature embedding. You start with angle embedding the data, but if the features you are trying to embed have some underlying structure captured by Ising model universality class, then the qubit requirements will be reduced. The template is [here](https://docs.pennylane.ai/en/stable/code/api/pennylane.QAOAEmbedding.html)\n",
+    "\n",
+    "\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import pennylane as qml\n",
+    "import numpy as np\n",
+    "\n",
+    "dev = qml.device('default.qubit', wires=2)\n",
+    "\n",
+    "@qml.qnode(dev)\n",
+    "def circuit(weights, f=None):\n",
+    "    qml.QAOAEmbedding(features=f, weights=weights, wires=range(2))\n",
+    "    return qml.expval(qml.PauliZ(0))\n",
+    "\n",
+    "features = [1., 2.]\n",
+    "shape = qml.QAOAEmbedding.shape(n_layers=2, n_wires=2)\n",
+    "weights = np.random.random(shape)\n",
+    "\n",
+    "print(circuit(weights, f=features))\n",
+    "\n",
+    "opt = qml.GradientDescentOptimizer()\n",
+    "for i in range(10):\n",
+    "    weights = opt.step(lambda w : circuit(w, f=features), weights)\n",
+    "    print(\"Step \", i, \" weights = \", weights)\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "### Training the features\n",
+    "\n",
+    "In principle, also the features are trainable, which means that gradients with respect to feature values can be computed. To train both weights and features, they need to be passed to the qnode as positional arguments. If the built-in optimizer is used, they have to be merged to one input:"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "@qml.qnode(dev)\n",
+    "def circuit2(weights, features):\n",
+    "    qml.QAOAEmbedding(features=features, weights=weights, wires=range(2))\n",
+    "    return qml.expval(qml.PauliZ(0))\n",
+    "\n",
+    "opt = qml.GradientDescentOptimizer()\n",
+    "for i in range(10):\n",
+    "    weights, features = opt.step(circuit2, weights, features)\n",
+    "    print(\"Step \", i, \"\\n weights = \", weights, \"\\n features = \", features,\"\\n\")"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "markdown",
+   "source": [
+    "## Send it after class"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "outputs": [],
+   "source": [
+    "import pennylane as qml\n",
+    "import numpy as np\n",
+    "\n",
+    "\n",
+    "dev = ##Fill me\n",
+    "\n",
+    "@qml.qnode(dev)\n",
+    "def circuit3(weights, f=None):\n",
+    "    ###Fill me\n",
+    "\n",
+    "features = [1., -1.,1.,-1.]\n",
+    "shape = qml.QAOAEmbedding.shape(n_layers=2, n_wires= FILL HERE )\n",
+    "weights = np.random.random(shape)\n",
+    "\n",
+    "opt = qml.GradientDescentOptimizer()\n",
+    "for i in range(100):\n",
+    "    weights, features = opt.step(circuit3, weights, features)\n",
+    "    print(\"Step \", i, \"\\n weights = \", weights, \"\\n features = \", features,\"\\n\")\n"
+   ],
+   "metadata": {
+    "collapsed": false
+   }
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

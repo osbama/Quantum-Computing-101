@@ -121,6 +121,7 @@ html_theme_options = {
     # an arbitrary url.
     'navbar_links': [
         ("437", "courses/PHYS437/index"),
+        ("710", "courses/PHYS710/index"),
     ],
 
     # Render the next and previous page links in navbar. (Default: true)

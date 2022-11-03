@@ -22,7 +22,7 @@
     <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="next" title="Hands-on session 3" href="../hands-on-3/hands-on-3.html" />
     <link rel="prev" title="Hands-on session 2" href="hands-on-2.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -53,6 +53,7 @@
           <ul class="nav navbar-nav">
             
                 <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -470,7 +471,7 @@ ZX\left(\alpha\left|1\right\rangle - \beta\left|0\right\rangle\right)=\alpha\lef
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.64844512939453</td></tr><tr><td colspan='2'>Thu Oct 27 12:57:08 2022 +03</td></tr></table></div></div>
+<div class="output text_html"><h3>Version Information</h3><table><tr><th>Qiskit Software</th><th>Version</th></tr><tr><td><code>qiskit-terra</code></td><td>0.22.0</td></tr><tr><td><code>qiskit-aer</code></td><td>0.11.0</td></tr><tr><td><code>qiskit-ibmq-provider</code></td><td>0.19.2</td></tr><tr><td><code>qiskit</code></td><td>0.39.0</td></tr><tr><th>System information</th></tr><tr><td>Python version</td><td>3.8.13</td></tr><tr><td>Python compiler</td><td>GCC 7.5.0</td></tr><tr><td>Python build</td><td>default, Mar 28 2022 11:38:47</td></tr><tr><td>OS</td><td>Linux</td></tr><tr><td>CPUs</td><td>24</td></tr><tr><td>Memory (Gb)</td><td>62.64844512939453</td></tr><tr><td colspan='2'>Thu Nov 03 09:53:51 2022 +03</td></tr></table></div></div>
 </div>
 </section>
 <section id="exploring-qubits-with-qiskit">
@@ -1251,12 +1252,12 @@ X\otimes H =
 <p>We can see Qiskit has performed the kronecker product:
 $$
 X \otimes I =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5bc6392d-750b-4a15-b80e-be2aa42e7af7">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5bc6392d-750b-4a15-b80e-be2aa42e7af7" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; I \\
+<div class="amsmath math notranslate nohighlight" id="equation-03821424-18eb-4580-9e57-c9984b659049">
+<span class="eqno">(1)<a class="headerlink" href="#equation-03821424-18eb-4580-9e57-c9984b659049" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; I \\
                I &amp; 0\\
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-2ef23337-a2c7-4007-ba20-4fd420dccf3d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-2ef23337-a2c7-4007-ba20-4fd420dccf3d" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 \\
+<div class="amsmath math notranslate nohighlight" id="equation-432189f9-3e32-46f4-a339-cd6d60b317e8">
+<span class="eqno">(2)<a class="headerlink" href="#equation-432189f9-3e32-46f4-a339-cd6d60b317e8" title="Permalink to this equation">¶</a></span>\[\begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 \\
                 0 &amp; 0 &amp; 0 &amp; 1 \\
                 1 &amp; 0 &amp; 0 &amp; 0 \\
                 0 &amp; 1 &amp; 0 &amp; 0 \\
@@ -2438,8 +2439,8 @@ In this case, <span class="math notranslate nohighlight">\(E = \langle H\rangle 
 <h4>Step A. Construct the circuits to prepare four different bell states.<a class="headerlink" href="#step-a-construct-the-circuits-to-prepare-four-different-bell-states" title="Permalink to this heading">¶</a></h4>
 <p>Let’s label each bell state as
 $$</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e6c5b03c-1562-4e3a-989e-941fb285f701">
-<span class="eqno">(3)<a class="headerlink" href="#equation-e6c5b03c-1562-4e3a-989e-941fb285f701" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8c8f9220-f22f-4255-aa43-98826c5b70f9">
+<span class="eqno">(3)<a class="headerlink" href="#equation-8c8f9220-f22f-4255-aa43-98826c5b70f9" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Tri1 &amp;= \frac{1}{\sqrt2} (|00\rangle + |11\rangle)\\
 Tri2 &amp;= \frac{1}{\sqrt2} (|00\rangle - |11\rangle)\\
 Tri3 &amp;= \frac{1}{\sqrt2} (|01\rangle + |10\rangle)\\
@@ -3270,7 +3271,7 @@ The amplitude is the thickness of the arrow and the phase is the color. For mixe
 </div>
 </div>
 </div>
-<p>The Aer provider will also contain preconfigured GPU simulator backends if Qiskit Aer was installed with GPU support on a compatible system:</p>
+<p>The Aer provider will also contain preconfigured GPU simulator backends if Qiskit Aer was installed with GPU support on a compatible system::</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">aer_simulator_statevector_gpu</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">aer_simulator_density_matrix_gpu</span></code></p></li>
