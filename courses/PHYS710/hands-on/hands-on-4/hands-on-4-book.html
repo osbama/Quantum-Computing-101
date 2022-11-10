@@ -157,17 +157,17 @@ $<span class="math notranslate nohighlight">\(
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="hamiltonians">
 <h1>Hamiltonians<a class="headerlink" href="#hamiltonians" title="Permalink to this heading">¶</a></h1>
-<p>The unitary operators <span class="math notranslate nohighlight">\(U\)</span> don’t appear out of nowhere, but arise in a principled way from physical properties of a quantum system. As a concrete example, let’s consider magnets. These have a north and a south pole. The magnet points in a direction (from south to north pole) which we will call <span class="math notranslate nohighlight">\(S\)</span>:
-<img alt="" src="../../../../_images/magnet.png" />
-This is a vector in <span class="math notranslate nohighlight">\(3\)</span>-dimensional space. We’re used to big magnets, like the bar magnets you might have played around with in high school, but most subatomic particles, e.g., electrons, are also magnets! In this case, <span class="math notranslate nohighlight">\(S\)</span>gets the special name of spin vector (since we can explain the magnetic behaviour by pretending that the particle spins).</p>
+<p>The unitary operators <span class="math notranslate nohighlight">\(U\)</span> don’t appear out of nowhere, but arise in a principled way from physical properties of a quantum system. As a concrete example, let’s consider magnets. These have a north and a south pole. The magnet points in a direction (from south to north pole) which we will call <span class="math notranslate nohighlight">\(S\)</span>:</p>
+<p><img alt="" src="../../../../_images/magnet.png" /></p>
+<p>This is a vector in <span class="math notranslate nohighlight">\(3\)</span>-dimensional space. We’re used to big magnets, like the bar magnets you might have played around with in high school, but most subatomic particles, e.g., electrons, are also magnets! In this case, <span class="math notranslate nohighlight">\(S\)</span>gets the special name of spin vector (since we can explain the magnetic behaviour by pretending that the particle spins).</p>
 <p>Interestingly, electrons can also be described as qubits <span class="math notranslate nohighlight">\( \alpha  \left|0\right\rangle +  \beta  \left|1\right\rangle \)</span>. The spin vector, telling us which way the little electron magnet points, is related in a simple way to Pauli operators:
 $<span class="math notranslate nohighlight">\(
 S=(S_x,S_y,S_z)\propto(\left\langle X \right\rangle,\left\langle Y \right\rangle,\left\langle Z \right\rangle)
 \)</span>$</p>
 <p>Now that we have this connection between magnets and qubits, we can do some physics. If we put a little magnet in the vicinity of a much bigger magnet (one from your fridge for instance), it will want to align itself with the big field:</p>
 <p><img alt="" src="../../../../_images/field.png" /></p>
-<p>Why do little magnets like to align with the big magnets? For the same reason that balls roll downhill, namely, that it reduces potential energy. If we imagine the potential energy of the little bar magnet as an undulating energy landscape, valleys are where it aligns with the big magnetic field, and hills where it anti-aligns, i.e., points in the opposite direction:
-<img alt="" src="../../../../_images/potential.png" /></p>
+<p>Why do little magnets like to align with the big magnets? For the same reason that balls roll downhill, namely, that it reduces potential energy. If we imagine the potential energy of the little bar magnet as an undulating energy landscape, valleys are where it aligns with the big magnetic field, and hills where it anti-aligns, i.e., points in the opposite direction:</p>
+<p><img alt="" src="../../../../_images/potential.png" /></p>
 <p>(For historical reasons, the magnetic field is called <span class="math notranslate nohighlight">\(B\)</span>.) So, we expect that if we place an electron in the field of a big magnet, it will try to align itself somehow. Thus, the unitary <span class="math notranslate nohighlight">\(U\)</span> associated to time evolution should somehow be connected to the energy of the electron considered as a little magnet. For simplicity, let’s imagine that the magnetic field <span class="math notranslate nohighlight">\(B\)</span> points in the <span class="math notranslate nohighlight">\(Z\)</span>
 direction:</p>
 <p><img alt="" src="../../../../_images/magnets.png" /></p>
@@ -190,34 +190,40 @@ S_z\rightarrow\frac{\hbar}{2}Z
 \[
 \hat H = -\frac{e\hbar B}{2m_e}Z=-\alpha\hbar Z
 \]</div>
-<p>Our physical picture of the electron is simply related to the measurement outcomes for <span class="math notranslate nohighlight">\(Z\)</span>:
-<img alt="" src="../../../../_images/align.png" /></p>
+<p>Our physical picture of the electron is simply related to the measurement outcomes for <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<p><img alt="" src="../../../../_images/align.png" /></p>
 <p>There’s nothing mysterious about this operator. If we had a circuit which prepared an electron in some state, then put it in the magnetic field, we would simply make a <span class="math notranslate nohighlight">\(Z\)</span> measurement and multiply by <span class="math notranslate nohighlight">\(-\frac{e\hbar B}{2m_e}\)</span></p>
 <p><img alt="" src="../../../../_images/ham-z.png" /></p>
-<p>Now that we have a Hamiltonian, let’s return to the problem of how our electron bar magnet changes with time. We know that, for a time <span class="math notranslate nohighlight">\(t\)</span> , there is some unitary operator <span class="math notranslate nohighlight">\(U\)</span> that realizes the time-evolution for the state of the electron, <span class="math notranslate nohighlight">\( \left|\psi(t)\right\rangle = U(t)\left|\psi(0)\right\rangle \)</span>, where <span class="math notranslate nohighlight">\(\left|\psi(0)\right\rangle\)</span> is the initial state. What is the unitary <span class="math notranslate nohighlight">\(U(t)\)</span>? This question was answered in general by Erwin Schrödinger in 1926, so it is called <strong>Schrödinger’s equation</strong>:
-$<span class="math notranslate nohighlight">\(
+<p>Now that we have a Hamiltonian, let’s return to the problem of how our electron bar magnet changes with time. We know that, for a time <span class="math notranslate nohighlight">\(t\)</span> , there is some unitary operator <span class="math notranslate nohighlight">\(U\)</span> that realizes the time-evolution for the state of the electron, <span class="math notranslate nohighlight">\( \left|\psi(t)\right\rangle = U(t)\left|\psi(0)\right\rangle\)</span>, where <span class="math notranslate nohighlight">\(\left|\psi(0)\right\rangle\)</span> is the initial state. What is the unitary <span class="math notranslate nohighlight">\(U(t)\)</span>? This question was answered in general by Erwin Schrödinger in 1926, so it is called <strong>Schrödinger’s equation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
 U(t)=e^{-it\hat H /\hbar}
-\)</span><span class="math notranslate nohighlight">\(
-In our case
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>In our case</p>
+<div class="math notranslate nohighlight">
+\[
 U(t)=e^{i\alpha t Z } = R_z(-2\alpha t)
-\)</span><span class="math notranslate nohighlight">\(
-This is just a \)</span>Z<span class="math notranslate nohighlight">\( rotation! Once again, we've already seen this in the context of quantum computing. We can implement the time evolution of an electron state \)</span> \left|\psi\right\rangle <span class="math notranslate nohighlight">\( as a circuit:
-![](images/expz.png)
-Let's see what this does to our electron in the simple case where the qubit starts in state \)</span> \left|0\right\rangle <span class="math notranslate nohighlight">\(. This is aligned with the field in the \)</span>z<span class="math notranslate nohighlight">\( direction, a claim we can check by evaluating the vector \)</span>(\left\langle X \right\rangle,\left\langle Y \right\rangle,\left\langle Z \right\rangle)<span class="math notranslate nohighlight">\(:
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>This is just a <span class="math notranslate nohighlight">\(Z\)</span> rotation! Once again, we’ve already seen this in the context of quantum computing. We can implement the time evolution of an electron state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span> as a circuit:</p>
+<p><img alt="" src="../../../../_images/expz.png" /></p>
+<p>Let’s see what this does to our electron in the simple case where the qubit starts in state <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span>. This is aligned with the field in the <span class="math notranslate nohighlight">\(z\)</span> direction, a claim we can check by evaluating the vector <span class="math notranslate nohighlight">\((\left\langle X \right\rangle,\left\langle Y \right\rangle,\left\langle Z \right\rangle)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
 \left\langle Z \right\rangle= \left\langle 0 \right| Z \left|0\right\rangle = \left\langle 0 \right|  \left|0\right\rangle =1
-\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<div class="math notranslate nohighlight">
+\[
 \left\langle X \right\rangle= \left\langle 0 \right| X \left|0\right\rangle = \left\langle 0 \right|  \left|1\right\rangle =0
-\)</span><span class="math notranslate nohighlight">\(
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<div class="math notranslate nohighlight">
+\[
 \left\langle Y \right\rangle= \left\langle 0 \right| Y \left|0\right\rangle = -i\left\langle 0 \right|  \left|1\right\rangle =0
-\)</span><span class="math notranslate nohighlight">\(
-(We shouldn't be surprised that \)</span> \left|0\right\rangle <span class="math notranslate nohighlight">\( is associated with the positive \)</span>z<span class="math notranslate nohighlight">\( direction, because it's an eigenvector of the \)</span>Z<span class="math notranslate nohighlight">\( operator with positive eigenvalue; we will see a more general relationship between spins and eigenvectors below.) But the effect of \)</span>U(t)<span class="math notranslate nohighlight">\(on this state is kind of boring! We can expand \)</span>e^{i\alpha t Z }<span class="math notranslate nohighlight">\( as a Taylor series in \)</span>Z<span class="math notranslate nohighlight">\(, by analogy with the Taylor series for the ordinary exponential:
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>(We shouldn’t be surprised that <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> is associated with the positive <span class="math notranslate nohighlight">\(z\)</span> direction, because it’s an eigenvector of the <span class="math notranslate nohighlight">\(Z\)</span> operator with positive eigenvalue; we will see a more general relationship between spins and eigenvectors below.) But the effect of <span class="math notranslate nohighlight">\(U(t)\)</span>on this state is kind of boring! We can expand <span class="math notranslate nohighlight">\(e^{i\alpha t Z }\)</span> as a Taylor series in <span class="math notranslate nohighlight">\(Z\)</span>, by analogy with the Taylor series for the ordinary exponential:</p>
+<div class="math notranslate nohighlight">
+\[
 e^{i\alpha t Z} = I + i\alpha t Z + \frac{(i\alpha t Z)^2}{2!}Z^2+\dots= \sum_{k=0}^{\infty}\frac{(i\alpha t Z)^k}{k!}Z^k
-\)</span>$</p>
+\]</div>
 <p>Acting on <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> with any number of powers of <span class="math notranslate nohighlight">\(Z\)</span> just gives us <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> back, so</p>
 <div class="math notranslate nohighlight">
 \[
@@ -240,29 +246,34 @@ e^{i\alpha t Z } \left|0\right\rangle =\sum_{k=0}^{\infty}\frac{(i\alpha t Z)^k}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(Z_0=Z \otimes I\)</span> is the Pauli <span class="math notranslate nohighlight">\(Z\)</span> operator on the first electron and <span class="math notranslate nohighlight">\(Z_1=I \otimes Z\)</span> is the Pauli <span class="math notranslate nohighlight">\(Z\)</span> on the second. (The subscripts indicating which electron the operator acts on are indexed in the same way as wires on PennyLane.) If we wanted to measure the energy in a circuit, we could just take two measurements in the computational basis, and convert them to energies as below:</p>
 <p><img alt="" src="../../../../_images/twospin.png" /></p>
-<p>Because these electrons are independent, evolving the system in time should consist of evolving the first and second states independently. We also know what those independent parts look like, since in the last node we learned how to time-evolve an individual electron. So, with <span class="math notranslate nohighlight">\( \alpha=eB/2m_e\)</span> as before, we’re naturally led to guess that the combined unitary is just a product of unitaries on each electron:
-$<span class="math notranslate nohighlight">\(
+<p>Because these electrons are independent, evolving the system in time should consist of evolving the first and second states independently. We also know what those independent parts look like, since in the last node we learned how to time-evolve an individual electron. So, with <span class="math notranslate nohighlight">\( \alpha=eB/2m_e\)</span> as before, we’re naturally led to guess that the combined unitary is just a product of unitaries on each electron:</p>
+<div class="math notranslate nohighlight">
+\[
 U=U_1 U_2=e^{i\alpha t Z_0 }e^{i\alpha t Z_1 }
-\)</span>$</p>
+\]</div>
 <p>in circuit form:</p>
 <p><img alt="" src="../../../../_images/prod-circ.png" /></p>
-<p>Is this neat formula true? Schrödinger’s equation tells us that
-$<span class="math notranslate nohighlight">\(
+<p>Is this neat formula true? Schrödinger’s equation tells us that</p>
+<div class="math notranslate nohighlight">
+\[
 U=e^{-i t \hat H /\hbar} =e^{i\alpha t (Z_0 + Z_1)}
-\)</span><span class="math notranslate nohighlight">\(
-So our neat formula will be true as long as
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>So our neat formula will be true as long as</p>
+<div class="math notranslate nohighlight">
+\[
 e^{i\alpha t (Z_0 + Z_1)}=e^{i\alpha t Z_0}e^{i\alpha t Z_1}
-\)</span>$</p>
+\]</div>
 <p>This should seem familiar: it’s the usual index law for exponentials, <span class="math notranslate nohighlight">\(e^{x+y}=e^x e^y\)</span> , but now with matrices <span class="math notranslate nohighlight">\(Z_0\)</span> and <span class="math notranslate nohighlight">\(Z_1\)</span> instead of numbers <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. And in fact, the proof works the same way!</p>
-<p>The definition of the exponential is the same,
-$<span class="math notranslate nohighlight">\(
+<p>The definition of the exponential is the same,</p>
+<div class="math notranslate nohighlight">
+\[
 e^A=\lim_{n\rightarrow\infty} \left(I+\frac{A}{n}\right)^n
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>I<span class="math notranslate nohighlight">\( is the identity matrix. (This is equivalent to the Taylor series definition, but the limit will be more useful here.) Our argument almost goes through as before, except for one important subtlety. The innocuous-seeming jump
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. (This is equivalent to the Taylor series definition, but the limit will be more useful here.) Our argument almost goes through as before, except for one important subtlety. The innocuous-seeming jump</p>
+<div class="math notranslate nohighlight">
+\[
 \left(1+\frac{x}{n}\right)^n\left(1+\frac{y}{n}\right)^n=\left[\left(1+\frac{x}{n}\right)\left(1+\frac{y}{n}\right) \right]^n
-\)</span>$</p>
+\]</div>
 <p>isn’t always true if we replace <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> with matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. This will be true only if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> happen to commute. Since the Paulis <span class="math notranslate nohighlight">\(Z_0\)</span> and <span class="math notranslate nohighlight">\(Z_1\)</span>  acting on separate electrons can be reordered:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -272,36 +283,42 @@ Z_0 Z_1 = (Z \otimes I)(I \otimes Z)=Z \otimes Z=(I  \otimes  Z) (Z  \otimes I)=
 <img alt="" src="../../../../_images/reorder-z.png" /></p>
 <p>However matrices do not always commute! A simple example is Pauli matrices, e.g., <span class="math notranslate nohighlight">\(XY=Z\)</span> while <span class="math notranslate nohighlight">\(YX=-Z\)</span>. Physically, we will have problems when our electrons get too close and feel each other’s magnetic field. They will interact, and in the simplest case, want to anti-align, just like iron filings arranging themselves along field lines:
 <img alt="" src="../../../../_images/dimagnets.png" /></p>
-<p>This introduces an energy cost for spins aligning, measured classically by a term <span class="math notranslate nohighlight">\(JS_1\cdot S_2\)</span>, where <span class="math notranslate nohighlight">\(J\)</span> captures the strength of the interaction. Quantum-mechanically, this leads to a Hamiltonian
-$<span class="math notranslate nohighlight">\(
+<p>This introduces an energy cost for spins aligning, measured classically by a term <span class="math notranslate nohighlight">\(JS_1\cdot S_2\)</span>, where <span class="math notranslate nohighlight">\(J\)</span> captures the strength of the interaction. Quantum-mechanically, this leads to a Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[
 \hat H = \hat H_1+\hat H_2 +\hat H_{12}=-\frac{\hbar B e}{2m_e}(Z_0+Z_1)+\frac{J\hbar^2}{4}(X_0X_1+Y_0Y_1+Z_0Z_1)
-\)</span>$</p>
+\]</div>
 <p>since <span class="math notranslate nohighlight">\(S\rightarrow\hbar/2(X,Y,Z)\)</span>. Each of the terms in the Hamiltonian is individually easy to exponentiate, as you can check in the next exercise. The problem is that they don’t commute!</p>
 <p>Most of the Hamiltonians Nature gives us do not split into commuting terms, even if (as often happens) the component terms are themselves simple and easy to exponentiate. It seems as if each time we want to run a simulation, we need to solve some horrible matrix exponential that cannot be decomposed into simpler parts. But it turns out we can simply reinterpret commutation in an extremely useful way. The Taylor expansion of the exponential <span class="math notranslate nohighlight">\(e^x\approx 1+x\)</span> , for small <span class="math notranslate nohighlight">\(x\)</span>
-, has the analogue
-$<span class="math notranslate nohighlight">\(
+, has the analogue</p>
+<div class="math notranslate nohighlight">
+\[
 e^{A/n}=I+\frac{A/n}+O(1/n^2)
-\)</span>$</p>
-<p>for matrices <span class="math notranslate nohighlight">\(A\)</span>. Then we arrive at the famous <strong>Trotter-Suzuki decomposition</strong>
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>for matrices <span class="math notranslate nohighlight">\(A\)</span>. Then we arrive at the famous <strong>Trotter-Suzuki decomposition</strong></p>
+<div class="math notranslate nohighlight">
+\[
 e^{A+B}=(e^{A/n}e^{B/n})^n+O(1/n)
-\)</span>$</p>
-<p>The formula gives us a general method for simulating quantum systems called <strong>Trotterization</strong>. Suppose our Hamiltonian is a sum of terms
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>The formula gives us a general method for simulating quantum systems called <strong>Trotterization</strong>. Suppose our Hamiltonian is a sum of terms</p>
+<div class="math notranslate nohighlight">
+\[
 \hat H = \hat H_1+\hat H_2
-\)</span><span class="math notranslate nohighlight">\(
-and each unitary \)</span>e^{-it\hat H_1/hbar}=U_1(t)<span class="math notranslate nohighlight">\(,\)</span>e^{-it\hat H_2/hbar}=U_2(t)<span class="math notranslate nohighlight">\(, is easily simulated. Even if \)</span>\hat H _1<span class="math notranslate nohighlight">\( and \)</span>\hat H _2<span class="math notranslate nohighlight">\( don't commute, we can split time evolution \)</span>U(t)<span class="math notranslate nohighlight">\( by \)</span>t<span class="math notranslate nohighlight">\( into \)</span>n<span class="math notranslate nohighlight">\( steps and interleave, with an error of order \)</span>1/n<span class="math notranslate nohighlight">\(:
-\)</span><span class="math notranslate nohighlight">\(
+\]</div>
+<p>and each unitary <span class="math notranslate nohighlight">\(e^{-it\hat H_1/hbar}=U_1(t)\)</span>,<span class="math notranslate nohighlight">\(e^{-it\hat H_2/hbar}=U_2(t)\)</span>, is easily simulated. Even if <span class="math notranslate nohighlight">\(\hat H _1\)</span> and <span class="math notranslate nohighlight">\(\hat H _2\)</span> don’t commute, we can split time evolution <span class="math notranslate nohighlight">\(U(t)\)</span> by <span class="math notranslate nohighlight">\(t\)</span> into <span class="math notranslate nohighlight">\(n\)</span> steps and interleave, with an error of order <span class="math notranslate nohighlight">\(1/n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
 U(t)=e^{-it\hat H/\hbar}=e^{-it(\hat H_1+\hat H_2)/\hbar}=\left[U_1(t/n)U_2(t/n)\right]^n+O(1/n)
-\)</span>$</p>
+\]</div>
 <p>Thus, we can replace <span class="math notranslate nohighlight">\(U(t)\)</span> with the circuit</p>
 <p><img alt="" src="../../../../_images/trotter-circ.png" /></p>
 <section id="id2">
 <h2>send it after class<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
-<p>Consider a Hamiltonian
-$<span class="math notranslate nohighlight">\(
+<p>Consider a Hamiltonian</p>
+<div class="math notranslate nohighlight">
+\[
 \hat H =-\frac{\hbar B e}{2m_e}(Z_0+Z_1)+\frac{J\hbar^2}{4}X_0X_1
-\)</span>$</p>
+\]</div>
 <p>Trotterize this Hamiltonian into <span class="math notranslate nohighlight">\(n\)</span> time steps and write the corresponding <span class="math notranslate nohighlight">\(U\)</span></p>
 </section>
 <section id="id3">
