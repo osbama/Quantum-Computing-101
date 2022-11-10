@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Simulating Nature &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Hands-on session 4" href="hands-on-4.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section class="tex2jax_ignore mathjax_ignore" id="simulating-nature">
+<h1>Simulating Nature<a class="headerlink" href="#simulating-nature" title="Permalink to this heading">¶</a></h1>
+<p>What makes quantum computing fundamentally different from classical computing? Very briefly, the physics going on inside the computer. To help understand this, it’s useful to abstract from specific computational models, and instead think about physical systems in general as black boxes where initial conditions go in, we wait for some time, and then observe. In between, physics happens. The job of a physicist is to work out the laws of Nature which govern the “in between”, also called the time evolution or dynamics of the system.</p>
+<p><img alt="nature" src="../../../../_images/nature.png" /></p>
+<p>Often, even knowing the laws of physics does not allow us to predict what the black box will do to some input, at least with pen and paper. The math is just too hard. An example is the three-body problem. If three planets interact gravitationally, they perform a do-si-do so complex that there is no explicit mathematical formula for it! In this case, we can do something more radical than math. We can use our knowledge of the laws of physics to make our own black box, one that imitates or simulates the black box of Nature. We call these human-made black boxes computers.</p>
+<p><img alt="" src="../../../../_images/computer.png" /></p>
+<p>Most physical laws are continuous, in the sense that they act on systems that cannot be split into a finite set of components. In contrast, most computers (though not all, e.g., a slide rule) are discrete, acting only on a finite number of components. So to turn continuous laws into discrete computations, we need to approximate. The better we want our approximation to be, the more computing power we will need, measured either in computing steps or memory allocation. Computing power therefore turns out to be a major limiting factor in how well we can understand the complicated physical systems around us.</p>
+<p>Let’s talk about some broad classes of black boxes. The first is <strong>classical deterministic systems</strong>, where a given input always produces the same output. “Classical” here refers to “classical physics”, the set of natural laws governing the macroscopic world and with which we are most familiar. Most of classical physics, from mechanics to electromagnetism to gravity, takes the form of a classical deterministic box.</p>
+<p><img alt="" src="../../../../_images/deterministic.png" /></p>
+<p>Our model problem will involve coins, though really, this is just a colourful way to talk about binary digits. So, let’s consider a system of <span class="math notranslate nohighlight">\(n\)</span> coins lying on a table. Each coin can be in one of two states: heads (<span class="math notranslate nohighlight">\(0\)</span>) or tails (<span class="math notranslate nohighlight">\(1\)</span>). We will describe the state of the system by a vector of <span class="math notranslate nohighlight">\(n\)</span> bits, <span class="math notranslate nohighlight">\(\mathbf x =(x_1,x_2,\dots,x_n)\in{0,1}^n\)</span></p>
+<p>A second, more general class is <strong>classical random systems</strong>. Here, an input sometimes results in one output, sometimes in another, with the output varying randomly. One way this randomness can arise is from dynamics which are in fact deterministic, but where we ignore (or don’t have access to) certain details of the system. The most famous example is statistical mechanics, the mathematical formalism underlying thermodynamics. It turns out that it is not just impossible, but useless and unnecessary, to keep track of the precise deterministic evolution of each of the <span class="math notranslate nohighlight">\(~10^{26}\)</span> particles in a handful of dust. It is much better to talk about the statistical tendencies of this handful!</p>
+<p><img alt="" src="../../../../_images/random.png" /></p>
+<p>Suppose that we are now allowed to flip our <span class="math notranslate nohighlight">\(n\)</span> coins, and introduce random outcomes. In particular, we’ll assume that black boxes can be described by conditional probabilities,</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf y | \mathbf x) = \text {probability of observing y given input x}
+\]</div>
+<p>The class of <strong>quantum systems</strong> is of most interest to us. Like random classical systems, in a quantum system, different inputs can lead to different, random observations. But these outcomes have some curious features that cannot be explained by classical randomness.</p>
+<p><img alt="" src="../../../../_images/quantum.png" /></p>
+<p>Let’s imagine that our set of coins are now quantum, i.e., we now have <span class="math notranslate nohighlight">\(n\)</span> qubits described by a state <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>. There is an important difference in simulating the state of the classical and quantum system.</p>
+<p><img alt="" src="../../../../_images/repete.png" /></p>
+<p>We will imagine we have the ability to prepare the system in some specific configuration <span class="math notranslate nohighlight">\( \left|x\right\rangle \)</span>, and observe in the computational basis after applying the black box, with probabilities
+$<span class="math notranslate nohighlight">\(
+p(\mathbf y | \mathbf x) = \text {probability of observing y given input x}
+\)</span>$</p>
+<p>as above. This looks very similar to the classical random case, and it’s tempting to conclude that we could just simulate the <span class="math notranslate nohighlight">\(n\)</span>-qubit system using <span class="math notranslate nohighlight">\(n\)</span> random bits. In the next exercise, you’ll see why this doesn’t work!</p>
+<section id="send-it-after-class">
+<h2>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h2>
+<p>a) Consider a single-qubit quantum circuit consisting of a single Hadamard gate <span class="math notranslate nohighlight">\(H\)</span>. Write down the conditional probabilities <span class="math notranslate nohighlight">\(p(\mathbf y | \mathbf x)\)</span> for measurement outcome <span class="math notranslate nohighlight">\(y\)</span> after applying this “black box” to input state <span class="math notranslate nohighlight">\( \left|x\right\rangle \)</span> where <span class="math notranslate nohighlight">\(x,y\in \{0,1\}\)</span>
+(b) If this black box was classically random, call it <span class="math notranslate nohighlight">\(\tilde{H}\)</span>, what would be the result of applying it twice? What is the probability distribution after applying two Hadamard gates?</p>
+<p><img alt="" src="../../../../_images/repete.png" /></p>
+<p>Two Hadamard gates <span class="math notranslate nohighlight">\(H\)</span> gives us a deterministic result, while repeating the random gate <span class="math notranslate nohighlight">\(\tilde{H}\)</span>
+looks just like doing a single random gate <span class="math notranslate nohighlight">\(\tilde{H}\)</span>. Clearly, the nature of time evolution in quantum systems is very different even from classical random systems. In the next section, we’ll explore this time evolution in much greater detail!</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="unitaries">
+<h1>Unitaries<a class="headerlink" href="#unitaries" title="Permalink to this heading">¶</a></h1>
+<p>Evidently, the black boxes in quantum mechanics do something over and above the black boxes in a random classical system. But it can’t be too different, since we still have observation probabilities <span class="math notranslate nohighlight">\(p(\mathbf y | \mathbf x) \)</span> which add up to <span class="math notranslate nohighlight">\(1\)</span> when we fix <span class="math notranslate nohighlight">\(x\)</span> and sum over <span class="math notranslate nohighlight">\(y\)</span>. Recall the theory of projective measurements, which tells us that if the state of the system is <span class="math notranslate nohighlight">\( \left|\psi\right\rangle \)</span>, the probability of observing the basis state <span class="math notranslate nohighlight">\(y\)</span> is
+$<span class="math notranslate nohighlight">\(
+p(\mathbf y | \mathbf x) = \left| \left\langle y \middle| \psi \right\rangle \right|^2 = \left( \left\langle y \middle| \psi \right\rangle \right)^\dagger \left( \left\langle y \middle| \psi \right\rangle \right)
+\)</span>$</p>
+<p>Suppose that our black box acts as a linear operator <span class="math notranslate nohighlight">\(U\)</span>, taking an initial state <span class="math notranslate nohighlight">\( \left|x\right\rangle \)</span> to the state <span class="math notranslate nohighlight">\(U \left|x\right\rangle = \left|\psi\right\rangle \)</span>
+<img alt="" src="../../../../_images/unitary.png" /></p>
+<p>Then the requirement that the conditional probabilities <span class="math notranslate nohighlight">\(p(\mathbf y | \mathbf x) \)</span> add to <span class="math notranslate nohighlight">\(1\)</span>  becomes
+$<span class="math notranslate nohighlight">\( \sum_{y}  \left( \left\langle y \middle| \psi \right\rangle \right)^\dagger \left( \left\langle y \middle| \psi \right\rangle \right) = \sum_{y}  \left( \left\langle x \right|U^\dagger\left| x \right\rangle \right) \left( \left\langle y \right|U\left|x \right\rangle \right) = 1
+\)</span>$</p>
+<p>Since <span class="math notranslate nohighlight">\(y\)</span> labels a complete basis, the sum over <span class="math notranslate nohighlight">\(y\)</span> is just matrix multiplication, and we can rewrite this condition as
+$<span class="math notranslate nohighlight">\(
+ \left\langle x \right| U^\dagger U\left| x \right\rangle = 1
+\)</span>$</p>
+<p>This implies <span class="math notranslate nohighlight">\(U^\dagger=U^{-1}\)</span>.</p>
+<p>This is the defining property of a unitary matrix. By thinking about probability and black boxes, we have rediscovered that the black boxes of quantum mechanics are unitary operators!</p>
+<p><img alt="" src="../../../../_images/twonitary.png" /></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="hamiltonians">
+<h1>Hamiltonians<a class="headerlink" href="#hamiltonians" title="Permalink to this heading">¶</a></h1>
+<p>The unitary operators <span class="math notranslate nohighlight">\(U\)</span> don’t appear out of nowhere, but arise in a principled way from physical properties of a quantum system. As a concrete example, let’s consider magnets. These have a north and a south pole. The magnet points in a direction (from south to north pole) which we will call <span class="math notranslate nohighlight">\(S\)</span>:
+<img alt="" src="../../../../_images/magnet.png" />
+This is a vector in <span class="math notranslate nohighlight">\(3\)</span>-dimensional space. We’re used to big magnets, like the bar magnets you might have played around with in high school, but most subatomic particles, e.g., electrons, are also magnets! In this case, <span class="math notranslate nohighlight">\(S\)</span>gets the special name of spin vector (since we can explain the magnetic behaviour by pretending that the particle spins).</p>
+<p>Interestingly, electrons can also be described as qubits <span class="math notranslate nohighlight">\( \alpha  \left|0\right\rangle +  \beta  \left|1\right\rangle \)</span>. The spin vector, telling us which way the little electron magnet points, is related in a simple way to Pauli operators:
+$<span class="math notranslate nohighlight">\(
+S=(S_x,S_y,S_z)\propto(\left\langle X \right\rangle,\left\langle Y \right\rangle,\left\langle Z \right\rangle)
+\)</span>$</p>
+<p>Now that we have this connection between magnets and qubits, we can do some physics. If we put a little magnet in the vicinity of a much bigger magnet (one from your fridge for instance), it will want to align itself with the big field:</p>
+<p><img alt="" src="../../../../_images/field.png" /></p>
+<p>Why do little magnets like to align with the big magnets? For the same reason that balls roll downhill, namely, that it reduces potential energy. If we imagine the potential energy of the little bar magnet as an undulating energy landscape, valleys are where it aligns with the big magnetic field, and hills where it anti-aligns, i.e., points in the opposite direction:
+<img alt="" src="../../../../_images/potential.png" /></p>
+<p>(For historical reasons, the magnetic field is called <span class="math notranslate nohighlight">\(B\)</span>.) So, we expect that if we place an electron in the field of a big magnet, it will try to align itself somehow. Thus, the unitary <span class="math notranslate nohighlight">\(U\)</span> associated to time evolution should somehow be connected to the energy of the electron considered as a little magnet. For simplicity, let’s imagine that the magnetic field <span class="math notranslate nohighlight">\(B\)</span> points in the <span class="math notranslate nohighlight">\(Z\)</span>
+direction:</p>
+<p><img alt="" src="../../../../_images/magnets.png" /></p>
+<p>The classical potential energy for the electron is
+$<span class="math notranslate nohighlight">\(
+E=-\frac{eB}{m_e}S_z
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>e<span class="math notranslate nohighlight">\( is the electron charge, \)</span>m_e<span class="math notranslate nohighlight">\( is its mass, and \)</span>S_z<span class="math notranslate nohighlight">\( is the \)</span>z$-component of the spin vector. We picture this below:</p>
+<p><img alt="" src="../../../../_images/Sz.png" /></p>
+<p>The energy is smallest (a valley) when <span class="math notranslate nohighlight">\(S_z\)</span> is largest, which corresponds to the spin lining up with the field in the positive <span class="math notranslate nohighlight">\(z\)</span> direction. Similarly, the energy is largest (a hill) when <span class="math notranslate nohighlight">\(S_z\)</span>
+is smallest, and the spin anti-aligns with the field, in the negative <span class="math notranslate nohighlight">\(z\)</span> direction.</p>
+<p><img alt="" src="../../../../_images/Sz-hill.png" /></p>
+<p>So far, all of this is classical. In quantum mechanics, energy is not a number but a measurement, e.g., the expectation value of Pauli <span class="math notranslate nohighlight">\(X\)</span>,<span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(Z\)</span> observables, or any other Hermitian operator. The observable which measures energy is called the <strong>Hamiltonian</strong> <span class="math notranslate nohighlight">\(\hat H\)</span> , with a hat to distinguish it from the Hadamard gate, and it plays a central role in the black boxes of quantum physics.</p>
+<p>Our first task is to turn the expression (<span class="math notranslate nohighlight">\(1\)</span>) into an observable. This turns out to be easy. The length of the spin vector <span class="math notranslate nohighlight">\(S\)</span> is just how much spin the electron carries. This turns out to be <span class="math notranslate nohighlight">\(\hbar/2\)</span>, where <span class="math notranslate nohighlight">\(\hbar\)</span> is Planck’s (reduced) constant. (You can learn more about “quantization” of spin in a course on quantum mechanics.) We still need an operator, and the fact that this is the <span class="math notranslate nohighlight">\(z\)</span> component of the spin gives us a clue to associate it with the Pauli <span class="math notranslate nohighlight">\(Z\)</span> :
+$<span class="math notranslate nohighlight">\(
+S_z\rightarrow\frac{\hbar}{2}Z
+\)</span>$</p>
+<p>So, the resulting Hamiltonian is</p>
+<div class="math notranslate nohighlight">
+\[
+\hat H = -\frac{e\hbar B}{2m_e}Z=-\alpha\hbar Z
+\]</div>
+<p>Our physical picture of the electron is simply related to the measurement outcomes for <span class="math notranslate nohighlight">\(Z\)</span>:
+<img alt="" src="../../../../_images/align.png" /></p>
+<p>There’s nothing mysterious about this operator. If we had a circuit which prepared an electron in some state, then put it in the magnetic field, we would simply make a <span class="math notranslate nohighlight">\(Z\)</span> measurement and multiply by <span class="math notranslate nohighlight">\(-\frac{e\hbar B}{2m_e}\)</span></p>
+<p><img alt="" src="../../../../_images/ham-z.png" /></p>
+<p>Now that we have a Hamiltonian, let’s return to the problem of how our electron bar magnet changes with time. We know that, for a time <span class="math notranslate nohighlight">\(t\)</span> , there is some unitary operator <span class="math notranslate nohighlight">\(U\)</span> that realizes the time-evolution for the state of the electron, <span class="math notranslate nohighlight">\( \left|\psi(t)\right\rangle = U(t)\left|\psi(0)\right\rangle \)</span>, where <span class="math notranslate nohighlight">\(\left|\psi(0)\right\rangle\)</span> is the initial state. What is the unitary <span class="math notranslate nohighlight">\(U(t)\)</span>? This question was answered in general by Erwin Schrödinger in 1926, so it is called <strong>Schrödinger’s equation</strong>:
+$<span class="math notranslate nohighlight">\(
+U(t)=e^{-it\hat H /\hbar}
+\)</span><span class="math notranslate nohighlight">\(
+In our case
+\)</span><span class="math notranslate nohighlight">\(
+U(t)=e^{i\alpha t Z } = R_z(-2\alpha t)
+\)</span><span class="math notranslate nohighlight">\(
+This is just a \)</span>Z<span class="math notranslate nohighlight">\( rotation! Once again, we've already seen this in the context of quantum computing. We can implement the time evolution of an electron state \)</span> \left|\psi\right\rangle <span class="math notranslate nohighlight">\( as a circuit:
+![](images/expz.png)
+Let's see what this does to our electron in the simple case where the qubit starts in state \)</span> \left|0\right\rangle <span class="math notranslate nohighlight">\(. This is aligned with the field in the \)</span>z<span class="math notranslate nohighlight">\( direction, a claim we can check by evaluating the vector \)</span>(\left\langle X \right\rangle,\left\langle Y \right\rangle,\left\langle Z \right\rangle)<span class="math notranslate nohighlight">\(:
+\)</span><span class="math notranslate nohighlight">\(
+\left\langle Z \right\rangle= \left\langle 0 \right| Z \left|0\right\rangle = \left\langle 0 \right|  \left|0\right\rangle =1
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+\left\langle X \right\rangle= \left\langle 0 \right| X \left|0\right\rangle = \left\langle 0 \right|  \left|1\right\rangle =0
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+\left\langle Y \right\rangle= \left\langle 0 \right| Y \left|0\right\rangle = -i\left\langle 0 \right|  \left|1\right\rangle =0
+\)</span><span class="math notranslate nohighlight">\(
+(We shouldn't be surprised that \)</span> \left|0\right\rangle <span class="math notranslate nohighlight">\( is associated with the positive \)</span>z<span class="math notranslate nohighlight">\( direction, because it's an eigenvector of the \)</span>Z<span class="math notranslate nohighlight">\( operator with positive eigenvalue; we will see a more general relationship between spins and eigenvectors below.) But the effect of \)</span>U(t)<span class="math notranslate nohighlight">\(on this state is kind of boring! We can expand \)</span>e^{i\alpha t Z }<span class="math notranslate nohighlight">\( as a Taylor series in \)</span>Z<span class="math notranslate nohighlight">\(, by analogy with the Taylor series for the ordinary exponential:
+\)</span><span class="math notranslate nohighlight">\(
+e^{i\alpha t Z} = I + i\alpha t Z + \frac{(i\alpha t Z)^2}{2!}Z^2+\dots= \sum_{k=0}^{\infty}\frac{(i\alpha t Z)^k}{k!}Z^k
+\)</span>$</p>
+<p>Acting on <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> with any number of powers of <span class="math notranslate nohighlight">\(Z\)</span> just gives us <span class="math notranslate nohighlight">\( \left|0\right\rangle \)</span> back, so</p>
+<div class="math notranslate nohighlight">
+\[
+e^{i\alpha t Z } \left|0\right\rangle =\sum_{k=0}^{\infty}\frac{(i\alpha t Z)^k}{k!}Z^k  \left|0\right\rangle = \sum_{k=0}^{\infty}\frac{(i\alpha t Z)^k}{k!} \left|0\right\rangle =e^{i\alpha t } \left|0\right\rangle
+\]</div>
+<p>All we get is a phase! Making the time-dependence a bit more explicit, if <span class="math notranslate nohighlight">\( \left|\psi (0)\right\rangle = \left|0\right\rangle \)</span>, then <span class="math notranslate nohighlight">\( \left|\psi (t)\right\rangle =e^{i\alpha t } \left|0\right\rangle \)</span>.</p>
+<section id="id1">
+<h2>Send it after class<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>What is the situation if <span class="math notranslate nohighlight">\( \left|\psi (0)\right\rangle = \left|+\right\rangle  \)</span> ?</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="approximating-exponentials">
+<h1>Approximating exponentials<a class="headerlink" href="#approximating-exponentials" title="Permalink to this heading">¶</a></h1>
+<p>Now we know how to simulate a single electron in a magnetic field. What about two electrons? If they are far away, they don’t know about each other and won’t interact at all! They only care about the big magnetic field:</p>
+<p><img alt="" src="../../../../_images/twomagnets.png" /></p>
+<p>As a result, the measured energy of the system will just be the sum of the energy for the first electron and the second electron separately. If the magnetic field points in the <span class="math notranslate nohighlight">\(z\)</span>-direction (once again, just for simplicity) then the resulting Hamiltonian is</p>
+<div class="math notranslate nohighlight">
+\[
+\hat H = \hat H_1 + \hat H_2=-\frac{e\hbar B}{2m_e}(Z_0+Z_1)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z_0=Z \otimes I\)</span> is the Pauli <span class="math notranslate nohighlight">\(Z\)</span> operator on the first electron and <span class="math notranslate nohighlight">\(Z_1=I \otimes Z\)</span> is the Pauli <span class="math notranslate nohighlight">\(Z\)</span> on the second. (The subscripts indicating which electron the operator acts on are indexed in the same way as wires on PennyLane.) If we wanted to measure the energy in a circuit, we could just take two measurements in the computational basis, and convert them to energies as below:</p>
+<p><img alt="" src="../../../../_images/twospin.png" /></p>
+<p>Because these electrons are independent, evolving the system in time should consist of evolving the first and second states independently. We also know what those independent parts look like, since in the last node we learned how to time-evolve an individual electron. So, with <span class="math notranslate nohighlight">\( \alpha=eB/2m_e\)</span> as before, we’re naturally led to guess that the combined unitary is just a product of unitaries on each electron:
+$<span class="math notranslate nohighlight">\(
+U=U_1 U_2=e^{i\alpha t Z_0 }e^{i\alpha t Z_1 }
+\)</span>$</p>
+<p>in circuit form:</p>
+<p><img alt="" src="../../../../_images/prod-circ.png" /></p>
+<p>Is this neat formula true? Schrödinger’s equation tells us that
+$<span class="math notranslate nohighlight">\(
+U=e^{-i t \hat H /\hbar} =e^{i\alpha t (Z_0 + Z_1)}
+\)</span><span class="math notranslate nohighlight">\(
+So our neat formula will be true as long as
+\)</span><span class="math notranslate nohighlight">\(
+e^{i\alpha t (Z_0 + Z_1)}=e^{i\alpha t Z_0}e^{i\alpha t Z_1}
+\)</span>$</p>
+<p>This should seem familiar: it’s the usual index law for exponentials, <span class="math notranslate nohighlight">\(e^{x+y}=e^x e^y\)</span> , but now with matrices <span class="math notranslate nohighlight">\(Z_0\)</span> and <span class="math notranslate nohighlight">\(Z_1\)</span> instead of numbers <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. And in fact, the proof works the same way!</p>
+<p>The definition of the exponential is the same,
+$<span class="math notranslate nohighlight">\(
+e^A=\lim_{n\rightarrow\infty} \left(I+\frac{A}{n}\right)^n
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>I<span class="math notranslate nohighlight">\( is the identity matrix. (This is equivalent to the Taylor series definition, but the limit will be more useful here.) Our argument almost goes through as before, except for one important subtlety. The innocuous-seeming jump
+\)</span><span class="math notranslate nohighlight">\(
+\left(1+\frac{x}{n}\right)^n\left(1+\frac{y}{n}\right)^n=\left[\left(1+\frac{x}{n}\right)\left(1+\frac{y}{n}\right) \right]^n
+\)</span>$</p>
+<p>isn’t always true if we replace <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> with matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>. This will be true only if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> happen to commute. Since the Paulis <span class="math notranslate nohighlight">\(Z_0\)</span> and <span class="math notranslate nohighlight">\(Z_1\)</span>  acting on separate electrons can be reordered:</p>
+<div class="math notranslate nohighlight">
+\[
+Z_0 Z_1 = (Z \otimes I)(I \otimes Z)=Z \otimes Z=(I  \otimes  Z) (Z  \otimes I)=Z_1 Z_0
+\]</div>
+<p>the above relation will be valid. It’s easy to see this in terms of the circuit. Since the <span class="math notranslate nohighlight">\(Z\)</span> gates act on separate wires, we can freely drag them past each other:
+<img alt="" src="../../../../_images/reorder-z.png" /></p>
+<p>However matrices do not always commute! A simple example is Pauli matrices, e.g., <span class="math notranslate nohighlight">\(XY=Z\)</span> while <span class="math notranslate nohighlight">\(YX=-Z\)</span>. Physically, we will have problems when our electrons get too close and feel each other’s magnetic field. They will interact, and in the simplest case, want to anti-align, just like iron filings arranging themselves along field lines:
+<img alt="" src="../../../../_images/dimagnets.png" /></p>
+<p>This introduces an energy cost for spins aligning, measured classically by a term <span class="math notranslate nohighlight">\(JS_1\cdot S_2\)</span>, where <span class="math notranslate nohighlight">\(J\)</span> captures the strength of the interaction. Quantum-mechanically, this leads to a Hamiltonian
+$<span class="math notranslate nohighlight">\(
+\hat H = \hat H_1+\hat H_2 +\hat H_{12}=-\frac{\hbar B e}{2m_e}(Z_0+Z_1)+\frac{J\hbar^2}{4}(X_0X_1+Y_0Y_1+Z_0Z_1)
+\)</span>$</p>
+<p>since <span class="math notranslate nohighlight">\(S\rightarrow\hbar/2(X,Y,Z)\)</span>. Each of the terms in the Hamiltonian is individually easy to exponentiate, as you can check in the next exercise. The problem is that they don’t commute!</p>
+<p>Most of the Hamiltonians Nature gives us do not split into commuting terms, even if (as often happens) the component terms are themselves simple and easy to exponentiate. It seems as if each time we want to run a simulation, we need to solve some horrible matrix exponential that cannot be decomposed into simpler parts. But it turns out we can simply reinterpret commutation in an extremely useful way. The Taylor expansion of the exponential <span class="math notranslate nohighlight">\(e^x\approx 1+x\)</span> , for small <span class="math notranslate nohighlight">\(x\)</span>
+, has the analogue
+$<span class="math notranslate nohighlight">\(
+e^{A/n}=I+\frac{A/n}+O(1/n^2)
+\)</span>$</p>
+<p>for matrices <span class="math notranslate nohighlight">\(A\)</span>. Then we arrive at the famous <strong>Trotter-Suzuki decomposition</strong>
+$<span class="math notranslate nohighlight">\(
+e^{A+B}=(e^{A/n}e^{B/n})^n+O(1/n)
+\)</span>$</p>
+<p>The formula gives us a general method for simulating quantum systems called <strong>Trotterization</strong>. Suppose our Hamiltonian is a sum of terms
+$<span class="math notranslate nohighlight">\(
+\hat H = \hat H_1+\hat H_2
+\)</span><span class="math notranslate nohighlight">\(
+and each unitary \)</span>e^{-it\hat H_1/hbar}=U_1(t)<span class="math notranslate nohighlight">\(,\)</span>e^{-it\hat H_2/hbar}=U_2(t)<span class="math notranslate nohighlight">\(, is easily simulated. Even if \)</span>\hat H _1<span class="math notranslate nohighlight">\( and \)</span>\hat H _2<span class="math notranslate nohighlight">\( don't commute, we can split time evolution \)</span>U(t)<span class="math notranslate nohighlight">\( by \)</span>t<span class="math notranslate nohighlight">\( into \)</span>n<span class="math notranslate nohighlight">\( steps and interleave, with an error of order \)</span>1/n<span class="math notranslate nohighlight">\(:
+\)</span><span class="math notranslate nohighlight">\(
+U(t)=e^{-it\hat H/\hbar}=e^{-it(\hat H_1+\hat H_2)/\hbar}=\left[U_1(t/n)U_2(t/n)\right]^n+O(1/n)
+\)</span>$</p>
+<p>Thus, we can replace <span class="math notranslate nohighlight">\(U(t)\)</span> with the circuit</p>
+<p><img alt="" src="../../../../_images/trotter-circ.png" /></p>
+<section id="id2">
+<h2>send it after class<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>Consider a Hamiltonian
+$<span class="math notranslate nohighlight">\(
+\hat H =-\frac{\hbar B e}{2m_e}(Z_0+Z_1)+\frac{J\hbar^2}{4}X_0X_1
+\)</span>$</p>
+<p>Trotterize this Hamiltonian into <span class="math notranslate nohighlight">\(n\)</span> time steps and write the corresponding <span class="math notranslate nohighlight">\(U\)</span></p>
+</section>
+<section id="id3">
+<h2>send it after class<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p>Generalise Trotterization to a Hamiltonian that has <span class="math notranslate nohighlight">\(L\)</span> simple pieces</p>
+<div class="math notranslate nohighlight">
+\[
+\hat H =\hat H_1 \dots \hat H_L
+\]</div>
+</section>
+<section id="id4">
+<h2>send it after class<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p>Complete the function below for simulating two distant electrons in a magnetic field.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_bits</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_bits</span><span class="p">))</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">two_distant_spins</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Circuit for evolving the state of two distant electrons in a magnetic field.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        B (float): The strength of the field, assumed to point in the z direction.</span>
+<span class="sd">        time (float): The time we evolve the electron wavefunction for.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        array[complex]: The quantum state after evolution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="mf">1.6e-19</span>
+    <span class="n">m_e</span> <span class="o">=</span> <span class="mf">9.1e-31</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">B</span><span class="o">*</span><span class="n">e</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m_e</span><span class="p">)</span>
+    <span class="c1">##################</span>
+    <span class="c1"># YOUR CODE HERE #</span>
+    <span class="c1">##################</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n_bits</span><span class="o">=</span><span class="mi">2</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_bits</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">def</span> <span class="nf">two_distant_spins</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="sd">&quot;&quot;&quot;Circuit for evolving the state of two distant electrons in a magnetic field.</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="sd"> </span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span><span class="sd">     Args:</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span><span class="sd">         array[complex]: The quantum state after evolution.</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span><span class="sd">     &quot;&quot;&quot;</span>
+
+<span class="ne">NameError</span>: name &#39;qml&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS710/hands-on/hands-on-4/hands-on-4-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
