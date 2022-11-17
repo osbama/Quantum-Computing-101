@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Quantum models as Fourier series &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Hands-on session 5" href="hands-on-5.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-models-as-fourier-series">
+<h1>Quantum models as Fourier series<a class="headerlink" href="#quantum-models-as-fourier-series" title="Permalink to this heading">¶</a></h1>
+<p>This demonstration is based on the paper <em>The effect of data encoding on
+the expressive power of variational quantum machine learning models</em> by
+<a class="reference external" href="https://arxiv.org/abs/2008.08605">Schuld, Sweke, and Meyer (2020)</a>.</p>
+<p><img alt="" src="../../../../_images/scheme_thumb.png" /></p>
+<p>The paper links common quantum machine learning models designed for
+near-term quantum computers to Fourier series (and, in more general, to
+Fourier-type sums). With this link, the class of functions a quantum
+model can learn (i.e., its “expressivity”) can be characterized by the
+model’s control of the Fourier series’ frequencies and coefficients.</p>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">¶</a></h2>
+<p>Ref. considers quantum machine learning models of the form</p>
+<div class="math notranslate nohighlight">
+\[f_{\boldsymbol \theta}(x) = \langle 0| U^{\dagger}(x,\boldsymbol \theta) M U(x, \boldsymbol \theta) | 0 \rangle\]</div>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is a measurement observable and <span class="math notranslate nohighlight">\(U(x, \boldsymbol \theta)\)</span> is
+a variational quantum circuit that encodes a data input <span class="math notranslate nohighlight">\(x\)</span> and depends
+on a set of parameters <span class="math notranslate nohighlight">\(\boldsymbol \theta\)</span>. Here we will restrict
+ourselves to one-dimensional data inputs, but the paper motivates that
+higher-dimensional features simply generalize to multi-dimensional
+Fourier series.</p>
+<p>The circuit itself repeats <span class="math notranslate nohighlight">\(L\)</span> layers, each consisting of a
+data-encoding circuit block <span class="math notranslate nohighlight">\(S(x)\)</span> and a trainable circuit block
+<span class="math notranslate nohighlight">\(W(\boldsymbol \theta)\)</span> that is controlled by the parameters
+<span class="math notranslate nohighlight">\(\boldsymbol \theta\)</span>. The data encoding block consists of gates of the
+form <span class="math notranslate nohighlight">\(\mathcal{G}(x) = e^{-ix H}\)</span>, where <span class="math notranslate nohighlight">\(H\)</span> is a Hamiltonian. A
+prominent example of such gates are Pauli rotations.</p>
+<p>The paper shows how such a quantum model can be written as a
+Fourier-type sum of the form</p>
+<div class="math notranslate nohighlight">
+\[f_{ \boldsymbol \theta}(x) = \sum_{\omega \in \Omega} c_{\omega}( \boldsymbol \theta) \; e^{i  \omega x}.\]</div>
+<p>As illustrated in the picture below (which is Figure 1 from the paper),
+the “encoding Hamiltonians” in <span class="math notranslate nohighlight">\(S(x)\)</span> determine the set <span class="math notranslate nohighlight">\(\Omega\)</span> of
+available “frequencies”, and the remainder of the circuit, including
+the trainable parameters, determines the coefficients <span class="math notranslate nohighlight">\(c_{\omega}\)</span>.</p>
+<p><img alt="" src="../../../../_images/scheme.png" /></p>
+<p>The paper demonstrates many of its findings for circuits in which
+<span class="math notranslate nohighlight">\(\mathcal{G}(x)\)</span> is a single-qubit Pauli rotation gate. For example, it
+shows that <span class="math notranslate nohighlight">\(r\)</span> repetitions of a Pauli rotation-encoding gate in
+“sequence” (on the same qubit, but with multiple layers <span class="math notranslate nohighlight">\(r=L\)</span>) or in
+“parallel” (on <span class="math notranslate nohighlight">\(r\)</span> different qubits, with <span class="math notranslate nohighlight">\(L=1\)</span>) creates a quantum
+model that can be expressed as a <em>Fourier series</em> of the form</p>
+<div class="math notranslate nohighlight">
+\[f_{ \boldsymbol \theta}(x) = \sum_{n \in \Omega} c_{n}(\boldsymbol \theta) e^{i  n x},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega = \{ -r, \dots, -1, 0, 1, \dots, r\}\)</span> is a spectrum of
+consecutive integer-valued frequencies up to degree <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>As a result, we expect quantum models that encode an input <span class="math notranslate nohighlight">\(x\)</span> by <span class="math notranslate nohighlight">\(r\)</span>
+Pauli rotations to only be able to fit Fourier series of at most degree
+<span class="math notranslate nohighlight">\(r\)</span>.</p>
+</section>
+<section id="goal-of-this-demonstration">
+<h2>Goal of this demonstration<a class="headerlink" href="#goal-of-this-demonstration" title="Permalink to this heading">¶</a></h2>
+<p>The experiments below investigate this “Fourier-series”-like nature of quantum models by showing how to reproduce the simulations underlying Figures 3, 4 and 5 in Section II of the paper:</p>
+<ul class="simple">
+<li><p><strong>Figures 3 and 4</strong> are function-fitting experiments, where quantum
+models with different encoding strategies have the task to fit
+Fourier series up to a certain degree. As in the paper, we will use
+examples of qubit-based quantum circuits where a single data feature
+is encoded via Pauli rotations.</p></li>
+<li><p><strong>Figure 5</strong> plots the Fourier coefficients of randomly sampled
+instances from a family of quantum models which is defined by some
+parametrized ansatz.</p></li>
+</ul>
+<p>The code is presented so you can easily modify it in order to play around with other settings and models. The settings used in the paper are given in the various subsections.</p>
+<p>First of all, let’s make some imports and define a standard loss function for the training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">):</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">+=</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">loss</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-i-fitting-fourier-series-with-serial-pauli-rotation-encoding">
+<h2>Part I: Fitting Fourier series with serial Pauli-rotation encoding<a class="headerlink" href="#part-i-fitting-fourier-series-with-serial-pauli-rotation-encoding" title="Permalink to this heading">¶</a></h2>
+<p>First we will reproduce Figures 3 and 4 from the paper. These show how quantum models that use Pauli rotations as data-encoding gates can only fit Fourier series up to a certain degree. The degree corresponds to the
+number of times that the Pauli gate gets repeated in the quantum model.</p>
+<p>Let us consider circuits where the encoding gate gets repeated sequentially (as in Figure 2a of the paper). For simplicity we will only look at single-qubit circuits:</p>
+<p><img alt="" src="../../../../_images/single_qubit_model.png" /></p>
+<section id="define-a-target-function">
+<h3>Define a target function<a class="headerlink" href="#define-a-target-function" title="Permalink to this heading">¶</a></h3>
+<p>We first define a (classical) target function which will be used as a “ground truth” that the quantum model has to fit. The target function is constructed as a Fourier series of a specific degree.</p>
+<p>We also allow for a rescaling of the data by a hyperparameter <code class="docutils literal notranslate"><span class="pre">scaling</span></code>, which we will do in the quantum model as well. As shown in, for the quantum model to learn the classical model in the experiment below, the
+scaling of the quantum model and the target function have to match, which is an important observation for the design of quantum machine learning models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># degree of the target function</span>
+<span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># scaling of the data</span>
+<span class="n">coeffs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.15</span> <span class="o">+</span> <span class="mf">0.15</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">degree</span>  <span class="c1"># coefficients of non-zero frequencies</span>
+<span class="n">coeff0</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># coefficient of zero frequency</span>
+
+<span class="k">def</span> <span class="nf">target_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a truncated Fourier series, where the data gets re-scaled.&quot;&quot;&quot;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">coeff0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coeffs</span><span class="p">):</span>
+        <span class="n">exponent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">)</span>
+        <span class="n">conj_coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span> <span class="o">+</span> <span class="n">conj_coeff</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">exponent</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s have a look at it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">target_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">target_function</span><span class="p">(</span><span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/604b6b4c0f79cde3b8fa5008b22dd362eb3701c2883119d07a78b5de558680e3.png" src="../../../../_images/604b6b4c0f79cde3b8fa5008b22dd362eb3701c2883119d07a78b5de558680e3.png" />
+</div>
+</div>
+<section id="send-it-after-class">
+<h4>Send it after class<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h4>
+<p>To reproduce the figures in the paper, you can use the following settings in the cells above:</p>
+<ul>
+<li><p>For the settings</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>degree = 1
+coeffs = (0.15 + 0.15j) * degree 
+coeff0 = 0.1
+</pre></div>
+</div>
+<p>this function is the ground truth
+<span class="math notranslate nohighlight">\(g(x) = \sum_{n=-1}^1 c_{n} e^{-nix}\)</span> from Figure 3 in the paper.</p>
+</li>
+<li><p>To get the ground truth <span class="math notranslate nohighlight">\(g'(x) = \sum_{n=-2}^2 c_{n} e^{-nix}\)</span> with
+<span class="math notranslate nohighlight">\(c_0=0.1\)</span>, <span class="math notranslate nohighlight">\(c_1 = c_2 = 0.15 - 0.15i\)</span> from Figure 3, you need to
+increase the degree to two:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>degree = 2
+</pre></div>
+</div>
+</li>
+<li><p>The ground truth from Figure 4 can be reproduced by changing the
+settings to:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>degree = 5 
+coeffs = (0.05 + 0.05j) * degree 
+coeff0 = 0.0 
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="define-the-serial-quantum-model">
+<h3>Define the serial quantum model<a class="headerlink" href="#define-the-serial-quantum-model" title="Permalink to this heading">¶</a></h3>
+<p>We now define the quantum model itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Data-encoding circuit block.&quot;&quot;&quot;</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Trainable circuit block.&quot;&quot;&quot;</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Rot</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">serial_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    
+    <span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">W</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+        <span class="n">S</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        
+    <span class="c1"># (L+1)&#39;th unitary</span>
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can run the following cell multiple times, each time sampling
+different weights, and therefore different quantum models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># number of times the encoding gets repeated (here equal to the number of layers)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># some random initial weights</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">random_quantum_model_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">serial_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">random_quantum_model_y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/a906361b45c0f1d53c9f8dfbfec9b95a26f68d966a2af895479aaae1062fb622.png" src="../../../../_images/a906361b45c0f1d53c9f8dfbfec9b95a26f68d966a2af895479aaae1062fb622.png" />
+</div>
+</div>
+<p>No matter what weights are picked, the single qubit model for
+[L=1]{.title-ref} will always be a sine function of a fixed frequency.
+The weights merely influence the amplitude, y-shift, and phase of the
+sine.</p>
+<p>This observation is formally derived in Section II.A of the paper.</p>
+<section id="id1">
+<h4>Send it after class<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<p>Increase the number of layers. Figure 4 from the paper, for example, uses the settings <code class="docutils literal notranslate"><span class="pre">L=1</span></code>, <code class="docutils literal notranslate"><span class="pre">L=3</span></code> and <code class="docutils literal notranslate"><span class="pre">L=5</span></code>. What is the difference?</p>
+<p>Finally, let’s look at the circuit we just created:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">serial_quantum_model</span><span class="p">)(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: ──Rot(2.35,5.97,4.60)──RX(6.00)──Rot(3.76,0.98,0.98)─┤  &lt;Z&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fit-the-model-to-the-target">
+<h3>Fit the model to the target<a class="headerlink" href="#fit-the-model-to-the-target" title="Permalink to this heading">¶</a></h3>
+<p>The next step is to optimize the weights in order to fit the ground
+truth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span><span class="n">serial_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">square_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+
+<span class="n">max_steps</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">cst</span> <span class="o">=</span> <span class="p">[</span><span class="n">cost</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">)]</span>  <span class="c1"># initial cost</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+
+    <span class="c1"># Select batch of data</span>
+    <span class="n">batch_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,))</span>
+    <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">target_y</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+
+    <span class="c1"># Update the weights by one optimizer step</span>
+    <span class="n">weights</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">x_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span>
+
+    <span class="c1"># Save, and possibly print, the current cost</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">)</span>
+    <span class="n">cst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cost at step </span><span class="si">{0:3}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost at step  10: 0.03212041720004567
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost at step  20: 0.01385356188302468
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost at step  30: 0.004049396436389442
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost at step  40: 0.0005624933894468399
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost at step  50: 8.145777333271303e-05
+</pre></div>
+</div>
+</div>
+</div>
+<p>To continue training, you may just run the above cell again. Once you are happy, you can use the trained model to predict function values, and compare them with the ground truth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span><span class="n">serial_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/1438ecd460c34a413cd2bd8cea57dc0ccbe27e0c8541d2c763bd472fb3cf6577.png" src="../../../../_images/1438ecd460c34a413cd2bd8cea57dc0ccbe27e0c8541d2c763bd472fb3cf6577.png" />
+</div>
+</div>
+<p>Let’s also have a look at the cost during training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cst</span><span class="p">)),</span> <span class="n">cst</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cost&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/11a1341105303c7aba181dbc52b37789a60fcf72309c88390adf63a9ac722cb4.png" src="../../../../_images/11a1341105303c7aba181dbc52b37789a60fcf72309c88390adf63a9ac722cb4.png" />
+</div>
+</div>
+<p>With the initial settings and enough training steps, the quantum model
+learns to fit the ground truth perfectly. This is expected, since the
+number of Pauli-rotation-encoding gates and the degree of the ground
+truth Fourier series are both one.</p>
+<p>If the ground truth’s degree is larger than the number of layers in the
+quantum model, the fit will look much less accurate. And finally, we
+also need to have the correct scaling of the data: if one of the models
+changes the <code class="docutils literal notranslate"><span class="pre">scaling</span></code> parameter (which effectively scales the
+frequencies), fitting does not work even with enough encoding
+repetitions.</p>
+<section id="id2">
+<h4>Send it after class<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<p>What happens for larger L?</p>
+<p>Tip: It is an open research question whether for asymptotically large L, the
+single qubit model can fit <em>any</em> function by constructing arbitrary
+Fourier coefficients.</p>
+</section>
+</section>
+</section>
+<section id="part-ii-fitting-fourier-series-with-parallel-pauli-rotation-encoding">
+<h2>Part II: Fitting Fourier series with parallel Pauli-rotation encoding<a class="headerlink" href="#part-ii-fitting-fourier-series-with-parallel-pauli-rotation-encoding" title="Permalink to this heading">¶</a></h2>
+<p>Our next task is to repeat the function-fitting experiment for a circuit
+where the Pauli rotation gate gets repeated <span class="math notranslate nohighlight">\(r\)</span> times on <em>different</em>
+qubits, using a single layer <span class="math notranslate nohighlight">\(L=1\)</span>.</p>
+<p>As shown in the paper, we expect similar results to the serial model: a
+Fourier series of degree <span class="math notranslate nohighlight">\(r\)</span> can only be fitted if there are at least
+<span class="math notranslate nohighlight">\(r\)</span> repetitions of the encoding gate in the quantum model. However, in
+practice this experiment is a bit harder, since the dimension of the
+trainable unitaries <span class="math notranslate nohighlight">\(W\)</span> grows quickly with the number of qubits.</p>
+<p>In the paper, the investigations are made with the assumption that the
+purple trainable blocks <span class="math notranslate nohighlight">\(W\)</span> are arbitrary unitaries. We could use the
+<code class="docutils literal notranslate"><span class="pre">~.pennylane.templates.ArbitraryUnitary</span></code>{.interpreted-text role=”class”}
+template, but since this template requires a number of parameters that
+grows exponentially with the number of qubits (<span class="math notranslate nohighlight">\(4^L-1\)</span> to be precise),
+this quickly becomes cumbersome to train.</p>
+<p>We therefore follow Figure 4 in the paper and use an ansatz for <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<p><img alt="" src="../../../../_images/parallel_model.png" /></p>
+<section id="define-the-parallel-quantum-model">
+<h3>Define the parallel quantum model<a class="headerlink" href="#define-the-parallel-quantum-model" title="Permalink to this heading">¶</a></h3>
+<p>The ansatz is PennyLane’s layer structure called
+<code class="docutils literal notranslate"><span class="pre">~.pennylane.templates.StronglyEntanglingLayers</span></code>, and as the name suggests, it has itself a user-defined
+number of layers (which we will call “ansatz layers” to avoid
+confusion).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pennylane.templates</span> <span class="kn">import</span> <span class="n">StronglyEntanglingLayers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s have a quick look at the ansatz itself for 3 qubits by making a
+dummy circuit of 2 ansatz layers:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_ansatz_layers</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">n_qubits</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ansatz</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="n">StronglyEntanglingLayers</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">weights_ansatz</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_ansatz_layers</span><span class="p">,</span> <span class="n">n_qubits</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">ansatz</span><span class="p">,</span> <span class="n">expansion_strategy</span><span class="o">=</span><span class="s2">&quot;device&quot;</span><span class="p">)(</span><span class="n">weights_ansatz</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: ──Rot(1.38,4.29,0.48)─╭●────╭X──Rot(4.26,3.55,1.68)─╭●─╭X────┤  &lt;I&gt;
+1: ──Rot(5.35,3.11,3.02)─╰X─╭●─│───Rot(5.52,5.01,4.14)─│──╰●─╭X─┤     
+2: ──Rot(3.72,5.18,2.19)────╰X─╰●──Rot(5.34,5.45,4.45)─╰X────╰●─┤     
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we define the actual quantum model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Data-encoding circuit block.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Trainable circuit block.&quot;&quot;&quot;</span>
+    <span class="n">StronglyEntanglingLayers</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+
+    
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">parallel_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">S</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>        
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, you can sample random weights and plot the model function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainable_block_layers</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">trainable_block_layers</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">random_quantum_model_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">parallel_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">random_quantum_model_y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/4ffd37629e9d338cf5a464ec1df2496cea08058987d9e2b3b4ad87abed4847a1.png" src="../../../../_images/4ffd37629e9d338cf5a464ec1df2496cea08058987d9e2b3b4ad87abed4847a1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="send-it-after-class-training-the-model">
+<h2>Send it after class: Training the model<a class="headerlink" href="#send-it-after-class-training-the-model" title="Permalink to this heading">¶</a></h2>
+<p>Training the model is done exactly as before, but it may take a lot
+longer this time. We set a default of 25 steps, which you should
+increase if necessary. Small models of &lt;6 qubits usually converge after
+a few hundred steps at most—but this depends on your settings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">predictions</span> <span class="o">=</span>  <span class="c1">#fill me</span>
+    <span class="k">return</span> <span class="n">square_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+
+<span class="n">max_steps</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="c1"># fill me</span>
+<span class="n">cst</span> <span class="o">=</span> <span class="c1">##fill me  # initial cost</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+
+    <span class="c1"># select batch of data</span>
+    <span class="n">batch_index</span> <span class="o">=</span> <span class="c1">## fill me</span>
+    <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">target_y</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+
+    <span class="c1"># update the weights by one optimizer step</span>
+    <span class="n">weights</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">x_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span>
+    
+    <span class="c1"># save, and possibly print, the current cost</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">)</span>
+    <span class="n">cst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cost at step </span><span class="si">{0:3}</span><span class="s2">: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+    <span class="n">predictions</span> <span class="o">=</span>  <span class="c1">#fill me</span>
+                   <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span><span class="n">parallel_quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cst</span><span class="p">)),</span> <span class="n">cst</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cost&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To reproduce the right column in Figure 4 from the paper, use the
+correct ground truth, <span class="math notranslate nohighlight">\(r=3\)</span> and <code class="docutils literal notranslate"><span class="pre">trainable_block_layers=3</span></code>, as well as
+sufficiently many training steps. The amount of steps depends on the
+initial weights and other hyperparameters, and in some settings training
+may not converge to zero error at all.</p>
+</section>
+<section id="part-iii-sampling-fourier-coefficients">
+<h2>Part III: Sampling Fourier coefficients<a class="headerlink" href="#part-iii-sampling-fourier-coefficients" title="Permalink to this heading">¶</a></h2>
+<p>When we use a trainable ansatz above, it is possible that even with
+enough repetitions of the data-encoding Pauli rotation, the quantum
+model cannot fit the circuit, since the expressivity of quantum models
+also depends on the Fourier coefficients the model can create.</p>
+<p>Figure 5 in shows Fourier coefficients from quantum models sampled from
+a model family defined by an ansatz for the trainable circuit block. For
+this we need a function that numerically computes the Fourier
+coefficients of a periodic function f with period <span class="math notranslate nohighlight">\(2 \pi\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fourier_coefficients</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the first 2*K+1 Fourier coefficients of a 2*pi periodic function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_coeffs</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_coeffs</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="o">/</span> <span class="n">t</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="define-your-quantum-model">
+<h3>Define your quantum model<a class="headerlink" href="#define-your-quantum-model" title="Permalink to this heading">¶</a></h3>
+<p>Now we need to define a quantum model. This could be any model, using a
+qubit or continuous-variable circuit, or one of the quantum models from
+above. We will use a slight derivation of the <code class="docutils literal notranslate"><span class="pre">parallel_qubit_model()</span></code>
+from above, this time using the
+<code class="docutils literal notranslate"><span class="pre">~.pennylane.templates.BasicEntanglerLayers</span></code> ansatz:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pennylane.templates</span> <span class="kn">import</span> <span class="n">BasicEntanglerLayers</span>
+
+<span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">n_qubits</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.qubit&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">n_qubits</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Data encoding circuit block.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">):</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Trainable circuit block.&quot;&quot;&quot;</span>
+    <span class="n">BasicEntanglerLayers</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">))</span>
+
+    
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">S</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It will also be handy to define a function that samples different random
+weights of the correct size for the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_ansatz_layers</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">random_weights</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_ansatz_layers</span><span class="p">,</span> <span class="n">n_qubits</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can compute the first few Fourier coefficients for samples from
+this model. The samples are created by randomly sampling different
+parameters using the <code class="docutils literal notranslate"><span class="pre">random_weights()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_coeffs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">100</span>
+
+
+<span class="n">coeffs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">random_weights</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x_</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+
+    <span class="n">coeffs_sample</span> <span class="o">=</span> <span class="n">fourier_coefficients</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_coeffs</span><span class="p">)</span>
+    <span class="n">coeffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coeffs_sample</span><span class="p">)</span>
+
+<span class="n">coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span>
+<span class="n">coeffs_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span>
+<span class="n">coeffs_imag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot the real vs. the imaginary part of the coefficients. As a
+sanity check, the <span class="math notranslate nohighlight">\(c_0\)</span> coefficient should be real, and therefore have
+no contribution on the y-axis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_coeffs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs_real</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_coeffs</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ax_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$c_</span><span class="si">{}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">coeffs_real</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">],</span> <span class="n">coeffs_imag</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax_</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/cfa1ba4fe35ee61d210ac5041170991550ffb8da80b039d1c9376dba38525191.png" src="../../../../_images/cfa1ba4fe35ee61d210ac5041170991550ffb8da80b039d1c9376dba38525191.png" />
+<img alt="../../../../_images/cfa1ba4fe35ee61d210ac5041170991550ffb8da80b039d1c9376dba38525191.png" src="../../../../_images/cfa1ba4fe35ee61d210ac5041170991550ffb8da80b039d1c9376dba38525191.png" />
+</div>
+</div>
+<p>Playing around with different quantum models, you will find that some
+quantum models create different distributions over the coefficients than
+others. For example <code class="docutils literal notranslate"><span class="pre">BasicEntanglingLayers</span></code> (with the default Pauli-X
+rotation) seems to have a structure that forces the even Fourier
+coefficients to zero, while <code class="docutils literal notranslate"><span class="pre">StronglyEntanglingLayers</span></code> will have a
+non-zero variance for all supported coefficients.</p>
+<p>Note also how the variance of the distribution decreases for growing
+orders of the coefficients—an effect linked to the convergence of a
+Fourier series.</p>
+</section>
+<section id="id3">
+<h3>Send it after class<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>To reproduce the results from Figure 5 you have to change the ansatz (no
+unitary, <code class="docutils literal notranslate"><span class="pre">BasicEntanglerLayers</span></code> or <code class="docutils literal notranslate"><span class="pre">StronglyEntanglingLayers</span></code>, and set
+<code class="docutils literal notranslate"><span class="pre">n_ansatz_layers</span></code> either to <span class="math notranslate nohighlight">\(1\)</span> or <span class="math notranslate nohighlight">\(5\)</span>). The <code class="docutils literal notranslate"><span class="pre">StronglyEntanglingLayers</span></code>
+requires weights of shape <code class="docutils literal notranslate"><span class="pre">size=(2,</span> <span class="pre">n_ansatz_layers,</span> <span class="pre">n_qubits,</span> <span class="pre">3)</span></code>.</p>
+</section>
+</section>
+<section id="continuous-variable-model">
+<h2>Continuous-variable model<a class="headerlink" href="#continuous-variable-model" title="Permalink to this heading">¶</a></h2>
+<p>Ref. mentions that a phase rotation in continuous-variable quantum
+computing has a spectrum that supports <em>all</em> Fourier frequecies. To play
+with this model, we finally show you the code for a continuous-variable
+circuit. For example, to see its Fourier coefficients run the cell
+below, and then re-run the two cells above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">n_ansatz_layers</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">dev_cv</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;default.gaussian&#39;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Trainable circuit block.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">r_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ansatz_layers</span><span class="p">):</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">Displacement</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">Squeezing</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev_cv</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">quantum_model</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">S</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">W</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">random_weights</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">n_ansatz_layers</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h3>Send it after class<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>To find out what effect so-called “non-Gaussian” gates like the <code class="docutils literal notranslate"><span class="pre">Kerr</span></code>
+gate have, you need to install the <a class="reference external" href="https://pennylane-sf.readthedocs.io/en/latest/">strawberryfields
+plugin</a> and change the
+device to</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-reuploading-classifier">
+<h1>Data-reuploading classifier<a class="headerlink" href="#data-reuploading-classifier" title="Permalink to this heading">¶</a></h1>
+<p>A single-qubit quantum circuit which can implement arbitrary unitary
+operations can be used as a universal classifier much like a single
+hidden-layered Neural Network. As surprising as it sounds,
+<a class="reference external" href="https://arxiv.org/abs/1907.02085">Pérez-Salinas et al. (2019)</a> discuss
+this with their idea of ‘data reuploading’. It is possible to load a
+single qubit with arbitrary dimensional data and then use it as a
+universal classifier.</p>
+<p>In this example, we will implement this idea with Pennylane - a python
+based tool for quantum machine learning, automatic differentiation, and
+optimization of hybrid quantum-classical computations.</p>
+<section id="id5">
+<h2>Background<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p>We consider a simple classification problem and will train a
+single-qubit variational quantum circuit to achieve this goal. The data
+is generated as a set of random points in a plane <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> and
+labeled as 1 (blue) or 0 (red) depending on whether they lie inside or
+outside a circle. The goal is to train a quantum circuit to predict the
+label (red or blue) given an input point’s coordinate.</p>
+<p><img alt="" src="../../../../_images/universal_circles.png" /></p>
+</section>
+<section id="transforming-quantum-states-using-unitary-operations">
+<h2>Transforming quantum states using unitary operations<a class="headerlink" href="#transforming-quantum-states-using-unitary-operations" title="Permalink to this heading">¶</a></h2>
+<p>A single-qubit quantum state is characterized by a two-dimensional state
+vector and can be visualized as a point in the so-called Bloch sphere.
+Instead of just being a 0 (up) or 1 (down), it can exist in a
+superposition with say 30% chance of being in the <span class="math notranslate nohighlight">\(|0 \rangle\)</span> and 70%
+chance of being in the <span class="math notranslate nohighlight">\(|1 \rangle\)</span> state. This is represented by a
+state vector
+<span class="math notranslate nohighlight">\(|\psi \rangle = \sqrt{0.3}|0 \rangle + \sqrt{0.7}|1 \rangle\)</span> -the
+probability “amplitude” of the quantum state. In general we can take a
+vector <span class="math notranslate nohighlight">\((\alpha, \beta)\)</span> to represent the probabilities of a qubit being
+in a particular state and visualize it on the Bloch sphere as an arrow.</p>
+<p><img alt="" src="courses/PHYS710/hands-on/demonstrations/data_reuploading/universal_bloch.png" /></p>
+</section>
+<section id="data-loading-using-unitaries">
+<h2>Data loading using unitaries<a class="headerlink" href="#data-loading-using-unitaries" title="Permalink to this heading">¶</a></h2>
+<p>In order to load data onto a single qubit, we use a unitary operation
+<span class="math notranslate nohighlight">\(U(x_1, x_2, x_3)\)</span> which is just a parameterized matrix multiplication
+representing the rotation of the state vector in the Bloch sphere. E.g.,
+to load <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> into the qubit, we just start from some initial
+state vector, <span class="math notranslate nohighlight">\(|0 \rangle\)</span>, apply the unitary operation <span class="math notranslate nohighlight">\(U(x_1, x_2, 0)\)</span>
+and end up at a new point on the Bloch sphere. Here we have padded 0
+since our data is only 2D. Pérez-Salinas et al. (2019) discuss how to
+load a higher dimensional data point (<span class="math notranslate nohighlight">\([x_1, x_2, x_3, x_4, x_5, x_6]\)</span>)
+by breaking it down in sets of three parameters
+(<span class="math notranslate nohighlight">\(U(x_1, x_2, x_3), U(x_4, x_5, x_6)\)</span>).</p>
+</section>
+<section id="model-parameters-with-data-re-uploading">
+<h2>Model parameters with data re-uploading<a class="headerlink" href="#model-parameters-with-data-re-uploading" title="Permalink to this heading">¶</a></h2>
+<p>Once we load the data onto the quantum circuit, we want to have some
+trainable nonlinear model similar to a neural network as well as a way
+of learning the weights of the model from data. This is again done with
+unitaries, <span class="math notranslate nohighlight">\(U(\theta_1, \theta_2, \theta_3)\)</span>, such that we load the data
+first and then apply the weights to form a single layer
+<span class="math notranslate nohighlight">\(L(\vec \theta, \vec x) = U(\vec \theta)U(\vec x)\)</span>. In principle, this
+is just application of two matrix multiplications on an input vector
+initialized to some value. In order to increase the number of trainable
+parameters (similar to increasing neurons in a single layer of a neural
+network), we can reapply this layer again and again with new sets of
+weights,
+<span class="math notranslate nohighlight">\(L(\vec \theta_1, \vec x) L(\vec \theta_2, , \vec x) ... L(\vec \theta_L, \vec x)\)</span>
+for <span class="math notranslate nohighlight">\(L\)</span> layers. The quantum circuit would look like the following:</p>
+<p><img alt="" src="../../../../_images/universal_layers.png" /></p>
+</section>
+<section id="the-cost-function-and-nonlinear-collapse">
+<h2>The cost function and “nonlinear collapse”<a class="headerlink" href="#the-cost-function-and-nonlinear-collapse" title="Permalink to this heading">¶</a></h2>
+<p>So far, we have only performed linear operations (matrix
+multiplications) and we know that we need to have some nonlinear
+squashing similar to activation functions in neural networks to really
+make a universal classifier (Cybenko 1989). Here is where things gets a
+bit quantum. After the application of the layers, we will end up at some
+point on the Bloch sphere due to the sequence of unitaries implementing
+rotations of the input. These are still just linear transformations of
+the input state. Now, the output of the model should be a class label
+which can be encoded as fixed vectors (Blue = <span class="math notranslate nohighlight">\([1, 0]\)</span>, Red = <span class="math notranslate nohighlight">\([0, 1]\)</span>)
+on the Bloch sphere. We want to end up at either of them after
+transforming our input state through alternate applications of data
+layer and weights.</p>
+<p>We can use the idea of the “collapse” of our quantum state into one or
+other class. This happens when we measure the quantum state which leads
+to its projection as either the state 0 or 1. We can compute the
+fidelity (or closeness) of the output state to the class label making
+the output state jump to either <span class="math notranslate nohighlight">\(| 0 \rangle\)</span> or <span class="math notranslate nohighlight">\(|1\rangle\)</span>. By
+repeating this process several times, we can compute the probability or
+overlap of our output to both labels and assign a class based on the
+label our output has a higher overlap. This is much like having a set of
+output neurons and selecting the one which has the highest value as the
+label.</p>
+<p>We can encode the output label as a particular quantum state that we
+want to end up in and use Pennylane to find the probability of ending up
+in that state after running the circuit. We construct an observable
+corresponding to the output label using the
+<a class="reference external" href="https://pennylane.readthedocs.io/en/latest/code/ops/qubit.html#pennylane.ops.qubit.Hermitian">Hermitian</a>
+operator. The expectation value of the observable gives the overlap or
+fidelity. We can then define the cost function as the sum of the
+fidelities for all the data points after passing through the circuit and
+optimize the parameters <span class="math notranslate nohighlight">\((\vec \theta)\)</span> to minimize the cost.</p>
+<div class="math notranslate nohighlight">
+\[\texttt{Cost} = \sum_{\texttt{data points}} (1 - \texttt{fidelity}(\psi_{\texttt{output}}(\vec x, \vec \theta), \psi_{\texttt{label}}))\]</div>
+<p>Now, we can use our favorite optimizer to maximize the sum of the
+fidelities over all data points (or batches of datapoints) and find the
+optimal weights for classification. Gradient-based optimizers such as
+Adam (Kingma et. al., 2014) can be used if we have a good model of the
+circuit and how noise might affect it. Or, we can use some gradient-free
+method such as L-BFGS (Liu, Dong C., and Nocedal, J., 1989) to evaluate
+the gradient and find the optimal weights where we can treat the quantum
+circuit as a black-box and the gradients are computed numerically using
+a fixed number of function evaluations and iterations. The L-BFGS method
+can be used with the PyTorch interface for Pennylane.</p>
+</section>
+<section id="multiple-qubits-entanglement-and-deep-neural-networks">
+<h2>Multiple qubits, entanglement and Deep Neural Networks<a class="headerlink" href="#multiple-qubits-entanglement-and-deep-neural-networks" title="Permalink to this heading">¶</a></h2>
+<p>The Universal Approximation Theorem declares that a neural network with
+two or more hidden layers can serve as a universal function
+approximator. Recently, we have witnessed remarkable progress of
+learning algorithms using Deep Neural Networks.</p>
+<p>Pérez-Salinas et al. (2019) make a connection to Deep Neural Networks by
+describing that in their approach the “layers”
+<span class="math notranslate nohighlight">\(L_i(\vec \theta_i, \vec x )\)</span> are analogous to the size of the
+intermediate hidden layer of a neural network. And the concept of deep
+(multiple layers of the neural network) relates to the number of qubits.
+So, multiple qubits with entanglement between them could provide some
+quantum advantage over classical neural networks. But here, we will only
+implement a single qubit classifier.</p>
+<p><img alt="" src="../../../../_images/universal_dnn.png" /></p>
+</section>
+<section id="talk-is-cheap-show-me-the-code-linus-torvalds">
+<h2>“Talk is cheap. Show me the code.” - Linus Torvalds<a class="headerlink" href="#talk-is-cheap-show-me-the-code-linus-torvalds" title="Permalink to this heading">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">pennylane.optimize</span> <span class="kn">import</span> <span class="n">AdamOptimizer</span><span class="p">,</span> <span class="n">GradientDescentOptimizer</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="c1"># Set a random seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="c1"># Make a dataset of points inside and outside of a circle</span>
+<span class="k">def</span> <span class="nf">circle</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">radius</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a dataset of points with 1/0 labels inside a given radius.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        samples (int): number of samples to generate</span>
+<span class="sd">        center (tuple): center of the circle</span>
+<span class="sd">        radius (float: radius of the circle</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Xvals (array[tuple]): coordinates of points</span>
+<span class="sd">        yvals (array[int]): classification labels</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Xvals</span><span class="p">,</span> <span class="n">yvals</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">samples</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">radius</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">Xvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">yvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Xvals</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">yvals</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot data with red/blue values for a binary classification.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (array[tuple]): array of data points as tuples</span>
+<span class="sd">        y (array[int]): array of data points as tuples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fig</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">reds</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="n">blues</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">reds</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">reds</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">blues</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">blues</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$x_2$&quot;</span><span class="p">)</span>
+
+
+<span class="n">Xdata</span><span class="p">,</span> <span class="n">ydata</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Define output labels as quantum state vectors</span>
+<span class="k">def</span> <span class="nf">density_matrix</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates the density matrix representation of a state.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        state (array[complex]): array representing a quantum state vector</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dm: (array[complex]): array representing the density matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">state</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+
+<span class="n">label_0</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">label_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">state_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label_0</span><span class="p">,</span> <span class="n">label_1</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/2fba8c4235626a751440982e8a99e24a50fea2d7e7a0486b6e81cdd36d57a28f.png" src="../../../../_images/2fba8c4235626a751440982e8a99e24a50fea2d7e7a0486b6e81cdd36d57a28f.png" />
+</div>
+</div>
+<section id="simple-classifier-with-data-reloading-and-fidelity-loss">
+<h3>Simple classifier with data reloading and fidelity loss<a class="headerlink" href="#simple-classifier-with-data-reloading-and-fidelity-loss" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Install any pennylane-plugin to run on some particular backend</span>
+
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">qcircuit</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A variational quantum circuit representing the Universal classifier.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (array[float]): array of parameters</span>
+<span class="sd">        x (array[float]): single input vector</span>
+<span class="sd">        y (array[float]): single output state density matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: fidelity between output state and input</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">Rot</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">Rot</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Hermitian</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">state_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cost function to be minimized.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (array[float]): array of parameters</span>
+<span class="sd">        x (array[float]): 2-d array of input vectors</span>
+<span class="sd">        y (array[float]): 1-d array of targets</span>
+<span class="sd">        state_labels (array[float]): array of state representations for labels</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: loss value to be minimized</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Compute prediction for each input in data batch</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">dm_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">density_matrix</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state_labels</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">qcircuit</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dm_labels</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="utility-functions-for-testing-and-creating-batches">
+<h3>Utility functions for testing and creating batches<a class="headerlink" href="#utility-functions-for-testing-and-creating-batches" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">state_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tests on a given set of data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (array[float]): array of parameters</span>
+<span class="sd">        x (array[float]): 2-d array of input vectors</span>
+<span class="sd">        y (array[float]): 1-d array of targets</span>
+<span class="sd">        state_labels (array[float]): 1-d array of state representations for labels</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        predicted (array([int]): predicted labels for test data</span>
+<span class="sd">        output_states (array[float]): output quantum states from the circuit</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fidelity_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dm_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">density_matrix</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">state_labels</span><span class="p">]</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">fidel_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">qcircuit</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">fidelities</span> <span class="o">=</span> <span class="p">[</span><span class="n">fidel_function</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span> <span class="k">for</span> <span class="n">dm</span> <span class="ow">in</span> <span class="n">dm_labels</span><span class="p">]</span>
+        <span class="n">best_fidel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">fidelities</span><span class="p">)</span>
+
+        <span class="n">predicted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best_fidel</span><span class="p">)</span>
+        <span class="n">fidelity_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fidelities</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">predicted</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fidelity_values</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Accuracy score.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_true (array[float]): 1-d array of targets</span>
+<span class="sd">        y_predicted (array[float]): 1-d array of predictions</span>
+<span class="sd">        state_labels (array[float]): 1-d array of state representations for labels</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        score (float): the fraction of correctly classified samples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">==</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">score</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">iterate_minibatches</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A generator for batches of the input data</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inputs (array[float]): input data</span>
+<span class="sd">        targets (array[float]): targets</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        inputs (array[float]): one batch of input data of length `batch_size`</span>
+<span class="sd">        targets (array[float]): one batch of targets of length `batch_size`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">start_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">batch_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">inputs</span><span class="p">[</span><span class="n">idxs</span><span class="p">],</span> <span class="n">targets</span><span class="p">[</span><span class="n">idxs</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-a-quantum-classifier-on-the-circle-dataset">
+<h3>Train a quantum classifier on the circle dataset<a class="headerlink" href="#train-a-quantum-classifier-on-the-circle-dataset" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate training and test data</span>
+<span class="n">num_training</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">num_test</span> <span class="o">=</span> <span class="mi">2000</span>
+
+<span class="n">Xdata</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="n">num_training</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Xdata</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Xdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+
+<span class="n">Xtest</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="n">num_test</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+
+
+<span class="c1"># Train using Adam optimizer and evaluate the classifier</span>
+<span class="n">num_layers</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
+
+<span class="n">opt</span> <span class="o">=</span> <span class="n">AdamOptimizer</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">beta1</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">beta2</span><span class="o">=</span><span class="mf">0.999</span><span class="p">)</span>
+
+<span class="c1"># initialize random weights</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_layers</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">predicted_train</span><span class="p">,</span> <span class="n">fidel_train</span> <span class="o">=</span> <span class="n">test</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+<span class="n">accuracy_train</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">predicted_train</span><span class="p">)</span>
+
+<span class="n">predicted_test</span><span class="p">,</span> <span class="n">fidel_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+<span class="n">accuracy_test</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predicted_test</span><span class="p">)</span>
+
+<span class="c1"># save predictions with random weights for comparison</span>
+<span class="n">initial_predictions</span> <span class="o">=</span> <span class="n">predicted_test</span>
+
+<span class="n">loss</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Epoch: </span><span class="si">{:2d}</span><span class="s2"> | Cost: </span><span class="si">{:3f}</span><span class="s2"> | Train accuracy: </span><span class="si">{:3f}</span><span class="s2"> | Test Accuracy: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy_train</span><span class="p">,</span> <span class="n">accuracy_test</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">Xbatch</span><span class="p">,</span> <span class="n">ybatch</span> <span class="ow">in</span> <span class="n">iterate_minibatches</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">params</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">cost</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">Xbatch</span><span class="p">,</span> <span class="n">ybatch</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+
+    <span class="n">predicted_train</span><span class="p">,</span> <span class="n">fidel_train</span> <span class="o">=</span> <span class="n">test</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+    <span class="n">accuracy_train</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">predicted_train</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">cost</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+
+    <span class="n">predicted_test</span><span class="p">,</span> <span class="n">fidel_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">state_labels</span><span class="p">)</span>
+    <span class="n">accuracy_test</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predicted_test</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">it</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy_train</span><span class="p">,</span> <span class="n">accuracy_test</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Epoch: </span><span class="si">{:2d}</span><span class="s2"> | Loss: </span><span class="si">{:3f}</span><span class="s2"> | Train accuracy: </span><span class="si">{:3f}</span><span class="s2"> | Test accuracy: </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">res</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch:  0 | Cost: 0.415535 | Train accuracy: 0.460000 | Test Accuracy: 0.448500
+Epoch:  1 | Loss: 0.125417 | Train accuracy: 0.840000 | Test accuracy: 0.804000
+Epoch:  2 | Loss: 0.154322 | Train accuracy: 0.775000 | Test accuracy: 0.756000
+Epoch:  3 | Loss: 0.145234 | Train accuracy: 0.810000 | Test accuracy: 0.799000
+Epoch:  4 | Loss: 0.126142 | Train accuracy: 0.805000 | Test accuracy: 0.781500
+Epoch:  5 | Loss: 0.127102 | Train accuracy: 0.845000 | Test accuracy: 0.794500
+Epoch:  6 | Loss: 0.128556 | Train accuracy: 0.825000 | Test accuracy: 0.807000
+Epoch:  7 | Loss: 0.113327 | Train accuracy: 0.810000 | Test accuracy: 0.794500
+Epoch:  8 | Loss: 0.109549 | Train accuracy: 0.895000 | Test accuracy: 0.857000
+Epoch:  9 | Loss: 0.147936 | Train accuracy: 0.750000 | Test accuracy: 0.750000
+Epoch: 10 | Loss: 0.104038 | Train accuracy: 0.890000 | Test accuracy: 0.847000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Cost: </span><span class="si">{:3f}</span><span class="s2"> | Train accuracy </span><span class="si">{:3f}</span><span class="s2"> | Test Accuracy : </span><span class="si">{:3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">loss</span><span class="p">,</span> <span class="n">accuracy_train</span><span class="p">,</span> <span class="n">accuracy_test</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Learned weights&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Layer </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">initial_predictions</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">predicted_test</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plot_data</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Predictions with random weights&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Predictions after training&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;True test data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cost: 0.104038 | Train accuracy 0.890000 | Test Accuracy : 0.847000
+Learned weights
+Layer 0: [-0.23838965  1.17081693 -0.19781887]
+Layer 1: [0.64850867 0.71778245 0.46408056]
+Layer 2: [ 2.39560597 -1.21404538  0.32099705]
+</pre></div>
+</div>
+<img alt="../../../../_images/8631700f1bd838d117b599d64efb6d6c380dc90099e7e14bf431466abaee4739.png" src="../../../../_images/8631700f1bd838d117b599d64efb6d6c380dc90099e7e14bf431466abaee4739.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>Send it after class<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>Try improving the accuracy.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">¶</a></h2>
+<p>[1] Pérez-Salinas, Adrián, et al. “Data re-uploading for a universal
+quantum classifier.” arXiv preprint arXiv:1907.02085 (2019).</p>
+<p>[2] Kingma, Diederik P., and Ba, J. “Adam: A method for stochastic
+optimization.” arXiv preprint arXiv:1412.6980 (2014).</p>
+<p>[3] Liu, Dong C., and Nocedal, J. “On the limited memory BFGS method
+for large scale optimization.” Mathematical programming 45.1-3 (1989):
+503-528.</p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS710/hands-on/hands-on-5/hands-on-5-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
