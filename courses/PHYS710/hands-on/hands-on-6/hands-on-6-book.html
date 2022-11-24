@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Parameter-shift rules &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="parameter-shift-rules">
+<h1>Parameter-shift rules<a class="headerlink" href="#parameter-shift-rules" title="Permalink to this heading">¶</a></h1>
+<p>The output of a variational circuit (i.e., the expectation of an observable) can be written as a “quantum function” <span class="math notranslate nohighlight">\(f(\theta)\)</span> parametrized by <span class="math notranslate nohighlight">\(\theta = \theta_1, \theta_2, \dots\)</span>. The partial derivative of <span class="math notranslate nohighlight">\(f(\theta)\)</span> can in many cases be expressed as a linear combination of other quantum functions. Importantly, these other quantum functions typically use the same circuit, differing only in a shift of the argument. This means that partial derivatives of a variational circuit can be computed by using the same variational circuit architecture.</p>
+<p>Recipes of how to get partial derivatives by evaluated parameter-shifted instances of a variational circuit are called parameter-shift rules, and have been first introduced to quantum machine learning in Mitarai et al. (2018), and extended in Schuld et al. (2018).</p>
+<p><img alt="" src="../../../../_images/gradients2.png" /></p>
+<p>Making a rough analogy to classically computable functions, this is similar to how the derivative of the function <span class="math notranslate nohighlight">\(f(x)=\sin(x)\)</span> is identical to <span class="math notranslate nohighlight">\(\frac{1}{2}\sin(x+\frac{\pi}{2}) - \frac{1}{2}\sin(x-\frac{\pi}{2})\)</span>. So the same underlying algorithm can be reused to compute both <span class="math notranslate nohighlight">\(\sin(x)\)</span> and its derivative (by evaluating at <span class="math notranslate nohighlight">\(x\pm\frac{\pi}{2}\)</span>). This intuition holds for many quantum functions of interest: the same circuit can be used to compute both the quantum function and the gradient of the quantum function (This should be contrasted with software which can perform automatic differentiation on classical simulations of quantum circuits, such as Strawberry Fields).</p>
+<section id="a-more-technical-explanation">
+<h2>A more technical explanation<a class="headerlink" href="#a-more-technical-explanation" title="Permalink to this heading">¶</a></h2>
+<p>Quantum circuits are specified by a sequence of gates. The unitary transformation carried out by the circuit can thus be broken down into a product of unitaries:</p>
+<div class="math notranslate nohighlight">
+\[
+U(x; \theta) = U_N(\theta_{N}) U_{N-1}(\theta_{N-1}) \cdots U_i(\theta_i) \cdots U_1(\theta_1) U_0(x).
+\]</div>
+<p>Each of these gates is unitary, and therefore must have the form <span class="math notranslate nohighlight">\(U_{j}(\gamma_j)=\exp{(i\gamma_j H_j)}\)</span> where <span class="math notranslate nohighlight">\(H_j\)</span> is a Hermitian operator which generates the gate and <span class="math notranslate nohighlight">\(\gamma_j\)</span> is the gate parameter. We have omitted which wire each unitary acts on, since it is not necessary for the following discussion.</p>
+<p>Note:</p>
+<p>In this example, we have used the input <span class="math notranslate nohighlight">\(x\)</span> as the argument for gate <span class="math notranslate nohighlight">\(U_0\)</span> and the parameters <span class="math notranslate nohighlight">\(\theta\)</span> for the remaining gates. This is not required. Inputs and parameters can be arbitrarily assigned to different gates.</p>
+<section id="a-single-parameterized-gate">
+<h3>A single parameterized gate<a class="headerlink" href="#a-single-parameterized-gate" title="Permalink to this heading">¶</a></h3>
+<p>Let us single out a single parameter <span class="math notranslate nohighlight">\(\theta_i\)</span> and its associated gate <span class="math notranslate nohighlight">\(U_i(\theta_i)\)</span>. For simplicity, we remove all gates except <span class="math notranslate nohighlight">\(U_i(\theta_i)\)</span> and <span class="math notranslate nohighlight">\(U_0(x)\)</span> for the moment. In this case, we have a simplified quantum circuit function</p>
+<div class="math notranslate nohighlight">
+\[
+f(x; \theta_i) = \langle 0 | U_0^\dagger(x)U_i^\dagger(\theta_i)\hat{B}U_i(\theta_i)U_0(x) | 0 \rangle = \langle x | U_i^\dagger(\theta_i)\hat{B}U_i(\theta_i) | x \rangle.
+\]</div>
+<p>For convenience, we rewrite the unitary conjugation as a linear transformation <span class="math notranslate nohighlight">\(\mathcal{M}_{\theta_i}\)</span> acting on the operator <span class="math notranslate nohighlight">\(\hat{B}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+U_i^\dagger(\theta_i)\hat{B}U_i(\theta_i) = \mathcal{M}_{\theta_i}(\hat{B}).
+\]</div>
+<p>The transformation <span class="math notranslate nohighlight">\(\mathcal{M}_{\theta_i}\)</span> depends smoothly on the parameter <span class="math notranslate nohighlight">\(\theta_i\)</span>, so this quantum function will have a well-defined gradient:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta_i}f(x; \theta_i) = \langle x | \nabla_{\theta_i}\mathcal{M}_{\theta_i}(\hat{B}) | x \rangle \in \mathbb{R}.
+\]</div>
+<p>The key insight is that we can, in many cases of interest, express this gradient as a linear combination of the same transformation <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>, but with different parameters. Namely,</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta_i}\mathcal{M}_{\theta_i}(\hat{B}) = c[\mathcal{M}_{\theta_i + s}(\hat{B}) - \mathcal{M}_{\theta_i - s}(\hat{B})],
+\]</div>
+<p>where the multiplier <span class="math notranslate nohighlight">\(c\)</span> and the shift <span class="math notranslate nohighlight">\(s\)</span> are determined completely by the type of transformation <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> and independent of the value of <span class="math notranslate nohighlight">\(\theta_i\)</span>.</p>
+<p>Note</p>
+<p>While this construction bears some resemblance to the numerical finite-difference method for computing derivatives, here <span class="math notranslate nohighlight">\(s\)</span> is finite rather than infinitesimal.</p>
+</section>
+<section id="multiple-parameterized-gates">
+<h3>Multiple parameterized gates<a class="headerlink" href="#multiple-parameterized-gates" title="Permalink to this heading">¶</a></h3>
+<p>To complete the story, we now go back to the case where there are many gates in the circuit. We can absorb any gates applied before gate i into the initial state: |\psi_{i-1}\rangle = U_{i-1}(\theta_{i-1}) \cdots U_{1}(\theta_{1})U_{0}(x)|0\rangle. Similarly, any gates applied after gate i are combined with the observable <span class="math notranslate nohighlight">\(\hat{B}: \hat{B}_{i+1} = U_{N}^\dagger(\theta_{N}) \cdots U_{i+1}^\dagger(\theta_{i+1}) \hat{B} U_{i+1}(\theta_{i+1}) \cdots U_{N}(\theta_{N})\)</span>.</p>
+<p>With this simplification, the quantum circuit function becomes</p>
+<div class="math notranslate nohighlight">
+\[
+f(x; \theta) = \langle \psi_{i-1} | U_i^\dagger(\theta_i) \hat{B}_{i+1} U_i(\theta_i) | \psi_{i-1} \rangle = \langle \psi_{i-1} | \mathcal{M}_{\theta_i} (\hat{B}_{i+1}) | \psi_{i-1} \rangle,
+\]</div>
+<p>and its gradient is</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta_i}f(x; \theta) = \langle \psi_{i-1} | \nabla_{\theta_i}\mathcal{M}_{\theta_i} (\hat{B}_{i+1}) | \psi_{i-1} \rangle.
+\]</div>
+<p>This gradient has the exact same form as the single-gate case, except we modify the state <span class="math notranslate nohighlight">\(|x\rangle \rightarrow |\psi_{i-1}\rangle\)</span> and the measurement operator <span class="math notranslate nohighlight">\(\hat{B}\rightarrow\hat{B}_{i+1}\)</span>. In terms of the circuit, this means we can leave all other gates as they are, and only modify gate <span class="math notranslate nohighlight">\(U(\theta_i)\)</span> when we want to differentiate with respect to the parameter <span class="math notranslate nohighlight">\(\theta_i\)</span>.</p>
+<p>Note</p>
+<p>Sometimes we may want to use the same classical parameter with multiple gates in the circuit. Due to the product rule, the total gradient will then involve contributions from each gate that uses that parameter.</p>
+</section>
+<section id="pauli-gate-example">
+<h3>Pauli gate example<a class="headerlink" href="#pauli-gate-example" title="Permalink to this heading">¶</a></h3>
+<p>Consider a quantum computer with parameterized gates of the form</p>
+<div class="math notranslate nohighlight">
+\[
+U_i(\theta_i)=\exp\left(-i\tfrac{\theta_i}{2}\hat{P}_i\right),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{P}_i=\hat{P}_i^\dagger\)</span> is a Pauli operator.</p>
+<p>The gradient of this unitary is</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta_i}U_i(\theta_i) = -\tfrac{i}{2}\hat{P}_i U_i(\theta_i) = -\tfrac{i}{2}U_i(\theta_i)\hat{P}_i .
+\]</div>
+<p>Substituting this into the quantum circuit function <span class="math notranslate nohighlight">\(f(x; \theta)\)</span>, we get</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \nabla_{\theta_i}f(x; \theta) = &amp;
+    \frac{i}{2}\langle \psi_{i-1} | U_i^\dagger(\theta_i) \left( P_i \hat{B}_{i+1} - \hat{B}_{i+1} P_i \right) U_i(\theta_i)| \psi_{i-1} \rangle \\
+    = &amp; \frac{i}{2}\langle \psi_{i-1} | U_i^\dagger(\theta_i) \left[P_i, \hat{B}_{i+1}\right]U_i(\theta_i) | \psi_{i-1} \rangle,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\([X,Y]=XY-YX\)</span> is the commutator.</p>
+<p>We now make use of the following mathematical identity for commutators involving Pauli operators (Mitarai et al. (2018)):</p>
+<div class="math notranslate nohighlight">
+\[
+\left[ \hat{P}_i, \hat{B} \right] = -i\left(U_i^\dagger\left(\tfrac{\pi}{2}\right)\hat{B}U_i\left(\tfrac{\pi}{2}\right) - U_i^\dagger\left(-\tfrac{\pi}{2}\right)\hat{B}U_i\left(-\tfrac{\pi}{2}\right) \right).
+\]</div>
+<p>Substituting this into the previous equation, we obtain the gradient expression</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \nabla_{\theta_i}f(x; \theta) = &amp; \hphantom{-} \tfrac{1}{2} \langle \psi_{i-1} | U_i^\dagger\left(\theta_i + \tfrac{\pi}{2} \right) \hat{B}_{i+1} U_i\left(\theta_i + \tfrac{\pi}{2} \right) | \psi_{i-1} \rangle \\
+    &amp; - \tfrac{1}{2} \langle \psi_{i-1} | U_i^\dagger\left(\theta_i - \tfrac{\pi}{2} \right) \hat{B}_{i+1} U_i\left(\theta_i - \tfrac{\pi}{2} \right) | \psi_{i-1} \rangle.
+\end{align}
+\end{split}\]</div>
+<p>Finally, we can rewrite this in terms of quantum functions:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta}f(x; \theta) = \tfrac{1}{2}\left[ f(x; \theta + \tfrac{\pi}{2}) - f(x; \theta - \tfrac{\pi}{2}) \right].
+\]</div>
+</section>
+<section id="gaussian-gate-example">
+<h3>Gaussian gate example<a class="headerlink" href="#gaussian-gate-example" title="Permalink to this heading">¶</a></h3>
+<p>For quantum devices with continuous-valued operators, such as photonic quantum computers, it is convenient to employ the Heisenberg picture, i.e., to track how the gates <span class="math notranslate nohighlight">\(U_i(\theta_i)\)</span> transform the final measurement operator <span class="math notranslate nohighlight">\(\hat{B}\)</span>.</p>
+<p>As an example, we consider the Squeezing gate. In the Heisenberg picture, the Squeezing gate causes the quadrature operators \hat{x} and \hat{p} to become rescaled:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \mathcal{M}^S_r(\hat{x}) = &amp; S^\dagger(r)\hat{x}S(r) \\
+                                = &amp; e^{-r}\hat{x}
+\end{align}
+\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \mathcal{M}^S_r(\hat{p}) = &amp; S^\dagger(r)\hat{p}S(r) \\
+                                = &amp; e^{r}\hat{p}.
+\end{align}
+\end{split}\]</div>
+<p>Expressing this in matrix notation, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \begin{bmatrix}
+        \hat{x} \\
+        \hat{p}
+    \end{bmatrix}
+    \rightarrow
+    \begin{bmatrix}
+       e^{-r} &amp; 0 \\
+       0      &amp; e^r
+    \end{bmatrix}
+    \begin{bmatrix}
+        \hat{x} \\
+        \hat{p}
+    \end{bmatrix}.
+\end{align}
+\end{split}\]</div>
+<p>The gradient of this transformation can easily be found:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \nabla_r
+    \begin{bmatrix}
+        e^{-r} &amp; 0 \\
+        0 &amp; e^r
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        -e^{-r} &amp; 0 \\
+        0 &amp; e^r
+    \end{bmatrix}.
+\end{align}
+\end{split}\]</div>
+<p>We notice that this can be rewritten this as a linear combination of squeeze operations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \begin{bmatrix}
+        -e^{-r} &amp; 0 \\
+        0 &amp; e^r
+    \end{bmatrix}
+    =
+    \frac{1}{2\sinh(s)}
+    \left(
+    \begin{bmatrix}
+        e^{-(r+s)} &amp; 0 \\
+        0 &amp; e^{r+s}
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+        e^{-(r-s)} &amp; 0 \\
+        0 &amp; e^{r-s}
+    \end{bmatrix}
+    \right),
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is an arbitrary nonzero shift (Note: In situations where no formula for automatic quantum gradients is known, one can fall back to approximate gradient estimation using numerical methods.
+).</p>
+<p>As before, assume that an input y has already been embedded into a quantum state <span class="math notranslate nohighlight">\(|y\rangle = U_0(y)|0\rangle\)</span> before we apply the squeeze gate. If we measure the <span class="math notranslate nohighlight">\(\hat{x}\)</span> operator, we will have the following quantum circuit function:</p>
+<div class="math notranslate nohighlight">
+\[
+f(y;r) = \langle y | \mathcal{M}^S_r (\hat{x}) | y \rangle.
+\]</div>
+<p>Finally, its gradient can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    \nabla_r f(y;r) = &amp;  \frac{1}{2\sinh(s)} \left[
+                         \langle y | \mathcal{M}^S_{r+s} (\hat{x}) | y \rangle
+                        -\langle y | \mathcal{M}^S_{r-s} (\hat{x}) | y \rangle \right] \\
+                    = &amp; \frac{1}{2\sinh(s)}\left[f(y; r+s) - f(y; r-s)\right].
+\end{align}
+\end{split}\]</div>
+<p>Note</p>
+<p>For simplicity of the discussion, we have set the phase angle of the Squeezing gate to be zero. In the general case, Squeezing is a two-parameter gate, containing a squeezing magnitude and a squeezing angle. However, we can always decompose the two-parameter form into a Squeezing gate like the one above, followed by a Rotation gate.</p>
+<p>In physical experiments, it is beneficial to choose s so that the additional squeezing is small. However, there is a tradeoff, because we also want to make sure <span class="math notranslate nohighlight">\(\frac{1}{2\sinh(s)}\)</span> does not blow up numerically.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-gradients-with-backpropagation">
+<h1>Quantum gradients with backpropagation<a class="headerlink" href="#quantum-gradients-with-backpropagation" title="Permalink to this heading">¶</a></h1>
+<p>Using backpropagation can speed up training of quantum circuits compared to the parameter-shift rule—if you are using a simulator.</p>
+<p>In PennyLane, any quantum device, whether a hardware device or a
+simulator, can be trained using the parameter shift rule to compute quantum gradients. Indeed, the parameter-shift
+rule is ideally suited to hardware devices, as it does not require any knowledge about the internal workings of the device; it is sufficient to treat the device as a ‘black box’, and to query it with different
+input values in order to determine the gradient.</p>
+<p>When working with simulators, however, we <em>do</em> have access to the internal (classical) computations being performed. This allows us to take advantage of other methods of computing the gradient, such as
+backpropagation, which may be advantageous in certain regimes. In this tutorial, we will compare and contrast the parameter-shift rule against backpropagation, using the PennyLane
+<code class="docutils literal notranslate"><span class="pre">default.qubit</span> <span class="pre">&lt;pennylane.devices.default_qubit&gt;</span></code> device.</p>
+<section id="the-parameter-shift-rule-example">
+<h2>The parameter-shift rule example<a class="headerlink" href="#the-parameter-shift-rule-example" title="Permalink to this heading">¶</a></h2>
+<p>The parameter-shift rule states that, given a variational quantum circuit <span class="math notranslate nohighlight">\(U(\boldsymbol \theta)\)</span> composed of parametrized Pauli rotations, and some measured
+observable <span class="math notranslate nohighlight">\(\hat{B}\)</span>, the derivative of the expectation value</p>
+<div class="math notranslate nohighlight">
+\[\langle \hat{B} \rangle (\boldsymbol\theta) =
+\langle 0 \vert U(\boldsymbol\theta)^\dagger \hat{B} U(\boldsymbol\theta) \vert 0\rangle\]</div>
+<p>with respect to the input circuit parameters <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> is
+given by</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\theta_i}\langle \hat{B} \rangle(\boldsymbol\theta)
+   =  \frac{1}{2}
+         \left[
+             \langle \hat{B} \rangle\left(\boldsymbol\theta + \frac{\pi}{2}\hat{\mathbf{e}}_i\right)
+           - \langle \hat{B} \rangle\left(\boldsymbol\theta - \frac{\pi}{2}\hat{\mathbf{e}}_i\right)
+         \right].\]</div>
+<p>Thus, the gradient of the expectation value can be calculated by
+evaluating the same variational quantum circuit, but with shifted
+parameter values (hence the name, parameter-shift rule!).</p>
+<p>Let’s have a go implementing the parameter-shift rule manually in
+PennyLane.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># set the random seed</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># create a device to execute the circuit on</span>
+<span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">diff_method</span><span class="o">=</span><span class="s2">&quot;parameter-shift&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliY</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s test the variational circuit evaluation with some parameter
+input:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initial parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">([</span><span class="mi">6</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parameters:&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Expectation value:&quot;</span><span class="p">,</span> <span class="n">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameters: [0.37454012 0.95071431 0.73199394 0.59865848 0.15601864 0.15599452]
+Expectation value: -0.11971365706871566
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also draw the executed quantum circuit:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">draw_mpl</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/22c8e0253a71f55c5da6ec3413b5face4ef08171907f9ac28c39c217e452130a.png" src="../../../../_images/22c8e0253a71f55c5da6ec3413b5face4ef08171907f9ac28c39c217e452130a.png" />
+</div>
+</div>
+<p>Now that we have defined our variational circuit QNode, we can construct
+a function that computes the gradient of the <span class="math notranslate nohighlight">\(i\text{th}\)</span> parameter
+using the parameter-shift rule.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parameter_shift_term</span><span class="p">(</span><span class="n">qnode</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">shifted</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">shifted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">forward</span> <span class="o">=</span> <span class="n">qnode</span><span class="p">(</span><span class="n">shifted</span><span class="p">)</span>  <span class="c1"># forward evaluation</span>
+
+    <span class="n">shifted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">backward</span> <span class="o">=</span> <span class="n">qnode</span><span class="p">(</span><span class="n">shifted</span><span class="p">)</span> <span class="c1"># backward evaluation</span>
+
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">forward</span> <span class="o">-</span> <span class="n">backward</span><span class="p">)</span>
+
+<span class="c1"># gradient with respect to the first parameter</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parameter_shift_term</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.06518877224958124
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order to compute the gradient with respect to <em>all</em> parameters, we
+need to loop over the index <code class="docutils literal notranslate"><span class="pre">i</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parameter_shift</span><span class="p">(</span><span class="n">qnode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)):</span>
+        <span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_shift_term</span><span class="p">(</span><span class="n">qnode</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gradients</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">parameter_shift</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-6.51887722e-02 -2.72891905e-02  0.00000000e+00 -9.33934621e-02
+ -7.61067572e-01  4.16333634e-17]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can compare this to PennyLane’s <em>built-in</em> quantum gradient support
+by using the <code class="docutils literal notranslate"><span class="pre">qml.grad</span> <span class="pre">&lt;pennylane.grad&gt;</span></code>
+function, which allows us to compute gradients of hybrid
+quantum-classical cost functions. Remember, when we defined the QNode,
+we specified that we wanted it to be differentiable using the
+parameter-shift method (<code class="docutils literal notranslate"><span class="pre">diff_method=&quot;parameter-shift&quot;</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grad_function</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grad_function</span><span class="p">(</span><span class="n">params</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.06518877224958125
+</pre></div>
+</div>
+</div>
+</div>
+<p>Alternatively, we can directly compute quantum gradients of QNodes using
+PennyLane’s built in
+<code class="docutils literal notranslate"><span class="pre">qml.gradients</span> <span class="pre">&lt;pennylane.gradients&gt;</span></code>
+module:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">gradients</span><span class="o">.</span><span class="n">param_shift</span><span class="p">(</span><span class="n">circuit</span><span class="p">)(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-6.51887722e-02 -2.72891905e-02 -2.77555756e-17 -9.33934621e-02
+ -7.61067572e-01  4.16333634e-17]
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you count the number of quantum evaluations, you will notice that we
+had to evaluate the circuit <code class="docutils literal notranslate"><span class="pre">2*len(params)</span></code> number of times in order to
+compute the quantum gradient with respect to all parameters. While
+reasonably fast for a small number of parameters, as the number of
+parameters in our quantum circuit grows, so does both</p>
+<ol class="arabic simple">
+<li><p>the circuit depth (and thus the time taken to evaluate each
+expectation value or ‘forward’ pass), and</p></li>
+<li><p>the number of parameter-shift evaluations required.</p></li>
+</ol>
+<p>Both of these factors increase the time taken to compute the gradient
+with respect to all parameters.</p>
+<section id="benchmarking">
+<h3>Benchmarking<a class="headerlink" href="#benchmarking" title="Permalink to this heading">¶</a></h3>
+<p>Let’s consider an example with a significantly larger number of
+parameters. We’ll make use of the
+<code class="docutils literal notranslate"><span class="pre">~pennylane.StronglyEntanglingLayers</span></code>
+template to make a more complicated QNode.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">diff_method</span><span class="o">=</span><span class="s2">&quot;parameter-shift&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># initialize circuit parameters</span>
+<span class="n">param_shape</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">n_wires</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">param_shape</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>180
+0.8947771876917631
+</pre></div>
+</div>
+</div>
+</div>
+<p>This circuit has 180 parameters. Let’s see how long it takes to perform
+a forward pass of the circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="n">reps</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;circuit(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+<span class="n">forward_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forward pass (best of </span><span class="si">{</span><span class="n">reps</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">forward_time</span><span class="si">}</span><span class="s2"> sec per loop&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forward pass (best of 3): 0.015980856600072 sec per loop
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now estimate the time taken to compute the full gradient vector,
+and see how this compares.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the gradient function</span>
+<span class="n">grad_fn</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;grad_fn(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+<span class="n">backward_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gradient computation (best of </span><span class="si">{</span><span class="n">reps</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">backward_time</span><span class="si">}</span><span class="s2"> sec per loop&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gradient computation (best of 3): 6.393744547899405 sec per loop
+</pre></div>
+</div>
+</div>
+</div>
+<p>Based on the parameter-shift rule, we expect that the amount of time to compute the quantum gradients should be approximately <span class="math notranslate nohighlight">\(2p\Delta t_{f}\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is the number of parameters and <span class="math notranslate nohighlight">\(\Delta t_{f}\)</span> if the time
+taken for the forward pass. Let’s verify this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">forward_time</span> <span class="o">*</span> <span class="n">params</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.75310837602592
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="backpropagation-example">
+<h2>Backpropagation example<a class="headerlink" href="#backpropagation-example" title="Permalink to this heading">¶</a></h2>
+<p>An alternative to the parameter-shift rule for computing gradients is <a class="reference external" href="https://en.wikipedia.org/wiki/Reverse_accumulation">reverse-mode
+autodifferentiation</a>. Unlike the parameter-shift method, which requires <span class="math notranslate nohighlight">\(2p\)</span> circuit evaluations for <span class="math notranslate nohighlight">\(p\)</span> parameters, reverse-mode requires only a <em>single</em> forward pass of the differentiable function to compute the gradient of all variables, at the expense of increased memory usage. During the forward pass, the results of all intermediate subexpressions are stored; the computation is then traversed <em>in reverse</em>, with the gradient computed by repeatedly applying the chain rule. In most classical machine learning settings (where we are training scalar loss functions consisting of a large number of parameters), reverse-mode
+autodifferentiation is the preferred method of autodifferentiation—the reduction in computational time enables larger and more complex models to be successfully trained. The
+backpropagation algorithm is a particular special-case of reverse-mode autodifferentiation, which has helped lead to the machine learning explosion we see today.</p>
+<p>In quantum machine learning, however, the inability to store and utilize the results of <em>intermediate</em> quantum operations on hardware remains a barrier to using backprop; while reverse-mode autodifferentiation works
+fine for small quantum simulations, only the parameter-shift rule can be used to compute gradients on quantum hardware directly. Nevertheless, when training quantum models via classical simulation, it’s useful to
+explore the regimes where reverse-mode differentiation may be a better choice than the parameter-shift rule.</p>
+<section id="id1">
+<h3>Benchmarking<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<p>When creating a QNode, <code class="docutils literal notranslate"><span class="pre">PennyLane</span> <span class="pre">supports</span> <span class="pre">various</span> <span class="pre">methods</span> <span class="pre">of</span> <span class="pre">differentiation</span> <span class="pre">&lt;code/api/pennylane.qnode&gt;</span></code>, including <code class="docutils literal notranslate"><span class="pre">&quot;parameter-shift&quot;</span></code> (which we used previously), <code class="docutils literal notranslate"><span class="pre">&quot;finite-diff&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;reversible&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;backprop&quot;</span></code>. While <code class="docutils literal notranslate"><span class="pre">&quot;parameter-shift&quot;</span></code> works with all devices (simulator or hardware), <code class="docutils literal notranslate"><span class="pre">&quot;backprop&quot;</span></code> will only work for specific simulator devices that are designed to support backpropagation.</p>
+<p>One such device is <code class="docutils literal notranslate"><span class="pre">default.qubit</span> <span class="pre">&lt;pennylane.devices.DefaultQubit&gt;</span></code>. It has backends written using TensorFlow, JAX, and
+Autograd, so when used with the TensorFlow, JAX, and Autograd interfaces respectively, supports backpropagation. In this demo, we will use the default Autograd interface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When defining the QNode, we specify <code class="docutils literal notranslate"><span class="pre">diff_method=&quot;backprop&quot;</span></code> to ensure that we are using backpropagation mode. Note that this is the <em>default differentiation mode</em> for the <code class="docutils literal notranslate"><span class="pre">default.qubit</span></code> device.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">diff_method</span><span class="o">=</span><span class="s2">&quot;backprop&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># initialize circuit parameters</span>
+<span class="n">param_shape</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">n_wires</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">param_shape</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9358535378025427
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s see how long it takes to perform a forward pass of the circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="n">reps</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">times</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;circuit(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+<span class="n">forward_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forward pass (best of </span><span class="si">{</span><span class="n">reps</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">forward_time</span><span class="si">}</span><span class="s2"> sec per loop&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Forward pass (best of 3): 0.035774128500634106 sec per loop
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comparing this to the forward pass from <code class="docutils literal notranslate"><span class="pre">default.qubit</span></code>, we note that there is some potential overhead from using backpropagation. We can now time how long it takes to perform a gradient computation via
+backpropagation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;qml.grad(circuit)(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+<span class="n">backward_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Backward pass (best of </span><span class="si">{</span><span class="n">reps</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">backward_time</span><span class="si">}</span><span class="s2"> sec per loop&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Backward pass (best of 3): 0.10358560149979894 sec per loop
+</pre></div>
+</div>
+</div>
+</div>
+<p>Unlike with the parameter-shift rule, the time taken to perform the backwards pass appears of the order of a single forward pass! The can significantly speed up training of simulated circuits with many
+parameters.</p>
+</section>
+</section>
+<section id="send-it-after-class-time-comparison">
+<h2>Send it after class: Time comparison<a class="headerlink" href="#send-it-after-class-time-comparison" title="Permalink to this heading">¶</a></h2>
+<p>Let’s compare the two differentiation approaches as the number of trainable parameters in the variational circuit increases, by timing both the forward pass and the gradient computation as the number of
+layers is allowed to increase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll continue to use the same ansatz as before, but to reduce the time taken to collect the data, we’ll reduce the number and repetitions of timings per data point. Below, we loop over a variational circuit depth ranging from 0 (no gates/ trainable parameters) to 20. Each layer will contain <span class="math notranslate nohighlight">\(3N\)</span> parameters, where <span class="math notranslate nohighlight">\(N\)</span> is the number of wires (in this case, we have <span class="math notranslate nohighlight">\(N=4\)</span>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reps</span> <span class="o">=</span> <span class="c1">#fill me</span>
+<span class="n">num</span> <span class="o">=</span> <span class="c1">#fill me</span>
+
+<span class="n">forward_shift</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">gradient_shift</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">forward_backprop</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">gradient_backprop</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">fill</span> <span class="n">me</span><span class="o">-</span><span class="p">):</span>
+    <span class="n">param_shape</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">StronglyEntanglingLayers</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">n_wires</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">param_shape</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">num_params</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="c1"># forward pass timing</span>
+    <span class="c1"># ===================</span>
+
+    <span class="n">qnode_shift</span> <span class="o">=</span> <span class="c1">#fill me</span>
+    <span class="n">qnode_backprop</span> <span class="o">=</span> <span class="c1">#fill me</span>
+
+    <span class="c1"># parameter-shift</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;qnode_shift(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+    <span class="n">forward_shift</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num_params</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span><span class="p">])</span>
+
+    <span class="c1"># backprop</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;qnode_backprop(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+    <span class="n">forward_backprop</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num_params</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">num_params</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="c1"># Gradient timing</span>
+    <span class="c1"># ===============</span>
+
+    <span class="n">qnode_shift</span> <span class="o">=</span> <span class="c1">#fill me</span>
+    <span class="n">qnode_backprop</span> <span class="o">=</span> <span class="c1">#fill me</span>
+
+    <span class="c1"># parameter-shift</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;qml.grad(qnode_shift)(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+    <span class="n">gradient_shift</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num_params</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span><span class="p">])</span>
+
+    <span class="c1"># backprop</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;qml.grad(qnode_backprop)(params)&quot;</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">reps</span><span class="p">)</span>
+    <span class="n">gradient_backprop</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">num_params</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">num</span><span class="p">])</span>
+
+<span class="n">gradient_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradient_shift</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">gradient_backprop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradient_backprop</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">forward_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forward_shift</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">forward_backprop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forward_backprop</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]</span>
+    <span class="n">reps</span> <span class="o">=</span> <span class="c1">#fill me</span>
+           <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now import matplotlib, and plot the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;bmh&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_shift</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Parameter-shift&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_backprop</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Backprop&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of parameters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the computational time for the parameter-shift rule increases with increasing number of parameters, as expected, whereas the computational time for backpropagation appears much more constant, with
+perhaps a minute linear increase with <span class="math notranslate nohighlight">\(p\)</span>. Note that the plots are not perfectly linear, with some ‘bumpiness’ or noisiness. This is likely due to low-level operating system jitter, and other environmental
+fluctuations—increasing the number of repeats can help smooth out the plot.</p>
+<p>For a better comparison, we can scale the time required for computing the quantum gradients against the time taken for the corresponding forward pass:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gradient_shift</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">forward_shift</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+<span class="n">gradient_backprop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">forward_backprop</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_shift</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Parameter-shift&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_backprop</span><span class="p">,</span> <span class="s1">&#39;.-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Backprop&quot;</span><span class="p">)</span>
+
+<span class="c1"># perform a least squares regression to determine the linear best fit/gradient</span>
+<span class="c1"># for the normalized time vs. number of parameters</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">gradient_shift</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">m_shift</span><span class="p">,</span> <span class="n">c_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_shift</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">m_back</span><span class="p">,</span> <span class="n">c_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="o">*</span><span class="n">gradient_backprop</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m_shift</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c_shift</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m_shift</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">p</span><span class="si">{</span><span class="n">c_shift</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m_back</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c_back</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m_back</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">p</span><span class="si">{</span><span class="n">c_back</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Normalized time&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of parameters&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now see clearly that there is constant overhead for backpropagation with <code class="docutils literal notranslate"><span class="pre">default.qubit</span></code>, but the parameter-shift rule scales as <span class="math notranslate nohighlight">\(\sim 2p\)</span>.</p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS710/hands-on/hands-on-6/hands-on-6-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

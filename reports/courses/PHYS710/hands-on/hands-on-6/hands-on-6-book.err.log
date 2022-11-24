@@ -1,0 +1,76 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+reps = #fill me
+num = #fill me
+
+forward_shift = []
+gradient_shift = []
+forward_backprop = []
+gradient_backprop = []
+
+for depth in range(0, -fill me-):
+    param_shape = qml.StronglyEntanglingLayers.shape(n_wires=4, n_layers=depth)
+    params = np.random.normal(scale=0.1, size=param_shape, requires_grad=True)
+    num_params = params.size
+
+    # forward pass timing
+    # ===================
+
+    qnode_shift = #fill me
+    qnode_backprop = #fill me
+
+    # parameter-shift
+    t = timeit.repeat("qnode_shift(params)", globals=globals(), number=num, repeat=reps)
+    forward_shift.append([num_params, min(t) / num])
+
+    # backprop
+    t = timeit.repeat("qnode_backprop(params)", globals=globals(), number=num, repeat=reps)
+    forward_backprop.append([num_params, min(t) / num])
+
+    if num_params == 0:
+        continue
+
+    # Gradient timing
+    # ===============
+
+    qnode_shift = #fill me
+    qnode_backprop = #fill me
+
+    # parameter-shift
+    t = timeit.repeat("qml.grad(qnode_shift)(params)", globals=globals(), number=num, repeat=reps)
+    gradient_shift.append([num_params, min(t) / num])
+
+    # backprop
+    t = timeit.repeat("qml.grad(qnode_backprop)(params)", globals=globals(), number=num, repeat=reps)
+    gradient_backprop.append([num_params, min(t) / num])
+
+gradient_shift = np.array(gradient_shift).T
+gradient_backprop = np.array(gradient_backprop).T
+forward_shift = np.array(forward_shift).T
+forward_backprop = np.array(forward_backprop).T
+------------------
+
+[0;36m  Input [0;32mIn [18][0;36m[0m
+[0;31m    reps = #fill me[0m
+[0m           ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+SyntaxError: invalid syntax (2608567942.py, line 1)
+
