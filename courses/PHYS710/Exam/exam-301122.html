@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Question 1: Quantum natural gradient &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../PHYS437/index.html">437</a></li>
+                <li><a href="../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Courses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="question-1-quantum-natural-gradient">
+<h1>Question 1: Quantum natural gradient<a class="headerlink" href="#question-1-quantum-natural-gradient" title="Permalink to this heading">¶</a></h1>
+<p><a class="reference external" href="https://arxiv.org/abs/1909.02108">Stokes et al. (2019)</a>.</p>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">¶</a></h2>
+<p>The most successful class of quantum algorithms for use on near-term noisy quantum hardware is the so-called variational quantum algorithm. As laid out in the, in variational quantum algorithms a low-depth parametrized quantum circuit ansatz is chosen, and a problem-specific observable measured. A classical optimization loop is then used to find the set of quantum parameters that <em>minimize</em> a particular measurement expectation value of the quantum device. Examples of such algorithms include the variational quantum
+eigensolver (VQE).</p>
+<p>Most recent demonstrations of variational quantum algorithms have used gradient-free classical optimization methods, such as the Nelder-Mead algorithm. However, the parameter-shift rule (as implemented in PennyLane) allows the user to automatically compute analytic gradients of quantum circuits. This opens up the possibility to train quantum computing hardware using gradient descent—the same method used to train deep learning models. Though one caveat has surfaced with gradient descent — how do we choose the optimal step size for our variational quantum algorithms, to ensure successful and efficient optimization?</p>
+<section id="the-natural-gradient">
+<h3>The natural gradient<a class="headerlink" href="#the-natural-gradient" title="Permalink to this heading">¶</a></h3>
+<p>In standard gradient descent, each optimization step is given by</p>
+<div class="math notranslate nohighlight">
+\[\theta_{t+1} = \theta_t -\eta \nabla \mathcal{L}(\theta),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> is the cost as a function of the parameters <span class="math notranslate nohighlight">\(\theta\)</span>, and <span class="math notranslate nohighlight">\(\eta\)</span> is the learning rate or step size. In essence, each optimization step calculates the steepest descent direction around the local value of <span class="math notranslate nohighlight">\(\theta_t\)</span> in the parameter space, and updates <span class="math notranslate nohighlight">\(\theta_t\rightarrow \theta_{t+1}\)</span> by this vector.</p>
+<p>The problem with the above approach is that each optimization step is strongly connected to a <em>Euclidean geometry</em> on the parameter space. The parametrization is not unique, and different parametrizations can distort distances within the optimization landscape.</p>
+<p>Performing gradient descent in the <span class="math notranslate nohighlight">\((\theta_0, \theta_1)\)</span> parameter space, we are updating each parameter by the same Euclidean distance, and not taking into account the fact that the cost function might vary at a different rate with respect to each parameter.</p>
+<p>Instead, if we perform a change of coordinate system (re-parametrization) of the cost function, we might find a parameter space where variations in <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> are similar across different parameters. This is the case with the new parametrization <span class="math notranslate nohighlight">\((\phi_0, \phi_1)\)</span>; the cost function is unchanged, but we now have a nicer geometry in which to perform gradient descent, and a more informative stepsize. This leads to faster convergence, and can help avoid optimization becoming stuck in local minima. For a more in-depth explanation, including why the parameter space might not be best represented by a Euclidean space, see <a class="reference external" href="https://arxiv.org/abs/1909.05074">Yamamoto (2019)</a>.</p>
+<p>However, what if we avoid gradient descent in the parameter space altogether? If we instead consider the optimization problem as a probability distribution of possible output values given an input (i.e.,<a class="reference external" href="https://en.wikipedia.org/wiki/Likelihood_function">maximum likelihood estimation</a>), a better approach is to perform the gradient descent in the <em>distribution space</em>, which is dimensionless and invariant with respect to the parametrization. As a result, each optimization step will always choose the optimum step-size for every parameter, regardless of the parametrization.</p>
+<p>In classical neural networks, the above process is known as <em>natural gradient descent</em>, and was first introduced by <a class="reference external" href="https://www.mitpressjournals.org/doi/abs/10.1162/089976698300017746">Amari(1998)</a>.</p>
+<p>The standard gradient descent is modified as follows:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{t+1} = \theta_t - \eta F^{-1}\nabla \mathcal{L}(\theta),\]</div>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> is the <a class="reference external" href="https://en.wikipedia.org/wiki/Fisher_information#Matrix_form">Fisher information matrix</a>. The Fisher information matrix acts as a metric tensor, transforming the steepest descent in the Euclidean parameter space to the steepest descent in the distribution space.</p>
+</section>
+<section id="the-quantum-analog">
+<h3>The quantum analog<a class="headerlink" href="#the-quantum-analog" title="Permalink to this heading">¶</a></h3>
+<p>In a similar vein, it has been shown that the standard Euclidean
+geometry is sub-optimal for optimization of quantum variational
+algorithms <a class="reference external" href="https://arxiv.org/abs/1901.05374">(Harrow and Napp, 2019)</a>.
+The space of quantum states instead possesses a unique invariant metric
+tensor known as the Fubini-Study metric tensor <span class="math notranslate nohighlight">\(g_{ij}\)</span>, which can be
+used to construct a quantum analog to natural gradient descent:</p>
+<div class="math notranslate nohighlight">
+\[\theta_{t+1} = \theta_t - \eta g^{+}(\theta_t)\nabla \mathcal{L}(\theta),\]</div>
+<p>where <span class="math notranslate nohighlight">\(g^{+}\)</span> refers to the pseudo-inverse.</p>
+<p>It can be shown that the Fubini-Study metric tensor reduces to the Fisher information matrix in the classical limit.</p>
+<p>Furthermore, in the limit where <span class="math notranslate nohighlight">\(\eta\rightarrow 0\)</span>, the dynamics of the system are equivalent to imaginary-time evolution within the variational subspace, as proposed in <a class="reference external" href="https://arxiv.org/abs/1804.03023">McArdle et al. (2018)</a>.</p>
+</section>
+<section id="block-diagonal-metric-tensor">
+<h3>Block-diagonal metric tensor<a class="headerlink" href="#block-diagonal-metric-tensor" title="Permalink to this heading">¶</a></h3>
+<p>A block-diagonal approximation to the Fubini-Study metric tensor of a variational quantum circuit can be evaluated on quantum hardware.</p>
+<p>Consider a variational quantum circuit</p>
+<div class="math notranslate nohighlight">
+\[U(\mathbf{\theta})|\psi_0\rangle = V_L(\theta_L) W_L V_{L-1}(\theta_{L-1}) W_{L-1}
+  \cdots V_{\ell}(\theta_{\ell}) W_{\ell} \cdots V_{0}(\theta_{0}) W_{0} |\psi_0\rangle\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span> is the initial state,</p></li>
+<li><p><span class="math notranslate nohighlight">\(W_\ell\)</span> are layers of non-parametrized quantum gates,</p></li>
+<li><p><span class="math notranslate nohighlight">\(V_\ell(\theta_\ell)\)</span> are layers of parametrized quantum gates with
+<span class="math notranslate nohighlight">\(n_\ell\)</span> parameters
+<span class="math notranslate nohighlight">\(\theta_\ell = \{\theta^{(\ell)}_0, \dots, \theta^{(\ell)}_n\}\)</span>.</p></li>
+</ul>
+<p>Further, assume all parametrized gates can be written in the form <span class="math notranslate nohighlight">\(X(\theta^{(\ell)}_{i}) = e^{i\theta^{(\ell)}_{i} K^{(\ell)}_i}\)</span>, where <span class="math notranslate nohighlight">\(K^{(\ell)}_i\)</span> is the <em>generator</em> of the parametrized operation.</p>
+<p>For each parametric layer <span class="math notranslate nohighlight">\(\ell\)</span> in the variational quantum circuit the <span class="math notranslate nohighlight">\(n_\ell\times n_\ell\)</span> block-diagonal submatrix of the Fubini-Study tensor <span class="math notranslate nohighlight">\(g_{ij}^{(\ell)}\)</span> is calculated by:</p>
+<div class="math notranslate nohighlight">
+\[g_{ij}^{(\ell)} = \langle \psi_{\ell-1} | K_i K_j | \psi_{\ell-1} \rangle
+- \langle \psi_{\ell-1} | K_i | \psi_{\ell-1}\rangle
+\langle \psi_{\ell-1} |K_j | \psi_{\ell-1}\rangle\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[| \psi_{\ell-1}\rangle = V_{\ell-1}(\theta_{\ell-1}) W_{\ell-1} \cdots V_{0}(\theta_{0}) W_{0} |\psi_0\rangle.\]</div>
+<p>(that is, <span class="math notranslate nohighlight">\(|\psi_{\ell-1}\rangle\)</span> is the quantum state prior to the
+application of parameterized layer <span class="math notranslate nohighlight">\(\ell\)</span>), and we have
+<span class="math notranslate nohighlight">\(K_i \equiv K_i^{(\ell)}\)</span> for brevity.</p>
+</section>
+</section>
+<section id="tasks">
+<h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this heading">¶</a></h2>
+<p>PennyLane provides an implementation of the quantum natural gradient optimizer, <code class="docutils literal notranslate"><span class="pre">~.pennylane.QNGOptimizer</span></code>.</p>
+<section id="task-1">
+<h3>Task 1<a class="headerlink" href="#task-1" title="Permalink to this heading">¶</a></h3>
+<p>Compare the optimization convergence of the QNG Optimizer and the <code class="docutils literal notranslate"><span class="pre">~.pennylane.GradientDescentOptimizer</span></code> for the simple single qubit VQE. Visualize the difference for at least 500 optimization steps</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For this simple example, we consider the following single-qubit
+Hamiltonian: <span class="math notranslate nohighlight">\(\sigma_x + \sigma_z\)</span>.</p>
+<p>We define the device:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the variational ansatz, we use two single-qubit rotations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RX</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">wires</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">wires</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then define our cost function which supports the computation of block-diagonal or diagonal approximations to the Fubini-Study metric tensor. This tensor is a crucial component for optimizing with quantum
+natural gradients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coeffs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+
+<span class="n">H</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">Hamiltonian</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
+
+<span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cost_fn</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">circuit</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To analyze the performance of quantum natural gradient on VQE calculations, we set up and execute optimizations using the
+<code class="docutils literal notranslate"><span class="pre">GradientDescentOptimizer</span></code> (which does not utilize quantum gradients) and the <code class="docutils literal notranslate"><span class="pre">QNGOptimizer</span></code> that uses the block-diagonal approximation to the
+metric tensor.</p>
+<p>To perform a fair comparison, we fix the initial parameters for the two optimizers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">init_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.97507603</span><span class="p">,</span> <span class="mf">3.00854038</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will carry out each optimization over a maximum of 500 steps. As was
+done in the VQE tutorial, we aim to reach a convergence tolerance of
+around <span class="math notranslate nohighlight">\(10^{-6}\)</span>. We use a step size of 0.01.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_iterations</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-06</span>
+<span class="n">step_size</span> <span class="o">=</span> <span class="mf">0.01</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-2">
+<h3>Task 2<a class="headerlink" href="#task-2" title="Permalink to this heading">¶</a></h3>
+<p>Repeat the same comparison for Hydrogen VQE.</p>
+<p>To construct our system Hamiltonian, we first read the molecular geometry from the external file. Create a file called “h2.xyz” with content</p>
+<p>2
+in Angstrom
+H          0.00000        0.00000       -0.35000
+H          0.00000        0.00000        0.35000</p>
+<p>using the <code class="docutils literal notranslate"><span class="pre">~.pennylane.qchem.read_structure</span></code> function. The molecular Hamiltonian is then built using the <code class="docutils literal notranslate"><span class="pre">~.pennylane.qchem.molecular_hamiltonian</span></code>
+function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geo_file</span> <span class="o">=</span> <span class="s2">&quot;files/h2.xyz&quot;</span>
+
+<span class="n">symbols</span><span class="p">,</span> <span class="n">coordinates</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">qchem</span><span class="o">.</span><span class="n">read_structure</span><span class="p">(</span><span class="n">geo_file</span><span class="p">)</span>
+<span class="n">hamiltonian</span><span class="p">,</span> <span class="n">qubits</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">qchem</span><span class="o">.</span><span class="n">molecular_hamiltonian</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of qubits = &quot;</span><span class="p">,</span> <span class="n">qubits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">geo_file</span> <span class="o">=</span> <span class="s2">&quot;files/h2.xyz&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">coordinates</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">qchem</span><span class="o">.</span><span class="n">read_structure</span><span class="p">(</span><span class="n">geo_file</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">hamiltonian</span><span class="p">,</span> <span class="n">qubits</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">qchem</span><span class="o">.</span><span class="n">molecular_hamiltonian</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of qubits = &quot;</span><span class="p">,</span> <span class="n">qubits</span><span class="p">)</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/pennylane/qchem/structure.py:56,</span> in <span class="ni">read_structure</span><span class="nt">(filepath, outpath)</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="n">file_in</span> <span class="o">=</span> <span class="n">filepath</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="n">file_out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s2">&quot;structure.xyz&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">56</span> <span class="n">copyfile</span><span class="p">(</span><span class="n">file_in</span><span class="p">,</span> <span class="n">file_out</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span> <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="nn">File ~/Prog/miniconda3/envs/qml/lib/python3.8/shutil.py:264,</span> in <span class="ni">copyfile</span><span class="nt">(src, dst, follow_symlinks)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span>     <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">readlink</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">dst</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">264</span>     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fsrc</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdst</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>         <span class="c1"># macOS</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="k">if</span> <span class="n">_HAS_FCOPYFILE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>             <span class="k">try</span><span class="p">:</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;files/h2.xyz&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">qubits</span><span class="p">)</span>
+<span class="n">hf_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ansatz</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">BasisState</span><span class="p">(</span><span class="n">hf_state</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">wires</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RZ</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="n">wires</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that the qubit register has been initialized to <span class="math notranslate nohighlight">\(|1100\rangle\)</span>, which encodes for the Hartree-Fock state of the hydrogen molecule described in the minimal basis. Again, we define the cost function to be the following QNode that measures <code class="docutils literal notranslate"><span class="pre">expval(H)</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">ansatz</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For this problem, we can compute the exact value of the ground state energy via exact diagonalization. The value is below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exact_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.136189454088</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For optimizations runs, you need to enable differentiability in Hamiltonian for gradient descent</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">init_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">max_iterations</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">step_size</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">conv_tol</span> <span class="o">=</span> <span class="mf">1e-06</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>and make the Hamiltonian coefficients non-differentiable by setting
+<code class="docutils literal notranslate"><span class="pre">requires_grad=False</span></code>. for Quantum natural gradients</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hamiltonian</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">Hamiltonian</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hamiltonian</span><span class="o">.</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">hamiltonian</span><span class="o">.</span><span class="n">ops</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-3">
+<h3>Task 3<a class="headerlink" href="#task-3" title="Permalink to this heading">¶</a></h3>
+<p>Robustness in parameter initialization</p>
+<p>While results above show a more rapid convergence for quantum natural gradients, what if we were just lucky, i.e., we started at a “good” point in parameter space? How do we know this will be the case with high
+probability regardless of the parameter initialization?</p>
+<p>Using the same system Hamiltonian, ansatz, and device, try 10 independent trials with random parameter initializations.</p>
+</section>
+</section>
+<section id="note">
+<h2>Note<a class="headerlink" href="#note" title="Permalink to this heading">¶</a></h2>
+<p>While using QNG may help accelerate the VQE algorithm in terms of optimization steps, each QNG step is more costly than its vanilla gradient descent counterpart due to a greater number of calls to the
+quantum computer that are needed to compute the Fubini-Study metric tensor.</p>
+<p>Further benchmark studies are needed to better understand the advantages of quantum natural gradient, preliminary studies such as this tutorial show the potentials of the method.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="question-2-quantum-transfer-learning">
+<h1>Question 2: Quantum transfer learning<a class="headerlink" href="#question-2-quantum-transfer-learning" title="Permalink to this heading">¶</a></h1>
+<p>Details on this topic can be found in the research paper (<a class="reference external" href="https://arxiv.org/abs/1912.08278">Mari et al. (2019)</a>).</p>
+<section id="id1">
+<h2>Background<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<p>Transfer learning is a well-established technique for training artificial neural networks. The idea is based on the general intuition that if a pre-trained network is good at solving a given problem, then, with just a bit of additional training, it can be used to also solve a different but related problem.</p>
+<p>This idea can be formalized in terms of two abstract networks <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, independently from their quantum or classical physical nature.</p>
+<p><strong>general definition of the transfer learning method</strong>:</p>
+<ol class="arabic simple">
+<li><p>Take a network <span class="math notranslate nohighlight">\(A\)</span> that has been pre-trained on a dataset <span class="math notranslate nohighlight">\(D_A\)</span> and
+for a given task <span class="math notranslate nohighlight">\(T_A\)</span>.</p></li>
+<li><p>Remove some of the final layers. In this way, the resulting
+truncated network <span class="math notranslate nohighlight">\(A'\)</span> can be used as a feature extractor.</p></li>
+<li><p>Connect a new trainable network <span class="math notranslate nohighlight">\(B\)</span> at the end of the pre-trained
+network <span class="math notranslate nohighlight">\(A'\)</span>.</p></li>
+<li><p>Keep the weights of <span class="math notranslate nohighlight">\(A'\)</span> constant, and train the final block <span class="math notranslate nohighlight">\(B\)</span>
+with a new dataset <span class="math notranslate nohighlight">\(D_B\)</span> and/or for a new task of interest <span class="math notranslate nohighlight">\(T_B\)</span>.</p></li>
+</ol>
+<section id="classical-to-quantum-transfer-learning">
+<h3>Classical-to-quantum transfer learning<a class="headerlink" href="#classical-to-quantum-transfer-learning" title="Permalink to this heading">¶</a></h3>
+<p>We focus on the CQ transfer learning scheme discussed in the previous
+section and we give a specific example.</p>
+<ol class="arabic simple">
+<li><p>As pre-trained network <span class="math notranslate nohighlight">\(A\)</span> we use <strong>ResNet18</strong>, a deep residual
+neural network introduced by Microsoft in Ref. [3], which is
+pre-trained on the <em>ImageNet</em> dataset.</p></li>
+<li><p>After removing its final layer we obtain <span class="math notranslate nohighlight">\(A'\)</span>, a pre-processing
+block which maps any input high-resolution image into 512 abstract
+features.</p></li>
+<li><p>Such features are classified by a 4-qubit “dressed quantum
+circuit” <span class="math notranslate nohighlight">\(B\)</span>, i.e., a variational quantum circuit sandwiched
+between two classical layers.</p></li>
+<li><p>The hybrid model is trained, keeping <span class="math notranslate nohighlight">\(A'\)</span> constant, on the
+<em>Hymenoptera</em> dataset (a small subclass of ImageNet) containing
+images of <em>ants</em> and <em>bees</em>.</p></li>
+</ol>
+</section>
+<section id="general-setup">
+<h3>General setup<a class="headerlink" href="#general-setup" title="Permalink to this heading">¶</a></h3>
+<p>To use the PyTorch interface in PennyLane, you must first <a class="reference external" href="https://pytorch.org/get-started/locally/#start-locally">install
+PyTorch</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">In</span> <span class="n">addition</span> <span class="n">to</span> <span class="o">*</span><span class="n">PennyLane</span><span class="o">*</span><span class="p">,</span> <span class="n">we</span> <span class="n">will</span> <span class="n">also</span> <span class="n">need</span> <span class="n">some</span> <span class="n">standard</span> <span class="o">*</span><span class="n">PyTorch</span><span class="o">*</span>
+<span class="n">libraries</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">plotting</span> <span class="n">library</span> <span class="o">*</span><span class="n">matplotlib</span><span class="o">*.</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some parts of this code are based on the Python script:</span>
+<span class="c1"># https://github.com/pytorch/tutorials/blob/master/beginner_source/transfer_learning_tutorial.py</span>
+<span class="c1"># License: BSD</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="c1"># PyTorch</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+
+<span class="c1"># Pennylane</span>
+<span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># OpenMP: number of parallel threads.</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OMP_NUM_THREADS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="setting-of-the-main-hyper-parameters-of-the-model">
+<h3>Setting of the main hyper-parameters of the model<a class="headerlink" href="#setting-of-the-main-hyper-parameters-of-the-model" title="Permalink to this heading">¶</a></h3>
+<p>Note</p>
+<p>First try with <code class="docutils literal notranslate"><span class="pre">num_epochs=1</span></code> and, if everything runs smoothly, increase it to a larger value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_qubits</span> <span class="o">=</span> <span class="mi">4</span>                <span class="c1"># Number of qubits</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.0004</span>               <span class="c1"># Learning rate</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">4</span>              <span class="c1"># Number of samples for each training step</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">3</span>              <span class="c1"># Number of training epochs</span>
+<span class="n">q_depth</span> <span class="o">=</span> <span class="mi">6</span>                 <span class="c1"># Depth of the quantum circuit (number of variational layers)</span>
+<span class="n">gamma_lr_scheduler</span> <span class="o">=</span> <span class="mf">0.1</span>    <span class="c1"># Learning rate reduction applied every 10 epochs.</span>
+<span class="n">q_delta</span> <span class="o">=</span> <span class="mf">0.01</span>              <span class="c1"># Initial spread of random quantum weights</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>    <span class="c1"># Start of the computation timer</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We initialize a PennyLane device with a <code class="docutils literal notranslate"><span class="pre">default.qubit</span></code> backend.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">n_qubits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We configure PyTorch to use CUDA only if available. Otherwise the CPU is
+used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset-loading">
+<h3>Dataset loading<a class="headerlink" href="#dataset-loading" title="Permalink to this heading">¶</a></h3>
+<p>The dataset containing images of <em>ants</em> and <em>bees</em> can be downloaded
+<a class="reference external" href="https://download.pytorch.org/tutorial/hymenoptera_data.zip">here</a> and
+should be extracted in the subfolder <code class="docutils literal notranslate"><span class="pre">_data/hymenoptera_data</span></code>.</p>
+<p>This is a very small dataset (roughly 250 images), too small for
+training from scratch a classical or quantum model, however it is enough
+when using <em>transfer learning</em> approach.</p>
+<p>The PyTorch packages <code class="docutils literal notranslate"><span class="pre">torchvision</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.utils.data</span></code> are used for
+loading the dataset and performing standard preliminary image
+operations: resize, center, crop, normalize, <em>etc.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_transforms</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="c1"># transforms.RandomResizedCrop(224),     # uncomment for data augmentation</span>
+            <span class="c1"># transforms.RandomHorizontalFlip(),     # uncomment for data augmentation</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="c1"># Normalize input channels using mean values and standard deviations of ImageNet.</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&quot;data/hymenoptera_data&quot;</span>
+<span class="n">image_datasets</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span> <span class="k">else</span> <span class="s2">&quot;validation&quot;</span><span class="p">:</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">data_transforms</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">dataset_sizes</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_datasets</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;validation&quot;</span><span class="p">]}</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">image_datasets</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">classes</span>
+
+<span class="c1"># Initialize dataloader</span>
+<span class="n">dataloaders</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">image_datasets</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;validation&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># function to plot images</span>
+<span class="k">def</span> <span class="nf">imshow</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Display image from tensor.&quot;&quot;&quot;</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># Inverse of the initial normalization operation.</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">])</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">])</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">std</span> <span class="o">*</span> <span class="n">inp</span> <span class="o">+</span> <span class="n">mean</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let us show a batch of the test data, just to have an idea of the
+classification problem.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a batch of training data</span>
+<span class="n">inputs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">]))</span>
+
+<span class="c1"># Make a grid from batch</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+<span class="n">imshow</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="p">[</span><span class="n">class_names</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">])</span>
+
+<span class="n">dataloaders</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">image_datasets</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;validation&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/aa6c21c1a40e106345267092825b4111518c959b247ceb4f1445f062b57ee459.png" src="../../../_images/aa6c21c1a40e106345267092825b4111518c959b247ceb4f1445f062b57ee459.png" />
+</div>
+</div>
+</section>
+<section id="variational-quantum-circuit">
+<h3>Variational quantum circuit<a class="headerlink" href="#variational-quantum-circuit" title="Permalink to this heading">¶</a></h3>
+<p>We first define some quantum layers that will compose the quantum
+circuit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">H_layer</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Layer of single-qubit Hadamard gates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">RY_layer</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Layer of parametrized qubit rotations around the y axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">RY</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">entangling_layer</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Layer of CNOTs followed by another shifted layer of CNOT.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># In other words it should apply something like :</span>
+    <span class="c1"># CNOT  CNOT  CNOT  CNOT...  CNOT</span>
+    <span class="c1">#   CNOT  CNOT  CNOT...  CNOT</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># Loop over even indices: i=0,2,...N-2</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># Loop over odd indices:  i=1,3,...N-3</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we define the quantum circuit through the PennyLane [qnode] decorator .</p>
+<p>The structure is that of a typical variational quantum circuit:</p>
+<ul class="simple">
+<li><p><strong>Embedding layer:</strong> All qubits are first initialized in a balanced
+superposition of <em>up</em> and <em>down</em> states, then they are rotated
+according to the input parameters (local embedding).</p></li>
+<li><p><strong>Variational layers:</strong> A sequence of trainable rotation layers and
+constant entangling layers is applied.</p></li>
+<li><p><strong>Measurement layer:</strong> For each qubit, the local expectation value
+of the <span class="math notranslate nohighlight">\(Z\)</span> operator is measured. This produces a classical output
+vector, suitable for additional post-processing.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">interface</span><span class="o">=</span><span class="s2">&quot;torch&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">quantum_net</span><span class="p">(</span><span class="n">q_input_features</span><span class="p">,</span> <span class="n">q_weights_flat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The variational quantum circuit.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Reshape weights</span>
+    <span class="n">q_weights</span> <span class="o">=</span> <span class="n">q_weights_flat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">q_depth</span><span class="p">,</span> <span class="n">n_qubits</span><span class="p">)</span>
+
+    <span class="c1"># Start from state |+&gt; , unbiased w.r.t. |0&gt; and |1&gt;</span>
+    <span class="n">H_layer</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)</span>
+
+    <span class="c1"># Embed features in the quantum node</span>
+    <span class="n">RY_layer</span><span class="p">(</span><span class="n">q_input_features</span><span class="p">)</span>
+
+    <span class="c1"># Sequence of trainable variational layers</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_depth</span><span class="p">):</span>
+        <span class="n">entangling_layer</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)</span>
+        <span class="n">RY_layer</span><span class="p">(</span><span class="n">q_weights</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+    <span class="c1"># Expectation values in the Z basis</span>
+    <span class="n">exp_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="n">position</span><span class="p">))</span> <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">exp_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dressed-quantum-circuit">
+<h3>Dressed quantum circuit<a class="headerlink" href="#dressed-quantum-circuit" title="Permalink to this heading">¶</a></h3>
+<p>We can now define a custom <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> representing a <em>dressed</em>
+quantum circuit.</p>
+<p>This is a concatenation of:</p>
+<ul class="simple">
+<li><p>A classical pre-processing layer (<code class="docutils literal notranslate"><span class="pre">nn.Linear</span></code>).</p></li>
+<li><p>A classical activation function (<code class="docutils literal notranslate"><span class="pre">torch.tanh</span></code>).</p></li>
+<li><p>A constant <code class="docutils literal notranslate"><span class="pre">np.pi/2.0</span></code> scaling.</p></li>
+<li><p>The previously defined quantum circuit (<code class="docutils literal notranslate"><span class="pre">quantum_net</span></code>).</p></li>
+<li><p>A classical post-processing layer (<code class="docutils literal notranslate"><span class="pre">nn.Linear</span></code>).</p></li>
+</ul>
+<p>The input of the module is a batch of vectors with 512 real parameters
+(features) and the output is a batch of vectors with two real outputs
+(associated with the two classes of images: <em>ants</em> and <em>bees</em>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DressedQuantumNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Torch module implementing the *dressed* quantum net.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Definition of the *dressed* layout.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pre_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">n_qubits</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">q_delta</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">q_depth</span> <span class="o">*</span> <span class="n">n_qubits</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">post_net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_qubits</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_features</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Defining how tensors are supposed to move through the *dressed* quantum</span>
+<span class="sd">        net.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># obtain the input features for the quantum circuit</span>
+        <span class="c1"># by reducing the feature dimension from 512 to 4</span>
+        <span class="n">pre_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_net</span><span class="p">(</span><span class="n">input_features</span><span class="p">)</span>
+        <span class="n">q_in</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">pre_out</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+        <span class="c1"># Apply the quantum circuit to each element of the batch and append to q_out</span>
+        <span class="n">q_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_qubits</span><span class="p">)</span>
+        <span class="n">q_out</span> <span class="o">=</span> <span class="n">q_out</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">q_in</span><span class="p">:</span>
+            <span class="n">q_out_elem</span> <span class="o">=</span> <span class="n">quantum_net</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_params</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">q_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">q_out</span><span class="p">,</span> <span class="n">q_out_elem</span><span class="p">))</span>
+
+        <span class="c1"># return the two-dimensional prediction from the postprocessing layer</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_net</span><span class="p">(</span><span class="n">q_out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hybrid-classical-quantum-model">
+<h3>Hybrid classical-quantum model<a class="headerlink" href="#hybrid-classical-quantum-model" title="Permalink to this heading">¶</a></h3>
+<p>We are finally ready to build our full hybrid classical-quantum network.
+We follow the <em>transfer learning</em> approach:</p>
+<ol class="arabic simple">
+<li><p>First load the classical pre-trained network <em>ResNet18</em> from the
+<code class="docutils literal notranslate"><span class="pre">torchvision.models</span></code> zoo.</p></li>
+<li><p>Freeze all the weights since they should not be trained.</p></li>
+<li><p>Replace the last fully connected layer with our trainable dressed
+quantum circuit (<code class="docutils literal notranslate"><span class="pre">DressedQuantumNet</span></code>).</p></li>
+</ol>
+<p>The <em>ResNet18</em> model is automatically downloaded by PyTorch and it may take several minutes (only the first time).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_hybrid</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model_hybrid</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="c1"># Notice that model_hybrid.fc is the last layer of ResNet18</span>
+<span class="n">model_hybrid</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">DressedQuantumNet</span><span class="p">()</span>
+
+<span class="c1"># Use CUDA or CPU according to the &quot;device&quot; object.</span>
+<span class="n">model_hybrid</span> <span class="o">=</span> <span class="n">model_hybrid</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/obm/Prog/miniconda3/envs/pennylane/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter &#39;pretrained&#39; is deprecated since 0.13 and may be removed in the future, please use &#39;weights&#39; instead.
+  warnings.warn(
+/home/obm/Prog/miniconda3/envs/pennylane/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for &#39;weights&#39; are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: &quot;https://download.pytorch.org/models/resnet18-f37072fd.pth&quot; to /home/obm/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+52.5%IOPub message rate exceeded.
+The notebook server will temporarily stop sending output
+to the client in order to avoid crashing it.
+To change this limit, set the config variable
+`--NotebookApp.iopub_msg_rate_limit`.
+
+Current values:
+NotebookApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
+NotebookApp.rate_limit_window=3.0 (secs)
+
+100.0%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training-and-results">
+<h3>Training and results<a class="headerlink" href="#training-and-results" title="Permalink to this heading">¶</a></h3>
+<p>Before training the network we need to specify the <em>loss</em> function.</p>
+<p>We use, as usual in classification problem, the <em>cross-entropy</em> which is
+directly available within <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also initialize the <em>Adam optimizer</em> which is called at each training
+step in order to update the weights of the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer_hybrid</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model_hybrid</span><span class="o">.</span><span class="n">fc</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We schedule to reduce the learning rate by a factor of
+<code class="docutils literal notranslate"><span class="pre">gamma_lr_scheduler</span></code> every 10 epochs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp_lr_scheduler</span> <span class="o">=</span> <span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span>
+    <span class="n">optimizer_hybrid</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma_lr_scheduler</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What follows is a training function that will be called later. This
+function should return a trained model that can be used to make
+predictions (classifications).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">):</span>
+    <span class="n">since</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+    <span class="n">best_acc</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">best_loss</span> <span class="o">=</span> <span class="mf">10000.0</span>  <span class="c1"># Large arbitrary number</span>
+    <span class="n">best_acc_train</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">best_loss_train</span> <span class="o">=</span> <span class="mf">10000.0</span>  <span class="c1"># Large arbitrary number</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training started:&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+
+        <span class="c1"># Each epoch has a training and validation phase</span>
+        <span class="k">for</span> <span class="n">phase</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;validation&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+                <span class="c1"># Set model to training mode</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Set model to evaluate mode</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">running_corrects</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Iterate over data.</span>
+            <span class="n">n_batches</span> <span class="o">=</span> <span class="n">dataset_sizes</span><span class="p">[</span><span class="n">phase</span><span class="p">]</span> <span class="o">//</span> <span class="n">batch_size</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">dataloaders</span><span class="p">[</span><span class="n">phase</span><span class="p">]:</span>
+                <span class="n">since_batch</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+                <span class="n">batch_size_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+                <span class="c1"># Track/compute gradient and make an optimization step only when training</span>
+                <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">set_grad_enabled</span><span class="p">(</span><span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">):</span>
+                    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+                        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+                        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+                <span class="c1"># Print iteration results</span>
+                <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="n">batch_size_</span>
+                <span class="n">batch_corrects</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">preds</span> <span class="o">==</span> <span class="n">labels</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="n">running_corrects</span> <span class="o">+=</span> <span class="n">batch_corrects</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;Phase: </span><span class="si">{}</span><span class="s2"> Epoch: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> Iter: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> Batch time: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">phase</span><span class="p">,</span>
+                        <span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">num_epochs</span><span class="p">,</span>
+                        <span class="n">it</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">n_batches</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">since_batch</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">it</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Print epoch results</span>
+            <span class="n">epoch_loss</span> <span class="o">=</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="n">dataset_sizes</span><span class="p">[</span><span class="n">phase</span><span class="p">]</span>
+            <span class="n">epoch_acc</span> <span class="o">=</span> <span class="n">running_corrects</span> <span class="o">/</span> <span class="n">dataset_sizes</span><span class="p">[</span><span class="n">phase</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Phase: </span><span class="si">{}</span><span class="s2"> Epoch: </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> Loss: </span><span class="si">{:.4f}</span><span class="s2"> Acc: </span><span class="si">{:.4f}</span><span class="s2">        &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="s2">&quot;train&quot;</span> <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span> <span class="k">else</span> <span class="s2">&quot;validation  &quot;</span><span class="p">,</span>
+                    <span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">num_epochs</span><span class="p">,</span>
+                    <span class="n">epoch_loss</span><span class="p">,</span>
+                    <span class="n">epoch_acc</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Check if this is the best model wrt previous epochs</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;validation&quot;</span> <span class="ow">and</span> <span class="n">epoch_acc</span> <span class="o">&gt;</span> <span class="n">best_acc</span><span class="p">:</span>
+                <span class="n">best_acc</span> <span class="o">=</span> <span class="n">epoch_acc</span>
+                <span class="n">best_model_wts</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;validation&quot;</span> <span class="ow">and</span> <span class="n">epoch_loss</span> <span class="o">&lt;</span> <span class="n">best_loss</span><span class="p">:</span>
+                <span class="n">best_loss</span> <span class="o">=</span> <span class="n">epoch_loss</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span> <span class="ow">and</span> <span class="n">epoch_acc</span> <span class="o">&gt;</span> <span class="n">best_acc_train</span><span class="p">:</span>
+                <span class="n">best_acc_train</span> <span class="o">=</span> <span class="n">epoch_acc</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span> <span class="ow">and</span> <span class="n">epoch_loss</span> <span class="o">&lt;</span> <span class="n">best_loss_train</span><span class="p">:</span>
+                <span class="n">best_loss_train</span> <span class="o">=</span> <span class="n">epoch_loss</span>
+      
+            <span class="c1"># Update learning rate</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">==</span> <span class="s2">&quot;train&quot;</span><span class="p">:</span>
+                <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="c1"># Print final results</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_model_wts</span><span class="p">)</span>
+    <span class="n">time_elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">since</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Training completed in </span><span class="si">{:.0f}</span><span class="s2">m </span><span class="si">{:.0f}</span><span class="s2">s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time_elapsed</span> <span class="o">//</span> <span class="mi">60</span><span class="p">,</span> <span class="n">time_elapsed</span> <span class="o">%</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best test loss: </span><span class="si">{:.4f}</span><span class="s2"> | Best test accuracy: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">best_loss</span><span class="p">,</span> <span class="n">best_acc</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We are ready to perform the actual training process.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_hybrid</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span>
+    <span class="n">model_hybrid</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer_hybrid</span><span class="p">,</span> <span class="n">exp_lr_scheduler</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training started:
+Phase: train Epoch: 1/3 Loss: 0.6993 Acc: 0.5246        
+Phase: validation   Epoch: 1/3 Loss: 0.6432 Acc: 0.6536        
+Phase: train Epoch: 2/3 Loss: 0.6141 Acc: 0.7049        
+Phase: validation   Epoch: 2/3 Loss: 0.5392 Acc: 0.8235        
+Phase: train Epoch: 3/3 Loss: 0.5652 Acc: 0.7336        
+Phase: validation   Epoch: 3/3 Loss: 0.4484 Acc: 0.8497        
+Training completed in 0m 40s
+Best test loss: 0.4484 | Best test accuracy: 0.8497
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-the-model-predictions">
+<h3>Visualizing the model predictions<a class="headerlink" href="#visualizing-the-model-predictions" title="Permalink to this heading">¶</a></h3>
+<p>We first define a visualization function for a batch of test data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_images</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">fig_name</span><span class="o">=</span><span class="s2">&quot;Predictions&quot;</span><span class="p">):</span>
+    <span class="n">images_so_far</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="s2">&quot;validation&quot;</span><span class="p">]):</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">images_so_far</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">num_images</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">images_so_far</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="n">preds</span><span class="p">[</span><span class="n">j</span><span class="p">]]))</span>
+                <span class="n">imshow</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">images_so_far</span> <span class="o">==</span> <span class="n">num_images</span><span class="p">:</span>
+                    <span class="k">return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we can run the previous function to see a batch of images with
+the corresponding predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_model</span><span class="p">(</span><span class="n">model_hybrid</span><span class="p">,</span> <span class="n">num_images</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d15364a9bba732fbf4f9e5a3de611ecd778a28759c645381ca0e2dc195037c17.png" src="../../../_images/d15364a9bba732fbf4f9e5a3de611ecd778a28759c645381ca0e2dc195037c17.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h2>Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<section id="id3">
+<h3>Task 1<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
+<p>Try to create your own classifier on two classes of images, for example, you could collect 20-30 photos of a cat and another cat and train a model to classify the two cats. This would be a good way to practice creating a dataset as well as building a model on that dataset. Tip: You can convert jet data obtained in CERN to images, and do classification on them.</p>
+</section>
+<section id="id4">
+<h3>Task 2<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>Get the “most wrong” of the predictions on the test dataset (any you used) and plot the 5 “most wrong” images. You can do this by:</p>
+<ul class="simple">
+<li><p>Predicting across all of the test dataset, storing the labels and predicted probabilities.</p></li>
+<li><p>Sort the predictions by wrong prediction and then descending predicted probabilities, this will give you the wrong predictions with the highest prediction probabilities, in other words, the “most wrong”.</p></li>
+<li><p>Plot the top 5 “most wrong” images, why do you think the model got these wrong?</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../_sources/courses/PHYS710/Exam/exam-301122.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
