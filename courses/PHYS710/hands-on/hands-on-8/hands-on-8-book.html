@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Quantum Feature Maps with PennyLane &#8212; Practical Quantum Computing for Scientists 2022.02.24 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Archives" href="../../../archives/archives.html" />
+    <link rel="prev" title="Hands-on session 8" href="hands-on-8.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html">
+          Practical QC for Scientists</a>
+        <span class="navbar-text navbar-version pull-left"><b>2022.02.24</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../PHYS437/index.html">437</a></li>
+                <li><a href="../../index.html">710</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Contents <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">Courses</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../PHYS437/index.html">PHYS 437</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">PHYS 710</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../archives/archives.html">Archives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../help/index.html">HOWTOs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../help/IBM_quantum.html">Using IBM quantum Cloud</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell is added by sphinx-gallery</span>
+<span class="c1"># It can be customized to whatever you like</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="quantum-feature-maps-with-pennylane">
+<h1>Quantum Feature Maps with PennyLane<a class="headerlink" href="#quantum-feature-maps-with-pennylane" title="Permalink to this heading">¶</a></h1>
+<p>Based on <a class="reference external" href="https://arxiv.org/abs/1906.10467">Analysis and synthesis of feature map for kernel-based quantum classifier</a></p>
+<section id="main-idea-of-feature-map">
+<h2>Main idea of feature map<a class="headerlink" href="#main-idea-of-feature-map" title="Permalink to this heading">¶</a></h2>
+<p>We want to translate our original space <span class="math notranslate nohighlight">\(\mathbf{R}^N\)</span> to <span class="math notranslate nohighlight">\(\mathbf{C}^{2^N}\)</span> Hilbert space. Main idea is to make non-separable points in the original space separable in the new space. This idea is very close to kernel-trick in classical SVM.</p>
+<p>Here are two examples of non-separable data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pennylane</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span><span class="p">,</span> <span class="n">make_moons</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="circles">
+<h3>Circles<a class="headerlink" href="#circles" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circles_points</span><span class="p">,</span> <span class="n">circles_y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">clr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">circles_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">circles_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">circles_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/5865e4f0385dd6598364a1e4126e2dd0519fd86d8fbbb94f93eb45b6196c56c1.png" src="../../../../_images/5865e4f0385dd6598364a1e4126e2dd0519fd86d8fbbb94f93eb45b6196c56c1.png" />
+</div>
+</div>
+</section>
+<section id="xor">
+<h3>XOR<a class="headerlink" href="#xor" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xor_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span>
+<span class="p">]</span><span class="o">.</span><span class="n">T</span>
+<span class="n">xor_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">40</span><span class="p">)]</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">clr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xor_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xor_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">xor_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/74c6d0bba12a1f3c075458f6a0f7d83b397810874aa7b4274ab4167481ea9297.png" src="../../../../_images/74c6d0bba12a1f3c075458f6a0f7d83b397810874aa7b4274ab4167481ea9297.png" />
+</div>
+</div>
+</section>
+<section id="transformation-of-random-points">
+<h3>Transformation of random points<a class="headerlink" href="#transformation-of-random-points" title="Permalink to this heading">¶</a></h3>
+<p>We will use a random distrubution of points to “see” how the kernel classifies data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">random_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">random_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/1acee96294e4b581aa96ef2f3a25e8f57cdfe62675c48365b495819513f6425c.png" src="../../../../_images/1acee96294e4b581aa96ef2f3a25e8f57cdfe62675c48365b495819513f6425c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="d-order-quantum-feature-map">
+<h2>2d order Quantum Feature Map<a class="headerlink" href="#d-order-quantum-feature-map" title="Permalink to this heading">¶</a></h2>
+<p>Second order Quantum Feature Map <span class="math notranslate nohighlight">\(U_{\Phi(\mathbf{X})}\)</span> contains three operators <span class="math notranslate nohighlight">\(U1_{\phi(x_1)}\)</span>, <span class="math notranslate nohighlight">\(U1_{\phi(x_2)}\)</span>, <span class="math notranslate nohighlight">\(U1_{\phi(x_1, x_2)}\)</span> mixed with Hadamard gates and CNOT gates.</p>
+<p>Here <span class="math notranslate nohighlight">\(U1\)</span> is a phase shifting gate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U1_\phi = \begin{bmatrix}1 &amp; 0\\ 0 &amp; e^{i\phi}\end{bmatrix}\end{split}\]</div>
+<p>And function phi is the following:
+$<span class="math notranslate nohighlight">\(\phi = \begin{cases} \phi(x_{1, 2}) = x_{1, 2}\\ \phi(x_1, x_2) = \pi x_1x_2\end{cases}\)</span>$</p>
+<p>At first we will measure the value of <span class="math notranslate nohighlight">\(\sigma^z\sigma^z\)</span> operator:
+$<span class="math notranslate nohighlight">\(\sigma^z\sigma^z = \mathbf{Z}\mathbf{Z} = \begin{bmatrix}1 &amp; 0\\0 &amp; -1\end{bmatrix} \bigotimes \begin{bmatrix}1 &amp; 0\\0 &amp; -1\end{bmatrix} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1 &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; 1\end{bmatrix}\)</span>$</p>
+<section id="implementation-in-pennylane">
+<h3>Implementation in PennyLane<a class="headerlink" href="#implementation-in-pennylane" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">simplest_feature_map</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">U1</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">U1</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">U1</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">x2</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">CNOT</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="circuit">
+<h3>Circuit<a class="headerlink" href="#circuit" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">simplest_feature_map</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">simplest_feature_map</span><span class="o">.</span><span class="n">draw</span><span class="p">())</span>
+
+<span class="ne">AttributeError</span>: &#39;QNode&#39; object has no attribute &#39;draw&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets see how the simple ZZ kernel works using the random data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zz_proj</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplest_feature_map</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">random_points</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">clbr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">random_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">random_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">zz_proj</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clbr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/d89f0eb09ce5b633c2bf1d81bcb287d7ed024d9677ef60de364e4c5554e3b3a7.png" src="../../../../_images/d89f0eb09ce5b633c2bf1d81bcb287d7ed024d9677ef60de364e4c5554e3b3a7.png" />
+</div>
+</div>
+</section>
+<section id="solution-of-circles-problem">
+<h3>Solution of circles problem<a class="headerlink" href="#solution-of-circles-problem" title="Permalink to this heading">¶</a></h3>
+<p>This behaviour seems perfect for the circles problem. We can separate circles problem with <span class="math notranslate nohighlight">\(\mathbf{Z}\mathbf{Z}\)</span> simplest feature map.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">circles_proj_zz</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplest_feature_map</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">circles_points</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">clbr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">circles_proj_zz</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">circles_proj_zz</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">circles_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clbr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/df21fa03897f03e13e705dc06c91e71b074b366c20508926e293b6a9c308874e.png" src="../../../../_images/df21fa03897f03e13e705dc06c91e71b074b366c20508926e293b6a9c308874e.png" />
+</div>
+</div>
+<p>We can see that all the points with value of <span class="math notranslate nohighlight">\(\mathbf{Z}\mathbf{Z}\)</span> projection less than <span class="math notranslate nohighlight">\(0.6\)</span> have class <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> and all the points with projection value greater than <span class="math notranslate nohighlight">\(0.675\)</span> have class <span class="math notranslate nohighlight">\(\mathbf{1}\)</span></p>
+</section>
+</section>
+<section id="send-it-after-class-yy-projection">
+<h2>Send it after class:  YY-projection<a class="headerlink" href="#send-it-after-class-yy-projection" title="Permalink to this heading">¶</a></h2>
+<p>Implement a kernel with  <span class="math notranslate nohighlight">\(\sigma^y\sigma^y\)</span> operator, show its behaviour using the random dots, and  apply it to the xor problem</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@qml</span><span class="o">.</span><span class="n">qnode</span><span class="p">(</span><span class="n">dev</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">simplest_feature_map_yy</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+<span class="c1">#code me</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yy_proj</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplest_feature_map_yy</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">random_points</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">clbr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">random_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">random_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">yy_proj</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clbr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/43f64eb18c4908983e3b2d2893b312048dfaeea41689eb2389595343ff8cdbec.png" src="../../../../_images/43f64eb18c4908983e3b2d2893b312048dfaeea41689eb2389595343ff8cdbec.png" />
+</div>
+</div>
+<section id="solution-of-xor-problem">
+<h3>Solution of XOR problem<a class="headerlink" href="#solution-of-xor-problem" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xor_proj_yy</span> <span class="o">=</span> <span class="p">[</span><span class="n">simplest_feature_map_yy</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">xor_points</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">clbr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xor_proj_yy</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">xor_proj_yy</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">xor_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">clbr</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/c2a029836b52140d41bb396477b37d924c1d85a8ef6674fbacd9a7f73e33cce3.png" src="../../../../_images/c2a029836b52140d41bb396477b37d924c1d85a8ef6674fbacd9a7f73e33cce3.png" />
+</div>
+</div>
+<p>You should see that all the points with value of <span class="math notranslate nohighlight">\(\mathbf{Y}\mathbf{Y}\)</span> projection less than <span class="math notranslate nohighlight">\(-0.2\)</span> have class <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> and all the points with projection value greater than <span class="math notranslate nohighlight">\(0.2\)</span> have class <span class="math notranslate nohighlight">\(\mathbf{1}\)</span></p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="machine-learning-for-quantum-many-body-problems">
+<h1>Machine learning for quantum many-body problems<a class="headerlink" href="#machine-learning-for-quantum-many-body-problems" title="Permalink to this heading">¶</a></h1>
+<p>Storing and processing a complete description of an <span class="math notranslate nohighlight">\(n\)</span>-qubit quantum mechanical system is challenging because the amount of memory required generally scales exponentially with the number of qubits. The quantum community has recently addressed this challenge by using the classical shadow formalism, which allows us to build more concise classical descriptions of quantum states using randomized single-qubit measurements. It was argued in H. Y. Huang, R. Kueng, G. Torlai, V. V. Albert, J. Preskill, “Provably efficient machine learning for quantum many-body problems”, arXiv:2106.12627 [quant-ph] (2021)  that combining classical shadows with classical machine learning enables using learning models that efficiently predict properties of the quantum systems, such as the expectation value of a Hamiltonian, correlation functions, and entanglement entropies.</p>
+<p><img alt="Combining machine learning and classical shadows" src="../../../../_images/class_shadow_ml.png" /></p>
+<p>In this demo, we describe one of the ideas presented in this reference for using classical shadow formalism and machine learning to predict the ground-state properties of the 2D antiferromagnetic Heisenberg model. We begin by learning how to build the Heisenberg model, calculate its ground-state properties, and compute its classical shadow. Finally, we demonstrate how to use kernel-based learning models to predict ground-state properties from the learned classical shadows. So let’s get started!</p>
+<section id="building-the-2d-heisenberg-model">
+<h2>Building the 2D Heisenberg Model<a class="headerlink" href="#building-the-2d-heisenberg-model" title="Permalink to this heading">¶</a></h2>
+<p>We define a two-dimensional antiferromagnetic <a class="reference external" href="https://en.wikipedia.org/wiki/Quantum_Heisenberg_model">Heisenberg model</a> as a square lattice, where a spin-1/2 particle occupies each site. The antiferromagnetic nature and the overall physics of this model depend on the couplings <span class="math notranslate nohighlight">\(J_{ij}\)</span> present between the spins, as reflected in the Hamiltonian associated with the model:</p>
+<div class="math notranslate nohighlight">
+\[H = \sum_{i &lt; j} J_{ij}(X_i X_j + Y_i Y_j + Z_i Z_j) .\]</div>
+<p>Here, we consider the family of Hamiltonians where all the couplings <span class="math notranslate nohighlight">\(J_{ij}\)</span> are sampled uniformly from [0, 2]. We build a coupling matrix <span class="math notranslate nohighlight">\(J\)</span> by providing the number of rows <span class="math notranslate nohighlight">\(N_r\)</span> and columns <span class="math notranslate nohighlight">\(N_c\)</span> present in the square lattice. The dimensions of this matrix are <span class="math notranslate nohighlight">\(N_s \times N_s\)</span>, where <span class="math notranslate nohighlight">\(N_s = N_r \times N_c\)</span> is the total number of spin particles present in the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">import</span> <span class="nn">pennylane.numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">anp</span>
+
+<span class="k">def</span> <span class="nf">build_coupling_mats</span><span class="p">(</span><span class="n">num_mats</span><span class="p">,</span> <span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">):</span>
+    <span class="n">num_spins</span> <span class="o">=</span> <span class="n">num_rows</span> <span class="o">*</span> <span class="n">num_cols</span>
+    <span class="n">coupling_mats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_mats</span><span class="p">,</span> <span class="n">num_spins</span><span class="p">,</span> <span class="n">num_spins</span><span class="p">))</span>
+    <span class="n">coup_terms</span> <span class="o">=</span> <span class="n">anp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_mats</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_rows</span> <span class="o">*</span> <span class="n">num_cols</span> <span class="o">-</span> <span class="n">num_rows</span> <span class="o">-</span> <span class="n">num_cols</span><span class="p">))</span>
+    <span class="c1"># populate edges to build the grid lattice</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">si</span><span class="p">,</span> <span class="n">sj</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">sj</span><span class="p">)</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_spins</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">sj</span> <span class="o">%</span> <span class="n">num_cols</span> <span class="ow">and</span> <span class="n">sj</span> <span class="o">-</span> <span class="n">si</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">sj</span> <span class="o">-</span> <span class="n">si</span> <span class="o">==</span> <span class="n">num_cols</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_mats</span><span class="p">):</span>
+        <span class="k">for</span> <span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">term</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">coup_terms</span><span class="p">[</span><span class="n">itr</span><span class="p">]):</span>
+            <span class="n">coupling_mats</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">coupling_mats</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">term</span>
+    <span class="k">return</span> <span class="n">coupling_mats</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For this demo, we study a model with four spins arranged on the nodes of a square lattice. We require four qubits for simulating this model; one qubit for each spin. We start by building a coupling matrix <code class="docutils literal notranslate"><span class="pre">J_mat</span></code> using our previously defined function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">num_qubits</span> <span class="o">=</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span>  <span class="c1"># Ns</span>
+<span class="n">J_mat</span> <span class="o">=</span> <span class="n">build_coupling_mats</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now visualize the model instance by representing the coupling matrix as a <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">J_mat</span><span class="p">),</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">Nc</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">i</span> <span class="o">//</span> <span class="n">Nc</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">()}</span>
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">J_mat</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">()}</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/e3b4f0f21f7b072b86b3c537946362a44f61ff8919ef7cd9ac80a636ad45e567.png" src="../../../../_images/e3b4f0f21f7b072b86b3c537946362a44f61ff8919ef7cd9ac80a636ad45e567.png" />
+</div>
+</div>
+<p>We then use the same coupling matrix <code class="docutils literal notranslate"><span class="pre">J_mat</span></code> to obtain the Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> for the model we have instantiated above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pennylane</span> <span class="k">as</span> <span class="nn">qml</span>
+
+<span class="k">def</span> <span class="nf">Hamiltonian</span><span class="p">(</span><span class="n">J_mat</span><span class="p">):</span>
+    <span class="n">coeffs</span><span class="p">,</span> <span class="n">ops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">J_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">ns</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">coeff</span> <span class="o">=</span> <span class="n">J_mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">coeff</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliY</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">]:</span>
+                <span class="n">coeffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+                <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">@</span> <span class="n">op</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">Hamiltonian</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">H</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hamiltonian =</span><span class="se">\n</span><span class="si">{</span><span class="n">Hamiltonian</span><span class="p">(</span><span class="n">J_mat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hamiltonian =
+  (0.44013459956570355) [X2 X3]
++ (0.44013459956570355) [Y2 Y3]
++ (0.44013459956570355) [Z2 Z3]
++ (1.399024099899152) [X0 X2]
++ (1.399024099899152) [Y0 Y2]
++ (1.399024099899152) [Z0 Z2]
++ (1.920034606671837) [X0 X1]
++ (1.920034606671837) [Y0 Y1]
++ (1.920034606671837) [Z0 Z1]
++ (1.9997345852477584) [X1 X3]
++ (1.9997345852477584) [Y1 Y3]
++ (1.9997345852477584) [Z1 Z3]
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the Heisenberg model, a property of interest is usually the two-body correlation function <span class="math notranslate nohighlight">\(C_{ij}\)</span>, which for a pair of spins <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> is defined as the following operator:</p>
+<div class="math notranslate nohighlight">
+\[\hat{C}_{ij} = \frac{1}{3} (X_i X_j + Y_iY_j + Z_iZ_j).\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">corr_function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="n">ops</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliY</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">op</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">@</span> <span class="n">op</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ops</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The expectation value of each such operator <span class="math notranslate nohighlight">\(\hat{C}_{ij}\)</span> with respect to the ground state <span class="math notranslate nohighlight">\(|\psi_{0}\rangle\)</span> of the model can be used to build the correlation matrix <span class="math notranslate nohighlight">\(C\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[{C}_{ij} = \langle \hat{C}_{ij} \rangle = \frac{1}{3} \langle \psi_{0} | X_i X_j + Y_iY_j + Z_iZ_j | \psi_{0} \rangle .\]</div>
+<p>Hence, to build <span class="math notranslate nohighlight">\(C\)</span> for the model, we need to calculate its ground state <span class="math notranslate nohighlight">\(|\psi_{0}\rangle\)</span>. We do this by diagonalizing the Hamiltonian for the model. Then, we obtain the eigenvector corresponding to the smallest eigenvalue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+
+<span class="n">ham</span> <span class="o">=</span> <span class="n">Hamiltonian</span><span class="p">(</span><span class="n">J_mat</span><span class="p">)</span>
+<span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigs</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">sparse_hamiltonian</span><span class="p">(</span><span class="n">ham</span><span class="p">))</span>
+<span class="n">psi0</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then build a circuit that initializes the qubits into the ground state and measures the expectation value of the provided set of observables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev_exact</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">num_qubits</span><span class="p">)</span> <span class="c1"># for exact simulation</span>
+
+<span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">observables</span><span class="p">):</span>
+    <span class="n">psi</span> <span class="o">=</span> <span class="n">psi</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">psi</span><span class="p">)</span> <span class="c1"># normalize the state</span>
+    <span class="n">qml</span><span class="o">.</span><span class="n">QubitStateVector</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">expval</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">observables</span><span class="p">]</span>
+
+<span class="n">circuit_exact</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">QNode</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">dev_exact</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we execute this circuit to obtain the exact correlation matrix <span class="math notranslate nohighlight">\(C\)</span>. We compute the correlation operators <span class="math notranslate nohighlight">\(\hat{C}_{ij}\)</span> and their expectation values with respect to the ground state <span class="math notranslate nohighlight">\(|\psi_0\rangle\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">corrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">corr_function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">coups</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">build_exact_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="n">circuit</span><span class="p">,</span> <span class="n">psi</span><span class="p">):</span>
+    <span class="n">corr_mat_exact</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coups</span><span class="p">):</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">corrs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">corr_mat_exact</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">corr_mat_exact</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">circuit</span><span class="p">(</span><span class="n">psi</span><span class="p">,</span> <span class="n">observables</span><span class="o">=</span><span class="p">[</span><span class="n">o</span><span class="p">])</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">corr</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span>
+            <span class="p">)</span>
+            <span class="n">corr_mat_exact</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr_mat_exact</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">corr_mat_exact</span>
+
+<span class="n">expval_exact</span> <span class="o">=</span> <span class="n">build_exact_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="n">circuit_exact</span><span class="p">,</span> <span class="n">psi0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once built, we can visualize the correlation matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">expval_exact</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;RdBu&quot;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Exact Correlation Matrix&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.80</span>    <span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$C_</span><span class="si">{ij}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/a4d63ff77f3aeebdc6f58b60ffb5431ddd13d25e927dfcb9ddc9b01a85a4a415.png" src="../../../../_images/a4d63ff77f3aeebdc6f58b60ffb5431ddd13d25e927dfcb9ddc9b01a85a4a415.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="constructing-classical-shadows">
+<h1>Constructing Classical Shadows<a class="headerlink" href="#constructing-classical-shadows" title="Permalink to this heading">¶</a></h1>
+<p>Now that we have built the Heisenberg model, the next step is to construct a classical shadow representation for its ground state. To construct an approximate classical representation of an <span class="math notranslate nohighlight">\(n\)</span>-qubit quantum state <span class="math notranslate nohighlight">\(\rho\)</span>, we perform randomized single-qubit measurements on <span class="math notranslate nohighlight">\(T\)</span>-copies of <span class="math notranslate nohighlight">\(\rho\)</span>. Each measurement is chosen randomly among the Pauli bases <span class="math notranslate nohighlight">\(X\)</span>,<span class="math notranslate nohighlight">\(Y\)</span>, or <span class="math notranslate nohighlight">\(Z\)</span> to yield random <span class="math notranslate nohighlight">\(n\)</span> pure product states <span class="math notranslate nohighlight">\(|s_i\rangle\)</span> for each copy:</p>
+<div class="math notranslate nohighlight">
+\[|s_{i}^{(t)}\rangle \in \{|0\rangle, |1\rangle, |+\rangle, |-\rangle, |i+\rangle, |i-\rangle\}.\]</div>
+<div class="math notranslate nohighlight">
+\[S_T(\rho) = \big\{|s_{i}^{(t)}\rangle: i\in\{1,\ldots, n\},\ t\in\{1,\ldots, T\} \big\}.\]</div>
+<p>Each of the <span class="math notranslate nohighlight">\(|s_i^{(t)}\rangle\)</span> provides us with a snapshot of the state <span class="math notranslate nohighlight">\(\rho\)</span>, and the <span class="math notranslate nohighlight">\(nT\)</span> measurements yield the complete set <span class="math notranslate nohighlight">\(S_{T}\)</span>, which requires just <span class="math notranslate nohighlight">\(3nT\)</span> bits to be stored in classical memory. This is discussed in further detail in <a class="reference external" href="https://pennylane.ai/qml/demos/tutorial_classical_shadows.html">classical shadows demo</a></p>
+<p><img alt="" src="../../../../_images/class_shadow_prep.png" /></p>
+<p>To prepare a classical shadow for the ground state of the Heisenberg model, we simply reuse the circuit template used above and reconstruct a <code class="docutils literal notranslate"><span class="pre">QNode</span></code> utilizing a device that performs single-shot measurements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dev_oshot</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;default.qubit&quot;</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">shots</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">circuit_oshot</span> <span class="o">=</span> <span class="n">qml</span><span class="o">.</span><span class="n">QNode</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">dev_oshot</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we define a function to build the classical shadow for the quantum state prepared by a given <span class="math notranslate nohighlight">\(n\)</span>-qubit circuit using <span class="math notranslate nohighlight">\(T\)</span>-copies of randomized Pauli basis measurements</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_class_shadow</span><span class="p">(</span><span class="n">circ_template</span><span class="p">,</span> <span class="n">circuit_params</span><span class="p">,</span> <span class="n">num_shadows</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">):</span>
+    <span class="c1"># prepare the complete set of available Pauli operators</span>
+    <span class="n">unitary_ops</span> <span class="o">=</span> <span class="p">[</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliY</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">]</span>
+    <span class="c1"># sample random Pauli measurements uniformly</span>
+    <span class="n">unitary_ensmb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_shadows</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_shadows</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ns</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_shadows</span><span class="p">):</span>
+        <span class="c1"># for each snapshot, extract the Pauli basis measurement to be performed</span>
+        <span class="n">meas_obs</span> <span class="o">=</span> <span class="p">[</span><span class="n">unitary_ops</span><span class="p">[</span><span class="n">unitary_ensmb</span><span class="p">[</span><span class="n">ns</span><span class="p">,</span> <span class="n">i</span><span class="p">]](</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">)]</span>
+        <span class="c1"># perform single shot randomized Pauli measuremnt for each qubit</span>
+        <span class="n">outcomes</span><span class="p">[</span><span class="n">ns</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">circ_template</span><span class="p">(</span><span class="n">circuit_params</span><span class="p">,</span> <span class="n">observables</span><span class="o">=</span><span class="n">meas_obs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">unitary_ensmb</span>
+
+
+<span class="n">outcomes</span><span class="p">,</span> <span class="n">basis</span> <span class="o">=</span> <span class="n">gen_class_shadow</span><span class="p">(</span><span class="n">circuit_oshot</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five measurement outcomes =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First five measurement bases =</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">basis</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First five measurement outcomes =
+ [[ 1.  1. -1. -1.]
+ [ 1. -1. -1.  1.]
+ [ 1. -1. -1. -1.]
+ [-1.  1.  1.  1.]
+ [-1. -1. -1. -1.]]
+First five measurement bases =
+ [[2 1 0 2]
+ [1 2 2 1]
+ [2 2 1 0]
+ [2 2 2 1]
+ [0 2 2 0]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Furthermore, <span class="math notranslate nohighlight">\(S_{T}\)</span> can be used to construct an approximation of the
+underlying <span class="math notranslate nohighlight">\(n\)</span>-qubit state <span class="math notranslate nohighlight">\(\rho\)</span> by averaging over <span class="math notranslate nohighlight">\(\sigma_t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_T(\rho) = \frac{1}{T} \sum_{1}^{T} \big(3|s_{1}^{(t)}\rangle\langle s_1^{(t)}| - \mathbb{I}\big)\otimes \ldots \otimes \big(3|s_{n}^{(t)}\rangle\langle s_n^{(t)}| - \mathbb{I}\big).\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">snapshot_state</span><span class="p">(</span><span class="n">meas_list</span><span class="p">,</span> <span class="n">obs_list</span><span class="p">):</span>
+    <span class="c1"># undo the rotations done for performing Pauli measurements in the specific basis</span>
+    <span class="n">rotations</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="c1"># X-basis</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Hadamard</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="o">@</span> <span class="n">qml</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">adjoint</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">S</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">))),</span> <span class="c1"># Y-basis</span>
+        <span class="n">qml</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">Identity</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="c1"># Z-basis</span>
+    <span class="p">]</span>
+
+    <span class="c1"># reconstruct snapshot from local Pauli measurements</span>
+    <span class="n">rho_snapshot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">meas_out</span><span class="p">,</span> <span class="n">basis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">meas_list</span><span class="p">,</span> <span class="n">obs_list</span><span class="p">):</span>
+        <span class="c1"># preparing state |s_i&gt;&lt;s_i| using the post measurement outcome:</span>
+        <span class="c1"># |0&gt;&lt;0| for 1 and |1&gt;&lt;1| for -1</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span> <span class="k">if</span> <span class="n">meas_out</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="n">local_rho</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">rotations</span><span class="p">[</span><span class="n">basis</span><span class="p">]</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">state</span> <span class="o">@</span> <span class="n">rotations</span><span class="p">[</span><span class="n">basis</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">rho_snapshot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">kron</span><span class="p">(</span><span class="n">rho_snapshot</span><span class="p">,</span> <span class="n">local_rho</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rho_snapshot</span>
+
+<span class="k">def</span> <span class="nf">shadow_state_reconst</span><span class="p">(</span><span class="n">shadow</span><span class="p">):</span>
+    <span class="n">num_snapshots</span><span class="p">,</span> <span class="n">num_qubits</span> <span class="o">=</span> <span class="n">shadow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">meas_lists</span><span class="p">,</span> <span class="n">obs_lists</span> <span class="o">=</span> <span class="n">shadow</span>
+
+    <span class="c1"># Reconstruct the quantum state from its classical shadow</span>
+    <span class="n">shadow_rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">**</span> <span class="n">num_qubits</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">num_qubits</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_snapshots</span><span class="p">):</span>
+        <span class="n">shadow_rho</span> <span class="o">+=</span> <span class="n">snapshot_state</span><span class="p">(</span><span class="n">meas_lists</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">obs_lists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">shadow_rho</span> <span class="o">/</span> <span class="n">num_snapshots</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To see how well the reconstruction works for different values of <span class="math notranslate nohighlight">\(T\)</span>, we look at the <a class="reference external" href="https://en.wikipedia.org/wiki/Fidelity_of_quantum_states">fidelity</a> of the actual quantum state with respect to the reconstructed quantum state
+from the classical shadow with <span class="math notranslate nohighlight">\(T\)</span> copies. On average, as the number of copies <span class="math notranslate nohighlight">\(T\)</span> is increased, the reconstruction becomes more effective with average higher fidelity values (orange) and lower variance (blue). Eventually, in the limit <span class="math notranslate nohighlight">\(T\rightarrow\infty\)</span>, the reconstruction will be exact.</p>
+<p><img alt="Fidelity of the reconstructed ground state with different shadow sizes" src="../../../../_images/fidel_snapshot.png" /></p>
+<p>The reconstructed quantum state <span class="math notranslate nohighlight">\(\sigma_T\)</span> can also be used to evaluate expectation values <span class="math notranslate nohighlight">\(\text{Tr}(O\sigma_T)\)</span> for some localized observable <span class="math notranslate nohighlight">\(O = \bigotimes_{i}^{n} P_i\)</span>, where <span class="math notranslate nohighlight">\(P_i \in \{I, X, Y, Z\}\)</span>. However, as shown above, <span class="math notranslate nohighlight">\(\sigma_T\)</span> would be only an approximation of <span class="math notranslate nohighlight">\(\rho\)</span> for finite values of <span class="math notranslate nohighlight">\(T\)</span>. Therefore, to estimate <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> robustly, we use the median of means estimation. For this purpose, we split up the <span class="math notranslate nohighlight">\(T\)</span> shadows into <span class="math notranslate nohighlight">\(K\)</span> equally-sized groups and evaluate the median of the mean value of <span class="math notranslate nohighlight">\(\langle O \rangle\)</span> for each of these groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">estimate_shadow_obs</span><span class="p">(</span><span class="n">shadow</span><span class="p">,</span> <span class="n">observable</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">shadow_size</span> <span class="o">=</span> <span class="n">shadow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># convert Pennylane observables to indices</span>
+    <span class="n">map_name_to_int</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;PauliX&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;PauliY&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;PauliZ&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">observable</span><span class="p">,</span> <span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">PauliX</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliY</span><span class="p">,</span> <span class="n">qml</span><span class="o">.</span><span class="n">PauliZ</span><span class="p">)):</span>
+        <span class="n">target_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">map_name_to_int</span><span class="p">[</span><span class="n">observable</span><span class="o">.</span><span class="n">name</span><span class="p">]])</span>
+        <span class="n">target_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">observable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">target_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">map_name_to_int</span><span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">observable</span><span class="o">.</span><span class="n">obs</span><span class="p">])</span>
+        <span class="n">target_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">observable</span><span class="o">.</span><span class="n">obs</span><span class="p">])</span>
+
+    <span class="c1"># perform median of means to return the result</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">meas_list</span><span class="p">,</span> <span class="n">obs_lists</span> <span class="o">=</span> <span class="n">shadow</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shadow_size</span><span class="p">,</span> <span class="n">shadow_size</span> <span class="o">//</span> <span class="n">k</span><span class="p">):</span>
+        <span class="n">meas_list_k</span><span class="p">,</span> <span class="n">obs_lists_k</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">meas_list</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">shadow_size</span> <span class="o">//</span> <span class="n">k</span><span class="p">],</span>
+            <span class="n">obs_lists</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">shadow_size</span> <span class="o">//</span> <span class="n">k</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">obs_lists_k</span><span class="p">[:,</span> <span class="n">target_locs</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_obs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+            <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">meas_list_k</span><span class="p">[</span><span class="n">indices</span><span class="p">][:,</span> <span class="n">target_locs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">means</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we estimate the correlation matrix <span class="math notranslate nohighlight">\(C^{\prime}\)</span> from the classical shadow approximation of the ground state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">corrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">corr_function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">coups</span><span class="p">]</span>
+<span class="n">qbobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">qob</span> <span class="k">for</span> <span class="n">qobs</span> <span class="ow">in</span> <span class="n">corrs</span> <span class="k">for</span> <span class="n">qob</span> <span class="ow">in</span> <span class="n">qobs</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">build_estim_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="n">num_obs</span><span class="p">,</span> <span class="n">shadow</span><span class="p">):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">num_obs</span><span class="p">))</span> <span class="c1"># group size</span>
+    <span class="n">corr_mat_estim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_qubits</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coups</span><span class="p">):</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">corrs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">corr_mat_estim</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">corr_mat_estim</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">estimate_shadow_obs</span><span class="p">(</span><span class="n">shadow</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">corr</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">3</span>
+            <span class="p">)</span>
+            <span class="n">corr_mat_estim</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr_mat_estim</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">corr_mat_estim</span>
+
+<span class="n">shadow</span> <span class="o">=</span> <span class="n">gen_class_shadow</span><span class="p">(</span><span class="n">circuit_oshot</span><span class="p">,</span> <span class="n">psi0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">)</span>
+<span class="n">expval_estmt</span> <span class="o">=</span> <span class="n">build_estim_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qbobs</span><span class="p">),</span> <span class="n">shadow</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time, let us visualize the deviation observed between the exact correlation matrix (<span class="math notranslate nohighlight">\(C\)</span>) and the estimated correlation matrix (<span class="math notranslate nohighlight">\(C^{\prime}\)</span>) to assess the effectiveness of classical shadow formalism.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">expval_exact</span><span class="o">-</span><span class="n">expval_estmt</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;RdBu&quot;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Error in estimating the</span><span class="se">\n</span><span class="s2">correlation matrix&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.80</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Delta C_</span><span class="si">{ij}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/9eff8d16fc81d432254f7ab52e6547855af3560097a74a95c66d11586cae154f.png" src="../../../../_images/9eff8d16fc81d432254f7ab52e6547855af3560097a74a95c66d11586cae154f.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="training-classical-machine-learning-models">
+<h1>Training Classical Machine Learning Models<a class="headerlink" href="#training-classical-machine-learning-models" title="Permalink to this heading">¶</a></h1>
+<p>There are multiple ways in which we can combine classical shadows and machine learning. This could include training a model to learn the classical representation of quantum systems based on some system parameter, estimating a property from such learned classical representations, or a combination of both. In our case, we consider the problem of using kernel-based models to learn the ground-state representation of the Heisenberg model Hamiltonian <span class="math notranslate nohighlight">\(H(x_l)\)</span> from the coupling vector <span class="math notranslate nohighlight">\(x_l\)</span>, where <span class="math notranslate nohighlight">\(x_l = [J_{i,j} \text{ for } i &lt; j]\)</span>. The goal is to predict the correlation functions <span class="math notranslate nohighlight">\(C_{ij}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\big\{x_l \rightarrow \sigma_T(\rho(x_l)) \rightarrow \text{Tr}(\hat{C}_{ij} \sigma_T(\rho(x_l))) \big\}_{l=1}^{N}.\]</div>
+<p>Here, we consider the following kernel-based machine learning model A. Jacot, F. Gabriel, and C. Hongler. “Neural tangent kernel: Convergence and generalization in neural networks”. NeurIPS, 8571–8580 (2018):</p>
+<div class="math notranslate nohighlight">
+\[\hat{\sigma}_{N} (x) = \sum_{l=1}^{N} \kappa(x, x_l)\sigma_T (x_l) = \sum_{l=1}^{N} \left(\sum_{l^{\prime}=1}^{N} k(x, x_{l^{\prime}})(K+\lambda I)^{-1}_{l, l^{\prime}} \sigma_T(x_l) \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda &gt; 0\)</span> is a regularization parameter in cases when <span class="math notranslate nohighlight">\(K\)</span> is not invertible, <span class="math notranslate nohighlight">\(\sigma_T(x_l)\)</span> denotes the classical representation of the ground state <span class="math notranslate nohighlight">\(\rho(x_l)\)</span> of the Heisenberg model constructed using <span class="math notranslate nohighlight">\(T\)</span> randomized Pauli measurements, and <span class="math notranslate nohighlight">\(K_{ij}=k(x_i, x_j)\)</span> is the kernel matrix with <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> as the kernel function.</p>
+<p>Similarly, estimating an expectation value on the predicted ground state <span class="math notranslate nohighlight">\(\sigma_T(x_l)\)</span> using the trained model can then be done by evaluating:</p>
+<div class="math notranslate nohighlight">
+\[\text{Tr}(\hat{O} \hat{\sigma}_{N} (x)) = \sum_{l=1}^{N} \kappa(x, x_l)\text{Tr}(O\sigma_T (x_l)).\]</div>
+<p>We train the classical kernel-based models using <span class="math notranslate nohighlight">\(N = 70\)</span> randomly chosen values of the coupling matrices <span class="math notranslate nohighlight">\(J\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports for ML methods and techniques</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="kn">from</span> <span class="nn">sklearn.kernel_ridge</span> <span class="kn">import</span> <span class="n">KernelRidge</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, to build the dataset, we use the function <code class="docutils literal notranslate"><span class="pre">build_dataset</span></code> that takes as input the size of the dataset (<code class="docutils literal notranslate"><span class="pre">num_points</span></code>), the topology of the lattice (<code class="docutils literal notranslate"><span class="pre">Nr</span></code> and <code class="docutils literal notranslate"><span class="pre">Nc</span></code>), and the number of randomized Pauli measurements (<span class="math notranslate nohighlight">\(T\)</span>) for the construction of classical shadows. The <code class="docutils literal notranslate"><span class="pre">X_data</span></code> is the set of coupling vectors that are defined as a stripped version of the coupling matrix <span class="math notranslate nohighlight">\(J\)</span>, where only non-duplicate and non-zero <span class="math notranslate nohighlight">\(J_{ij}\)</span> are considered. The <code class="docutils literal notranslate"><span class="pre">y_exact</span></code> and <code class="docutils literal notranslate"><span class="pre">y_clean</span></code> are the set of correlation vectors, i.e., the flattened correlation matrix <span class="math notranslate nohighlight">\(C\)</span>, computed with respect to the ground-state obtained from exact diagonalization and classical shadow representation (with <span class="math notranslate nohighlight">\(T=500\)</span>),
+respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_dataset</span><span class="p">(</span><span class="n">num_points</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+
+    <span class="n">num_qubits</span> <span class="o">=</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y_exact</span><span class="p">,</span> <span class="n">y_estim</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">coupling_mats</span> <span class="o">=</span> <span class="n">build_coupling_mats</span><span class="p">(</span><span class="n">num_points</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">coupling_mat</span> <span class="ow">in</span> <span class="n">coupling_mats</span><span class="p">:</span>
+        <span class="n">ham</span> <span class="o">=</span> <span class="n">Hamiltonian</span><span class="p">(</span><span class="n">coupling_mat</span><span class="p">)</span>
+        <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigs</span><span class="p">(</span><span class="n">qml</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">sparse_hamiltonian</span><span class="p">(</span><span class="n">ham</span><span class="p">))</span>
+        <span class="n">psi</span> <span class="o">=</span> <span class="n">eigvecs</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)]</span>
+        <span class="n">shadow</span> <span class="o">=</span> <span class="n">gen_class_shadow</span><span class="p">(</span><span class="n">circuit_oshot</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">)</span>
+
+        <span class="n">coups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">corrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">corr_function</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">coups</span><span class="p">]</span>
+        <span class="n">qbobs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">corrs</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
+        <span class="n">expval_exact</span> <span class="o">=</span> <span class="n">build_exact_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="n">circuit_exact</span><span class="p">,</span> <span class="n">psi</span><span class="p">)</span>
+        <span class="n">expval_estim</span> <span class="o">=</span> <span class="n">build_estim_corrmat</span><span class="p">(</span><span class="n">coups</span><span class="p">,</span> <span class="n">corrs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qbobs</span><span class="p">),</span> <span class="n">shadow</span><span class="p">)</span>
+
+        <span class="n">coupling_vec</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">coup</span> <span class="ow">in</span> <span class="n">coupling_mat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">coup</span> <span class="ow">and</span> <span class="n">coup</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coupling_vec</span><span class="p">:</span>
+                <span class="n">coupling_vec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coup</span><span class="p">)</span>
+        <span class="n">coupling_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coupling_vec</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coupling_vec</span><span class="p">)</span>
+
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coupling_vec</span><span class="p">)</span>
+        <span class="n">y_exact</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expval_exact</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y_estim</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expval_estim</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_exact</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_estim</span><span class="p">)</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y_exact</span><span class="p">,</span> <span class="n">y_estim</span> <span class="o">=</span> <span class="n">build_dataset</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">y_estim</span>
+<span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_exact</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((100, 4), (100, 16), (100, 16))
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((100, 4), (100, 16), (100, 16))
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((100, 4), (100, 16), (100, 16))
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that our dataset is ready, we can shift our focus to the ML models. Here, we use two different Kernel functions: (i) Gaussian Kernel and (ii) Neural Tangent Kernel. For both of them, we consider the regularization parameter <span class="math notranslate nohighlight">\(\lambda\)</span> from the following set of values:</p>
+<div class="math notranslate nohighlight">
+\[\lambda = \left\{ 0.0025, 0.0125, 0.025, 0.05, 0.125, 0.25, 0.5, 1.0, 5.0, 10.0 \right\}.\]</div>
+<p>Next, we define the kernel functions <span class="math notranslate nohighlight">\(k(x, x^{\prime})\)</span> for each of the mentioned kernels:</p>
+<p>Gaussian Kernel:</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = e^{-\gamma||x - x^{\prime}||^{2}_{2}}. \]</div>
+<p>For the Gaussian kernel, the hyperparameter <span class="math notranslate nohighlight">\(\gamma = N^{2}/\sum_{i=1}^{N} \sum_{j=1}^{N} ||x_i-x_j||^{2}_{2} &gt; 0\)</span> is chosen to be the inverse of the average Euclidean distance <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span>. The kernel is implemented using the radial-basis function (rbf) kernel in the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> library.</p>
+<p>Neural Tangent Kernel:</p>
+<div class="math notranslate nohighlight">
+\[k(x, x^{\prime}) = k^{\text{NTK}}(x, x^{\prime}). \]</div>
+<p>The neural tangent kernel <span class="math notranslate nohighlight">\(k^{\text{NTK}}\)</span> used here is equivalent to an infinite-width feed-forward neural network with four hidden layers and that uses the rectified linear unit (ReLU) as the activation function. This is implemented using the <code class="docutils literal notranslate"><span class="pre">neural_tangents</span></code> library.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">neural_tangents</span> <span class="kn">import</span> <span class="n">stax</span>
+<span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">stax</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">kernel_NN</span> <span class="o">=</span> <span class="n">kernel_fn</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">X_data</span><span class="p">,</span> <span class="s2">&quot;ntk&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel_NN</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel_NN</span><span class="p">)):</span>
+        <span class="n">kernel_NN</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">((</span><span class="n">kernel_NN</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">kernel_NN</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [20],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">neural_tangents</span> <span class="kn">import</span> <span class="n">stax</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">stax</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">kernel_NN</span> <span class="o">=</span> <span class="n">kernel_fn</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">X_data</span><span class="p">,</span> <span class="s2">&quot;ntk&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;neural_tangents&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the above two defined kernel methods, we obtain the best learning model by performing hyperparameter tuning using cross-validation for the prediction task of each <span class="math notranslate nohighlight">\(C_{ij}\)</span>. For this purpose, we implement the function <code class="docutils literal notranslate"><span class="pre">fit_predict_data</span></code>, which takes input as the correlation function index <code class="docutils literal notranslate"><span class="pre">cij</span></code>, kernel matrix <code class="docutils literal notranslate"><span class="pre">kernel</span></code>, and internal kernel mapping <code class="docutils literal notranslate"><span class="pre">opt</span></code> required by the kernel-based regression models from the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> library.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="k">def</span> <span class="nf">fit_predict_data</span><span class="p">(</span><span class="n">cij</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">):</span>
+
+    <span class="c1"># training data (estimated from measurement data)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_estim</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">cij</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_data</span><span class="p">))])</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">kernel</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">24</span>
+    <span class="p">)</span>
+
+    <span class="c1"># testing data (exact expectation values)</span>
+    <span class="n">y_clean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_exact</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">cij</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_data</span><span class="p">))])</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">y_test_clean</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">y_clean</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+    <span class="c1"># hyperparameter tuning with cross validation</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># Epsilon-Support Vector Regression</span>
+        <span class="p">(</span><span class="k">lambda</span> <span class="n">Cx</span><span class="p">:</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">Cx</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)),</span>
+        <span class="c1"># Kernel-Ridge based Regression</span>
+        <span class="p">(</span><span class="k">lambda</span> <span class="n">Cx</span><span class="p">:</span> <span class="n">KernelRidge</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Cx</span><span class="p">))),</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Regularization parameter</span>
+    <span class="n">hyperparams</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0025</span><span class="p">,</span> <span class="mf">0.0125</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
+    <span class="n">best_pred</span><span class="p">,</span> <span class="n">best_cv_score</span><span class="p">,</span> <span class="n">best_test_score</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">hyperparam</span> <span class="ow">in</span> <span class="n">hyperparams</span><span class="p">:</span>
+            <span class="n">cv_score</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+                <span class="n">cross_val_score</span><span class="p">(</span>
+                    <span class="n">model</span><span class="p">(</span><span class="n">hyperparam</span><span class="p">),</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                    <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;neg_root_mean_squared_error&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">best_cv_score</span> <span class="o">&gt;</span> <span class="n">cv_score</span><span class="p">:</span>
+                <span class="n">best_model</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">hyperparam</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+                <span class="n">best_pred</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+                <span class="n">best_cv_score</span> <span class="o">=</span> <span class="n">cv_score</span>
+                <span class="n">best_test_score</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span>
+                    <span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_test_clean</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">squared</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">best_pred</span><span class="p">,</span> <span class="n">y_test_clean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">best_cv_score</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">best_test_score</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We perform the fitting and prediction for each <span class="math notranslate nohighlight">\(C_{ij}\)</span> and print the
+output in a tabular format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gaussian kernel&quot;</span><span class="p">,</span> <span class="s2">&quot;Neural Tangent kernel&quot;</span><span class="p">]</span>
+<span class="n">kernel_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_qubits</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel_list</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">y_predclean</span><span class="p">,</span> <span class="n">y_predicts1</span><span class="p">,</span> <span class="n">y_predicts2</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">cij</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span> <span class="o">**</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">y_predict</span><span class="p">,</span> <span class="n">y_clean</span><span class="p">,</span> <span class="n">cv_score</span><span class="p">,</span> <span class="n">test_score</span> <span class="o">=</span> <span class="n">fit_predict_data</span><span class="p">(</span><span class="n">cij</span><span class="p">,</span> <span class="n">X_data</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+    <span class="n">y_predclean</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_clean</span><span class="p">)</span>
+    <span class="n">kernel_data</span><span class="p">[</span><span class="n">cij</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv_score</span><span class="p">,</span> <span class="n">test_score</span><span class="p">)</span>
+    <span class="n">y_predicts1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_predict</span><span class="p">)</span>
+    <span class="n">y_predict</span><span class="p">,</span> <span class="n">y_clean</span><span class="p">,</span> <span class="n">cv_score</span><span class="p">,</span> <span class="n">test_score</span> <span class="o">=</span> <span class="n">fit_predict_data</span><span class="p">(</span><span class="n">cij</span><span class="p">,</span> <span class="n">kernel_NN</span><span class="p">)</span>
+    <span class="n">kernel_data</span><span class="p">[</span><span class="n">cij</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv_score</span><span class="p">,</span> <span class="n">test_score</span><span class="p">)</span>
+    <span class="n">y_predicts2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_predict</span><span class="p">)</span>
+
+<span class="c1"># For each C_ij print (best_cv_score, test_score) pair</span>
+<span class="n">row_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:&gt;25}{:&gt;35}{:&gt;35}</span><span class="s2">&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">row_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Correlation&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_list</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kernel_data</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">row_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> C_</span><span class="si">{</span><span class="n">idx</span><span class="o">//</span><span class="n">num_qubits</span><span class="si">}{</span><span class="n">idx</span><span class="o">%</span><span class="n">num_qubits</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2">| &quot;</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Overall, we find that the models with the Gaussian kernel performed
+better than those with NTK for predicting the expectation value of the
+correlation function <span class="math notranslate nohighlight">\(C_{ij}\)</span> for the ground state of the Heisenberg
+model. However, the best choice of <span class="math notranslate nohighlight">\(\lambda\)</span> differed substantially
+across the different <span class="math notranslate nohighlight">\(C_{ij}\)</span> for both kernels. We present the predicted
+correlation matrix <span class="math notranslate nohighlight">\(C^{\prime}\)</span> for randomly selected Heisenberg models
+from the test set below for comparison against the actual correlation
+matrix <span class="math notranslate nohighlight">\(C\)</span>, which is obtained from the ground state found using exact
+diagonalization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+<span class="n">corr_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_predclean</span><span class="p">,</span> <span class="n">y_predicts1</span><span class="p">,</span> <span class="n">y_predicts2</span><span class="p">]</span>
+<span class="n">plt_plots</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;From </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Exact Diagonalization&quot;</span><span class="p">,</span> <span class="s2">&quot;Gaussian Kernel&quot;</span><span class="p">,</span> <span class="s2">&quot;Neur. Tang. Kernel&quot;</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Model </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">plt_plots</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cols</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">corr_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">corr_vals</span><span class="p">):</span>
+        <span class="n">shw</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">corr_vals</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">plt_plots</span><span class="p">[</span><span class="n">itr</span><span class="p">]]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span><span class="p">),</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;RdBu&quot;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span><span class="p">))</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">Nr</span> <span class="o">*</span> <span class="n">Nc</span><span class="p">))</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">itr</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.86</span><span class="p">)</span>
+<span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">])</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">shw</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
+
+<span class="n">bar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$C_</span><span class="si">{ij}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="send-it-after-class">
+<h2>Send it after class:<a class="headerlink" href="#send-it-after-class" title="Permalink to this heading">¶</a></h2>
+<p>Study the effect of the size of training data <span class="math notranslate nohighlight">\(N\)</span> and the number of Pauli measurements <span class="math notranslate nohighlight">\(T\)</span> for each Kernel you have seen. Calculate the average root-mean-square error (RMSE) in prediction for each kernel over all two-point correlation functions <span class="math notranslate nohighlight">\(C_{ij}\)</span>. How does the performance improvement change as <span class="math notranslate nohighlight">\(N\)</span> and <span class="math notranslate nohighlight">\(T\)</span> increases?</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">¶</a></h1>
+<p>This demo illustrates how classical machine learning models can benefit from the classical shadow formalism for learning characteristics and predicting the behavior of quantum systems. As argued in H. Y. Huang, R. Kueng, G. Torlai, V. V. Albert, J. Preskill, “Provably efficient machine learning for quantum many-body problems”, arXiv:2106.12627 [quant-ph] (2021), this raises the possibility that models trained on experimental or quantum data data can effectively address quantum many-body problems that cannot be solved using classical methods alone.</p>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/courses/PHYS710/hands-on/hands-on-8/hands-on-8-book.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright (CC BY 3.0) https://creativecommons.org/ .<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
