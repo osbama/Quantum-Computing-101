@@ -1,0 +1,79 @@
+Traceback (most recent call last):
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/obm/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+sampler_dw = DWaveSampler(solver='Advantage_system4.1',token=token)
+sampler_qa = EmbeddingComposite(sampler_dw)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mSolverAuthenticationError[0m                 Traceback (most recent call last)
+Input [0;32mIn [43][0m, in [0;36m<cell line: 1>[0;34m()[0m
+[0;32m----> 1[0m sampler_dw [38;5;241m=[39m [43mDWaveSampler[49m[43m([49m[43msolver[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43mAdvantage_system4.1[39;49m[38;5;124;43m'[39;49m[43m,[49m[43mtoken[49m[38;5;241;43m=[39;49m[43mtoken[49m[43m)[49m
+[1;32m      2[0m sampler_qa [38;5;241m=[39m EmbeddingComposite(sampler_dw)
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/system/samplers/dwave_sampler.py:185[0m, in [0;36mDWaveSampler.__init__[0;34m(self, failover, retry_interval, **config)[0m
+[1;32m    182[0m [38;5;28mself[39m[38;5;241m.[39m_solver_penalty [38;5;241m=[39m defaultdict([38;5;28mint[39m)
+[1;32m    184[0m [38;5;28mself[39m[38;5;241m.[39mclient [38;5;241m=[39m Client[38;5;241m.[39mfrom_config([38;5;241m*[39m[38;5;241m*[39mconfig)
+[0;32m--> 185[0m [38;5;28mself[39m[38;5;241m.[39msolver [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_get_solver[49m[43m([49m[43mpenalty[49m[38;5;241;43m=[39;49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_solver_penalty[49m[43m)[49m
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/system/samplers/dwave_sampler.py:200[0m, in [0;36mDWaveSampler._get_solver[0;34m(self, refresh, penalty)[0m
+[1;32m    198[0m filters [38;5;241m=[39m copy[38;5;241m.[39mdeepcopy([38;5;28mself[39m[38;5;241m.[39mclient[38;5;241m.[39mdefault_solver)
+[1;32m    199[0m order_by [38;5;241m=[39m filters[38;5;241m.[39mpop([38;5;124m'[39m[38;5;124morder_by[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mavg_load[39m[38;5;124m'[39m)
+[0;32m--> 200[0m solvers [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mclient[49m[38;5;241;43m.[39;49m[43mget_solvers[49m[43m([49m[43mrefresh[49m[38;5;241;43m=[39;49m[43mrefresh[49m[43m,[49m[43m [49m[43morder_by[49m[38;5;241;43m=[39;49m[43morder_by[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mfilters[49m[43m)[49m
+[1;32m    202[0m [38;5;66;03m# we now just need to de-prioritize penalized solvers[39;00m
+[1;32m    203[0m solvers[38;5;241m.[39msort(key[38;5;241m=[39m[38;5;28;01mlambda[39;00m solver: penalty[38;5;241m.[39mget(solver[38;5;241m.[39mid, [38;5;241m0[39m))
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/cloud/events.py:105[0m, in [0;36mdispatches_events.__call__.<locals>.wrapped[0;34m(*pargs, **kwargs)[0m
+[1;32m    103[0m dispatch_event([38;5;28mself[39m[38;5;241m.[39mbefore_eventname, obj[38;5;241m=[39mobj, args[38;5;241m=[39margs)
+[1;32m    104[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 105[0m     rval [38;5;241m=[39m [43mfn[49m[43m([49m[38;5;241;43m*[39;49m[43mpargs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+[1;32m    106[0m [38;5;28;01mexcept[39;00m [38;5;167;01mException[39;00m [38;5;28;01mas[39;00m exc:
+[1;32m    107[0m     dispatch_event([38;5;28mself[39m[38;5;241m.[39mafter_eventname, obj[38;5;241m=[39mobj, args[38;5;241m=[39margs, exception[38;5;241m=[39mexc)
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/cloud/client/base.py:1173[0m, in [0;36mClient.get_solvers[0;34m(self, refresh, order_by, **filters)[0m
+[1;32m   1170[0m     query[[38;5;124m'[39m[38;5;124mname[39m[38;5;124m'[39m] [38;5;241m=[39m filters[[38;5;124m'[39m[38;5;124mname__eq[39m[38;5;124m'[39m]
+[1;32m   1172[0m [38;5;66;03m# filter[39;00m
+[0;32m-> 1173[0m solvers [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_fetch_solvers[49m[43m([49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mquery[49m[43m)[49m
+[1;32m   1174[0m solvers [38;5;241m=[39m [s [38;5;28;01mfor[39;00m s [38;5;129;01min[39;00m solvers [38;5;28;01mif[39;00m [38;5;28mall[39m(p(s) [38;5;28;01mfor[39;00m p [38;5;129;01min[39;00m predicates)]
+[1;32m   1176[0m [38;5;66;03m# sort: undefined (None) key values go last[39;00m
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/cloud/utils.py:489[0m, in [0;36mcached.__call__.<locals>.wrapper[0;34m(*args, **kwargs)[0m
+[1;32m    487[0m     val [38;5;241m=[39m data[38;5;241m.[39mget([38;5;124m'[39m[38;5;124mval[39m[38;5;124m'[39m)
+[1;32m    488[0m [38;5;28;01melse[39;00m:
+[0;32m--> 489[0m     val [38;5;241m=[39m [43mfn[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+[1;32m    490[0m     [38;5;28mself[39m[38;5;241m.[39mcache[key] [38;5;241m=[39m [38;5;28mdict[39m(expires[38;5;241m=[39mnow[38;5;241m+[39m[38;5;28mself[39m[38;5;241m.[39mmaxage, val[38;5;241m=[39mval)
+[1;32m    492[0m [38;5;28;01mreturn[39;00m val
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/cloud/client/base.py:807[0m, in [0;36mClient._fetch_solvers[0;34m(self, name)[0m
+[1;32m    804[0m     url [38;5;241m=[39m [38;5;124m'[39m[38;5;124msolvers/remote/[39m[38;5;124m'[39m
+[1;32m    806[0m [38;5;28;01mtry[39;00m:
+[0;32m--> 807[0m     data [38;5;241m=[39m [43mClient[49m[38;5;241;43m.[39;49m[43m_sapi_request[49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43msession[49m[38;5;241;43m.[39;49m[43mget[49m[43m,[49m[43m [49m[43murl[49m[43m)[49m
+[1;32m    808[0m [38;5;28;01mexcept[39;00m SAPIError [38;5;28;01mas[39;00m exc:
+[1;32m    809[0m     [38;5;28;01mif[39;00m name [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m exc[38;5;241m.[39merror_code [38;5;241m==[39m [38;5;241m404[39m:
+
+File [0;32m~/Prog/miniconda3/envs/qml/lib/python3.8/site-packages/dwave/cloud/client/base.py:1798[0m, in [0;36mClient._sapi_request[0;34m(meth, *args, **kwargs)[0m
+[1;32m   1796[0m [38;5;28;01melse[39;00m:
+[1;32m   1797[0m     [38;5;28;01mif[39;00m response[38;5;241m.[39mstatus_code [38;5;241m==[39m [38;5;241m401[39m:
+[0;32m-> 1798[0m         [38;5;28;01mraise[39;00m SolverAuthenticationError(error_code[38;5;241m=[39m[38;5;241m401[39m)
+[1;32m   1800[0m     [38;5;28;01mtry[39;00m:
+[1;32m   1801[0m         msg [38;5;241m=[39m response[38;5;241m.[39mjson()
+
+[0;31mSolverAuthenticationError[0m: Invalid token or access denied
+SolverAuthenticationError: Invalid token or access denied
+

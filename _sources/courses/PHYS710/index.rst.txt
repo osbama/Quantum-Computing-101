@@ -24,5 +24,6 @@ Homeworks
    Hands on 6 <hands-on/hands-on-6/hands-on-6>
    Hands on 7 <hands-on/hands-on-7/hands-on-7>
    Hands on 8 <hands-on/hands-on-8/hands-on-8>
+   Hands on 9 <hands-on/hands-on-9/hands-on-9>
 
 
