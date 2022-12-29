@@ -16,4 +16,4 @@ Lab book
 .. toctree::
    :maxdepth: 3
 
-   Hands on 8 <hands-on-9-book.ipynb>
+   Hands on 9 <hands-on-9-book.ipynb>

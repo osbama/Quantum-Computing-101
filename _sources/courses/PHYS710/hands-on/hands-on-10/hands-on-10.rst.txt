@@ -1,6 +1,6 @@
 
 =====================
-Hands-on session 9
+Hands-on session 10
 =====================
 
 
@@ -10,10 +10,10 @@ Session Recording
 Lab book
 =====================
 
-:download:`Jupyter notebook <hands-on-9-book.ipynb>`
+:download:`Jupyter notebook <hands-on-10-book.ipynb>`
 
 
 .. toctree::
    :maxdepth: 3
 
-   Hands on 9 <hands-on-9-book.ipynb>
+   Hands on 10 <hands-on-10-book.ipynb>
